@@ -1,0 +1,11 @@
+
+*.xml
+*.log
+*.lof
+*.blg
+*.bbl
+*.aux
+*.gz
+*.bak
+*.toc
+*.out
