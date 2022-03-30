@@ -1129,7 +1129,7 @@ platô no \textit{loss}.}
 
 \chapter{Análise das nuvens de pontos}
 
-\par Esse capítulo irá mostrar como são analisadas as nuvens de pontos. O objetivo desta etapa, do ponto de vista computacional, é detectar \textit{clusters}, que nesse caso são retas tridimensionais. Com a informação da física do problema podemos distinguir cada reta detectada e determinar o vértice de reação entre uma partícula originada originada de uma reação nuclear, e o feixe. Após a detecção, devemos selecionar os eventos que possuam reações nucleares.
+\par Esse capítulo irá mostrar como são analisadas as nuvens de pontos. O objetivo desta etapa, do ponto de vista computacional, é detectar \textit{clusters}, que nesse caso são retas tridimensionais. Com a informação da física do problema podemos distinguir cada reta detectada, determinar o vértice de reação entre uma partícula originada de uma reação nuclear, e o feixe e por fim determinar o momento das partículas. Após a detecção, devemos selecionar os eventos que possuam reações nucleares.
 
 \par Na seção \ref{sec:forcabruta} será mostrado como identificar as trajetórias (também chamado de \textit{tracking}) a partir de estimadores robustos. Na seção \ref{sec:ml_pc} a mesma identificação será feita a partir de algoritmos de \textit{machine learning}, mostrando diferenças em relação ao método anterior.
 
@@ -1176,10 +1176,9 @@ platô no \textit{loss}.}
 
 % \par A figura \ref{subfig:exemplo_1} nos mostra um exemplo que parece indicar mais de uma trajetória dentro do TPC, e é preciso separar os pontos de cada trajetória identificada. O objetivo é separar os pontos de \textit{clusters} que contenham a informação do momento da partícula, obtida a partir das propriedades geométricas do versor das retas e da energia inicial da trajetória. A identificação pode ser feita sem o uso de algoritmos de machine learning, que chamarei de método usual, e usando machine learning.
 
-\par Para identificar as retas (\textit{clusters}) presentes em eventos como mostrados na figura \ref{subfig:exemplo_1}, devemos usar estimadores robustos que consigam fazer a detecção mesmo com uma presença grande de \textit{outliers}, pontos que são considerados ruídos. Existem muitos estimadores, que são apenas variações do  Random sample consensus (\textit{RANSAC}) \cite{ransac}, como o MLESAC\cite{ref:MLESAC}, \textit{RRANSAC}, \textit{PROSAC}, dentre outros, que estão presentes no \textit{Point Cloud Library} (PCL)\cite{pcl}. Todos esses se baseiam na ideia de estimar várias possíveis retas de forma aleatória e selecionam a melhor usando uma estimativa (por isso o nome \textit{consensus}). Existe ainda a opção do \textit{Hough Transform}\cite{hough}, porém é um algoritmo de difícil expansão e não demonstrou resultados bons.
+\par O algoritmo de \textit{tracking} deve ser capaz de identificar estruturas geométricas especificas (que no caso são retas tridimensionais) mesmo na presença de ruído, que são pontos que não pertencem à nenhum conjunto de pontos de uma reta detectada (também chamados de \textit{outliers}). Para tanto, serão testados estimadores robustos que são variações do RANSAC (\textit{RANdom SAmple Consensus})\cite{ransac, artigo}.
 
-
-\par Os algoritmos do PCL foram testados e os que mostraram os melhores resultados foram o \textit{RANSAC} e o \textit{PROSAC}, não havendo muita diferença dentre os dois. O estimador usado foi uma variação do \textit{RANSAC}, desenvolvida para fazer melhores estimativas em dados como os do pAT-TPC\cite{artigo}. O algoritmo \ref{ransac_algo}, que chamei de \textit{Enhanced RANSAC} (Para você Juan: só quis diferenciar o nome, até pq eu quero colocar no pypi com esse nome, pode ser?), mostra o seu funcionamento. A melhor estimativa original (que retorna a melhor reta) era simplesmente o número total de \textit{inliers} de um \textit{cluster}. A nova estimativa \textit{C} passou a ser
+\par Os algoritmos testados foram o RANSAC, MLESAC\cite{ref:MLESAC}, RRANSAC, PROSAC, dentre outros, que estão presentes na biblioteca PCL (\textit{Point Cloud Library})\cite{pcl}. Os algoritmos com os melhores resultados (melhor capacidade de \textit{tracking}) foram o RANSAC e o PROSAC, sem grandes diferenças nos resultados entre os dois. Para melhor ainda mais o resultado, foi feita uma pequena modificação no RANSAC, a fim de obter melhores resultados nos dados do pAT-TPC. O algoritmo \ref{ransac_algo} (que chamei de p-RANSAC - \textit{prototype}-RANSAC) mostra o funcionamento. O algoritmo seleciona dois pontos de modo aleatório (\textit{Random Sampling}) e determina o versor $\hat{v}$ e o ponto $P_b$ que descrevem a única reta $r$ que passa pelos dois pontos. A reta é selecionada caso tenha um número mínimo $tam_{min}$ de pontos que pertencem à reta (chamado de \textit{inliers}) e satisfaça a estimativa $C$ dada por
 
 \begin{equation} \label{criterio_ransac}
     C = \sum_{i = 0}^{N} \frac{d_i ^2}{N},
@@ -1187,8 +1186,14 @@ platô no \textit{loss}.}
 
 onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância do i-ésimo ponto à reta.
 
+% \par Para identificar as retas (\textit{clusters}) presentes em eventos como mostrados na figura \ref{subfig:exemplo_1}, devemos usar estimadores robustos que consigam fazer a detecção mesmo com uma presença grande de \textit{outliers}, pontos que são considerados ruídos. Existem muitos estimadores, que são apenas variações do  Random sample consensus (\textit{RANSAC}) \cite{ransac}, como o MLESAC\cite{ref:MLESAC}, \textit{RRANSAC}, \textit{PROSAC}, dentre outros, que estão presentes no \textit{Point Cloud Library} (PCL)\cite{pcl}. Todos esses se baseiam na ideia de estimar várias possíveis retas de forma aleatória e selecionam a melhor usando uma estimativa (por isso o nome \textit{consensus}). Existe ainda a opção do \textit{Hough Transform}\cite{hough}, porém é um algoritmo de difícil expansão e não demonstrou resultados bons.
+
+
+% \par Os algoritmos do PCL foram testados e os que mostraram os melhores resultados foram o \textit{RANSAC} e o \textit{PROSAC}, não havendo muita diferença dentre os dois. O estimador usado foi uma variação do \textit{RANSAC}, desenvolvida para fazer melhores estimativas em dados como os do pAT-TPC\cite{artigo}. O algoritmo \ref{ransac_algo}, que chamei de \textit{Enhanced RANSAC} (Para você Juan: só quis diferenciar o nome, até pq eu quero colocar no pypi com esse nome, pode ser?), mostra o seu funcionamento. A melhor estimativa original (que retorna a melhor reta) era simplesmente o número total de \textit{inliers} de um \textit{cluster}. A nova estimativa \textit{C} passou a ser
+
+
 \begin{algorithm}
-    \caption{Enhanced RANSAC}\label{ransac_algo}
+    \caption{p-RANSAC}\label{ransac_algo}
     \KwData{pointcloud, $N$, $d_{min}$, $tam_{min}$}
     \For{cada iteração $ i =1,2,\ldots, N$}{
         Seleciona dois pontos da \textit{pointcloud} de modo aleatório (\textit{Random Sampling})\;
@@ -1212,25 +1217,27 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
     \Return Retas $r$ selecionadas na última etapa\;
 \end{algorithm}
 
-\par O \textit{RANSAC} consegue identificar apenas pontos de uma única reta, porém cada evento pode ter mais de uma reta. O novo algoritmo se baseia na ideia de usar o RANSAC sequencialmente, ou seja, no momento que um \textit{cluster} tem um tamanho mínimo, então ele é guardado para depois, então, poder ser escolhidos dentre as melhores estimativas \textit{C}. Com isso podemos selecionar quantas retas forem possíveis.
+\par O \textit{RANSAC}, originalmente, consegue identificar apenas uma reta. O algoritmo \ref{ransac_algo} se baseia na ideia de usar o RANSAC sequencialmente, ou seja, no momento que um \textit{cluster} tem um tamanho mínimo, então ele é guardado para depois, então, poder ser escolhidos dentre as melhores estimativas \textit{C}. Com isso podemos identificar todas as possíveis estruturas presentes na nuvem de pontos.
 
-\par Para diminuir o número de pontos a serem analisados pelo algoritmo \ref{ransac_algo}, passamos a \textit{pointcloud} por dois filtros. O primeiro filtro exclui pontos baseado na sua carga. O segundo filtro, chamado de \textit{outlier removal}, elimina pontos considerados \textit{outliers} globais, analisando a vizinhança ao redor do ponto. O \textit{outlier removal} está presente na biblioteca Open3D\cite{open3d} no Python e funciona excluindo pontos muito isolados uns dos outros.
+\par Uma mudança na eficiência do algoritmo \ref{ransac_algo} é na linha 2, chamada de \textit{Random Sampling}. Podemos nos beneficiar do \textit{Monte Carlo Rejecting} na escolha de dois pontos aleatórios. Por exemplo, caso sejam selecionados pontos muito próximos, o que poderia implicar em uma reta com poucos pontos \textit{inliers}, podemos descarta-los, aumentando a eficiência do \textit{random rampling}.
 
-\par Uma mudança na eficiência do algoritmo \ref{ransac_algo} é na linha 2, chamada de \textit{Random Sampling}. Podemos nos beneficiar do \textit{Monte Carlo Rejecting} na escolha de dois pontos aleatórios. Por exemplo, caso sejam selecionados pontos muito próximos, o que implicaria em uma reta com poucos pontos, podemos descarta-los. Essa ideia faz com que a primeira etapa seja mais eficiente.
+\par O consumo de tempo do p-RANSAC cresce linearmente quanto maior a nuvem de pontos. Para diminuir o número de pontos a serem analisados pelo algoritmo, passamos a \textit{pointcloud} por dois filtros. O primeiro filtro exclui pontos baseado na sua carga, colocando um limiar onde pontos com carga $Q$ $<$ 110 são descartados. O segundo filtro, chamado de \textit{outlier removal}, elimina pontos considerados \textit{outliers} globais, de modo que, caso um ponto não possua um número mínimo de vizinhos $n_{or}$ = 4 em um raio de distância $d_{or}$ = 12 mm, então ele é descartado. O \textit{outlier removal} está presente na biblioteca Open3D\cite{open3d} no Python e funciona excluindo pontos muito isolados uns dos outros.
 
-\par O algoritmo \ref{ransac_algo} possui uma eficiência muito alta, acertando quais os \textit{clusters} que existem em um evento, porém ainda assim não é perfeito. Uma das falhas do algoritmo é que ele pode selecionar retas muito próximas e entender que não são um único \textit{cluster}, e sim dois distintos. A figura \ref{subfig:antes_clustering} mostra um exemplo em que foram detectadas três retas, onde deveria existir apenas duas (é necessário combinar duas delas).
+\par O p-RANSAC pode apresentar falhas no seu resultado, como visto na figura \ref{subfig:antes_clustering}, em que, por exemplo, um único \textit{cluster} acaba sendo dividido em dois \textit{clusters} muito próximos. A etapa de correção da saída do p-RANSAC é chamada de clusterização. A ideia é comparar, dois a dois, todos os \textit{clusters} resultantes do algoritmo e, se satisfazer um determinado critério, unificar os dois clusters\cite{artigo}. Do ponto de vista computacional, esse problema precisa abordado avaliando a semelhança entre dois \textit{clusters}. Existem métricas como a dsitância de Jaccard\cite{jaccard_distance} e o coeficiente de silhueta\cite{silhueta}.
 
-\par A etapa de correção da saída do \textit{Enhanced Ransac} é chamada de clusterização. A ideia é comparar, dois a dois, todos os \textit{clusters} resultantes da saída e usar algum critério para juntar ou não os dois clusters. O problema precisa abordado avaliando a semelhança entre dois \textit{clusters}. Uma métrica possível é o coeficiente de silhueta \cite{silhueta}.
-
-\par O coeficiente de silhueta compara dois \textit{clusters} e retorna um valor entre -1 e 1 que informa se estão separados corretamente. O valor -1 informa que a separação dos \textit{clusters} estão errados, 0 indica sobreposição e 1 significa que a separação está correta. A métrica se mostra muito viável para análise de duas dimensões, porém para o caso de três dimensões essa métrica não se mostrou muito eficiente. Mesmo colocando um \textit{threshold} muito baixo o algoritmo indicava que deveria juntar \textit{clusters} mesmo que muito distantes um do outro.
-
-\par A abordagem correta se dá primeiro comparando o ângulo entre as duas retas. Caso a diferença absoluta entre os ângulos com relação ao versor (0, 0, 1) seja menor que um valor dado, que nesse caso foi considerado 9° (determinado empiricamente), então as duas retas serão combinadas se obedecerem a condição dada pela equação \ref{criterio_clustering}.
+\par. A abordagem feita se dá em duas etapas: primeiro comparando os versores entre duas retas e depois verificando uma condição. Caso a diferença absoluta entre os ângulos com relação ao versor (0, 0, 1) seja menor que 9º (determinado empiricamente), então as duas retas serão combinadas se obedecerem a condição dada pela equação \ref{criterio_clustering}, dada por
 
 \begin{equation}\label{criterio_clustering}
     \sum_{i = 0}^{N_1}\frac{d_{i2}}{N_1} < \alpha \space d_{min}, 
 \end{equation}
 
-onde $N_1$ é o número de pontos da reta 1, $d_{i2}$ a distância do ponto $i$ da reta 1 em relação à reta 2, $\alpha$ é um parâmetro com valor a ser escolhido e $d_{min}$ é a distância mínima de ponto a reta usada no algoritmo \ref{ransac_algo}. Os valores escolhidos foram tais que $\alpha$ = 1.75 e $d_{min}$ = 15 mm. A figura \ref{subfig:depois_clustering} mostra o antes e depois da clusterização ser aplicada em um evento.
+onde $N_1$ é o número de pontos da reta 1, $d_{i2}$ a distância do ponto $i$ da reta 1 em relação à reta 2, $\alpha$ é um parâmetro com valor a ser escolhido e $d_{min}$ é a distância mínima de ponto a reta usada no algoritmo \ref{ransac_algo}. Os valores foram determinados empiricamente, tais que $\alpha$ = 1.75 e $d_{min}$ = 15 mm. A figura \ref{subfig:depois_clustering} mostra o resultado da clusterização baseada nesses critérios no resultado anterior mostrado na figura \ref{subfig:antes_clustering}.
+
+%\par O coeficiente de silhueta compara dois \textit{clusters} e retorna um valor entre -1 e 1 que informa se estão separados corretamente. O valor -1 informa que a separação dos \textit{clusters} estão errados, 0 indica sobreposição e 1 significa que a separação está correta. A métrica se mostra muito viável para análise de duas dimensões, porém para o caso de três dimensões essa métrica não se mostrou muito eficiente. Mesmo colocando um \textit{threshold} muito baixo o algoritmo indicava que deveria juntar \textit{clusters} mesmo que muito distantes um do outro.
+
+% \par A abordagem correta se dá primeiro comparando o ângulo entre as duas retas. Caso a diferença absoluta entre os ângulos com relação ao versor (0, 0, 1) seja menor que um valor dado, que nesse caso foi considerado 9° (determinado empiricamente), então as duas retas serão combinadas se obedecerem a condição dada pela equação \ref{criterio_clustering}.
+
+
 
 
 % \begin{figure}[H]
@@ -1278,22 +1285,22 @@ onde $N_1$ é o número de pontos da reta 1, $d_{i2}$ a distância do ponto $i$ 
 %     \label{fig:exemplo_ransac_com_clustering}
 % \end{figure}
 
-\par Após a etapa de clusterização é necessário classificar cada reta como sendo ou o feixe, ou uma partícula espalhada. O feixe deve incidir no TPC com um ângulo muito pequeno com relação ao versor (0, 0, 1). Além disso, mesmo se o ângulo for muito pequeno, a reta do feixe deve cruzar o plano da janela do TPC muito próximo do ponto mais provável da entrada o feixe. O ponto mais provável foi calculado usando a posição média da projeção dos pontos de uma \textit{run} no plano \textit{xy}. Disso obtemos que a posição inicial mais provável do feixe é tal que $x$ = -3.4 (6.7) mm e $y$ = -0.9 (6.3) mm. A incerteza é alta pois o feixe incide em muitas posições diferentes da janela.
+\par Após a etapa de clusterização, é necessário classificar cada reta como sendo ou o feixe, ou uma partícula originada de uma reação nuclear. O feixe deve incidir na câmara com um ângulo muito pequeno com relação ao versor (0, 0, 1). Além disso, mesmo se o ângulo for muito pequeno, a reta do feixe deve cruzar o plano da janela do TPC muito próximo do ponto mais provável da entrada o feixe. O ponto mais provável foi calculado usando a posição média da projeção dos pontos de um conjunto de eventos no plano \textit{x-y}. Disso obtemos que a posição inicial mais provável do feixe é tal que $x_f$ = -3.4 (6.7) mm e $y_f$ = -0.9 (6.3) mm. A incerteza é alta pois o feixe incide de modo bem distribuído da abertura da janela.
 
-\par Portanto se o ângulo entre o versor $\hat{v}_i$ de uma reta $i$ for menor que 5° (determinado de modo empírico novamente) e a distância $d$ entre o ponto $P_i$ que intercepta o plano e o ponto ($x$, $y$, 0), dados no parágrafo anterior, for menor que 15 mm (pouco mais que duas vezes a incerteza de cada ponto), então a reta é considerada como o feixe do evento. No caso de não satisfazer essas condições, então ela classificada como uma provável partícula originada da reação do feixe com o gás.
+\par Portanto se o ângulo entre o versor $\hat{v}_i$ de uma reta $r_i$ for menor que 5° (determinado de modo empírico novamente) e a distância $d$ entre o ponto $P_i$ que intercepta o plano e o ponto ($x_f$, $y_f$, 0), for menor que 15 mm (pouco mais que duas vezes a incerteza de cada ponto), então a reta é considerada como o feixe do evento. No caso de não satisfazer essas condições, então ela classificada como uma provável partícula originada da reação do feixe com o gás.
 
-\par Importante notar que, pelo baixo ganho da parte central do \textit{micromegas}, há eventos que não possuem feixe, como mostrado na figura \ref{fig:exemplo_sem_feixe}. Neste caso é necessário assumir as propriedades da reta mais provável para o feixe, ou seja, precisa passar pelo ponto ($x$, $y$, 0) e ter versor (0, 0, 1).
+\par Importante notar que há eventos que não possuem o feixe detectado, como mostrado na figura \ref{fig:exemplo_sem_feixe}. Neste caso é necessário assumir as propriedades da reta mais provável para o feixe, ou seja, precisa passar pelo ponto ($x_f$, $y_f$, 0) e ter versor (0, 0, 1).
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale = 0.85]{figs/Figure_12.png}
+    \includegraphics[scale = 0.65]{figs/Figure_12.png}
     \caption{Evento em que não foi detectado o feixe, apenas a partícula espalhada. O triângulo azul é o local calculo do vértice de reação dado pela equação \ref{eq:vertice_reacao}.}
     \label{fig:exemplo_sem_feixe}
 \end{figure}
 
-\par Nem todas as retas que não são o feixe são originadas da reação do feixe com o gás. Para determinar sua origem é necessário determinar o vértice de reação com o feixe. O vértice de reação é o ponto médio do segmento de reta que conecta a reta a ser analisada e o feixe no ponto de menor distância entre as retas. Ele permite ainda fazer correções futuras e diferençar o começo e o fim de uma reta, pois é possível determinar o ponto tal onde ocorreu uma reação.
+\par Para completar a cinemática do evento, é necessário calcular o vértice de reação, para cada evento, entre a partícula e o feixe. O vértice de reação é o ponto médio do segmento de reta que conecta a reta a ser analisada (partícula) e o feixe, no ponto de menor distância entre as retas. Ele permite ainda fazer correções futuras e diferençar o começo e o fim de uma trajetória.
 
-\par Temos as seguintes equações das retas $\vec{P_1}$ e $\vec{P_2}$ como vetores:
+\par Para deduzir a equação para o vértice de reação, primeiro temos as seguintes equações das retas $\vec{P_1}$ e $\vec{P_2}$ como vetores:
 
 \begin{equation}
 \begin{split}
@@ -1322,7 +1329,7 @@ Rearranjando temos que
     \vec{V_1} * \tilde{t_1} - \vec{V_2} * \tilde{t_2} + \vec{V_c} * \tilde{t_3} = \vec{A_2} - \vec{A_1},
 \end{equation}
 
-onde $\tilde{t_1}$, $\tilde{t_2}$ e $\tilde{t_3}$ são os hiperparâmetros a serem determinados. Caso $\vec{V_1}$ seja paralelo à $\vec{V_2}$, então não há solução (não há vértice de reação). Achando os valores, achamos os pontos de menor distância nas duas retas:
+onde $\tilde{t_1}$, $\tilde{t_2}$ e $\tilde{t_3}$ são os hiperparâmetros a serem determinados. Caso $\vec{V_1}$ seja paralelo à $\vec{V_2}$, então não há solução (não há vértice de reação, ou seja, não há uma reação nuclear em comum entre a partícula e o feixe analisado). Achando os valores, achamos os pontos de menor distância nas duas retas:
 
 \begin{equation}
 \begin{split}
@@ -1331,7 +1338,7 @@ onde $\tilde{t_1}$, $\tilde{t_2}$ e $\tilde{t_3}$ são os hiperparâmetros a ser
 \end{split}
 \end{equation}
 
-\par Conseguimos então determinar que o vértice de reação $\vec{V_r}$ é dado por
+\par Com isso, conseguimos determinar que o vértice de reação $\vec{V_r}$ é dado por
 
 \begin{equation} \label{eq:vertice_reacao}
     \vec{V_r} = \frac{1}{2}(\vec{P_1} + \vec{P_2}).
@@ -1349,11 +1356,14 @@ onde $\tilde{t_1}$, $\tilde{t_2}$ e $\tilde{t_3}$ são os hiperparâmetros a ser
     d_{max} = \left | \left(\vec{P_1} - \vec{P_2}\right) \right |.
 \end{equation}
 
-\par Da equação \ref{eq:menor_dist_retas} podemos estabelecer um limite máximo de distância que uma reta pode ter do feixe, para então definir se houve realmente a reação no vértice de reação definido pelo equação \ref{eq:vertice_reacao}. Retas que possuíam $d_{max}$ maior ou igual que 25mm foram automaticamente descartadas.
+\par Da equação \ref{eq:menor_dist_retas} podemos estabelecer um limite superior para $d_{max}$ tal que valores maiores que esse limite indicam uma reação nuclear em comum entre a partícula e o feixe. O valor foi determinado empiricamente e foi definido como $d_{max}^{sup}$ = 25 mm. Trajetórias cuja distância máxima de aproximação excedia $d_{max}^{sup}$, então a trajetória é descartada. A última condição para garantir que houve uma reação nuclear, é garantir que o vértice de reação está dentro da câmara, cujos limites são $|x| < $ 140mm, $|y| < $ 140mm e $|t| < $ 512.
 
-\par Existem ainda situação em que a reta e o feixe tem uma distância de máxima aproximação muito pequena, porém o vértice de reação estava foram dos limites do TPC ($|x| < $ 140mm, $|y| < $ 140mm e $|t| < $ 512), o que também indica que a reta deve ser descartada.
+%tal que uma reta pode ter do feixe, para então definir se houve realmente a reação no vértice de reação definido pelo equação \ref{eq:vertice_reacao}. Retas que possuíam $d_{max}$ maior ou igual que 25mm foram automaticamente descartadas.
 
-\par Agora com apenas as retas certas selecionadas devemos apenas tomar cuidado de excluir eventos em que apenas o feixe foi detectado, pois neste caso não há o evento físico para ser analisado.
+%\par Existem ainda situação em que a reta e o feixe tem uma distância de máxima aproximação muito pequena, porém o vértice de reação estava foram dos limites do TPC ($|x| < $ 140mm, $|y| < $ 140mm e $|t| < $ 512), o que também indica que a reta deve ser descartada.
+
+%\par Agora com apenas as retas certas selecionadas devemos apenas tomar cuidado de excluir eventos em que apenas o feixe foi detectado, pois neste caso não há o evento físico para ser analisado.
+
 
 
 \section{Métodos com \textit{machine learning}}\label{sec:ml_pc}
