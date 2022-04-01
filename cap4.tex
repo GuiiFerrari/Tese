@@ -141,7 +141,7 @@ Prof(a). Dr(a). Nome do(a) Professor(a) (institui\c{c}\~{a}o de trabalho) \\
 % \section{Produção do feixe de $^{17}$F}
 \section{Produção do feixe secundário $^{17}$F usando o sistema TWINSOL}
 
-\par A produção do feixe radioativo $^{17}$F foi feita a partir da reação do feixe estável de $^{16}$O com um alvo de deutério. O feixe primário $^{16}$O foi produzido e acelerado por um acelerador tipo Tandem, que possui uma tensão terminal de até 10 MV\cite{KOLATA1989503, NDtandem}. O feixe é conduzido até a câmara alvo de produção, no início do sistema TWINSOL, onde partículas emergentes de reações nucleares irão surgir. A figura \ref{fig:twinsol+pattpc} mostra o sistema TWINSOL acoplado com o pAT-TPC.
+\par A produção do feixe radioativo $^{17}$F foi feita a partir da reação do feixe estável de $^{16}$O com um alvo de deutério gasoso. O feixe primário $^{16}$O foi produzido e acelerado por um acelerador tipo Tandem, que possui uma tensão terminal de até 10 MV\cite{KOLATA1989503, NDtandem}. O feixe foi conduzido até a câmara alvo de produção, no início do sistema TWINSOL, onde partículas emergentes de reações nucleares surgiram. A figura \ref{fig:twinsol+pattpc} mostra o sistema TWINSOL acoplado com o pAT-TPC.
 
 \begin{figure}[H]
     \centering
@@ -169,7 +169,7 @@ Prof(a). Dr(a). Nome do(a) Professor(a) (institui\c{c}\~{a}o de trabalho) \\
     \label{fig:campo_mag}
 \end{figure}
 
-\par A trajetória das partículas dentro do solenoide é helicoidal e, como os solenoides funcionam como uma lente óptica, é possível calibrar o ponto focal. Em uma aproximação de um solenoide como uma lente grossa, o foco depende da rigidez magnética da partícula através da relação\cite{KOLATA1989503, zamora_mater}:
+\par A trajetória das partículas dentro do solenoide é helicoidal e, como os solenoides funcionam como uma lente óptica, existe um ponto focal. Em uma aproximação de um solenoide como uma lente grossa, o foco depende da rigidez magnética da partícula através da relação\cite{KOLATA1989503, zamora_mater}:
 
 \begin{equation}
     \frac{1}{f} = \frac{B_z ^2}{(B\rho)^2},
@@ -205,7 +205,7 @@ onde $E$ é a energia, $m$ sua massa e $q$ seu estado de carga.
 
 % Figura a 1 sol, figura b mostra ponto focal
 
-\par Para produzir $^{17}$F, uma célula gasosa localizada na câmara alvo de produção\cite{twinsol} preenchida com deutério foi bombardeada pelo feixe primário. Além de $^{17}$F, outras partículas também são geradas, como o $^{17}$O, além do feixe de $^{16}$O que pode apenas ser espalhado. Outras reações, por exemplo, com a estrutura da célula gasosa (janela feita de 5 $\mu$m de titânio\cite{twinsol}) podem ocorrer, mas o papel do TWINSOL é de selecionar e focalizar apenas as partículas desejadas.
+\par Para produzir $^{17}$F, uma célula gasosa localizada na câmara alvo de produção\cite{twinsol} preenchida com deutério foi bombardeada pelo feixe primário. Além de $^{17}$F, outras partículas também são geradas, como o $^{17}$O, além do feixe de $^{16}$O que pode apenas ser espalhado.
 
 % \par Não há só a reação que produz $^{17}$F, temos as reações: $^{16}$O(d, n)$^{17}$F, $^{16}$O(d, p)$^{17}$O e também o feixe de $^{16}$O pode ser apenas espalhado.
 
@@ -249,13 +249,13 @@ onde $E$ é a energia, $m$ sua massa e $q$ seu estado de carga.
     m\frac{d\vec{v}}{dt} = e\left(\vec{E} +\vec{v}\times \vec{B}\right) - \frac{m}{\tau}\vec{v},
 \end{equation}
 
-onde $\vec{E}$ é o vetor campo elétrico, $\vec{B}$ o vetor campo magnético, $\vec{v}$ é o vetor de velocidade do elétron e $\tau$ é o tempo de colisão médio, que depende das propriedades termodinâmicas do gás. No caso do pAT-TPC, $\vec{B}$ é zero e a solução estacionária para a velocidade de \textit{drift} do elétron é
+onde $\vec{E}$ é o vetor campo elétrico, $\vec{B}$ o vetor campo magnético, $\vec{v}$ é o vetor de velocidade do elétron e $\tau$ é o tempo de colisão médio, que depende das propriedades termodinâmicas do gás. No caso deste experimento, $\vec{B}$ é zero e a solução estacionária para a velocidade de \textit{drift} do elétron é
 
 \begin{equation}\label{eq:v_tpc}
     \vec{v} = \frac{\tau}{m}e\vec{E}.
 \end{equation}
 
-\par A velocidade de deriva depende das propriedades termodinâmicas do gás (temperatura, pressão) e também de sua condutividade elétrica\cite{drift_constant}. Isso significa que é a calibração da velocidade envolve a calibração não só do campo elétrico, mas também das propriedades do gás dentro do alvo ativo\cite{pattpc, drift_constant}. Para acharmos a coordenada $z$, basta integrar a equação \ref{eq:v_tpc} para obter
+\par A velocidade de deriva depende das propriedades termodinâmicas do gás (temperatura, pressão) e também de sua condutividade elétrica\cite{drift_constant}. Isso significa que a calibração da velocidade envolve não depende só do campo elétrico, mas também das propriedades do gás dentro do alvo ativo\cite{pattpc, drift_constant}. Para acharmos a coordenada $z$, basta integrar a equação \ref{eq:v_tpc} para obter
 
 \begin{equation}
     z = \frac{\tau}{m}e\vec{E}(t - t_0),
@@ -297,7 +297,7 @@ onde no tempo $t_0$ = 0 o elétron está no plano do detector ($z$ = 0).
 %     \item Com a cinemática reconstruída podemos associar as partículas com as trajetórias e finalmente construir as seções de choque. 
 % \end{itemize}
 
-A análise dos pulsos, reconstituição de eventos e resultados serão mostradas nos próximos capítulos.
+A análise dos pulsos, reconstituição de eventos, reconstrução da cinemática, gráficos das distribuições angulares e resultados serão mostradas nos próximos capítulos.
 
 % \chapter{Uma breve introdução ao \textit{Machine Learning}}\label{sec:ml}
 \chapter{Desenvolvimento de ferramentas de \textit{machine learning} para analise de dados}\label{sec:ml}
@@ -314,7 +314,7 @@ A análise dos pulsos, reconstituição de eventos e resultados serão mostradas
 
 \section{Tipos de redes neurais}
 
-\par Uma rede neural artificial, \textit{Artificial Neural Network} (ANN), é um modelo computacional que consiste de camadas de neurônios. Muitas ANNs foram desenvolvidas\cite{mlbook, mldiverso}, mas grande parte consiste em uma camada de entrada (\textit{input layer}), uma camada de saída (\textit{output layer}) e eventuais camadas entre essas duas, chamadas de camadas ocultas (\textit{hidden layers}). Os tipos mais comuns são:
+\par Uma rede neural artificial, \textit{Artificial Neural Network} (ANN), é um modelo computacional que consiste de camadas de neurônios. Muitas ANNs foram desenvolvidas para o estudo de inteligência artificial\cite{mlbook, mldiverso}, mas grande parte consiste em uma camada de entrada (\textit{input layer}), uma camada de saída (\textit{output layer}) e eventuais camadas entre essas duas, chamadas de camadas ocultas (\textit{hidden layers}). Os tipos mais comuns são:
 
 \subsubsection*{Feed-Forward Neural Networks}
 
@@ -471,8 +471,8 @@ Os resultados apresentados nessa seção foram obtidos na etapa inicial desta di
         \caption{Espectro biparamétrico $\Delta E$ x $E$ (energia no referencial do centro de massa) com os conjuntos identificados com o uso do DBSCAN.}
         \label{subfig:espectro_2}
     \end{subfigure}
-\caption{}
-\label{fig:n_peaks_results}
+\caption{Espectros biparamétricos $\Delta E$ x $E$, em \ref{subfig:espectro_1} o espectro cru com uma pré marcação das partículas, e em \ref{subfig:espectro_2} os conjuntos identificados usando \textit{machine learning}.}
+\label{fig:espectros_ex_ml}
 \end{figure}
 
 \par Usando o conjunto 1, por exemplo, é possível criar o histograma de identificação de partículas dado pela figura \ref{fig:PID_hist}.
@@ -488,7 +488,7 @@ Os resultados apresentados nessa seção foram obtidos na etapa inicial desta di
 
 \par Frequentemente é necessário calcular com alta precisão observáveis que ainda não foram medidos, para contribuir com dados já existentes. É possível estimar propriedades de núcleos usando modelos e dados experimentais já existentes em conjunto com técnicas de \textit{machine learning}.
 
-\par É possível usar redes neurais que façam previsão de massa nucleares com informações de massa já disponíveis. Isso foi feito usando o algoritmo \textit{Light Gradient Boosting Machine} (LightGBM)\cite{LightGBM}. O algoritmo é uma rede neural cujo aprendizado é supervisionado e minimiza o erro entre a energia de ligação teórica e a energia de ligação experimental dos núcleos (essa diferença é chamama de resíduo), usando 10 quantidades físicas como dados de entrada (\textit{input})\cite{nuclear_mass}. O desvio quadrático médio para a massa dos núcleos é de 0.234 $\pm$ 0.022 MeV, valor melhor que muitos modelos físicos de massa nuclear. A figura \ref{fig:nuclei_mass_ml} mostra os resíduos calculados entre a energia de ligação calculada pelo rede neural e a energia de ligação determinada experimentalmente.
+\par É possível usar redes neurais que façam previsão de massa nucleares com informações de massa já disponíveis. Isso foi feito usando o algoritmo \textit{Light Gradient Boosting Machine} (LightGBM)\cite{LightGBM}. O algoritmo é uma rede neural cujo aprendizado é supervisionado e minimiza o erro entre a energia de ligação teórica e a energia de ligação experimental dos núcleos (essa diferença é chamada de resíduo), usando 10 quantidades físicas como dados de entrada (\textit{input})\cite{nuclear_mass}. O desvio quadrático médio para a massa dos núcleos é de 0.234 $\pm$ 0.022 MeV, valor melhor que muitos modelos físicos de massa nuclear. A figura \ref{fig:nuclei_mass_ml} mostra os resíduos calculados entre a energia de ligação calculada pelo rede neural e a energia de ligação determinada experimentalmente.
 
 \begin{figure}[H]
     \centering
@@ -566,12 +566,11 @@ onde $T^{a}_{1/2}$ é o tempo de meia vida do decaimento beta medido experimenta
 
 \chapter{Reconstrução de nuvens de pontos}\label{sec:sinais}
 
-\par Esse capítulo irá mostrar como são recriadas as nuvens de pontos (\textit{pointclouds}) a partir dos pulsos gerados por cada pixel do \textit{micromegas}. Primeiro será mostrado como os sinais são analisados a partir de métodos mais tradicionais e depois usando algoritmos de \textit{machine learning}.
+\par Esse capítulo irá descrever o procedimento usado para criar as nuvens de pontos (\textit{pointclouds}) a partir dos pulsos gerados por cada pixel do \textit{micromegas}. Primeiro será mostrado como os sinais são analisados a partir de métodos mais tradicionais e depois criando algoritmos de \textit{machine learning} usando das soluções anteriores como base pro seu funcionamento.
 
 
-% \paA quantidade de histogramas armazenados ultrapassa facilmente a casa das centenas de milhões, portanto é necessário o desenvolvimento de algoritmos extremamente rápidos para a análise.
+% \par A quantidade de histogramas armazenados ultrapassa facilmente a casa das centenas de milhões, portanto é necessário o desenvolvimento de algoritmos extremamente rápidos para a análise.
 
-\par 
 
 \section{Análise dos pulsos com algoritmos tradicionais}
 
@@ -596,16 +595,19 @@ onde $T^{a}_{1/2}$ é o tempo de meia vida do decaimento beta medido experimenta
 \label{fig:exemplos_sinais}
 \end{figure}
 
-\par No eixo $x$, cada um dos 512 \textit{time buckets} possui largura de 195 $n s$. No eixo $y$ temos a carga acumulada no detector para cada \textit{time bucket}. Em \ref{subfig:exemplos_sinais_1} vemos um sinal com um pedestal (fundo ou \textit{baseline}) com altura entre 300 e 450, e um pulso estreito em cima. Como dito na seção \ref{PATTPC}, os elétrons que surgem da ionização do gás são conduzidos perpendicularmente pelo campo elétrico até o detector. A interação da partícula com o gás é evidenciada justamente pelo pulso presente em \ref{subfig:exemplos_sinais_1}. Cada pixel $i$ do detector está em uma posição ($x_i$, $y_i$), o centroide de cada gaussiana fornece a coordenada em $t$ (\textit{bucket}) para então ser convertida na posição em $z$ da partícula detectada, e a carga acumulada $Q$ do ponto é a área do pulso (gaussiana com centroide $t$) sem o fundo.
+\par No eixo $x$, cada um dos 512 \textit{time buckets} possui largura de 195 $n s$. No eixo $y$ temos a carga acumulada no detector para cada \textit{time bucket}. Em \ref{subfig:exemplos_sinais_1} vemos um sinal com um pedestal (fundo ou \textit{baseline}) com altura entre 300 e 450, e um pulso estreito em cima. Como dito na seção \ref{PATTPC}, os elétrons que surgem da ionização do gás são conduzidos perpendicularmente pelo campo elétrico até o detector. A interação da partícula com o gás é evidenciada justamente pelo pulso presente em \ref{subfig:exemplos_sinais_1}. Cada pixel $i$ do detector está em uma posição ($x_i$, $y_i$), o centroide de cada gaussiana fornece a coordenada em $t$ (\textit{time bucket}) para então ser convertida na posição em $z$ da partícula detectada, e a carga acumulada $Q$ do ponto é a área do pulso (gaussiana com centroide $t$) sem o fundo.
 
-\par Para \ref{subfig:exemplos_sinais_1} temos apenas um pulso, o que significa que há um feixe paralelo àquele canal do histograma, afinal, temos apenas um único ponto ($x$, $y$, $z$). Já para \ref{subfig:exemplos_sinais_2} temos o que é chamado de mistura de gaussianas (\textit{gaussian mixture}), que é a presença de várias gaussianas sobrepostas. Esse tipo de sinal corresponde ao feixe indo perpendicularmente ao pixel do detector. A ilustração desse processo está na figura \ref{fig:get_signal}, que mostra o processo da passagem de uma partícula carregada e como o sinal é gerado a partir disso.
+\par Para \ref{subfig:exemplos_sinais_1} temos apenas um pulso, o que significa que há um feixe incidindo paralelamente àquele canal do plano detector, afinal, temos apenas um ponto de interação
+
+
+ único pixel do detector ativado com coordenadas($x$, $y$, $z$). Já para \ref{subfig:exemplos_sinais_2} temos o que é chamado de mistura de gaussianas (\textit{gaussian mixture}), que é a presença de várias gaussianas sobrepostas. Esse tipo de sinal corresponde ao feixe indo perpendicularmente ao pixel do plano do detector, indicando. A ilustração desse processo está na figura \ref{fig:get_signal}, que mostra o processo da passagem de uma partícula carregada e como o sinal é gerado a partir disso.
 
 % As gaussianas presentes em \ref{subfig:exemplos_sinais_2} devem ter a mesma largura da gaussiana presente em \ref{subfig:exemplos_sinais_1}. 
 
 \begin{figure}[H]
     \centering
     \includegraphics[scale = 0.325]{figs/get.png}
-    \caption{Ilustração que mostra a variação no formato da carga coletada a partir da passagem de uma partícula carregada dentro do TPC, onde o plano do detector está embaixo. No lado esquerdo de cada imagem, a distribuição do sinal coletado por um único pad (escuro) do plano de coleta é mostrado (o canal eletrônico de leitura é representado pela seta cinza em negrito). No caso de uma trajetória quase horizontal (a), o sinal é uma distribuição estreita, enquanto para uma trajetória próxima a uma direção vertical (b), a distribuição deve ser muito mais ampla (vários picos devem ser extraídos desse sinal). A última imagem ilustra o caso em mais de uma trajetória de partículas contribui para o sinal\cite{GET}.}
+    \caption{Ilustração que mostra a variação no formato da carga coletada a partir da passagem de uma partícula carregada dentro do TPC, onde o plano do detector está embaixo. No lado esquerdo de cada imagem, a distribuição do sinal coletado por um único pad (escuro) do plano de coleta é mostrado (o canal eletrônico de leitura é representado pela seta cinza em negrito). No caso de uma trajetória quase horizontal em relação ao plano do detector (a), o sinal é uma distribuição estreita, enquanto para uma trajetória próxima a uma direção vertical (ou perpendicular) em relação ao detector (b), a distribuição deve ser muito mais ampla (vários picos devem ser extraídos desse sinal). A última imagem ilustra o caso em mais de uma trajetória de partículas contribui para o sinal\cite{GET}.}
     \label{fig:get_signal}
 \end{figure}
 
@@ -718,7 +720,7 @@ Para aumentar a resolução dos picos será usado o algoritmo \textit{gold decon
 
 \par O sigma dos pulsos deve ser o mesmo de um sinal que possui apenas um pico. Ou seja, podemos determinar o sigma fazendo a análise de sinais que possuem apenas 1 pico, fazendo um ajuste pelo método dos mínimos quadrados (MMQ) de uma gaussiana. Para buscar espectros com apenas um pico foi usado o algoritmo de detecção de picos do \textit{scipy}\cite{scipy} e para o ajuste da gaussiana foi usada o pacote \textit{lmfit} \cite{lmfit}. O valor de sigma encotrado foi de 4.09 (17) \textit{time buckets}.
 
-\par O sigma escolhido foi ligeiramente maior pois, verificando empiricamente, em alguns casos o algoritmo separava o que deveria ser uma única gaussiana em duas. O valor de sigma usado na deconvolução foi de 4.30 \textit{time buckets}. Devemos também escolher o número de iterações do algoritmo de deconvolução. O número de iterações escolhido foi de 700, menos que isso o algoritmo não estava separando totalmente picos sobrepostos. O limiar para a escolha de um ponto como um pico é ter altura maior que 20\% do valor máximo do sinal. Resultados da deconvolução estão na figura \ref{fig:ex_sinal_deconv}.
+\par O sigma escolhido foi ligeiramente maior pois, verificando empiricamente, em alguns casos o algoritmo separava o que deveria ser uma única gaussiana em duas. O valor de sigma usado na deconvolução foi de 4.30 \textit{time buckets}. Devemos também escolher o número de iterações do algoritmo de deconvolução. O número de iterações escolhido foi de 700, menos que isso o algoritmo não estava separando totalmente picos sobrepostos. O limiar para a escolha de um ponto como um pico foi definido como ter altura maior que 20\% do valor máximo do sinal. Resultados da deconvolução estão na figura \ref{fig:ex_sinal_deconv}.
 
 \begin{figure}[H]
 \centering
@@ -1178,7 +1180,7 @@ platô no \textit{loss}.}
 
 \par O algoritmo de \textit{tracking} deve ser capaz de identificar estruturas geométricas especificas (que no caso são retas tridimensionais) mesmo na presença de ruído, que são pontos que não pertencem à nenhum conjunto de pontos de uma reta detectada (também chamados de \textit{outliers}). Para tanto, serão testados estimadores robustos que são variações do RANSAC (\textit{RANdom SAmple Consensus})\cite{ransac, artigo}.
 
-\par Os algoritmos testados foram o RANSAC, MLESAC\cite{ref:MLESAC}, RRANSAC, PROSAC, dentre outros, que estão presentes na biblioteca PCL (\textit{Point Cloud Library})\cite{pcl}. Os algoritmos com os melhores resultados (melhor capacidade de \textit{tracking}) foram o RANSAC e o PROSAC, sem grandes diferenças nos resultados entre os dois. Para melhor ainda mais o resultado, foi feita uma pequena modificação no RANSAC, a fim de obter melhores resultados nos dados do pAT-TPC. O algoritmo \ref{ransac_algo} (que chamei de p-RANSAC - \textit{prototype}-RANSAC) mostra o funcionamento. O algoritmo seleciona dois pontos de modo aleatório (\textit{Random Sampling}) e determina o versor $\hat{v}$ e o ponto $P_b$ que descrevem a única reta $r$ que passa pelos dois pontos. A reta é selecionada caso tenha um número mínimo $tam_{min}$ de pontos que pertencem à reta (chamado de \textit{inliers}) e satisfaça a estimativa $C$ dada por
+\par Os algoritmos testados foram o RANSAC, MLESAC\cite{ref:MLESAC}, RRANSAC, PROSAC, dentre outros, que estão presentes na biblioteca PCL (\textit{Point Cloud Library})\cite{pcl}. Os algoritmos com os melhores resultados (melhor capacidade de \textit{tracking}) foram o RANSAC e o PROSAC, sem grandes diferenças nos resultados entre os dois. Para melhor ainda mais o resultado, foi feita uma pequena modificação no RANSAC, a fim de obter melhores resultados nos dados do pAT-TPC. O algoritmo \ref{ransac_algo} (que chamei de p-RANSAC - \textit{prototype}-RANSAC) mostra o funcionamento. O algoritmo seleciona dois pontos de modo aleatório (\textit{Random Sampling}) e determina o versor $\hat{v}$ e o ponto $P_b$ que descrevem a única reta $r$ que passa pelos dois pontos. A reta é selecionada caso tenha um número mínimo $tam_{min}$ de pontos que pertencem à reta (chamado de \textit{inliers}) e tenha o mínimo (com relação aos outros conjunto de pontos) da estimativa $C$ dada por
 
 \begin{equation} \label{criterio_ransac}
     C = \sum_{i = 0}^{N} \frac{d_i ^2}{N},
@@ -1223,7 +1225,7 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 
 \par O consumo de tempo do p-RANSAC cresce linearmente quanto maior a nuvem de pontos. Para diminuir o número de pontos a serem analisados pelo algoritmo, passamos a \textit{pointcloud} por dois filtros. O primeiro filtro exclui pontos baseado na sua carga, colocando um limiar onde pontos com carga $Q$ $<$ 110 são descartados. O segundo filtro, chamado de \textit{outlier removal}, elimina pontos considerados \textit{outliers} globais, de modo que, caso um ponto não possua um número mínimo de vizinhos $n_{or}$ = 4 em um raio de distância $d_{or}$ = 12 mm, então ele é descartado. O \textit{outlier removal} está presente na biblioteca Open3D\cite{open3d} no Python e funciona excluindo pontos muito isolados uns dos outros.
 
-\par O p-RANSAC pode apresentar falhas no seu resultado, como visto na figura \ref{subfig:antes_clustering}, em que, por exemplo, um único \textit{cluster} acaba sendo dividido em dois \textit{clusters} muito próximos. A etapa de correção da saída do p-RANSAC é chamada de clusterização. A ideia é comparar, dois a dois, todos os \textit{clusters} resultantes do algoritmo e, se satisfazer um determinado critério, unificar os dois clusters\cite{artigo}. Do ponto de vista computacional, esse problema precisa abordado avaliando a semelhança entre dois \textit{clusters}. Existem métricas como a dsitância de Jaccard\cite{jaccard_distance} e o coeficiente de silhueta\cite{silhueta}.
+\par O p-RANSAC pode apresentar falhas no seu resultado, como visto na figura \ref{subfig:antes_clustering}, em que, por exemplo, um único \textit{cluster} acaba sendo dividido em dois \textit{clusters} muito próximos. A etapa de correção da saída do p-RANSAC é chamada de clusterização (não a mesma clusterização usada em \textit{machine learning}). A ideia é comparar, dois a dois, todos os \textit{clusters} resultantes do algoritmo e, se satisfazer um determinado critério, unificar os dois clusters\cite{artigo}. Do ponto de vista computacional, esse problema precisa abordado avaliando a semelhança entre dois \textit{clusters}. Existem métricas como a dsitância de Jaccard\cite{jaccard_distance} e o coeficiente de silhueta\cite{silhueta}.
 
 \par. A abordagem feita se dá em duas etapas: primeiro comparando os versores entre duas retas e depois verificando uma condição. Caso a diferença absoluta entre os ângulos com relação ao versor (0, 0, 1) seja menor que 9º (determinado empiricamente), então as duas retas serão combinadas se obedecerem a condição dada pela equação \ref{criterio_clustering}, dada por
 
