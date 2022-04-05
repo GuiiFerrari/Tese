@@ -566,7 +566,7 @@ onde $T^{a}_{1/2}$ é o tempo de meia vida do decaimento beta medido experimenta
 
 \chapter{Reconstrução de nuvens de pontos}\label{chapter:sinais}
 
-\par Esse capítulo irá descrever o procedimento usado para criar as nuvens de pontos (\textit{pointclouds}) a partir dos pulsos gerados por cada pixel do \textit{micromegas}. Primeiro será mostrado como os sinais são analisados a partir de métodos mais tradicionais e depois criando algoritmos de \textit{machine learning} usando das soluções anteriores como base pro seu funcionamento.
+\par Esse capítulo irá descrever o procedimento usado para criar as nuvens de pontos (\textit{pointclouds}) a partir dos pulsos gerados por cada pixel do \textit{micromegas}. Primeiro será mostrado como os sinais foram analisados a partir de métodos mais tradicionais e depois criando algoritmos de \textit{machine learning}, usando das soluções anteriores como base para o seu funcionamento.
 
 
 % \par A quantidade de histogramas armazenados ultrapassa facilmente a casa das centenas de milhões, portanto é necessário o desenvolvimento de algoritmos extremamente rápidos para a análise.
@@ -685,7 +685,7 @@ A primeira tentativa de estimar o sinal sem o fundo é usando transformada de Fo
 
 % Dos exemplo acima em muitos casos, acaba estimando o sinal original, na região do pulso, menor do que deveria ser, fazendo com que o sinal tenha menos carga do que deveria.
 
-\par Fica claro que visualmente, por exemplo na figura \ref{subfig:bs_fourier_4}, que o filtro utilizado não é a melhor função resposta do detector. Poderíamos estimar essa função resposta empiricamente, porém os canais auxiliares chamados de \textit{Fixed Pattern Noise} (FPN)\cite{GET} usados para esta estimativa não foram armazenados. Portanto, a estimativa do fundo deve ser feita sinal por sinal\cite{FORTINO2022166497, GET}. Para isso, o fundo será determinado usando o algoritmo \textit{background removal} da biblioteca \textit{TSpectrum} do \textit{ROOT} \cite{root}. A função tem a capacidade de separar o fundo dos picos presentes no espectro\cite{BKG_1, BKG_2, BKG_3}. Exemplos de estimativa do fundo estão na figura \ref{fig:ex_sinal_bkg}.
+\par Fica claro que visualmente, por exemplo na figura \ref{subfig:bs_fourier_4}, que o filtro utilizado não é a melhor função resposta do detector. Poderíamos estimar essa função resposta empiricamente, porém os canais auxiliares chamados de \textit{Fixed Pattern Noise} (FPN)\cite{GET} usados para esta estimativa não foram armazenados. Portanto, a estimativa do fundo deve ser feita sinal por sinal\cite{FORTINO2022166497, GET}. Para isso, o fundo foi determinado usando o algoritmo \textit{background removal} da biblioteca \textit{TSpectrum} do \textit{ROOT} \cite{root}. A função tem a capacidade de separar o fundo dos picos presentes no espectro\cite{BKG_1, BKG_2, BKG_3}. Exemplos de estimativa do fundo estão na figura \ref{fig:ex_sinal_bkg}.
 
 
 
@@ -723,14 +723,14 @@ A primeira tentativa de estimar o sinal sem o fundo é usando transformada de Fo
 \label{fig:ex_sinal_bkg}
 \end{figure}
 
-\par Para evitar valores negativos após a remoção do fundo, o valor mínimo do sinal sem o fundo é zero. Sem o fundo podemos buscar por todos os picos e suas cargas correspondentes no sinal. Não podemos detectar diretamente todos os picos pois muitos deles estão em sobreposição. Para isso será feita a deconvolução do sinal, na subseção \ref{subsec:pulses_deconv}.
+\par Para evitar valores negativos após a remoção do fundo, o valor mínimo do sinal sem o fundo é zero. Sem o fundo podemos buscar por todos os picos e suas cargas correspondentes no sinal. Não podemos detectar diretamente todos os picos pois muitos deles estão em sobreposição. Para isso foi feita a deconvolução do sinal, descrita na subseção \ref{subsec:pulses_deconv}.
 
 % \par Com o fundo podemos então subtraí-lo do espectro. Podem aparecer valores negativos após a retirada do fundo, então para evitar esse problema o valor mínimo do sinal, após a retirada do fundo, é zero.
 
 
 \subsection{Deconvolução do sinal}\label{subsec:pulses_deconv}
 
-Para aumentar a resolução dos picos será usado o algoritmo \textit{gold deconvolution} presente na biblioteca \textit{TSpectrum} do \textit{ROOT}\cite{paper_gold_deconv}. O algoritmo tem como objetivo fazer a deconvolução do espectro, gerando uma função (nesse caso um sinal) resposta de acordo com o sigma esperado para os pulsos. O sinal resposta corresponde ao espectro com as gaussianas não sobrespostas. Isso significa que devemos descobrir qual o valor de sigma dos pulsos para buscar a função resposta.
+Para aumentar a resolução dos picos foi usado o algoritmo \textit{gold deconvolution} presente na biblioteca \textit{TSpectrum} do \textit{ROOT}\cite{paper_gold_deconv}. O algoritmo tem como objetivo fazer a deconvolução do espectro, gerando uma função (nesse caso um sinal) resposta de acordo com o sigma esperado para os pulsos. O sinal resposta corresponde ao espectro com as gaussianas não sobrespostas. Isso significa que devemos descobrir qual o valor de sigma dos pulsos para buscar a função resposta.
 
 \par O sigma dos pulsos deve ser o mesmo de um sinal que possui apenas um pico. Ou seja, podemos determinar o sigma fazendo a análise de sinais que possuem apenas 1 pico, fazendo um ajuste pelo método dos mínimos quadrados (MMQ) de uma gaussiana. Para buscar espectros com apenas um pico foi usado o algoritmo de detecção de picos do \textit{scipy}\cite{scipy} e para o ajuste da gaussiana foi usada o pacote \textit{lmfit} \cite{lmfit}. O valor de sigma encotrado foi de 4.09 (17) \textit{time buckets}.
 
@@ -921,9 +921,9 @@ platô no \textit{loss}.}
 
 % \par Outro problema é que há um \textit{overlap} de gaussianas. Não é tão evidente a posição dos centroides se o espectro não está deconvoluído. É muito mais complicado, mesmo olhando, dizer a posição. Portanto o problema será quebrado em mais uma etapa: construir um rede que faça a deconvolução.
 
-\par Podemos usar a mesma abordagem da rede neural anterior, fazer uma sequencia de convoluções e por fim uma \textit{fully connected} com ativação \textit{ReLU}, pois precisamos ter o valor mínimo do espectro em 0. Os filtros das convoluções precisam ter tamanho mínimo de duas vezes o sigma das gaussianas para atuarem sobre cada pulso do espectro. A entrada da rede é o sinal com o fundo subtraído e com mínimo em 0. A saída é a deconvolução dada pelo algoritmo \textit{gold deconvolution} na biblioteca \textit{TSpectrum} do ROOT, já mostrado na subseção \ref{subsec:pulses_deconv}. A figura \ref{fig:source_to_deconv} mostra a arquitetura da rede de deconvolução.
+\par Podemos usar a mesma abordagem da rede neural anterior, que é fazer uma sequencia de convoluções e por fim uma \textit{fully connected} com ativação \textit{ReLU}, pois precisamos ter o valor mínimo do espectro em 0. Os filtros das convoluções precisam ter tamanho mínimo de duas vezes o sigma das gaussianas para atuarem sobre cada pulso do espectro. A entrada da rede é o sinal com o fundo subtraído e com mínimo em 0. A saída é a deconvolução dada pelo algoritmo \textit{gold deconvolution} na biblioteca \textit{TSpectrum} do ROOT, já mostrado na subseção \ref{subsec:pulses_deconv}. A figura \ref{fig:source_to_deconv} mostra a arquitetura da rede de deconvolução.
 
-\par A rede é a sequência de duas convoluções com 32 filtros, \textit{valid padding} e \textit{kernels} de tamanho 19 e 17, respectivamente, seguida de \textit{Max pooling} com \textit{pool size} igual à 16. No final há o \textit{flat} na camada para seguir com uma \textit{fully connected} com ativação \textit{ReLU}. O \textit{valid padding} se mostrou mais eficiente para a convergência da rede. Toda a rede foi construída usando o TensorFlow 2, possuindo 508.000 parâmetros treináveis.
+\par A rede é a sequência de duas convoluções com 32 filtros, \textit{valid padding} e \textit{kernels} de tamanho 19 e 17, respectivamente, seguida de \textit{Max pooling} com \textit{pool size} igual à 16. No final há o \textit{flat} na camada para seguir com uma camada \textit{fully connected} com ativação \textit{ReLU}. O \textit{valid padding} se mostrou mais eficiente para a convergência da rede. Toda a rede foi construída usando o TensorFlow 2, possuindo 508.000 parâmetros treináveis.
 
 \par Assim como na rede anterior, foram usados 160.000 sinais para treino e 40.000 para validação. O \textit{loss} foi escolhido como sendo o erro quadrático médio, o otimizador foi o \textit{ADAM}, com \textit{learning rate} de 0.0005 porém com o parâmetro \textit{clipnorm} igual a 0.45. A métrica para avaliação foi o erro médio absoluto. Foram 75 \textit{epochs} e o \textit{batch-size} foi 8. Os resultados do treino estão na figura \ref{fig:source_wo_bkg_to_deconv_results}.
 
@@ -993,9 +993,9 @@ platô no \textit{loss}.}
 
 \subsection{Detecção de picos}
 
-\par A última etapa dessa análise com \textit{machine learning} é analisar possíveis soluções para a detecção de picos. Esse é um problema muito complexo, pois há uma variação muito grande na quantidade de picos por sinal e também há um desbalanço muito grande na quantidade de pontos comuns (aqueles que não são picos) e pontos que são picos. Por exemplo, caso haja um sinal que possui apenas um pico, devemos detectar uma posição, dar o valor de saída como 1, por exemplo, dentre 512 pontos, onde 511 terão o valor de saída como 0. Caso a rede determine que todos os pontos são não picos, ainda assim a acurácia binária seria maior que 99\%. Isso é conhecido como desbalanço de classe\cite{inproceedings}.
+\par A última etapa dessa análise com \textit{machine learning} foi analisar possíveis soluções para a detecção de picos. Esse é um problema muito complexo, pois há uma variação muito grande na quantidade de picos por sinal e também há um desbalanço muito grande na quantidade de pontos comuns (aqueles que não são picos) e pontos que são picos. Por exemplo, caso haja um sinal que possui apenas um pico, devemos detectar uma posição, dar o valor de saída como 1, por exemplo, dentre 512 pontos, onde 511 terão o valor de saída como 0. Caso a rede determine que todos os pontos são não picos, ainda assim a acurácia binária seria maior que 99\%. Isso é conhecido como desbalanço de classe\cite{inproceedings}.
 
-\par Para corrigir esse desbalanço, basta acrescentar pontos simetricamente em torno do pulso. Isso faz com que não seja preciso detectar um único ponto, mas sim uma região em torno do pico. Com isso podemos nos basear na ideia de segmentar o sinal para destacar regiões de interesse\cite{aly2011research}. Segmentar significa ter uma rede neural com a saída com o mesmo tamanho do vetor de entrada (512) e saída com valores entre 0 e 1, onde 1 indica uma região com um pico e 0 não. A figura \ref{fig:n_peaks_exs} mostra um exemplo de um sinal após a deconvolução onde há o pico detectado e os pontos acrescentados para representar a região do pulso.
+\par Para corrigir esse desbalanço, foram acrescentados pontos simetricamente em torno do pulso. Isso faz com que não seja preciso detectar um único ponto, mas sim uma região em torno do pico. Com isso podemos nos basear na ideia de segmentar o sinal para destacar regiões de interesse\cite{aly2011research}. Segmentar significa ter uma rede neural com a saída com o mesmo tamanho do vetor de entrada (512) e saída com valores entre 0 e 1, onde 1 indica uma região com um pico e 0 não. A figura \ref{fig:n_peaks_exs} mostra um exemplo de um sinal após a deconvolução onde há os picos detectados com o algoritmo \textit{peak\_finder} e os pontos acrescentados simetricamente em torno dos picos para representar as regiões dos pulsos.
 
 % \par Para resolver esse problema podemos nos basear na ideia de recortar regiões de interesse, como feito pela rede U-Net\cite{unet}. Recortar regiões significa, nesse caso, ter uma rede neural com a saída com o mesmo tamanho do vetor de entrada (512) e saída com valores entre 0 e 1, onde 1 indica uma região com um pico e 0 não. Como temos as posições dos picos, basta acrescentar pontos simetricamente em torno do pulso. A figura \ref{fig:n_peaks_exs} mostra um exemplo de um sinal após a deconvolução onde há o pico detectado e os pontos acrescentados para representar a região do pulso.
 
@@ -1066,7 +1066,7 @@ platô no \textit{loss}.}
         \caption{}
         \label{subfig:exs_n_peaks_4}
     \end{subfigure}
-\caption{Exemplos de deconvolução da rede neural dada por \ref{fig:arq_source_to_bkg}.}
+\caption{Exemplos de detecção de picos usando a rede neural, em comparação com a detecção feita pelo algoritmo presente no SciPy, mostrada na figura \ref{fig:arq:n_peaks}. Os centroides detectados pela rede neural estão em vermelho, e os centroides detectados pelo SciPy estão em azul.}
 \label{fig:exs_n_peaks}
 \end{figure}
 
@@ -1146,21 +1146,21 @@ platô no \textit{loss}.}
 
 \chapter{Análise das nuvens de pontos}
 
-\par Esse capítulo irá mostrar como são analisadas as nuvens de pontos. O objetivo desta etapa, do ponto de vista computacional, é detectar \textit{clusters}, que nesse caso são retas tridimensionais. Com a informação da física das trajetórias (energia, momento e  comprimento), podemos distinguir cada reta detectada, determinar o vértice de reação entre uma partícula originada de uma reação nuclear, e o feixe e por fim determinar o momento das partículas. Após a detecção, devemos selecionar os eventos que possuam reações nucleares.
+\par Esse capítulo irá mostrar como foram analisadas as nuvens de pontos. O objetivo desta etapa, do ponto de vista computacional, foi de detectar \textit{clusters}, que nesse caso são retas tridimensionais. Com a informação da física das trajetórias (energia, momento e  comprimento), foi possível distinguir cada reta detectada, determinar o vértice de reação entre uma partícula originada de uma reação nuclear, e o feixe e por fim determinar o momento das partículas. Após a detecção, foram selecionados os eventos que possuíam reações nucleares.
 
-\par Na seção \ref{sec:forcabruta} será mostrado como identificar as trajetórias (também chamado de \textit{tracking}) a partir de estimadores robustos. Na seção \ref{sec:ml_pc} a mesma identificação será feita a partir de algoritmos de \textit{machine learning}, mostrando diferenças em relação ao método anterior.
+\par Na seção \ref{sec:forcabruta} será mostrado como foram identificadas as trajetórias (também chamado de \textit{tracking}) a partir de estimadores robustos. Na seção \ref{sec:ml_pc}, será mostrado como a mesma identificação foi feita a partir de algoritmos de \textit{machine learning}, identificando as diferenças em relação ao método anterior.
 
 
 \section{Método com estimadores robustos}\label{sec:forcabruta}
 
-\par Essa seção irá descrever o processo de \textit{tracking} usando estimadores robustos. As nuvens de pontos (eventos) a serem analisados são como o da figura \ref{subfig:exemplo_1}. Nessa figura é notável ao olho humano que os pontos formam estruturas de retas. Essas retas são identificadas com estimadores robustos\cite{artigo}, resultando na figura \ref{subfig:antes_clustering}, e seu resultado é corrigido resultando na figura \ref{subfig:depois_clustering}. 
+\par Essa seção irá descrever o processo de \textit{tracking} usando estimadores robustos. As nuvens de pontos (eventos) que foram analisados são como o da figura \ref{subfig:exemplo_1}. Nessa figura é notável ao olho humano que os pontos formam estruturas de retas. Essas retas são identificadas com estimadores robustos\cite{artigo}, resultando na figura \ref{subfig:antes_clustering}, e seu resultado foi corrigido resultando na figura \ref{subfig:depois_clustering}. 
 
 \begin{figure}[H]
 \centering
     \begin{subfigure}[b]{\textwidth}
         \centering
         \includegraphics[scale = 0.4]{figs/Figure_1.png}
-        \caption{Exemplo de evento a ser analisado. Os pontos em azul são das partículas detectadas pelo TPC, a seta vermelha indicando o sentido do feixe e o TPC está representado pelo cilindro cinza.}
+        \caption{Exemplo de evento analisado. Os pontos em azul são das partículas detectadas pelo TPC, a seta vermelha indicando o sentido do feixe e o TPC está representado pelo cilindro cinza.}
         \label{subfig:exemplo_1}
     \end{subfigure}%
     \hfill
@@ -1193,7 +1193,7 @@ platô no \textit{loss}.}
 
 % \par A figura \ref{subfig:exemplo_1} nos mostra um exemplo que parece indicar mais de uma trajetória dentro do TPC, e é preciso separar os pontos de cada trajetória identificada. O objetivo é separar os pontos de \textit{clusters} que contenham a informação do momento da partícula, obtida a partir das propriedades geométricas do versor das retas e da energia inicial da trajetória. A identificação pode ser feita sem o uso de algoritmos de machine learning, que chamarei de método usual, e usando machine learning.
 
-\par O algoritmo de \textit{tracking} deve ser capaz de identificar estruturas geométricas especificas (que no caso são retas tridimensionais) mesmo na presença de ruído, que são pontos que não pertencem à nenhum conjunto de pontos de uma reta detectada (também chamados de \textit{outliers}). Para tanto, serão testados estimadores robustos que são variações do RANSAC (\textit{RANdom SAmple Consensus})\cite{ransac, artigo}.
+\par O algoritmo de \textit{tracking} escolhido deve ser capaz de identificar estruturas geométricas especificas (que no caso são retas tridimensionais) mesmo na presença de ruído, que são pontos que não pertencem à nenhum conjunto de pontos de uma reta detectada (também chamados de \textit{outliers}). Para tanto, foram testados estimadores robustos que são variações do RANSAC (\textit{RANdom SAmple Consensus})\cite{ransac, artigo}.
 
 \par Os algoritmos testados foram o RANSAC, MLESAC\cite{ref:MLESAC}, RRANSAC, PROSAC, dentre outros, que estão presentes na biblioteca PCL (\textit{Point Cloud Library})\cite{pcl}. Os algoritmos com os melhores resultados (melhor capacidade de \textit{tracking}) foram o RANSAC e o PROSAC, sem grandes diferenças nos resultados entre os dois. Para melhor ainda mais o resultado, foi feita uma pequena modificação no RANSAC, a fim de obter melhores resultados nos dados do pAT-TPC. O algoritmo \ref{ransac_algo} (que chamei de p-RANSAC - \textit{prototype}-RANSAC) mostra o funcionamento. O algoritmo seleciona dois pontos de modo aleatório (\textit{Random Sampling}) e determina o versor $\hat{v}$ e o ponto $P_b$ que descrevem a única reta $r$ que passa pelos dois pontos. A reta é selecionada caso tenha um número mínimo $tam_{min}$ de pontos que pertencem à reta (chamado de \textit{inliers}) e tenha o mínimo (com relação aos outros conjunto de pontos) da estimativa $C$ dada por
 
@@ -1240,7 +1240,7 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 
 \par O consumo de tempo do p-RANSAC cresce linearmente quanto maior a nuvem de pontos. Para diminuir o número de pontos a serem analisados pelo algoritmo, passamos a \textit{pointcloud} por dois filtros. O primeiro filtro exclui pontos baseado na sua carga, colocando um limiar onde pontos com carga $Q$ $<$ 110 são descartados. O segundo filtro, chamado de \textit{outlier removal}, elimina pontos considerados \textit{outliers} globais, de modo que, caso um ponto não possua um número mínimo de vizinhos $n_{or}$ = 4 em um raio de distância $d_{or}$ = 12 mm, então ele é descartado. O \textit{outlier removal} está presente na biblioteca Open3D\cite{open3d} no Python e funciona excluindo pontos muito isolados uns dos outros.
 
-\par O p-RANSAC pode apresentar falhas no seu resultado, como visto na figura \ref{subfig:antes_clustering}, em que, por exemplo, um único \textit{cluster} acaba sendo dividido em dois \textit{clusters} muito próximos. A etapa de correção da saída do p-RANSAC é chamada de clusterização (não a mesma clusterização usada em \textit{machine learning}). A ideia é comparar, dois a dois, todos os \textit{clusters} resultantes do algoritmo e, se satisfazer um determinado critério, unificar os dois clusters\cite{artigo}. Do ponto de vista computacional, esse problema precisa abordado avaliando a semelhança entre dois \textit{clusters}. Existem métricas como a dsitância de Jaccard\cite{jaccard_distance} e o coeficiente de silhueta\cite{silhueta}.
+\par O p-RANSAC apresenta falhas no seu resultado, como visto na figura \ref{subfig:antes_clustering}, em que, por exemplo, um único \textit{cluster} acaba sendo dividido em dois \textit{clusters} muito próximos. A etapa de correção da saída do p-RANSAC é chamada de clusterização (não a mesma clusterização usada em \textit{machine learning}). A ideia é comparar, dois a dois, todos os \textit{clusters} resultantes do algoritmo e, se satisfazer um determinado critério, unificar os dois clusters\cite{artigo}. Do ponto de vista computacional, esse problema é abordado avaliando a semelhança entre dois \textit{clusters}. Existem métricas como a dsitância de Jaccard\cite{jaccard_distance} e o coeficiente de silhueta\cite{silhueta}.
 
 \par. A abordagem feita se dá em duas etapas: primeiro comparando os versores entre duas retas e depois verificando uma condição. Caso a diferença absoluta entre os ângulos com relação ao versor (0, 0, 1) seja menor que 9º (determinado empiricamente), então as duas retas serão combinadas se obedecerem a condição dada pela equação \ref{criterio_clustering}, dada por
 
@@ -1302,11 +1302,11 @@ onde $N_1$ é o número de pontos da reta 1, $d_{i2}$ a distância do ponto $i$ 
 %     \label{fig:exemplo_ransac_com_clustering}
 % \end{figure}
 
-\par Após a etapa de clusterização, é necessário classificar cada reta como sendo ou o feixe, ou uma partícula originada de uma reação nuclear. O feixe deve incidir na câmara com um ângulo muito pequeno com relação ao versor (0, 0, 1). Além disso, mesmo se o ângulo for muito pequeno, a reta do feixe deve cruzar o plano da janela do TPC muito próximo do ponto mais provável da entrada o feixe. O ponto mais provável foi calculado usando a posição média da projeção dos pontos de um conjunto de eventos no plano \textit{x-y}. Disso obtemos que a posição inicial mais provável do feixe é tal que $x_f$ = -3.4 (6.7) mm e $y_f$ = -0.9 (6.3) mm. A incerteza é alta pois o feixe incide de modo bem distribuído da abertura da janela.
+\par Após a etapa de clusterização, é necessário classificar cada reta como sendo ou o feixe, ou uma partícula originada de uma reação nuclear. O  incide na câmara com um ângulo muito pequeno com relação ao versor (0, 0, 1). Além disso, mesmo se o ângulo for muito pequeno, a reta do feixe cruza o plano da janela do TPC muito próximo do ponto mais provável da entrada o feixe. O ponto mais provável foi calculado usando a posição média da projeção dos pontos de um conjunto de eventos no plano \textit{x-y}. Disso obtemos que a posição inicial mais provável do feixe é tal que $x_f$ = -3.4 (6.7) mm e $y_f$ = -0.9 (6.3) mm. A incerteza é alta pois o feixe incide de modo bem distribuído da abertura da janela.
 
-\par Portanto se o ângulo entre o versor $\hat{v}_i$ de uma reta $r_i$ for menor que 5° (determinado de modo empírico novamente) e a distância $d$ entre o ponto $P_i$ que intercepta o plano e o ponto ($x_f$, $y_f$, 0), for menor que 15 mm (pouco mais que duas vezes a incerteza de cada ponto), então a reta é considerada como o feixe do evento. No caso de não satisfazer essas condições, então ela classificada como uma provável partícula originada da reação do feixe com o gás.
+\par Portanto se o ângulo entre o versor $\hat{v}_i$ de uma reta $r_i$ for menor que 5° (determinado de modo empírico novamente) e a distância $d$ entre o ponto $P_i$ que intercepta o plano e o ponto ($x_f$, $y_f$, 0), for menor que 15 mm (pouco mais que duas vezes a incerteza de cada ponto), então a reta foi considerada como o feixe do evento. No caso de não satisfazer essas condições, então ela foi classificada como uma possível partícula originada da reação do feixe com o gás.
 
-\par Importante notar que há eventos que não possuem o feixe detectado, como mostrado na figura \ref{fig:exemplo_sem_feixe}. Neste caso é necessário assumir as propriedades da reta mais provável para o feixe, ou seja, precisa passar pelo ponto ($x_f$, $y_f$, 0) e ter versor (0, 0, 1).
+\par Importante notar que há eventos que não possuem o feixe detectado, como mostrado na figura \ref{fig:exemplo_sem_feixe}. Neste caso, foi necessário assumir as propriedades da reta mais provável para o feixe, ou seja, precisa passar pelo ponto ($x_f$, $y_f$, 0) e ter versor (0, 0, 1).
 
 \begin{figure}[H]
     \centering
@@ -1315,7 +1315,7 @@ onde $N_1$ é o número de pontos da reta 1, $d_{i2}$ a distância do ponto $i$ 
     \label{fig:exemplo_sem_feixe}
 \end{figure}
 
-\par Para completar a cinemática do evento, é necessário calcular o vértice de reação, para cada evento, entre a partícula e o feixe. O vértice de reação é o ponto médio do segmento de reta que conecta a reta a ser analisada (partícula) e o feixe, no ponto de menor distância entre as retas. Ele permite ainda fazer correções futuras e diferençar o começo e o fim de uma trajetória.
+\par Para completar a cinemática do evento, foi necessário calcular o vértice de reação, para cada evento, entre a partícula e o feixe. O vértice de reação é o ponto médio do segmento de reta que conecta a reta a ser analisada (partícula) e o feixe, no ponto de menor distância entre as retas. Ele permitiu fazer correções em etapas futuras e diferençar o começo e o fim de uma trajetória.
 
 \par Para deduzir a equação para o vértice de reação, primeiro temos as seguintes equações das retas $\vec{P_1}$ e $\vec{P_2}$ como vetores:
 
