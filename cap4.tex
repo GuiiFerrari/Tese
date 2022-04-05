@@ -611,35 +611,45 @@ onde $T^{a}_{1/2}$ é o tempo de meia vida do decaimento beta medido experimenta
     \label{fig:get_signal}
 \end{figure}
 
-\par Para analisar os pulsos devemos então remover o fundo (pedestal ou \textit{baseline}) dos sinais. O fundo não é trivial de se determinar, pois não é analítico, oscilando muito entre os canais.
+\par Para analisar os pulsos devemos primeiro remover o fundo (pedestal ou \textit{baseline}) dos sinais. O sinal de fundo é complexo e pode variar por canal e também evento por evento. Desde flutuações causadas pelo circuito eletrônico até efeitos sistemáticos gerados pela memória de \textit{buffer} circular alteram o sinal, podendo o tornar não analítico \cite{FORTINO2022166497, GET}. A remoção do fundo dos sinais será discutida na próxima seção. 
+
+% O fundo não é trivial de se determinar, pois não é analítico, oscilando muito entre os canais.
 
 \subsection{Remoção do fundo}\label{subsec:pulses_baseline}
 
-A primeira tentativa de estimar o sinal sem o fundo é usando transformada de Fourier e um filtro passa-baixa. Seja $f(t)$ uma função qualquer, sua transformada de Fourier é dada por
+A primeira tentativa de estimar o sinal sem o fundo é usando transformada de Fourier e um filtro passa-baixa, que é a função resposta do detector fornecida na Ref.\cite{GET}. Seja $f(t)$ uma função qualquer, sua transformada de Fourier é dada por
 
 \begin{equation} \label{eq:fourier}
-    \hat{f}(v)=\mathscr{F}[f(t)]=\int_{-\infty}^{\infty} f(t) e^{-2 \pi i v t} d t.
+    \hat{f}(\nu)=\mathscr{F}[f(t)]=\int_{-\infty}^{\infty} f(t) e^{-2 \pi i \nu t} d t.
 \end{equation}
 
-\par Primeiro calculamos a transformada de Fourier $\hat{f}(v)$ do sinal, em seguida multiplicamos por $\sinc(\nu / a)$, onde
+\par Primeiro calculamos a transformada de Fourier $\hat{f}(\nu)$ do sinal, em seguida multiplicamos pela função resposta do detector $h(\nu)$ dada por\cite{GET}
 
 \begin{equation}
-    \sinc x \equiv \frac{\sin (\pi x)}{\pi x},
+    h(\nu) = A*\exp\left (\nu \tau \right)\left(\nu \tau\right)^3 \sin \left( \nu \tau \right) ,
 \end{equation}
 
-\par onde $a$ é um fator de escala. A função sinc foi escolhida para tirar vantagem do Teorema da Convolução, dado por\cite{metodos_mat_aplicada}
+%\begin{equation}
+%    \sinc x \equiv \frac{\sin (\pi x)}{\pi x},
+%\end{equation}
+
+\par onde $A$ está relacionado com o ganho de amplificação e $\tau$ é o tempo de pico (\textit{peaking time}), que é o tempo de modelagem da cadeia de amplificação \cite{GET}. Do teorema da convolução, temos que \cite{metodos_mat_aplicada}
+
+%\par onde $a$ é um fator de escala. A função sinc foi escolhida para tirar vantagem do Teorema da Convolução, dado por\cite{metodos_mat_aplicada}
 
 \begin{equation}
     \mathscr{F}^{-1}[\hat{f}(\nu) \hat{g}(\nu)]=(f * g)(t)=\int_{-\infty}^{\infty} f(\tau) g(t-\tau) d \tau, 
 \end{equation}
 
-\par onde $(f * g)(t)$ é a convolução entre $f(t)$ e $g(t)$. Multiplicar o sinal transformado por $\sinc (\nu / a)$ e depois inverter inverter a transformação é o mesmo que convoluir o sinal original com a transformação inversa de $\sinc (\nu / a)$, pois
+\par onde $(f * g)(t)$ é a convolução entre $f(t)$ e $g(t)$. Multiplicar o sinal transformado por $h(\nu)$ e depois inverter inverter a transformação é o mesmo que convoluir o sinal original com a transformação inversa de $h(\nu)$, o que resulta no sinal sem o fundo\cite{josh_bradt, GET}. Resultados desse procedimento estão na figura \ref{fig:bs_fourier_exs}.
 
-\begin{equation}
-\mathscr{F}^{-1}[\sinc(\nu)]=\rect(t) \equiv \begin{cases}1, & -\frac{1}{2}<t<\frac{1}{2} \\ 0, & \text { qualquer outro }t\end{cases},
-\end{equation}
+%Multiplicar o sinal transformado por $\sinc (\nu / a)$ e depois inverter inverter a transformação é o mesmo que convoluir o sinal original com a transformação inversa de $\sinc (\nu / a)$, pois
 
-é uma função que representa uma janela retangular, o que seria um exemplo de função resposta do detector. Caso saibamos essa função resposta, então é possível reconstruir completamente o sinal. Resultados desse procedimento estão na figura \ref{fig:bs_fourier_exs}.
+%\begin{equation}
+%\mathscr{F}^{-1}[\sinc(\nu)]=\rect(t) \equiv \begin{cases}1, & -\frac{1}{2}<t<\frac{1}{2} \\ 0, & \text { qualquer outro }t\end{cases},
+%\end{equation}
+%
+%é uma função que representa uma janela retangular, o que seria um exemplo de função resposta do detector. Caso saibamos essa função resposta, então é possível reconstruir completamente o sinal. Resultados desse procedimento estão na figura \ref{fig:bs_fourier_exs}.
 
 \begin{figure}[H]
 \centering
@@ -675,7 +685,11 @@ A primeira tentativa de estimar o sinal sem o fundo é usando transformada de Fo
 
 % Dos exemplo acima em muitos casos, acaba estimando o sinal original, na região do pulso, menor do que deveria ser, fazendo com que o sinal tenha menos carga do que deveria.
 
-\par Esse não é o melhor método pois não sabemos qual é função resposta para o detector. , pois o fundo é não analítico\cite{GET}. Para um resultado mais adequado, o fundo será determinado usando o algoritmo \textit{background removal} da biblioteca \textit{TSpectrum} do \textit{ROOT} \cite{root}. A função tem a capacidade de separar o fundo dos picos presentes no espectro\cite{BKG_1, BKG_2, BKG_3}. Exemplos de estimativa do fundo estão na figura \ref{fig:ex_sinal_bkg}.
+\par Fica claro que visualmente, por exemplo na figura \ref{subfig:bs_fourier_4}, que o filtro utilizado não é a melhor função resposta do detector. Poderíamos estimar essa função resposta empiricamente, porém os canais auxiliares chamados de \textit{Fixed Pattern Noise} (FPN)\cite{GET} usados para esta estimativa não foram armazenados. Portanto, a estimativa do fundo deve ser feita sinal por sinal\cite{FORTINO2022166497, GET}. Para isso, o fundo será determinado usando o algoritmo \textit{background removal} da biblioteca \textit{TSpectrum} do \textit{ROOT} \cite{root}. A função tem a capacidade de separar o fundo dos picos presentes no espectro\cite{BKG_1, BKG_2, BKG_3}. Exemplos de estimativa do fundo estão na figura \ref{fig:ex_sinal_bkg}.
+
+
+
+%, pois o fundo é não analítico\cite{GET}. Para um resultado mais adequado, o fundo será determinado usando o algoritmo \textit{background removal} da biblioteca \textit{TSpectrum} do \textit{ROOT} \cite{root}. A função tem a capacidade de separar o fundo dos picos presentes no espectro\cite{BKG_1, BKG_2, BKG_3}. Exemplos de estimativa do fundo estão na figura \ref{fig:ex_sinal_bkg}.
 
 \begin{figure}[H]
 \centering
@@ -709,7 +723,7 @@ A primeira tentativa de estimar o sinal sem o fundo é usando transformada de Fo
 \label{fig:ex_sinal_bkg}
 \end{figure}
 
-\par Para evitar valores negativos após a remoção do fundo, o valor mínimo do sinal sem o fundo é zero. Sem o fundo podemos buscar por todos os picos e suas cargas correspondentes no sinal. Não podemos detectar diretamente todos os picos pois muitos deles estão em sobreposição. Para isso será feita a deconvolução do sinal.
+\par Para evitar valores negativos após a remoção do fundo, o valor mínimo do sinal sem o fundo é zero. Sem o fundo podemos buscar por todos os picos e suas cargas correspondentes no sinal. Não podemos detectar diretamente todos os picos pois muitos deles estão em sobreposição. Para isso será feita a deconvolução do sinal, na subseção \ref{subsec:pulses_deconv}.
 
 % \par Com o fundo podemos então subtraí-lo do espectro. Podem aparecer valores negativos após a retirada do fundo, então para evitar esse problema o valor mínimo do sinal, após a retirada do fundo, é zero.
 
@@ -819,7 +833,7 @@ Para aumentar a resolução dos picos será usado o algoritmo \textit{gold decon
     \label{fig:arq_source_to_bkg}
 \end{figure}
 
-\par A entrada da rede é o sinal com dimensionalidade 521 x 1. Há duas convoluções seguidas (passagens \textit{a} e \textit{b}) com \textit{padding same}, seguida de um \textit{Max pooling}. Os dois canais restantes sofrem uma planificação (ou \textit{flat}), diminuindo sua dimensionalidade, para então passar mais uma convolução com \textit{padding same} e filtros de tamanho 19 seguido de \textit{Max pooling} e \textit{Fully Connected} com ativação \textit{ReLU}. Toda a rede foi construída usando o TensorFlow 2 e possui um total de 545.536 parâmetros, todos treináveis. O tamanho dos filtros das convoluções devem levar em conta a largura do pulso, devendo ser no mínimo maior que a largura, a fim de cada \textit{kernel} visualizar um pulso completo na convolução.
+\par A entrada da rede é o sinal com dimensionalidade 521 x 1. Há duas convoluções seguidas (passagens \textit{a} e \textit{b}) com \textit{padding same}, seguida de um \textit{Max pooling}. Os dois canais restantes sofrem uma planificação (ou \textit{flat}), diminuindo sua dimensionalidade, para então passar mais uma convolução com \textit{padding same} e filtros de tamanho 19 seguido de \textit{Max pooling} e \textit{Fully Connected} com ativação \textit{ReLU}. Toda a rede foi construída usando o TensorFlow 2 e possui um total de 545.536 parâmetros, todos treináveis. O tamanho dos filtros das convoluções devem levar em conta a largura do pulso, devendo ser no mínimo maior que a largura, a fim de cada \textit{kernel} visualizar um pulso completo na convolução\cite{FORTINO2022166497}.
 
 \par A camada final com ativação \textit{ReLU} garante o valor mínimo de saída em 0 e, principalmente, pelo fato de não causar problemas à minimização do gradiente \cite{VGP}. Foram testadas diversas combinações e a mostrada na figura \ref{fig:arq_source_to_bkg} é a que obteve os melhores resultados. 
 % Caso, por exemplo, na passagem \textit{c} da figura, o \textit{pool size} da camada de \textit{max pooling} fosse 32 (a fim de sobrarem 512 canais igual na entrada e na saída), a rede parece não entender as oscilações grandes do sinal de fundo.
@@ -907,7 +921,7 @@ platô no \textit{loss}.}
 
 % \par Outro problema é que há um \textit{overlap} de gaussianas. Não é tão evidente a posição dos centroides se o espectro não está deconvoluído. É muito mais complicado, mesmo olhando, dizer a posição. Portanto o problema será quebrado em mais uma etapa: construir um rede que faça a deconvolução.
 
-\par Podemos usar a mesma abordagem da rede neural anterior, fazer uma sequencia de convoluções e por fim uma \textit{fully connected} com ativação \textit{ReLU}, pois precisamos ter o valor mínimo do espectro em 0. Os filtros das convoluções precisam ter tamanho mínimo de duas vezes o sigma das gaussianas para atuarem sobre cada pulso do espectro. A entrada da rede é o sinal com o fundo subtraído e com mínimo em 0. A saída é a deconvolução dada pelo algoritmo \textit{gold deconvolution} na biblioteca \textit{TSpectrum} do ROOT. A figura \ref{fig:source_to_deconv} mostra a arquitetura da rede de deconvolução.
+\par Podemos usar a mesma abordagem da rede neural anterior, fazer uma sequencia de convoluções e por fim uma \textit{fully connected} com ativação \textit{ReLU}, pois precisamos ter o valor mínimo do espectro em 0. Os filtros das convoluções precisam ter tamanho mínimo de duas vezes o sigma das gaussianas para atuarem sobre cada pulso do espectro. A entrada da rede é o sinal com o fundo subtraído e com mínimo em 0. A saída é a deconvolução dada pelo algoritmo \textit{gold deconvolution} na biblioteca \textit{TSpectrum} do ROOT, já mostrado na subseção \ref{subsec:pulses_deconv}. A figura \ref{fig:source_to_deconv} mostra a arquitetura da rede de deconvolução.
 
 \par A rede é a sequência de duas convoluções com 32 filtros, \textit{valid padding} e \textit{kernels} de tamanho 19 e 17, respectivamente, seguida de \textit{Max pooling} com \textit{pool size} igual à 16. No final há o \textit{flat} na camada para seguir com uma \textit{fully connected} com ativação \textit{ReLU}. O \textit{valid padding} se mostrou mais eficiente para a convergência da rede. Toda a rede foi construída usando o TensorFlow 2, possuindo 508.000 parâmetros treináveis.
 
@@ -973,13 +987,13 @@ platô no \textit{loss}.}
         \caption{}
         \label{subfig:std_ex4}
     \end{subfigure}
-\caption{Exemplos de deconvolução da rede neural dada por \ref{fig:arq_source_to_bkg}.}
+\caption{Exemplos de deconvolução da rede neural dada pela figura \ref{fig:arq_source_to_bkg}.}
 \label{fig:std_examples}
 \end{figure}
 
 \subsection{Detecção de picos}
 
-\par A última etapa dessa análise com \textit{machine learning} é analisar possíveis soluções para a detecção de picos. Esse é um problema muito complexo, pois há uma variação muito grande na quantidade de picos por sinal e também há um desbalanço muito grande na quantidade de pontos comuns (aqueles que não são picos) e pontos que são picos. Por exemplo, caso haja um sinal que possui apenas um pico, devemos detectar uma posição, dar o valor de saída como 1, por exemplo, dentre 512 pontos, onde 511 terão o valor de saída como 0. Caso a rede determine que todos os pontos são não picos, ainda assim a acurácia binária seria maior que 99\%. Isso é conhecido como desbalanço de classe\cite{inproceedings}. 
+\par A última etapa dessa análise com \textit{machine learning} é analisar possíveis soluções para a detecção de picos. Esse é um problema muito complexo, pois há uma variação muito grande na quantidade de picos por sinal e também há um desbalanço muito grande na quantidade de pontos comuns (aqueles que não são picos) e pontos que são picos. Por exemplo, caso haja um sinal que possui apenas um pico, devemos detectar uma posição, dar o valor de saída como 1, por exemplo, dentre 512 pontos, onde 511 terão o valor de saída como 0. Caso a rede determine que todos os pontos são não picos, ainda assim a acurácia binária seria maior que 99\%. Isso é conhecido como desbalanço de classe\cite{inproceedings}.
 
 \par Para corrigir esse desbalanço, basta acrescentar pontos simetricamente em torno do pulso. Isso faz com que não seja preciso detectar um único ponto, mas sim uma região em torno do pico. Com isso podemos nos basear na ideia de segmentar o sinal para destacar regiões de interesse\cite{aly2011research}. Segmentar significa ter uma rede neural com a saída com o mesmo tamanho do vetor de entrada (512) e saída com valores entre 0 e 1, onde 1 indica uma região com um pico e 0 não. A figura \ref{fig:n_peaks_exs} mostra um exemplo de um sinal após a deconvolução onde há o pico detectado e os pontos acrescentados para representar a região do pulso.
 
@@ -1016,7 +1030,7 @@ platô no \textit{loss}.}
         \caption{Acurácia binária dos dados de treino (linha contínua) e dos dados de validação (linha tracejada) em função da \textit{epoch}.}
         \label{subfig:n_peaks_metric}
     \end{subfigure}
-\caption{Resultados do treino da rede neural dada por \ref{fig:arq:n_peaks}.}
+\caption{Resultados do treino da rede neural dada pela figura \ref{fig:arq:n_peaks}.}
 \label{fig:n_peaks_results}
 \end{figure}
 
