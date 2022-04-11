@@ -567,7 +567,17 @@ onde $T^{a}_{1/2}$ é o tempo de meia vida do decaimento beta medido experimenta
 
 \chapter{Reconstrução de nuvens de pontos a partir de algoritmos de \textit{machine learning}}\label{chapter:sinais}
 
-\par Esse capítulo irá descrever o procedimento usado para criar as nuvens de pontos (\textit{pointclouds}) a partir dos pulsos gerados por cada pixel do \textit{micromegas}, usando algoritmos de \textit{machine learning} supervisionado. Na seção \ref{sec:pulses_trad}, está mostrado como o banco de dados para o treino das redes neurais desenvolvidas foi criado, e a construção das redes neurais está na seção \ref{sec:pulsos_ml}.
+\par Esse capítulo irá descrever o procedimento usado para criar as nuvens de pontos (\textit{pointclouds}) a partir dos pulsos gerados por cada pixel do \textit{micromegas}, usando algoritmos de \textit{machine learning} supervisionado.
+
+\par Algoritmos baseados em CNNs vem sendo usados com relativo sucesso para o processamento e análise de sinais\cite{FORTINO2022166497}, como por exemplo para discriminação de pulsos \cite{Holl2019}. CNNs possuem a capacidade de fazer ajustes multidimensionais e aprender padrões extremamente complexos. Além disso, CNNs são extremamente eficientes em tempo para a análise de grandes quantidades de dados em comparação com algoritmos comuns\cite{FORTINO2022166497}.
+
+\par A quantidade de pulsos gerados nesse experimento é da ordem de centenas de milhões. Para a análise completa dos pulsos, são necessárias diferentes etapas que envolvem processos que muitas vezes precisam ser refeitos por causa de algum um erro no processo análise, por exemplo. Caso uma etapa dure cerca de 10 horas, notar algum erro no processo, ou ter que mudar algum parâmetro da análise, significaria ter que analisar novamente os dados, sendo um processo muito custoso em tempo.
+
+\par O uso de algoritmos de CNNs tem o objetivo de diminuir o tempo consumido para a análise dos pulsos. As redes neurais criadas são treinadas uma única vez e podem ser utilizadas de modo separado e/ou acoplado\cite{FORTINO2022166497}, como será mostrado na sequencia do capítulo.
+
+\par A análise foi dividida em três etapas: correção do fundo, deconvolução do sinal e detecção de picos. As redes neurais criadas foram supervisionadas, o que significa que foi preciso determinar a entrada (\textit{input}) e a saída (\textit{output}) das redes. Para isso foi feito um grande banco de dados, para utilizar no treinamento das redes neurais, que se beneficiam da grande quantidade de dados usada para o treino\cite{mlbook}.
+
+\par Na seção \ref{sec:pulses_trad}, está mostrado como o banco de dados para o treino das redes neurais desenvolvidas foi criado, e a construção das redes neurais está na seção \ref{sec:pulsos_ml}.
 
 
 % os sinais foram analisados a partir de métodos mais tradicionais e depois criando algoritmos de \textit{machine learning}, usando das soluções anteriores como base para o seu funcionamento.
