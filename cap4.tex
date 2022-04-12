@@ -125,6 +125,13 @@ Prof(a). Dr(a). Nome do(a) Professor(a) (institui\c{c}\~{a}o de trabalho) \\
 
 \chapter{Introdução}
 
+
+\par Um dos principais objetivos do estudo em física nuclear é entender a estrutura do núcleo. Apesar do sucesso do modelo de camadas em explicar as estruturas de núcleos estáveis, os núcleos instáveis ou exóticos, ricos ou pobres em nêutrons, continuam sendo um grande desafio para nossa compreensão.
+
+\par Os núcleos leves radioativos são de grande interesse para a astrofísica nuclear. 
+
+\par Experimentos para o estudo desses núcleos 
+
 \chapter{O experimento}\label{PATTPC}
 
 \par Esse capítulo irá descrever sobre a parte experimental desse trabalho que foi desenvolvido na Universidade de Notre Dame em Outubro de 2019. Nesse experimento o feixe radioativo $^{17}$F foi produzido e selecionado por rigidez magnética pelo sistema TWINSOL (TWIN SOLenids)\cite{twinsol}. O alvo ativo \textit{prototype Active Target - Time Projection} Chamber (pAT-TPC) \cite{pattpc} foi usando como alvo e detector simultaneamente. Na continuação, será descrito como foi feito o sistema de produção do feixe secundário $^{17}$F e a detecção das reações induzidas por esse feixe no alvo ativo.
@@ -1240,7 +1247,9 @@ platô no \textit{loss}.}
 
 \chapter{Análise das nuvens de pontos}\label{chapter:point_cloud_analysis}
 
-\par Esse capítulo irá mostrar como foram analisadas as nuvens de pontos com algoritmos de \textit{machine learning}. O objetivo desta etapa, do ponto de vista computacional, foi de detectar \textit{clusters}, que nesse caso são retas tridimensionais. Com a informação da física das trajetórias (energia $E$, momento $\vec{p}$ e  comprimento $L$), foi possível distinguir cada reta detectada, e determinar o vértice de reação (entre uma partícula originada da reação nuclear entre o feixe e o gás). Após a detecção, foram selecionados os eventos que possuíam reações nucleares.
+\par Esse capítulo irá mostrar como foram analisadas as nuvens de pontos com algoritmos de \textit{machine learning}. O objetivo desta etapa, do ponto de vista computacional, foi de detectar \textit{clusters}, que nesse caso são retas tridimensionais. Já do ponto de vista físico, o objetivo é, com as trajetórias identificadas, extrair as informações físicas (energia $E$, momento $\vec{p}$ e comprimento $L$). Com isso, foi possível distinguir cada reta detectada, e determinar o vértice de reação (entre uma partícula originada da reação nuclear entre o feixe e o gás). Após a detecção, foram selecionados os eventos que possuíam reações nucleares.
+
+\par Assim como no capítulo \ref{chapter:point_cloud_analysis}, esse capítulo descreve o uso de algoritmos de \textit{machine learning} para a análise, desta vez para as nuvens de pontos. Os algoritmos usados foram tanto não supervisionados (algoritmos de \textit{clustering}) e supervisionados, com diferentes resultados extraídos.
 
 \par Na seção \ref{sec:forcabruta} será mostrado como foram identificadas as trajetórias (também chamado de \textit{tracking}) a partir de estimadores robustos. Na seção \ref{sec:ml_pc}, será mostrado como a mesma identificação foi feita a partir de algoritmos de \textit{machine learning}, identificando as diferenças em relação ao método anterior.
 
