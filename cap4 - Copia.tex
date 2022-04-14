@@ -1104,6 +1104,19 @@ platô no \textit{loss}.}
 \label{fig:exs_n_peaks}
 \end{figure}
 
+% \par A acurácia binária acima de 98\% não é uma métrica muito adequada para identificar a qualidade da rede neural discutida. Para isso, foi feita a comparação com a quantidade de picos detectados pela rede neural, em comparação com o número de picos detectos pelo algoritmo \textit{peak\_finder}, limitando a detecção entre 0 e 6 picos detectados pelo SciPy (mais que isso é indicativo de um sinal com muito ruído). A comparação está na figura \ref{fig:hist_2d_peaks_model_vs_scipy}.  
+
+
+%\begin{figure}[H]
+%    \centering
+%    \includegraphics[scale = 0.48]{figs/histograma_2d_picos_model_vs_scipy.png}
+%    \caption{Histograma bidimensional que mostra em $x$ a contagem do número de picos detectados por sinal pelo algoritmo \textit{peak\_finder} presente no SciPy, e em $y$ o número de picos detectados por sinal pela rede neural mostrada na figura \ref{fig:arq:n_peaks}. O número de contagens está marcado em cima de cada \textit{bin}.}
+%    \label{fig:hist_2d_peaks_model_vs_scipy}
+%\end{figure}
+%\par Unificando a rede neural da figura \ref{fig:arq:source_to_deconv} com a rede de segmentação da figura \ref{fig:arq:n_peaks} o tempo para processar 200 mil sinais e depois identificar os picos é de aproximadamente 16.5 segundos, usando a GPU Tesla P100 e o processador (para processar a segmentação) Ryzen 5 3600X. Há um pequeno ganho de tempo em relação ao algoritmo \textit{peak\_finder}. 
+
+%\par A rede neural detecta em média menos picos em comparação ao algoritmo \textit{peak\_finder}, isso fica mais evidente quanto maior o número de picos detectados pelo algoritmo presente no SciPy. O número de detecções de até 4 picos é muito semelhante, isso é mais evidente para os casos em que há um único pico. Esse limite de deteção é uma possível limitação da rede neural.
+
 \par Para determinar carga acumulada $Q_i$ de cada ponto associado à cada centroide $i$, foi usada a relação
 
 \begin{equation}\label{eq:carga_acumulada_ml}
@@ -1120,6 +1133,8 @@ platô no \textit{loss}.}
 %\par Com a rede que prevê o fundo e a que faz a deconvolução funcionando podemos agora testar se acopladas elas geram resultados satisfatórios, verificando a qualidade da detecção de picos.
 \par Usando novamente o TensorFlow 2 pode-se carregar as redes neurais discutidas nas subseções \ref{subsec:pulso_ml_fundo}, \ref{subsec:pulso_ml_deconv} e \ref{subsec:pulso_ml_peaks}, já treinadas e usar como se fosse uma única rede neural. Acoplando as três arquiteturas, temos a nova arquitetura mostrada na figura \ref{fig:arq:source_to_segmentation}. O \textit{input} da rede é o sinal cru o \textit{output} da rede neural é o um vetor de tamanho 1024, que possui a segmentação e o sinal após a deconvolução, pois as duas informações são necessárias para determinar os centroides.
 
+% Primeiro, acoplando as redes neurais dadas pelas figuras \ref{fig:arq_source_to_bkg} e \ref{fig:source_to_deconv} para formar a arquitetura dada pela figura \ref{fig:arq:source_to_deconv}, para investigar melhor os resultados com algoritmo \textit{peak\_finder}.
+
 \begin{figure}[H]
     \centering
     \includegraphics[scale = 0.35]{figs/arq_source_segmentation.png}
@@ -1127,11 +1142,36 @@ platô no \textit{loss}.}
     \label{fig:arq:source_to_segmentation}
 \end{figure}
 
+%\begin{figure}[H]
+%    \centering
+%    \includegraphics[scale = 0.28]{figs/source_to_deconv.png}
+%    \caption{Arquitetura da rede neural que faz a inferência da \textit{baseline} e depois faz a deconvolução do espectro. O vetor de entrada deve ter dimensionalidade 512 x 1.}
+%    \label{fig:arq:source_to_deconv}
+%\end{figure}
+
 \par A rede é apenas a sequencia das redes anteriores, ou seja, o espectro passa pelo cálculo da \textit{baseline}, então o espectro original é subtraído dessa \textit{baseline} (colocando o valor mínimo em 0) para passar pela etapa da deconvolução e em seguida o sinal é segmentado. Na etapa final, o resultado da segmentação e da deconvolução são concatenados em um único vetor, para assim determinar os centroides. Pelo fato de cada parte ser treinada de modo separado não há necessidade de treinar a rede unificada, apenas carregar as variáveis das redes neurais treinadas de cada parte. A rede unificada possui 1.316.640 de parâmetros.
 
 \par Foi comparada a saída da rede acoplada para o espectro após a deconvolução, com a saída de referência, que é o espectro após a deconvolução mostrado na subseção \ref{subsec:pulses_deconv}. Podemos usar novamente o erro médio absoluto para fins de comparação. O erro médio absoluto, para os 200.000 sinais, é de 7.45 ADC Channels. Com relação à incerteza, ela foi estimada como o desvio padrão da diferença de cada \textit{time bucket} do sinal tido como referência e o sinal após a rede neural acoplada. A incerteza é da ordem de 6\% da amplitude do sinal no ponto.
 
+% A detecção será feita com o \textit{SciPy} que possui rotinas para a detecção. A função usada é a ``find\_peaks", onde é possível determinar altura mínima de detecção, distância mínima entre picos, dentre outros parâmetros, o que torna possível ajustar melhor a detecção em comparação com a saída pelo algoritmo presente no \textit{TSpectrum}.
+% O objetivo será fazer a comparação entre os picos resultantes do algoritmo de deconvolução (na biblioteca \textit{TSpectrum} do ROOT) e os resultantes do algoritmo do \textit{SciPy}.
+
+% \par A comparação se limitou a detecção de 0 a 6 picos detectados pela deconvolução, que é o intervalo que faz sentido físico (mais que 6 picos detectados indica um sinal muito ruidoso). Caso o \textit{SciPy} detecte mais que 6, então o espectro é descartado. Primeiro deve-se ver a comparação do número de espectros detectado por evento de cada algoritmo. O histograma da figura \ref{fig:hist_2d_peaks} mostra essa comparação.
+
+% \par O histograma da figura \ref{fig:hist_2d_peaks} mostra que, apesar da variação no número de picos detectados pelo \textit{SciPy} (eixo y) em comparação ao número de picos detectados pelo \textit{TSpectrum}, na maioria dos casos o número de detecções é o mesmo, especialmente para os casos em que há um único pico.
+
+%\begin{figure}[H]
+%    \centering
+%    \includegraphics[scale = 0.48]{figs/hitograma_2d_peaks.png}
+%    \caption{Histograma bidimensional que mostra em $x$ a contagem do número de picos detectados por sinal (dado pelo \textit{TSpectrum}) pela deconvolução e em $y$ a contagem do número de picos detectados por sinal (resultante da rede neural) pelo \textit{scipy}. O número de contagens está marcado em cima de cada \textit{bin}.}
+%    \label{fig:hist_2d_peaks}
+%\end{figure}
+
+% \par A linha tracejada serve de referência para os caso em que o número de picos detectador por ambos algoritmos foi igual. A dispersão de detecção se dá em torno dessa e se mostrou com uma diferença muita baixa, indicando que o processamento de sinal pela rede neural seguido pela detecção de picos com o \textit{scipy} é equivalente ao dado pelo uso dos algoritmos do \textit{TSpectrum}. Para os casos em que o número detectado de picos foi o mesmo, a diferença da posição dos centroide é de 0.11 canais, mostrando que os métodos são praticamente equivalentes.
+%  O valor não é a soma direta dos tempos das redes anteriores pois em Python existe a questão da vetorização de operações
 \par Com relação a eficiência em tempo, a rede neural da figura \ref{fig:arq:source_to_segmentation} processa 200.000 sinais em 12 segundos, usando a GPU NVIDIA Tesla P100. Somando esse tempo com a determinação dos centroides, que é de aproximadamente 4.3 segundos, o tempo total para processar 200 mil sinais é de cerca de 16.3 segundos, cerca de 90 vezes mais rápido que os métodos mostrados na seção \ref{sec:pulses_trad}. Exemplos da reconstrução das nuvens de pontos usando a rede neural da figura \ref{fig:arq:source_to_segmentation} estão na figura \ref{subfig:ex_ev_4}.
+
+% a detecção de picos com o \textit{SciPy}, o tempo total para processar 200 mil sinais é de cerca de 25 s. Nem foi preciso uma rede neural para os picos e o consumo de tempo já é 60 vezes maior em comparação aos métodos tradicionais mostrados anteriormente.
 
 \begin{figure}[H]
 \centering
@@ -1165,6 +1205,46 @@ platô no \textit{loss}.}
 \label{fig:ex_eventos}
 \end{figure}
 
+
+
+% \textit{machine learning} com detecção de picos pelo \textit{SciPy} estão na figura \ref{fig:ml_pc_exs}. É possível perceber uma pequena melhora no ruído dos eventos, pois o com o \textit{SciPy} podemos calibrar melhor a detecção. Além disso há uma correlação de amplitude do pico detectado entre espectro sem o fundo e o espectro sem o fundo após a deconvolução, como mostrado na figura \ref{fig:corr_amps}. Colocando a condição de que, para cada pico detectado, a razão entre a amplitude do espectro após a deconvolução e do espectro original para o ponto seja maior que 3.8 faz com que a quantidade de pontos ruidosos por evento caia em cerca de 35\% em relação aos métodos anteriores.
+
+%\begin{figure}[H]
+%\centering
+%    \begin{subfigure}[b]{\textwidth}
+%        \centering
+%        \includegraphics[scale=0.4]{figs/ml_pc_ex1.png}
+%        \caption{}
+%        \label{subfig:ml_pc_ex1}
+%    \end{subfigure}%
+%    \vspace{0.2cm}
+%    % \hfill
+%    \begin{subfigure}[b]{\textwidth}
+%        \centering
+%        \includegraphics[scale=0.4]{figs/ml_pc_ex2.png}
+%        \caption{}
+%        \label{subfig:ml_pc_ex2}
+%    \end{subfigure}
+%\caption{Resultados da reconstrução de eventos por \textit{machine learning}.}
+%\label{fig:ml_pc_exs}
+%\end{figure}
+
+%\begin{figure}[H]
+%    \centering
+%    \includegraphics[scale = 0.85]{figs/corr_pulso_deconv.png}
+%    \caption{Histograma bidimensional que mostra a relação, de cada pico detectado, entre a amplitude do pico após a deconvolução no eixo $y$ e antes da deconvolução no eixo $x$. A linha tracejada indica a tendência da maior parte dos pontos. Já a linha sólida indica a região de corte dos pontos.}
+%    \label{fig:corr_amps}
+%\end{figure}
+
+% \subsection{}
+
+
+% \par Podemos usar o \textit{TensorFlow} que possui diversas ferramentas para construir a arquitetura de modo à simplesmente fazer a conta sequencialmente, ou seja, calcular o fundo, subtrair o fundo do espectro original e fazer para a deconvolução. Os valores de cada variável de cada arquitetura está salvo e basta carregar cada rede feita individualmente e colocar os pesos (valores) nas camadas corretas. A arquitetura unificada está mostrada na figura [xx].
+
+% \par O consumo de tempo para a análise usando o \textit{TSpectrum} é de cerca de 10 minutos para 200 mil sinais. Boa parte desse tempo se dá pela deconvolução, que é um algoritmo que cresce quanto mais iterações são necessárias (foram usadas 300 iterações). A remoção do fundo e a detecção de picos são algoritmos muito mais rápidos, portanto só a deconvolução por redes neurais já pode economizar mais de 90\% do tempo. A rede processa 200 mil arrays em apenas 11 segundos. Podemos usar na sequencia um algoritmo de detecção de picos simples como o presente na biblioteca do \textit{scipy}. O tempo de execução desses arrays mais a detecção de picos (ou seja, a rede neural remove o fundo e faz a deconvolução, enquanto a detecção de picos é por algoritmos analíticos) é de apenas 24 segundos, mesmo sendo executado em \textit{Python}. O uso de redes neurais facilita muito a análise de quantidades massivas de dados, podendo inclusive permitir a análise em tempo real de um experimento.
+
+
+
 \par Com as redes neurais desenvolvidas, o consumo de tempo para o processamento dos pulsos diminuiu em cerca de 90 vezes em relação à algoritmos mais tradicionais mostrados na seção \ref{sec:pulses_trad}, abrindo possibilidades para a análise em tempo real de um experimento. Com as nuvens de pontos reconstruídas, pode-se extrair propriedades físicas dos eventos, processo que será descrito no capítulo \ref{chapter:point_cloud_analysis}.
 
 \chapter{Análise das nuvens de pontos}\label{chapter:point_cloud_analysis}
@@ -1173,37 +1253,15 @@ platô no \textit{loss}.}
 
 \par Assim como no capítulo \ref{chapter:point_cloud_analysis}, esse capítulo descreve o uso de algoritmos de \textit{machine learning} para a análise, desta vez para as nuvens de pontos. Os algoritmos usados foram tanto não supervisionados (algoritmos de \textit{clustering}) e supervisionados (redes neurais), com diferentes objetivos.
 
-\par Na seção \ref{sec:ml_pc} será mostrado o processo de detecção de trajetórias (\textit{tracking}) com algoritmos de \textit{machine learning} não supervisionados, além de mostrar alternativas com métodos supervisionados. 
+\par Na seção \ref{sec:ml_pc} será mostrado o processo de detecção de trajetórias (\textit{tracking}) com algoritmos de \textit{machine learning}.
+
+%\par Na seção \ref{sec:forcabruta} será mostrado como foram identificadas as trajetórias (também chamado de \textit{tracking}) a partir de estimadores robustos. Na seção , será mostrado como a mesma identificação foi feita a partir de algoritmos de \textit{machine learning}, identificando as diferenças em relação ao método anterior.
 
 
 
 \section{Detecção de trajetórias}\label{sec:forcabruta}
 
-\par Essa seção irá descrever o processo de \textit{tracking} usando algoritmos de \textit{machine learning} não supervisionados. As nuvens de pontos (eventos) que foram analisadas são como o da figura \ref{subfig:exemplo_1}. Nessa figura é notável ao olho humano que os pontos formam estruturas de retas. Essa retas foram detectadas com algoritmos de \textit{clustering}, pelo fato da estrutura aparente dos dados e, também, por não existir um tamanho fixo das nuvens de pontos. O número de pontos pode variar de 30 até cerca de 200, não considerando pontos ruidosos.
-
-\par Para diminuir a quantidade de pontos ruidosos, foram usados dois filtros. O primeiro filtro exclui pontos baseado na sua carga, colocando um limiar onde pontos com carga $Q$ $<$ 110 são descartados. O segundo filtro, chamado de \textit{outlier removal}, elimina pontos considerados \textit{outliers} globais, de modo que, caso um ponto não possua um número mínimo de vizinhos $n_{or}$ = 4 em um raio de distância $d_{or}$ = 12 mm, então ele é descartado. O \textit{outlier removal} está presente na biblioteca Open3D\cite{open3d} no Python e funciona excluindo pontos muito isolados uns dos outros.
-
-\par Existem diversas opções de algoritmos de clustering, como o \textit{Density-based spatial clustering of applications with noise} (DBSCAN)\cite{dbscan}, porém a escolha deve levar em conta a performance em tempo, por isso o algoritmo usado foi o \textit{Hierarchical} DBSCAN (HDBSCAN) \cite{hdbscan1, hdbscan2}. O algoritmo tem como entrada a nuvem de pontos e parâmetros esperados para a densidade dos \textit{clusters} presentes no conjunto de pontos. O algoritmo retorna os diferentes \textit{clusters} identificados. Os \textit{clusters} então passam por um ajuste por mínimos quadrados, para determinar o versor e um ponto arbitrário que determinam a reta tridimensional. A figura [xx] mostra o resultado da aplicação do HDBSCAN na nuvem de pontos mostrada na figura [xx]. O algoritmo não é perfeito e possui falhas em alguns resultados, como por exemplo na figura [xx]. As nuvens de pontos reconstruídas não possuem, em certos casos, densidade de pontos o suficiente para resultar em 100\% de acurácia do evento.
-
-\par O HDBSCAN apresenta falhas no seu resultado, como visto na figura \ref{subfig:antes_clustering}, em que, por exemplo, um único \textit{cluster} acaba sendo dividido em dois \textit{clusters} muito próximos. A etapa de correção da saída do p-RANSAC é chamada de clusterização (não a mesma clusterização usada em \textit{machine learning}). A ideia é comparar, dois a dois, todos os \textit{clusters} resultantes do algoritmo e, se satisfazer um determinado critério, unificar os dois clusters\cite{artigo}. Do ponto de vista computacional, esse problema é abordado avaliando a semelhança entre dois \textit{clusters}. Existem métricas como a distância de Jaccard\cite{jaccard_distance} e o coeficiente de silhueta\cite{silhueta}.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- Essas retas são identificadas com estimadores robustos\cite{artigo}, resultando na figura \ref{subfig:antes_clustering}, e seu resultado foi corrigido resultando na figura \ref{subfig:depois_clustering}.
+\par Essa seção irá descrever o processo de \textit{tracking} usando estimadores robustos. As nuvens de pontos (eventos) que foram analisados são como o da figura \ref{subfig:exemplo_1}. Nessa figura é notável ao olho humano que os pontos formam estruturas de retas. Essas retas são identificadas com estimadores robustos\cite{artigo}, resultando na figura \ref{subfig:antes_clustering}, e seu resultado foi corrigido resultando na figura \ref{subfig:depois_clustering}. 
 
 \begin{figure}[H]
 \centering
@@ -1231,6 +1289,18 @@ platô no \textit{loss}.}
 \label{fig:3d_examples}
 \end{figure}
 
+
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[scale = 0.6]{figs/Figure_1.png}
+%     \caption{Exemplo de evento a ser analisado. Os pontos em azul são das partículas detectadas pelo TPC, a seta vermelha indicando o sentido do feixe e o TPC está representado pelo cilindro cinza.}
+%     \label{fig:exemplo_1}
+% \end{figure}
+% \newpage
+% \par A etapa anterior nos fornece arquivos no formato \textit{ROOT} para cada \textit{run} do experimento. O arquivo é dividido por eventos em que estão contidas informações, em \textit{trees}, como coordenadas x, y, z, t, carga, tempo de voo, além de canais adicionais (indicadores de partículas presentes além da parte central do \textit{micromegas}). Os arquivos foram lidos em Python usando a biblioteca Uproot\cite{uproot}.
+
+% \par A figura \ref{subfig:exemplo_1} nos mostra um exemplo que parece indicar mais de uma trajetória dentro do TPC, e é preciso separar os pontos de cada trajetória identificada. O objetivo é separar os pontos de \textit{clusters} que contenham a informação do momento da partícula, obtida a partir das propriedades geométricas do versor das retas e da energia inicial da trajetória. A identificação pode ser feita sem o uso de algoritmos de machine learning, que chamarei de método usual, e usando machine learning.
+
 \par O algoritmo de \textit{tracking} escolhido deve ser capaz de identificar estruturas geométricas especificas (que no caso são retas tridimensionais) mesmo na presença de ruído, que são pontos que não pertencem à nenhum conjunto de pontos de uma reta detectada (também chamados de \textit{outliers}). Para tanto, foram testados estimadores robustos que são variações do RANSAC (\textit{RANdom SAmple Consensus})\cite{ransac, artigo}.
 
 \par Os algoritmos testados foram o RANSAC, MLESAC\cite{ref:MLESAC}, RRANSAC, PROSAC, dentre outros, que estão presentes na biblioteca PCL (\textit{Point Cloud Library})\cite{pcl}. Os algoritmos com os melhores resultados (melhor capacidade de \textit{tracking}) foram o RANSAC e o PROSAC, sem grandes diferenças nos resultados entre os dois. Para melhor ainda mais o resultado, foi feita uma pequena modificação no RANSAC, a fim de obter melhores resultados nos dados do pAT-TPC. O algoritmo \ref{ransac_algo} (que chamei de p-RANSAC - \textit{prototype}-RANSAC) mostra o funcionamento. O algoritmo seleciona dois pontos de modo aleatório (\textit{Random Sampling}) e determina o versor $\hat{v}$ e o ponto $P_b$ que descrevem a única reta $r$ que passa pelos dois pontos. A reta é selecionada caso tenha um número mínimo $tam_{min}$ de pontos que pertencem à reta (chamado de \textit{inliers}) e tenha o mínimo (com relação aos outros conjunto de pontos) da estimativa $C$ dada por
@@ -1240,6 +1310,11 @@ platô no \textit{loss}.}
 \end{equation}
 
 onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância do i-ésimo ponto à reta.
+
+% \par Para identificar as retas (\textit{clusters}) presentes em eventos como mostrados na figura \ref{subfig:exemplo_1}, devemos usar estimadores robustos que consigam fazer a detecção mesmo com uma presença grande de \textit{outliers}, pontos que são considerados ruídos. Existem muitos estimadores, que são apenas variações do  Random sample consensus (\textit{RANSAC}) \cite{ransac}, como o MLESAC\cite{ref:MLESAC}, \textit{RRANSAC}, \textit{PROSAC}, dentre outros, que estão presentes no \textit{Point Cloud Library} (PCL)\cite{pcl}. Todos esses se baseiam na ideia de estimar várias possíveis retas de forma aleatória e selecionam a melhor usando uma estimativa (por isso o nome \textit{consensus}). Existe ainda a opção do \textit{Hough Transform}\cite{hough}, porém é um algoritmo de difícil expansão e não demonstrou resultados bons.
+
+
+% \par Os algoritmos do PCL foram testados e os que mostraram os melhores resultados foram o \textit{RANSAC} e o \textit{PROSAC}, não havendo muita diferença dentre os dois. O estimador usado foi uma variação do \textit{RANSAC}, desenvolvida para fazer melhores estimativas em dados como os do pAT-TPC\cite{artigo}. O algoritmo \ref{ransac_algo}, que chamei de \textit{Enhanced RANSAC} (Para você Juan: só quis diferenciar o nome, até pq eu quero colocar no pypi com esse nome, pode ser?), mostra o seu funcionamento. A melhor estimativa original (que retorna a melhor reta) era simplesmente o número total de \textit{inliers} de um \textit{cluster}. A nova estimativa \textit{C} passou a ser
 
 
 \begin{algorithm}
@@ -1426,8 +1501,6 @@ onde $\tilde{t_1}$, $\tilde{t_2}$ e $\tilde{t_3}$ são os hiperparâmetros a ser
 
 
 
-
-
 \section{Métodos com \textit{machine learning}}\label{sec:ml_pc}
 
 \par Na seção \ref{sec:forcabruta} descrevemos o algoritmo completo de seleção de eventos para a análise. Agora o objetivo é aplicar algoritmos de \textit{machine learning} para melhorar o funcionamento de algo já existente, sugerir ou resolver o mesmo problema de uma maneira totalmente diferente.
@@ -1485,9 +1558,6 @@ HDBSCAN & 64.3                 & 208                    \\ \hline
 \end{table}
 
 \par A clusterização se mostrou melhor em eventos que tinham uma separação clara entre os \textit{clusters}, sem pontos que coincidem duas \textit{tracks} diferentes\cite{TriplClust}, e também nos casos em que a densidade de pontos era muito significativo. Apesar da queda na taxa de acertos a velocidade de execução sobe significativamente, sendo uma possível escolha no lugar do RANSAC.
-
-
-
 
 \chapter{Resultados}\label{chapter:resultados}
 
