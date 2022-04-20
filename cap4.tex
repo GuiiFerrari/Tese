@@ -136,7 +136,7 @@ Prof(a). Dr(a). Nome do(a) Professor(a) (institui\c{c}\~{a}o de trabalho) \\
 
 \chapter{O experimento}\label{PATTPC}
 
-\par Esse capítulo irá descrever sobre a parte experimental desse trabalho que foi desenvolvido na Universidade de Notre Dame em Outubro de 2019. Nesse experimento o feixe radioativo $^{17}$F foi produzido e selecionado por rigidez magnética pelo sistema TWINSOL (TWIN SOLenids)\cite{twinsol}. O alvo ativo \textit{prototype Active Target - Time Projection Chamber} (pAT-TPC) \cite{pattpc} foi usando como alvo e detector simultaneamente. Na continuação, será descrito como foi feito o sistema de produção do feixe secundário $^{17}$F e a detecção das reações induzidas por esse feixe no alvo ativo.
+\par Esse capítulo descreve sobre a parte experimental desse trabalho que foi desenvolvido na Universidade de Notre Dame em Outubro de 2019. Nesse experimento o feixe radioativo $^{17}$F foi produzido e selecionado por rigidez magnética pelo sistema TWINSOL (TWIN SOLenids)\cite{twinsol}. O alvo ativo \textit{prototype Active Target - Time Projection Chamber} (pAT-TPC) \cite{pattpc} foi usando como alvo e detector simultaneamente. Na continuação, está descrito como foi feito o sistema de produção do feixe secundário $^{17}$F e a detecção das reações induzidas por esse feixe no alvo ativo.
 
 % \par Primeiro será descrita a produção do feixe de $^{17}$F com foco na descrição do sistema de produção de feixes radioativos (TWINSOL). Na seção seguinte será apresentado o detector pAT-TPC.
 
@@ -150,7 +150,7 @@ Prof(a). Dr(a). Nome do(a) Professor(a) (institui\c{c}\~{a}o de trabalho) \\
 % \section{Produção do feixe de $^{17}$F}
 \section{Produção do feixe secundário $^{17}$F usando o sistema TWINSOL}
 
-\par A produção do feixe radioativo $^{17}$F foi feita a partir da reação do feixe estável de $^{16}$O com um alvo de deutério gasoso. O feixe primário $^{16}$O foi produzido e acelerado por um acelerador tipo Tandem, que possui uma tensão terminal de até 10 MV\cite{KOLATA1989503, NDtandem}. O feixe foi conduzido até a câmara alvo de produção, no início do sistema TWINSOL, onde partículas emergentes de reações nucleares surgiram. A figura \ref{fig:twinsol+pattpc} mostra o sistema TWINSOL acoplado com o pAT-TPC.
+\par A produção do feixe radioativo $^{17}$F foi feita a partir da reação do feixe estável de $^{16}$O com um alvo de deutério gasoso. O feixe primário $^{16}$O foi produzido e acelerado por um acelerador tipo Tandem van de Graff do ISNAP (\textit{Institute for Structure and Nuclear Astrophysics}) localizado na Universidade de Notre Dame, Estados Unidos, que possui uma tensão terminal de até 10 MV\cite{KOLATA1989503, NDtandem}. O feixe de $^{16}$O foi conduzido até a câmara alvo de produção, preenchida com $^4$He, no início do sistema TWINSOL, onde partículas emergentes de reações nucleares surgiram ($^{17}$F, $^{16}$O $^{17}$O). A figura \ref{fig:twinsol+pattpc} mostra o sistema TWINSOL acoplado com o pAT-TPC.
 
 \begin{figure}[H]
     \centering
@@ -159,7 +159,7 @@ Prof(a). Dr(a). Nome do(a) Professor(a) (institui\c{c}\~{a}o de trabalho) \\
     \label{fig:twinsol+pattpc}
 \end{figure}
 
-\par O TWINSOL é um sistema de produção de feixes radioativos em voo que possui dois solenoides supercondutores alinhados que são usados para produzir, coletar, transportar, focar e analisar feixes estáveis e radioativos. O sistema se baseia na seleção de partículas a partir da sua rigidez magnética ($B\rho$)\cite{twinsol, ribras_leo, zamora_mater}. Cada solenoide possui 30 cm de raio interno e 1 m de comprimento\cite{twinsol}. O fato de ser um solenoide finito faz com que surjam efeitos de borda na componente radial do campo magnético do solenoide, cujo efeito faz com que o solenoide seja capaz de focalizar partículas. Para entender melhor o efeito de borda no campo magnético, e consequentemente o funcionamento do TWINSOL, simulações computacionais usando a biblioteca GEANT4\cite{geant4} foram feitas usando a geometria do sistema ``irmão" do TWINSOL, o Radioactive Ion Beams in Brasil (RIBRAS), que também possui dois solenoides supercondutores alinhados\cite{ribras_leo, ribras}. A simulação da figura \ref{fig:sim_ribras} mostra os dois solenoides de cor verde focalizando as partículas de cor laranja em um ponto do plano focal em vermelho. O campo magnético em função da posição do eixo, de cada solenoide, está na figura \ref{fig:campo_mag}.
+\par O TWINSOL é um sistema de produção de feixes radioativos em voo que possui dois solenoides supercondutores alinhados que são usados para produzir, coletar, transportar, focar e analisar feixes estáveis e radioativos. O sistema se baseia na seleção de partículas a partir da sua rigidez magnética ($B\rho$)\cite{twinsol, ribras_leo, zamora_mater}. Cada solenoide possui 30 cm de raio interno e 1 m de comprimento\cite{twinsol}. O fato de ser um solenoide finito faz com que surjam efeitos de borda na componente radial do campo magnético do solenoide, cujo efeito faz com que o solenoide seja capaz de focalizar partículas. Para entender melhor o efeito de borda no campo magnético, e consequentemente o funcionamento do TWINSOL, simulações computacionais usando a biblioteca GEANT4\cite{geant4} foram feitas usando a geometria do sistema ``irmão" do TWINSOL, o Radioactive Ion Beams in Brasil (RIBRAS), que também possui dois solenoides supercondutores alinhados\cite{ribras_leo, ribras}. A figura \ref{fig:sim_ribras} da geometria usada na simulação mostra os dois solenoides de cor verde focalizando as partículas de cor laranja em um ponto do plano focal em vermelho. O campo magnético usado na simulação é função da posição do eixo, de cada solenoide, e está mostrado na figura \ref{fig:campo_mag}.
 
 
 % A figura  mostra um exemplo de calculo do valor do campo magnético, usando valores do sistema , para as componentes $x$, $y$ e $z$. É nítido que o campo em $z$ permanece praticamente constante e próximo das extremidades da bobina (linha vertical tracejada preta), $B_x$ e $B_y$ crescem em módulo, fazendo com que o solenoide funcione como uma lente delgada.
@@ -178,7 +178,8 @@ Prof(a). Dr(a). Nome do(a) Professor(a) (institui\c{c}\~{a}o de trabalho) \\
     \label{fig:campo_mag}
 \end{figure}
 
-\par A trajetória das partículas dentro do solenoide é helicoidal e, como os solenoides funcionam como uma lente óptica, existe um ponto focal. Em uma aproximação de um solenoide como uma lente grossa, o foco depende da rigidez magnética da partícula através da relação\cite{KOLATA1989503, zamora_mater}:
+
+\par A trajetória as partículas dentro do solenoide são helicoidais devido à força de Lorentz e possuem uma determinada frequancia de ciclotron\cite{ribras_leo}. Além disso, cada solenoide é uma lente grossa usada para focalizar os feixes. Em uma aproximação de um solenoide como uma lente grossa, o foco depende da rigidez magnética da partícula através da relação\cite{KOLATA1989503, zamora_mater}:
 
 \begin{equation}
     \frac{1}{f} = \frac{B_z ^2}{(B\rho)^2},
@@ -191,34 +192,10 @@ onde $f$ é o ponto focal, $B_z$ a componente $z$ do campo magnético, e $B\rho$
 \end{equation}
 
 onde $E$ é a energia, $m$ sua massa e $q$ seu estado de carga.
-% A figura \ref{fig:ribras_sol_sim_a} mostra uma simulação feita com o GEANT4\cite{geant4}, usando novamente valores do RIBRAS, das trajetórias das partículas dentro do solenoide e em \ref{fig:ribras_sol_sim_b} pode-se ver que o feixe é focalizado em um ponto.
 
-% \begin{figure}[H]
-% \centering
-%     \begin{subfigure}[t]{0.49\textwidth}
-%         \centering
-%         \includegraphics[scale=0.5]{figs/ribras_1.png}
-%         \caption{Simulação que mostra as trajetórias helicoidais das partículas em laranja dentro do solenoide de cor verde até colidirem em um plano vermelho.}
-%         \label{fig:ribras_sol_sim_a}
-%     \end{subfigure}%
-%     \hfill
-%     \begin{subfigure}[t]{0.49\textwidth}
-%         \centering
-%         \includegraphics[scale=0.6]{figs/ribras_2.png}
-%         \caption{Partículas em laranja passam pelo solenoide de cor verde que funciona como lente, sendo focalizadas em ponto da linha vermelha à esquerda da figura.}
-%         \label{fig:ribras_sol_sim_b} 
-%     \end{subfigure}
-% \caption{Simulações computacionais usando o GEANT4 para entender o comportamento de partículas carregas que passam por um solenoide supercondutor.}
-% \label{fig:sim_ribras}
-% \end{figure}
+%\par Para produzir $^{17}$F, uma célula gasosa localizada na câmara alvo de produção\cite{twinsol} preenchida com deutério foi bombardeada pelo feixe primário. Além de $^{17}$F, outras partículas também foram geradas, como o $^{17}$O, além de $^{16}$O do feixe espalhado.
 
-% Figura a 1 sol, figura b mostra ponto focal
-
-\par Para produzir $^{17}$F, uma célula gasosa localizada na câmara alvo de produção\cite{twinsol} preenchida com deutério foi bombardeada pelo feixe primário. Além de $^{17}$F, outras partículas também foram geradas, como o $^{17}$O, além de $^{16}$O do feixe espalhado.
-
-% \par Não há só a reação que produz $^{17}$F, temos as reações: $^{16}$O(d, n)$^{17}$F, $^{16}$O(d, p)$^{17}$O e também o feixe de $^{16}$O pode ser apenas espalhado.
-
-\par Mesmo para partículas diferentes, o $B_{\rho}$ pode ser muito próximo ou igual. Isso faz com que não seja possível obter um feixe de $^{17}$F com 100\% de pureza, e sim um coquetel de partículas\cite{zamora_mater}. O coquetel de partículas produzido possui 54\% de $^{17}$F, 41\% de $^{16}$O e cerca de 5\% de $^{17}$O. A figura \ref{fig:PID_17F} mostra o espectro biparamétrico de identificação de partículas, onde é possível identificar as partículas que estão presentes no feixe (coquetel de partículas). Por fim, o feixe  produzido pelo TWINSOL é conduzido até o pAT-TPC.
+\par No experimento, os campos magnéticos dos solenoides foram ajustados para focalizar o feixe de $^{17}$F dentro do pAT-TPC. No entanto, mesmo para partículas diferentes, o $B_{\rho}$ pode ser muito próximo ou igual. Isso faz com que não seja possível obter um feixe de $^{17}$F com 100\% de pureza, e sim um coquetel de partículas\cite{zamora_mater}. O coquetel de partículas produzido possui 54\% de $^{17}$F, 41\% de $^{16}$O e cerca de 5\% de $^{17}$O. A figura \ref{fig:PID_17F} mostra o espectro biparamétrico de identificação de partículas, onde é possível identificar as partículas que estão presentes no feixe (coquetel de partículas). Por fim, o feixe  produzido pelo TWINSOL é conduzido até o pAT-TPC.
 
 \begin{figure}[H]
     \centering
@@ -229,9 +206,9 @@ onde $E$ é a energia, $m$ sua massa e $q$ seu estado de carga.
 
 \section{O alvo ativo pAT-TPC}
 
-\par Essa seção irá descrever brevemente propriedades geométricas e físicas relacionadas ao sistema de detecção usado neste experimento, o alvo ativo pAT-TPC.
+%\par Essa seção irá descrever brevemente propriedades geométricas e físicas relacionadas ao sistema de detecção usado neste experimento, o alvo ativo pAT-TPC.
 %  O pAT-TPC é um detector preenchido com gás que é usado como alvo-ativo.
-\par A figura \ref{subfig:pattpc} mostra o desenho esquemático do pAT-TPC. O detector possui uma cela cilíndrica de 50 cm de comprimento e 28 cm de diâmetro, onde o seu eixo é alinhado com o eixo do feixe\cite{pattpc}, que entra pelo duto central. A câmara é preenchida com o $^4$He gasoso puro à uma pressão de 350 Torr que serve tanto para alvo de reações nucleares, quanto para a própria medição e detecção dos produtos da reação\cite{pattpc, pattpc2}. Tanto o feixe quanto partículas originadas da reação ionizam o gás e os elétrons que surgem dessa ionização foram conduzidos por um campo elétrico de 1 kV/cm perpendicular ao eixo da câmara até o plano detector (\textit{pad plane}), o \textit{Micromegas}\cite{micromegas}, mostrado na figura \ref{subfig:micromegas}.
+\par A figura \ref{subfig:pattpc} mostra o desenho esquemático do pAT-TPC. O detector possui uma cela cilíndrica de 50 cm de comprimento e 28 cm de diâmetro, onde o seu eixo é alinhado com o eixo do feixe\cite{pattpc}, que entra pelo duto central. Nesse experimento, a câmara foi preenchida com o $^4$He gasoso puro à uma pressão de 350 Torr que serve tanto para alvo de reações nucleares, quanto para a própria medição e detecção dos produtos da reação\cite{pattpc, pattpc2}. Tanto o feixe quanto partículas originadas da reação ionizam o gás e os elétrons que surgem dessa ionização foram conduzidos por um campo elétrico de 1 kV/cm perpendicular ao eixo da câmara até o plano detector (\textit{pad plane}), o \textit{Micromegas}\cite{micromegas}, mostrado na figura \ref{subfig:micromegas}.
 
 \begin{figure}[H]
 \centering
@@ -272,7 +249,7 @@ onde $\vec{E}$ é o vetor campo elétrico, $\vec{B}$ o vetor campo magnético, $
 
 onde no tempo $t_0$ = 0 o elétron está no plano do detector ($z$ = 0).
 
-\par O \textit{Micromegas} possui \textit{thick gems}. \textit{Thick gems} usam do fato de que, no momento em que o elétron passa para uma região de campo elétrico ordens de grandeza maior que de sua origem, ocorre a ionização secundária (quando o elétron ioniza o gás). Isso provoca o que é chamado de avalanche de elétrons, amplificando a intensidade do sinal recebido\cite{GET}. A figura \ref{fig:thick_gems} mostra a esquematização do \textit{Micromegas}, onde na eletrônica de saída é produzido um sinal em função do tempo.
+\par O pAT-TPC conta com uma camada extra de \textit{thick gems} acoplada ao detector micromegas. \textit{Thick gems} usam do fato de que, no momento em que o elétron passa para uma região de campo elétrico ordens de grandeza maior que de sua origem, ocorre a ionização secundária (quando o elétron ioniza o gás). Isso provoca o que é chamado de avalanche de elétrons, amplificando a intensidade do sinal recebido\cite{GET}. A figura \ref{fig:thick_gems} mostra a esquematização do \textit{Micromegas}, onde na eletrônica de saída é produzido um sinal em função do tempo.
 
 \begin{figure}[H]
     \centering
@@ -281,7 +258,7 @@ onde no tempo $t_0$ = 0 o elétron está no plano do detector ($z$ = 0).
     \label{fig:thick_gems}
 \end{figure}
 
-\par O sinal é discretizado no tempo levando em conta a velocidade de deriva dos elétrons, dividindo em 512 canais o tempo que o elétron leva para percorrer toda câmara do TPC\cite{josh_bradt, pattpc}. A velocidade de deriva do elétron no gás $^4$He é da ordem de 5 $mm$/$\mu s$\cite{pattpc}, onde o elétron percorre os 50 cm da câmara em cerca de 100 $\mu s$. Dividindo esse tempo pelos 512 canais tem-se que cada canal (\textit{time bucket}) possui 192 $ns$ de largura. Cada centroide detectado é um ponto de interação de uma partícula carrega com o gás. A carga acumulada $Q$ dessa interação é a área do pulso associado ao centroide. Cada centroide então representa um ponto no espaço ($x$, $y$, $t$, $Q$). Um exemplo de evento reconstruído está na figura \ref{fig:event_cap_exp}.
+\par O sinal é discretizado no tempo levando em conta a velocidade de deriva dos elétrons, dividindo em 512 canais o tempo que o elétron leva para percorrer toda câmara do TPC\cite{josh_bradt, pattpc}. A velocidade de deriva do elétron no gás $^4$He é da ordem de 5 $mm$/$\mu s$\cite{pattpc}, onde o elétron percorre os 50 cm da câmara em cerca de 100 $\mu s$. Dividindo esse tempo pelos 512 canais tem-se que cada canal (\textit{time bucket}) possui 192 $ns$ de largura. Cada centroide detectado é um ponto de interação de uma partícula carregada com o gás. A carga acumulada $Q$ dessa interação é a área do pulso associado ao centroide. Cada centroide então representa um ponto no espaço ($x$, $y$, $t$, $Q$). Um exemplo de evento reconstruído está na figura \ref{fig:event_cap_exp}.
 
 \begin{figure}[H]
     \centering
@@ -290,7 +267,7 @@ onde no tempo $t_0$ = 0 o elétron está no plano do detector ($z$ = 0).
     \label{fig:event_cap_exp}
 \end{figure}
 
-\par Para reconstituir eventos como o da figura \ref{fig:event_cap_exp}, foram analisados cerca de 300 pulsos. Existem canais auxiliares que servem para evitar armazenar canais sem detecção. Caso haja detecção além do centro do \textit{Micromegas} então os sinais gerados pelo evento são armazenados\cite{josh_bradt, attpc}. O número de eventos reconstruídos é da ordem de milhões, portanto a quantidade de sinais que precisam ser analisados é muito grande, o que gera a necessidade de desenvolvimento de algoritmos extremamente eficientes em tempo para a análise. Para a análise completa do experimento foram seguidas as seguintes etapas:
+\par Para reconstituir eventos como o da figura \ref{fig:event_cap_exp}, foram analisados cerca de 300 pulsos. Existem canais auxiliares que servem para evitar armazenar canais sem detecção. Caso haja detecção além do centro do \textit{Micromegas} então os sinais gerados pelo evento são armazenados\cite{josh_bradt, attpc}. O número de eventos reconstruídos é da ordem de milhões, portanto a quantidade de sinais que precisam ser analisados é muito grande, em comparação com experimentos em física nuclear com apenas alguns canais de detecção, o que gera a necessidade de desenvolvimento de algoritmos extremamente eficientes em tempo para que a análise não demande muito tempo. Para a análise completa do experimento foram seguidas as seguintes etapas:
 
 % \par Nem todos os \textit{pads} do detector são ativados por evento. Existem canais auxiliares que servem para evitar armazenar canais sem detecção. Caso haja detecção além do centro do \textit{Micromegas} então os sinais gerados pelo evento são armazenados\cite{josh_bradt, attpc}. São gerados cerca de 300 sinais por evento, sendo que existem milhões de eventos, o que gera a necessidade de desenvolvimento de algoritmos extremamente eficientes em tempo para a análise. Para a análise completa do experimento precisamos seguir as seguintes etapas:
 
@@ -306,14 +283,14 @@ onde no tempo $t_0$ = 0 o elétron está no plano do detector ($z$ = 0).
 %     \item Com a cinemática reconstruída podemos associar as partículas com as trajetórias e finalmente construir as seções de choque. 
 % \end{itemize}
 
-\par A análise dos pulsos, reconstituição de eventos, reconstrução da cinemática, gráficos das distribuições angulares e resultados serão mostradas nos próximos capítulos.
+\par A análise dos pulsos, reconstituição de eventos, reconstrução da cinemática, gráficos das distribuições angulares e resultados são apresentadas nos próximos capítulos.
 
 % \chapter{Uma breve introdução ao \textit{Machine Learning}}\label{sec:ml}
 \chapter{Desenvolvimento de ferramentas de \textit{machine learning} para analise de dados}\label{sec:ml}
 
-\par Um dos objetivos desse trabalho está em desenvolver ferramentas baseadas em \textit{machine learning} para a análise do grande volume de dados gerada pelo alvo ativo. Nesse capítulo será explicada a metodologia usada para a implementação dessas ferramentas, e algumas aplicações na física nuclear.
+\par Um dos objetivos desse trabalho está em desenvolver ferramentas baseadas em \textit{machine learning} para a análise do grande volume de dados gerada pelo alvo ativo. Nesse capítulo está explicada a metodologia usada para a implementação dessas ferramentas, e algumas aplicações na física nuclear.
 
-\par \textit{Machine learning} é a área de estudo que desenvolve algoritmos para que eles possam aprender com os dados, sem serem explicitamente programados para isso\cite{mlbook}. Supõe-se que uma rede neural imite um sistema biológico, em que os neurônios interajam enviando sinais na forma de funções matemáticas entre as camadas. Isso inspirou um modelo matemático simples para um neurônio artificial\cite{curso}:
+\par \textit{Machine learning} é a área de estudo que desenvolve algoritmos para que eles possam aprender com os dados, sem serem explicitamente programados para isso\cite{mlbook}. Supõe-se que uma rede neural imite um sistema biológico, em que os neurônios interajam enviando sinais na forma de funções matemáticas entre as camadas. Isso inspirou o uso do modelo matemático simples de uma função linear nos parâmetros para um neurônio artificial\cite{curso}:
 
 \begin{equation}\label{eq:model_n}
     y = f\left(\sum^{n}_{i = 1}\omega_i x_i + bi\right) = f(z),
@@ -323,7 +300,7 @@ onde no tempo $t_0$ = 0 o elétron está no plano do detector ($z$ = 0).
 
 \section{Tipos de redes neurais}
 
-\par Uma rede neural artificial, \textit{Artificial Neural Network} (ANN), é um modelo computacional que consiste de camadas de neurônios. Muitas ANNs foram desenvolvidas para o estudo de inteligência artificial\cite{mlbook, mldiverso}, mas grande parte consiste em uma camada de entrada (\textit{input layer}), uma camada de saída (\textit{output layer}) e eventuais camadas entre essas duas, chamadas de camadas ocultas (\textit{hidden layers}). Os tipos mais comuns são:
+\par Uma rede neural artificial, \textit{Artificial Neural Network} (ANN), é um modelo computacional que consiste de camadas de neurônios. ANNs foram desenvolvidas para o estudo de inteligência artificial\cite{mlbook, mldiverso}. ANNs consistem principalmente numa camada de entrada (\textit{input layer}), uma camada de saída (\textit{output layer}) e eventuais camadas entre essas duas, chamadas de camadas ocultas (\textit{hidden layers}). Os tipos mais comuns são:
 
 \subsubsection*{Feed-Forward Neural Networks}
 
@@ -379,10 +356,10 @@ Para o caso discreto, com $g$ sendo uma função resposta finita de tamanho $2M$
 
 % Os filtros têm seus valores estimados pelo treino da rede neural, gerando vários mapas (\textit{feature maps}).
 
-\par Existem outros tipos de redes neurais que não serão discutidas aqui, porém podem ser encontradas nas referências \cite{rbfbook, RNN_fund}.
+\par Existem outros tipos de redes neurais que não estão discutidas aqui, porém podem ser encontradas nas referências \cite{rbfbook, RNN_fund}.
 
-\section{Construção de uma rede neural}
-%, ou seja, todos os dados devem ter o mesmo formato.
+\section{Estrutura da rede neural}
+
 \par Para a construção de uma rede neural (nesse caso em específico de uma rede neural supervisionada, que será discutida mais para frente), precisamos primeiro entender sobre os dados que estamos trabalhando. Grande parte das redes neurais possuem um \textit{input} que deve ter dimensão fixa. O mesmo vale para o \textit{output}.
 
 \par Para cada camada da arquitetura devemos escolher sua função de ativação. Tanto FNNNs quanto CNNs podem possuir funções de ativação (função $f$ da equação \ref{eq:model_n}). Dentre muitas funções de ativação podemos citar a \textit{Rectified Linear Units} (ReLU)\cite{RELU}, sigmoide\cite{sigmoid_act}, linear e tangente hiperbólica\cite{act_comp}. A figura \ref{fig:ativacoes} mostra os gráficos dessas funções de ativação, onde no eixo x é o argumento e no eixo y o resultado da função.
@@ -452,13 +429,13 @@ Podemos dividir os sistemas de \textit{machine learning} em quatro tipos:
 
 \section{Aplicações de \textit{machine learning} na física nuclear}
 
-\par Em física nuclear, o uso de técnicas de \textit{machine learning} tem se mostrado cada vez mais importante. Na continuação serão citados alguns exemplos.
+\par Em física nuclear, o uso de técnicas de \textit{machine learning} tem se mostrado cada vez mais importante. Na continuação são citados alguns exemplos.
 
 \subsection{Análise de espectros para identificação de partículas (\textit{particle identification}, PID)}
 
 \par O uso de técnicas de aprendizado não supervisionado pode ser usado para a identificar de partículas em espectros $\Delta E$ - $E$. Neste tipo de espectros, as partículas são detectadas e separadas por regiões que facilmente podem ser identificadas visualmente\cite{DETC_TELE}. No entanto, a identificação visual desses espectros com os sistemas de detecção com milhares de canais é inviável de forma manual. Assim, ferramentas de \textit{machine learning} (ou inteligencia artificial) são de grande relevância para esse tipo de analise.
 
-Os resultados apresentados nessa seção foram obtidos na etapa inicial desta dissertação. Para o presente estudo, o espectro biparamétrico ($\Delta E$-$E$) mostrado na Figura \ref{subfig:espectro_1} será analisado. Os dados correspondem a reação de espalhamento e transferência no sistema $^{6}$Li +  $^{12}$C.
+Os resultados apresentados nessa seção foram obtidos na etapa inicial desta dissertação. Para o presente estudo, o espectro biparamétrico ($\Delta E$-$E$) mostrado na Figura \ref{subfig:espectro_1} foi analisado. Os dados correspondem a reação de espalhamento e transferência no sistema $^{6}$Li +  $^{12}$C.
 
 
 % O espectro biparamétrico ($\Delta E$ - $E$) mostrado pela figura \ref{subfig:espectro_1} é o resultado obtido do espalhamento do $^6$Li em $^{12}$C por um detector telescópio\cite{DETC_TELE}.
@@ -518,7 +495,7 @@ Os resultados apresentados nessa seção foram obtidos na etapa inicial desta di
 
 % \par Dada a capacidade de redes neurais de aprenderem padrões não lineares nos dados, isso tem se mostrado muito útil uma alternativa para estimar propriedades dos núcleos como: raio de carga nuclear \cite{raio_carga}, massa de núcleos \cite{nuclear_mass} etc.
 
-\subsection{Decaimento beta e processo $r$}
+\subsection{Decaimento $\beta$ e processo $r$}
 
 \par O decaimento $\beta$ é fundamental para entender a origem dos elementos pesados. Prever o tempo de meia vida do decaimento $\beta$ é de grande importância para simulações do processo $r$ (captura rápida de nêutrons). Com redes neurais é possível fazer previsões que levam em conta a física do problema, como visto na Ref. \cite{mlbetadecay}. O modelo de inteligência artificial leva em conta a teoria de Fermi para o decaimento beta, onde a função $f$ que é minimizada (função custo) é dada por
 
@@ -576,15 +553,15 @@ onde $T^{a}_{1/2}$ é o tempo de meia vida do decaimento beta medido experimenta
 
 \chapter{Reconstrução de nuvens de pontos a partir de algoritmos de \textit{machine learning}}\label{chapter:sinais}
 
-\par Esse capítulo irá descrever o procedimento usado para criar as nuvens de pontos (\textit{pointclouds}) a partir dos pulsos gerados por cada pixel do \textit{micromegas}, usando algoritmos de \textit{machine learning} supervisionado.
+\par Esse capítulo descreve o procedimento usado para criar as nuvens de pontos (\textit{pointclouds}) a partir dos pulsos gerados por cada pixel do \textit{micromegas}, usando algoritmos de \textit{machine learning} supervisionado.
 
-\par Algoritmos baseados em CNNs vem sendo usados com relativo sucesso para o processamento e análise de sinais\cite{FORTINO2022166497}, como por exemplo para discriminação de pulsos \cite{Holl2019}. CNNs possuem a capacidade de fazer ajustes multidimensionais e aprender padrões extremamente complexos. Além disso, CNNs são extremamente eficientes em tempo para a análise de grandes quantidades de dados em comparação com algoritmos comuns\cite{FORTINO2022166497}.
+\par Algoritmos baseados em CNNs vem sendo usados com relativo sucesso para o processamento e análise de sinais\cite{FORTINO2022166497}, como por exemplo para discriminação de pulsos \cite{Holl2019}. CNNs possuem a capacidade de fazer ajustes multidimensionais e aprender padrões extremamente complexos. Além disso, CNNs são mais eficientes em tempo para a análise de grandes quantidades de dados em comparação com algoritmos comuns\cite{FORTINO2022166497}.
 
-\par A quantidade de pulsos gerados nesse experimento é da ordem de centenas de milhões. Para a análise completa dos pulsos, são necessárias diferentes etapas que envolvem processos que muitas vezes precisam ser refeitos por causa de algum um erro no processo análise, por exemplo. Caso uma etapa dure cerca de 10 horas, notar algum erro no processo, ou ter que mudar algum parâmetro da análise, significaria ter que analisar novamente os dados, sendo um processo muito custoso em tempo.
+\par A quantidade de pulsos gerados nesse experimento é da ordem de centenas de milhões. Para a análise completa dos pulsos, são necessárias diferentes etapas que envolvem processos que muitas vezes precisam ser refeitos por causa de algum um erro no processo análise. Caso uma etapa dure cerca de 10 horas, notar algum erro no processo, ou ter que mudar algum parâmetro da análise, significaria ter que analisar novamente os dados, sendo um processo muito custoso em tempo.
 
-\par O uso de algoritmos de CNNs tem o objetivo de diminuir o tempo consumido para a análise dos pulsos. As redes neurais criadas são treinadas uma única vez e podem ser utilizadas de modo separado e/ou acoplado\cite{FORTINO2022166497}, como será mostrado na sequencia do capítulo.
+\par O uso de algoritmos de CNNs tem o objetivo de diminuir o tempo consumido para a análise dos pulsos. As redes neurais criadas são treinadas uma única vez e podem ser utilizadas de modo separado e/ou acoplado\cite{FORTINO2022166497}, como está mostrado na sequencia do capítulo.
 
-\par A análise foi dividida em três etapas: correção do fundo, deconvolução do sinal e detecção de picos. As redes neurais criadas foram supervisionadas, o que significa que foi preciso determinar a entrada (\textit{input}) e a saída (\textit{output}) das redes. Para isso foi feito um grande banco de dados, para utilizar no treinamento das redes neurais, que se beneficiam da grande quantidade de dados usada para o treino\cite{mlbook}.
+\par A análise dos dados experimentais foi dividida em três etapas: correção do fundo, deconvolução do sinal e detecção de picos. As redes neurais criadas foram supervisionadas, o que significa que foi preciso determinar a entrada (\textit{input}) e a saída (\textit{output}) das redes. Para isso foi feito um grande banco de dados, para utilizar no treinamento das redes neurais, que se beneficiam da grande quantidade de dados usada para o treino\cite{mlbook}.
 
 \par Na seção \ref{sec:pulses_trad}, está mostrado como o banco de dados para o treino das redes neurais desenvolvidas foi criado, e a construção das redes neurais está na seção \ref{sec:pulsos_ml}.
 
@@ -597,7 +574,7 @@ onde $T^{a}_{1/2}$ é o tempo de meia vida do decaimento beta medido experimenta
 
 \section{Construção do banco de dados para as redes neurais}\label{sec:pulses_trad}
 
-\par Essa seção irá descrever o processo de construção do banco de dados que foi usado para o treino das redes neurais das subseções \ref{subsec:pulso_ml_fundo}, \ref{subsec:pulso_ml_deconv} e \ref{subsec:pulso_ml_peaks}. Os sinais são gerados pelo detector \textit{micromegas} e cada um de seus canais possui eletrônica independente e os sinais recebidos são como os mostrados na figura \ref{fig:exemplos_sinais}.
+\par Essa seção descreve o processo de construção do banco de dados que foi usado para o treino das redes neurais das subseções \ref{subsec:pulso_ml_fundo}, \ref{subsec:pulso_ml_deconv} e \ref{subsec:pulso_ml_peaks}. Centenas de sinais foram produzidos pelo detector micromegas em cada evento. Cada um dos pixels do micromegas possui uma eletrônica independente que gera uma resposta como os mostrados na figura \ref{fig:exemplos_sinais}.
 
 \begin{figure}[H]
 \centering
@@ -618,7 +595,7 @@ onde $T^{a}_{1/2}$ é o tempo de meia vida do decaimento beta medido experimenta
 \label{fig:exemplos_sinais}
 \end{figure}
 
-\par No eixo $x$, cada um dos 512 \textit{time buckets} possui largura de 195 $n s$. No eixo $y$ tem-se a carga acumulada no detector para cada \textit{time bucket}. Na figura \ref{subfig:exemplos_sinais_1} há um sinal com um pedestal (fundo ou \textit{baseline}) com altura entre 300 e 450, e um pulso estreito em cima. Como mostrado na seção \ref{PATTPC}, os elétrons que surgiram da ionização do gás foram conduzidos perpendicularmente pelo campo elétrico até o detector. A interação da partícula com o gás é evidenciada justamente pelo pulso presente em \ref{subfig:exemplos_sinais_1}. Cada pixel $i$ do detector está em uma posição ($x_i$, $y_i$), o centroide de cada gaussiana fornece a coordenada em $t$ (\textit{time bucket}) para então ser convertida na posição em $z$ da partícula detectada, e a carga acumulada $Q$ do ponto é a área do pulso sem o fundo (gaussiana com centroide $t$).
+\par No eixo $x$, cada um dos 512 \textit{time buckets} possui largura de 195 $n s$. No eixo $y$ tem-se a carga acumulada no detector para cada \textit{time bucket}. Na figura \ref{subfig:exemplos_sinais_1} há um sinal com um pedestal (fundo ou \textit{baseline}) com altura entre 300 e 450, e um pulso estreito em cima. Como mostrado na seção \ref{PATTPC}, os elétrons que surgiram da ionização do gás foram conduzidos perpendicularmente pelo campo elétrico até o detector. A interação da partícula com o gás é evidenciada justamente pelo pulso presente em \ref{subfig:exemplos_sinais_1}. Cada pixel $i$ do detector está em uma posição ($x_i$, $y_i$), o centroide de cada gaussiana fornece a coordenada em $t$ (\textit{time bucket}) para então ser convertida na posição em coordenada $z$ do ponto de interação da partícula com o gás, e a energia depositada $Q$ é obtida da área do pulso sem fundo (gaussiana com centroide $t$).
 
 \par Para a figura \ref{subfig:exemplos_sinais_1} tem-se apenas um pulso estreito, o que corresponde à um feixe incidindo paralelamente àquele canal do plano detector (perpendicular ao campo elétrico), pois a projeção da interação da partícula com gás no tempo é uma distribuição estreita. No caso da figura \ref{subfig:exemplos_sinais_2}, há uma distribuição ampla do sinal do tempo, o que corresponde ao feixe incidindo perpendicularmente ao canal do plano detector. A ilustração desse processo está na figura \ref{fig:get_signal}, que mostra o processo da passagem de uma partícula carregada e como o sinal é gerado a partir disso.
 
@@ -634,9 +611,9 @@ onde $T^{a}_{1/2}$ é o tempo de meia vida do decaimento beta medido experimenta
     \label{fig:get_signal}
 \end{figure}
 
-\par Para analisar os pulsos deve-se primeiro remover o fundo (pedestal ou \textit{baseline}) dos sinais. O sinal de fundo é complexo e pode variar por canal e também por evento. Desde flutuações causadas pelo circuito eletrônico até efeitos sistemáticos gerados pela memória de \textit{buffer} circular alteram o sinal, podendo o tornar não analítico \cite{FORTINO2022166497, GET}. Com o sinal sem o fundo, se faz a deconvolução para determinar todos os centroides e cargas acumuladas dos pontos, para a reconstrução da nuvem de pontos. Todo esse processo pôde ser feito com algoritmos de \textit{machine learning} supervisionado\cite{FORTINO2022166497}. Para isso, foi criado um banco de dados que irá servir de \textit{output} e/ou \textit{input} para o treino das redes neurais.
+\par Para analisar os pulsos deve-se primeiro remover o fundo (pedestal ou \textit{baseline}) dos sinais. O sinal de fundo é complexo e pode variar por canal e também por evento. Desde flutuações causadas pelo circuito eletrônico até efeitos sistemáticos gerados pela memória de \textit{buffer} circular alteram o sinal, podendo o tornar não analítico \cite{FORTINO2022166497, GET}. Com o sinal sem o fundo, se faz a deconvolução para determinar todos os centroides e cargas acumuladas dos pontos, para a reconstrução da nuvem de pontos. Todo esse processo foi realizado nesse trabalho com algoritmos de \textit{machine learning} supervisionado\cite{FORTINO2022166497}. Para isso, foi criado um banco de dados que serviu de \textit{output} e/ou \textit{input} para o treino das redes neurais.
 
-\par A criação dos dados para o treino das redes neural será mostrado na seção \ref{subsec:pulses_baseline}. A criação das redes neurais está mostradas na seção \ref{sec:pulsos_ml}. 
+\par A criação dos dados para o treino das redes neural está mostrado na seção \ref{subsec:pulses_baseline}. A criação das redes neurais está mostrada na seção \ref{sec:pulsos_ml}. 
 
 % O fundo não é trivial de se determinar, pois não é analítico, oscilando muito entre os canais.
 
@@ -748,20 +725,20 @@ onde $T^{a}_{1/2}$ é o tempo de meia vida do decaimento beta medido experimenta
 \label{fig:ex_sinal_bkg}
 \end{figure}
 
-\par Os resultados do calculo do fundo de cada sinal foram armazenados e usados para a etapa de deconvolução do sinal, que deve ser feita com o sinal sem o fundo. Para evitar valores negativos após a remoção do fundo, o valor mínimo do sinal sem o fundo é zero. Sem o fundo podemos buscar por todos os picos e suas cargas correspondentes no sinal. Não podemos detectar diretamente todos os picos pois muitos deles estão em sobreposição. Para isso foi feita a deconvolução do sinal, descrita na subseção \ref{subsec:pulses_deconv}.
+\par Os resultados do calculo do fundo de cada sinal foram armazenados e usados para a etapa de deconvolução do sinal, que deve ser feita com o sinal sem o fundo. Para diminuir as flutuações numéricas após a remoção do fundo, o valor mínimo do sinal sem o fundo é zero. Sem o fundo podemos buscar por todos os picos e suas cargas correspondentes no sinal. Não podemos detectar diretamente todos os picos pois muitos deles estão em sobreposição. Para isso foi feita a deconvolução do sinal, descrita na subseção \ref{subsec:pulses_deconv}.
 
 % \par Com o fundo podemos então subtraí-lo do espectro. Podem aparecer valores negativos após a retirada do fundo, então para evitar esse problema o valor mínimo do sinal, após a retirada do fundo, é zero.
 
 
 \subsection{Deconvolução do sinal}\label{subsec:pulses_deconv}
 
-\par Essa subseção descreve a etapa de deconvolução do sinal, que serve de banco de dados para o treinamento da rede neural descrita na subseção \ref{subsec:pulso_ml_deconv}.
+%\par Essa subseção descreve a etapa de deconvolução do sinal, que serve de banco de dados para o treinamento da rede neural descrita na subseção \ref{subsec:pulso_ml_deconv}.
 
 \par Para aumentar a resolução dos picos foi usado o algoritmo \textit{gold deconvolution} presente na biblioteca \textit{TSpectrum} do \textit{ROOT}\cite{paper_gold_deconv}. O algoritmo tem como objetivo fazer a deconvolução do espectro, gerando uma função (nesse caso um sinal) resposta de acordo com o sigma esperado para os pulsos. O sinal resposta corresponde ao espectro com as gaussianas não sobrespostas. Isso significa que foi necessário determinar qual o valor de sigma dos pulsos para buscar a função resposta.
 
-\par O sigma dos pulsos é o mesmo de um sinal que possui apenas um pico. Ou seja, o sigma dos pulsos foi determinado fazendo a análise de sinais que possuem apenas 1 pico, fazendo um ajuste pelo método dos mínimos quadrados (MMQ) de uma gaussiana. Para buscar espectros com apenas um pico, foi usado o algoritmo de detecção de picos \textit{peak\_finder}, presente na biblioteca do \textit{scipy}\cite{scipy}, e para o ajuste da gaussiana foi usada o pacote \textit{lmfit} \cite{lmfit}. O valor de sigma encontrado foi de 4.09 (17) \textit{time buckets}.
+\par A largura dos pulsos é o mesmo de um sinal que possui apenas um pico. Ou seja, a largura dos pulsos foi determinada fazendo a análise de sinais que possuem apenas 1 pico, fazendo um ajuste pelo método dos mínimos quadrados (MMQ) de uma gaussiana. Para buscar espectros com apenas um pico, foi usado o algoritmo de detecção de picos \textit{peak\_finder}, presente na biblioteca do \textit{scipy}\cite{scipy}, e para o ajuste da gaussiana foi usada o pacote \textit{lmfit} \cite{lmfit}. O valor de sigma encontrado foi de 4.09 (17) \textit{time buckets}.
 
-\par O sigma escolhido foi ligeiramente maior pois, verificando empiricamente, em alguns casos o algoritmo separava o que deveria ser uma única gaussiana em duas. O valor de sigma usado na deconvolução foi de 4.30 \textit{time buckets}. Foi determinado também o número de iterações do algoritmo de deconvolução. O número de iterações escolhido foi de 700, menos que isso o algoritmo não estava separando totalmente picos sobrepostos. O limiar para a escolha de um ponto como um pico foi definido como ter altura maior que 20\% do valor máximo do sinal. Resultados da deconvolução estão na figura \ref{fig:ex_sinal_deconv}.
+\par A largura escolhida foi ligeiramente maior pois, verificando empiricamente, em alguns casos o algoritmo separava o que deveria ser uma única gaussiana em duas. O valor de sigma usado na deconvolução foi de 4.30 \textit{time buckets}. Foi determinado também o número de iterações do algoritmo de deconvolução. O número de iterações escolhido foi de 700, menos que isso o algoritmo não estava separando totalmente picos sobrepostos. O limiar para a escolha de um ponto como um pico foi definido como ter altura maior que 20\% do valor máximo do sinal. Resultados da deconvolução estão na figura \ref{fig:ex_sinal_deconv}.
 
 \begin{figure}[H]
 \centering
@@ -797,7 +774,7 @@ onde $T^{a}_{1/2}$ é o tempo de meia vida do decaimento beta medido experimenta
 
 \par O algoritmo de deconvolução também retorna a posição dos centroides encontrados, que indica a localização de um pico. Os mesmo picos podem ser obtidos com o \textit{peak\_finder}, com a vantagem de que o algoritmo possui muitos parâmetros diferentes para calibração, melhorando a detecção em comparação com os picos detectados pelo algoritmo do TSpectrum. A execução de 200.000 sinais, desde a estimativa e remoção do fundo, até a detecção dos centroides, demora cerca de 23.25 minutos, usando o processador Ryzen 5 3600X.
 
-\par Para determinar a carga acumulada $Q$ de cada ponto é necessário calcular a área do centroide do pico detectado. A área do sinal antes e depois da deconvolução é a mesma, mesmo para a região dos pulsos, portanto pode-se analisar diretamente o sinal após a deconvolução. Para achar a área do pulso, foi calculado o sigma dos pulsos após a deconvolução, para determinar a área como uma simples integral gaussiana. O sigma dos pulsos após a deconvolução é $\sigma_{dd}$ = 1.1543 (44) \textit{time buckets}. Com isso foi calculada a carga acumulada para cada ponto descoberto do evento. A carga acumulada $Q$ para cada ponto $i$ é dada por:
+\par Para determinar a carga acumulada $Q$ de cada ponto, é necessário calcular a área do centroide do pico detectado. A área do sinal antes e depois da deconvolução é a mesma, mesmo para a região dos pulsos, portanto pode-se analisar diretamente o sinal após a deconvolução. Para achar a área do pulso, foi calculada a largura dos pulsos após a deconvolução, para determinar a área como uma simples integral gaussiana. O sigma dos pulsos após a deconvolução é $\sigma_{dd}$ = 1.1543 (44) \textit{time buckets}. Com isso foi calculada a carga acumulada para cada ponto descoberto do evento. A carga acumulada $Q$ para cada ponto $i$ é dada por:
 
 \begin{equation}\label{eq:gauss_area}
     Q = \int^\infty _{-\infty} Ae^{-(t' - t_i)^2 / 2\sigma_{dd}^2} dt' = A\left |\sigma_{dd} \right|\sqrt{2\pi},
@@ -807,48 +784,10 @@ onde $T^{a}_{1/2}$ é o tempo de meia vida do decaimento beta medido experimenta
 
 \par Com o banco de dados para a deconvolução e também para a detecção de picos, basta criar as redes neurais, que serão descritas na seção \ref{sec:pulsos_ml}.
 
-%Com esse procedimento podemos então reconstituir os eventos (nuvens de pontos), obtendo, para cada evento, todas as coordenadas $x$, $y$, $t$ e $Q$ de cada ponto. A figura \ref{fig:ex_eventos} mostra exemplos de eventos reconstruídos.
-
-% AQUI FIGURA DAS NUVENS DE PONTO
-%\begin{figure}[H]
-%\centering
-%    \begin{subfigure}[b]{0.48\textwidth}
-%        \centering
-%        \includegraphics[scale=0.38]{figs/ex_ev_1.png}
-%        \caption{}
-%        \label{subfig:ex_ev_1}
-%    \end{subfigure}%
-%    \hfill
-%    \begin{subfigure}[b]{0.48\textwidth}
-%        \centering
-%        \includegraphics[scale=0.38]{figs/ex_ev_2.png}
-%        \caption{}
-%        \label{subfig:ex_ev_2}
-%    \end{subfigure}
-%    \begin{subfigure}[b]{0.48\textwidth}
-%        \centering
-%        \includegraphics[scale=0.38]{figs/ex_ev_3.png}
-%        \caption{}
-%        \label{subfig:ex_ev_3}
-%    \end{subfigure}%
-%    \hfill
-%    \begin{subfigure}[b]{0.48\textwidth}
-%        \centering
-%        \includegraphics[scale=0.38]{figs/ex_ev_4.png}
-%        \caption{}
-%        \label{subfig:ex_ev_4}
-%    \end{subfigure}
-%\caption{Exemplos de eventos reconstruídos através da análise dos sinais. A seta vermelha indica o sentido do feixe.}
-%\label{fig:ex_eventos}
-%\end{figure}
-
 \section{Análise dos pulsos com \textit{machine learning}}\label{sec:pulsos_ml}
 
-% \par Da mesma forma que na seção anterior, queremos fazer a reconstrução dos eventos a partir dos histogramas gerados pelos canais do detector. O que precisamos é da posição dos centroides presentes no espectro, porém não é tarefa que pode ser resolvida diretamente, é necessário quebrar em etapas, ou seja, deve-se remover o sinal de fundo, fazer a deconvolução do espectro (já sabendo qual o valor de sigma) para enfim buscar os picos.
 
-% \par Com \textit{machine learning} temos a possibilidade de criar algoritmos extremamente complexos sem definir operações explícitas como na seção anterior. Da solução anterior, para um vetor de tamanho $n$, a complexidade do consumo de tempo é $\mathcal{O}$($n$) para determinar o fundo, $\mathcal{O}$($m\times n$) para $m$ iterações da deconvolução e $\mathcal{O}$($n$) para detecção de picos. Sendo o maior consumo de tempo a deconvolução, podemos construir uma rede neural que faça a deconvolução porém em menor tempo. Devido à eletrônica do detector, o fundo do sinal de cada espectro possui informações relevantes para entender o funcionamento de cada pixel do detector, sua estimativa é importante para determinação de incertezas. Somado ao fato que para fazer a deconvolução é preciso do sinal sem a \textit{baseline}, então a estratégia será criar uma rede neural para nos dar a \textit{baseline} do espectro e uma que faça a deconvolução.
-
-\par Com \textit{machine learning} temos a possibilidade de criar algoritmos extremamente complexos sem definir operações explícitas. Usando os resultados das seções anteriores foram desenvolvidas três redes neurais, com o objetivo de: estimar o fundo (subseção \ref{subsec:pulso_ml_fundo}), fazer a deconvolução (\ref{subsec:pulso_ml_deconv}) e por fim detectar os picos (subseção \ref{subsec:pulso_ml_peaks}). 
+\par Com \textit{machine learning} temos a possibilidade de criar algoritmos de alta complexidade sem definir operações explícitas. Usando os resultados das seções anteriores foram desenvolvidas três redes neurais, com o objetivo de: estimar o fundo (subseção \ref{subsec:pulso_ml_fundo}), fazer a deconvolução (\ref{subsec:pulso_ml_deconv}) e por fim detectar os picos (subseção \ref{subsec:pulso_ml_peaks}). 
 
 %Os resultados dos algoritmos usados nas subseções \ref{subsec:pulses_baseline} e \ref{subsec:pulses_deconv} foram usados como \textit{outputs} para o aprendizado das redes neurais que foram desenvolvidas em cada etapa.
 
@@ -909,7 +848,7 @@ platô no \textit{loss}.}
 \par Exemplos de resultados de previsões da rede neural estão na figura \ref{fig:stb_examples}. A previsão do fundo possui um erro absoluto nos dados de treino de 6.5315 ADC Channels e nos dados de validação de 6.0783 ADC Channels. O sinal cru é subtraído do fundo, colocando o valor mínimo da subtração em 0. Comparando o erro médio absoluto de 200.000 sinais sem o respectivo fundo (resultante do algoritmo do TSpectrum) com o resultado da rede neural obtemos 4.5 ADC Channels.
 % Esse erro significa que, por exemplo, para o menor pico detectado considerado, que possui amplitude de cerca de 60 unidades em y, a incerteza estimada da amplitude seria de 7.5\%, ou seja, na menor amplitude possível para um pico a incerteza propagada seria de 7.5\% da amplitude.
 
-\par Rede neurais convolucionais têm a vantagem de usarem poucas variáveis e serem facilmente paralelizadas em sua execução\cite{mlbook}. Uma vantagem de redes neurais é o seu tempo de execução. Empiricamente a rede neural pode processar 200.000 sinais em apenas 8s (ou 25.000 sinais por segundo), sendo extremamente eficiente em tempo.
+\par Rede neurais convolucionais têm a vantagem de usarem poucas variáveis e serem facilmente paralelizadas em sua execução\cite{mlbook}. Uma vantagem de redes neurais é o seu tempo de execução. Empiricamente a rede neural pode processar 200.000 sinais em apenas 8s (ou 25.000 sinais por segundo), sendo muito eficiente em tempo.
 
 \begin{figure}[H]
 \centering
@@ -943,7 +882,7 @@ platô no \textit{loss}.}
 \label{fig:stb_examples}
 \end{figure}
 
-\par Nos exemplos mostrados nas figuras \ref{subfig:stb_ex1}, \ref{subfig:stb_ex2} e \ref{subfig:stb_ex1} os fundos dos sinais possuem grande flutuação e a rede neural se mostrou eficaz na previsão. No exemplo \ref{subfig:stb_ex4} a \textit{baseline} do sinal é extremamente complexa de se determinar pois o sinal, aproximadamente do canal 300 a 500, varia em cerca de 50 unidades em \textit{y}. Apesar da rede neural determinar o fundo acima do fundo original, ao subtrair o espectro do fundo e colocar o valor mínimo em 0, o pulso presente entre os canais 200 e 300 é praticamente inalterado.
+\par Nos exemplos mostrados nas figuras \ref{subfig:stb_ex1}, \ref{subfig:stb_ex2} e \ref{subfig:stb_ex1} os fundos dos sinais possuem grande flutuação e a rede neural se mostrou eficaz na previsão. No exemplo \ref{subfig:stb_ex4} a \textit{baseline} do sinal é muito complexa de se determinar, pois o sinal, aproximadamente do canal 300 a 500, varia em cerca de 50 unidades em \textit{y}. Apesar da rede neural determinar o fundo acima do fundo original, ao subtrair o espectro do fundo e colocar o valor mínimo em 0, o pulso presente entre os canais 200 e 300 é praticamente inalterado.
 
 \par Com os resultados obtidos pela rede neural que calcula o sinal de fundo, o próximo passo foi criar a rede neural que faz a deconvolução do espectro sem a \textit{baseline}.
 
@@ -1131,7 +1070,7 @@ platô no \textit{loss}.}
 
 \par Foi comparada a saída da rede acoplada para o espectro após a deconvolução, com a saída de referência, que é o espectro após a deconvolução mostrado na subseção \ref{subsec:pulses_deconv}. Podemos usar novamente o erro médio absoluto para fins de comparação. O erro médio absoluto, para os 200.000 sinais, é de 7.45 ADC Channels. Com relação à incerteza, ela foi estimada como o desvio padrão da diferença de cada \textit{time bucket} do sinal tido como referência e o sinal após a rede neural acoplada. A incerteza é da ordem de 6\% da amplitude do sinal no ponto.
 
-\par Com relação a eficiência em tempo, a rede neural da figura \ref{fig:arq:source_to_segmentation} processa 200.000 sinais em 12 segundos, usando a GPU NVIDIA Tesla P100. Somando esse tempo com a determinação dos centroides, que é de aproximadamente 4.3 segundos, o tempo total para processar 200 mil sinais é de cerca de 16.3 segundos, cerca de 90 vezes mais rápido que os métodos mostrados na seção \ref{sec:pulses_trad}. Exemplos da reconstrução das nuvens de pontos usando a rede neural da figura \ref{fig:arq:source_to_segmentation} estão na figura \ref{subfig:ex_ev_4}.
+\par Com relação a eficiência em tempo, a rede neural da figura \ref{fig:arq:source_to_segmentation} processa 200.000 sinais em 12 segundos, usando a GPU NVIDIA Tesla P100. Somando esse tempo com a determinação dos centroides, que é de aproximadamente 4.3 segundos, o tempo total para processar 200 mil sinais é de cerca de 16.3 segundos, cerca de 90 vezes mais rápido que os métodos mostrados na seção \ref{sec:pulses_trad}. Exemplos da reconstrução das nuvens de pontos usando a rede neural da figura \ref{fig:arq:source_to_segmentation} são apresentados na figura \ref{subfig:ex_ev_4}.
 
 \begin{figure}[H]
 \centering
@@ -1181,41 +1120,11 @@ platô no \textit{loss}.}
 
 \par Essa seção irá descrever o processo de \textit{tracking} usando algoritmos de \textit{machine learning} não supervisionados. As nuvens de pontos (eventos) que foram analisadas são como o da figura \ref{subfig:exemplo_1}. Nessa figura é notável ao olho humano que os pontos formam estruturas de retas. Essa retas foram detectadas com algoritmos de \textit{clustering}, pelo fato da estrutura aparente dos dados e, também, por não existir um tamanho fixo das nuvens de pontos. O número de pontos pode variar de 30 até cerca de 200, não considerando pontos ruidosos.
 
+
 \par Para diminuir a quantidade de pontos ruidosos, foram usados dois filtros. O primeiro filtro exclui pontos baseado na sua carga, colocando um limiar onde pontos com carga $Q$ $<$ 110 são descartados. O segundo filtro, chamado de \textit{outlier removal}, elimina pontos considerados \textit{outliers} globais, de modo que, caso um ponto não possua um número mínimo de vizinhos $n_{or}$ = 4 em um raio de distância $d_{or}$ = 12 mm, então ele é descartado. O \textit{outlier removal} está presente na biblioteca Open3D\cite{open3d} no Python e funciona excluindo pontos muito isolados uns dos outros.
 
-\par Existem diversas opções de algoritmos de clustering, como o \textit{Density-based spatial clustering of applications with noise} (DBSCAN)\cite{dbscan}, porém a escolha deve levar em conta a performance em tempo, por isso o algoritmo usado foi o \textit{Hierarchical} DBSCAN (HDBSCAN) \cite{hdbscan1, hdbscan2}. O algoritmo tem como entrada a nuvem de pontos e parâmetros esperados para a densidade dos \textit{clusters} presentes no conjunto de pontos. O algoritmo retorna os diferentes \textit{clusters} identificados. Os \textit{clusters} então passam por um ajuste por mínimos quadrados, para determinar o versor e um ponto arbitrário que determinam a reta tridimensional. A figura [xx] mostra o resultado da aplicação do HDBSCAN na nuvem de pontos mostrada na figura [xx]. O algoritmo não é perfeito e possui falhas em alguns resultados, como por exemplo na figura [xx]. As nuvens de pontos reconstruídas não possuem, em certos casos, densidade de pontos o suficiente para resultar em 100\% de acurácia do evento.
+\par Existem diversas opções de algoritmos de clustering, como o \textit{Density-based spatial clustering of applications with noise} (DBSCAN)\cite{dbscan}, porém a escolha deve levar em conta a performance em tempo, por isso o algoritmo usado foi o \textit{Hierarchical} DBSCAN (HDBSCAN) \cite{hdbscan1, hdbscan2}. O algoritmo tem como entrada a nuvem de pontos e parâmetros esperados para a densidade dos \textit{clusters} presentes no conjunto de pontos. O algoritmo retorna os diferentes \textit{clusters} identificados. Os \textit{clusters} então passam por um ajuste por mínimos quadrados, para determinar o versor e um ponto arbitrário que determinam a reta tridimensional. A figura \ref{subfig:antes_clustering} mostra o resultado da aplicação do HDBSCAN na nuvem de pontos mostrada na figura \ref{subfig:exemplo_1}. O algoritmo não é perfeito e possui falhas em alguns resultados, como por exemplo na figura [xx]. As nuvens de pontos reconstruídas não possuem, em certos casos, densidade de pontos o suficiente para resultar em 100\% de acurácia do evento.
 
-\par O HDBSCAN apresenta falhas no seu resultado, como visto na figura \ref{subfig:antes_clustering}, em que, por exemplo, um único \textit{cluster} acaba sendo dividido em dois \textit{clusters} muito próximos. A próxima etapa foi de correção da saída do \textit{clustering}. A ideia é comparar, dois a dois, todos os \textit{clusters} resultantes do algoritmo e, se satisfazer um determinado critério, unificar os dois clusters\cite{artigo}. Do ponto de vista computacional, esse problema é abordado avaliando a semelhança entre dois \textit{clusters}. Existem métricas como a distância de Jaccard\cite{jaccard_distance} e o coeficiente de silhueta\cite{silhueta}. A correção feita se dá em duas etapas: primeiro comparando os versores entre duas retas e depois verificando se a condição da equação \ref{criterio_clustering} é satisfeita.
-
-\par Caso a diferença absoluta entre os ângulos com relação ao versor (0, 0, 1) seja menor que 9º (determinado empiricamente), então as duas retas serão combinadas se obedecerem a condição dada por
-
-\begin{equation}\label{criterio_clustering}
-    \sum_{i = 0}^{N_1}\frac{d_{i2}}{N_1} < \alpha \space d_{min}, 
-\end{equation}
-
-onde $N_1$ é o número de pontos da reta 1, $d_{i2}$ a distância do ponto $i$ da reta 1 em relação à reta 2, $\alpha$ é um parâmetro com valor a ser escolhido e $d_{min}$ é a distância mínima de ponto a reta. Os valores foram determinados empiricamente, tais que $\alpha$ = 1.75 e $d_{min}$ = 15 mm. A figura \ref{subfig:depois_clustering} mostra o resultado da correção baseada nesses critérios no resultado anterior mostrado na figura \ref{subfig:antes_clustering}.
-
-
-
-%A etapa de correção da saída do p-RANSAC é chamada de clusterização (não a mesma clusterização usada em \textit{machine learning}). A ideia é comparar, dois a dois, todos os \textit{clusters} resultantes do algoritmo e, se satisfazer um determinado critério, unificar os dois clusters\cite{artigo}. Do ponto de vista computacional, esse problema é abordado avaliando a semelhança entre dois \textit{clusters}. Existem métricas como a distância de Jaccard\cite{jaccard_distance} e o coeficiente de silhueta\cite{silhueta}.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- Essas retas são identificadas com estimadores robustos\cite{artigo}, resultando na figura \ref{subfig:antes_clustering}, e seu resultado foi corrigido resultando na figura \ref{subfig:depois_clustering}.
 
 \begin{figure}[H]
 \centering
@@ -1229,67 +1138,29 @@ onde $N_1$ é o número de pontos da reta 1, $d_{i2}$ a distância do ponto $i$ 
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
         \includegraphics[scale=0.25, width=.95\columnwidth]{figs/Figure_8.png}
-        \caption{Evento sem a clusterização. As retas de cor amarela e verde são de um único \textit{cluster}.}
+        \caption{Evento com as detecções sem a correção. As retas de cor amarela e verde são de um único \textit{cluster}.}
         \label{subfig:antes_clustering}
     \end{subfigure}%
     \hspace{0.5cm}
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
         \includegraphics[scale=0.25, width=.95\columnwidth]{figs/fig_cluster.png}
-        \caption{Evento após a clusterização. Agora o evento possui as duas retas corretas, a azul e a verde.}
+        \caption{Evento corrigido. Agora o evento possui as duas retas corretas, a azul e a verde.}
         \label{subfig:depois_clustering}
     \end{subfigure}
-\caption{Sequência de análise de um evento. Em \ref{subfig:exemplo_1} temos o evento que é recebido para ser analisado, em \ref{subfig:antes_clustering} temos o mesmo evento após o RANSAC (antes da clusterização) e \ref{subfig:depois_clustering} mostra depois da correção. As cores das retas são arbitrárias e servem apenas para a diferenciação.}
+\caption{Sequência de análise de um evento. Em \ref{subfig:exemplo_1} temos o evento que é recebido para ser analisado, em \ref{subfig:antes_clustering} temos o mesmo evento após o HDBSCAN (antes da correção) e \ref{subfig:depois_clustering} mostra depois da correção. As cores das retas são arbitrárias e servem apenas para a diferenciação.}
 \label{fig:3d_examples}
 \end{figure}
 
-\par O algoritmo de \textit{tracking} escolhido deve ser capaz de identificar estruturas geométricas especificas (que no caso são retas tridimensionais) mesmo na presença de ruído, que são pontos que não pertencem à nenhum conjunto de pontos de uma reta detectada (também chamados de \textit{outliers}). Para tanto, foram testados estimadores robustos que são variações do RANSAC (\textit{RANdom SAmple Consensus})\cite{ransac, artigo}.
+\par O HDBSCAN apresenta falhas no seu resultado, como visto na figura \ref{subfig:antes_clustering}, em que, por exemplo, um único \textit{cluster} acaba sendo dividido em dois \textit{clusters} muito próximos. A próxima etapa foi de correção da saída do \textit{clustering}. A ideia é comparar, dois a dois, todos os \textit{clusters} resultantes do algoritmo e, se satisfazer um determinado critério, unificar os dois clusters\cite{artigo}. Do ponto de vista computacional, esse problema é abordado avaliando a semelhança entre dois \textit{clusters}. Existem métricas como a distância de Jaccard\cite{jaccard_distance} e o coeficiente de silhueta\cite{silhueta}. A correção feita se dá em duas etapas: primeiro comparando os versores entre duas retas e depois verificando se a condição da equação \ref{criterio_clustering} é satisfeita.
 
-\par Os algoritmos testados foram o RANSAC, MLESAC\cite{ref:MLESAC}, RRANSAC, PROSAC, dentre outros, que estão presentes na biblioteca PCL (\textit{Point Cloud Library})\cite{pcl}. Os algoritmos com os melhores resultados (melhor capacidade de \textit{tracking}) foram o RANSAC e o PROSAC, sem grandes diferenças nos resultados entre os dois. Para melhor ainda mais o resultado, foi feita uma pequena modificação no RANSAC, a fim de obter melhores resultados nos dados do pAT-TPC. O algoritmo \ref{ransac_algo} (que chamei de p-RANSAC - \textit{prototype}-RANSAC) mostra o funcionamento. O algoritmo seleciona dois pontos de modo aleatório (\textit{Random Sampling}) e determina o versor $\hat{v}$ e o ponto $P_b$ que descrevem a única reta $r$ que passa pelos dois pontos. A reta é selecionada caso tenha um número mínimo $tam_{min}$ de pontos que pertencem à reta (chamado de \textit{inliers}) e tenha o mínimo (com relação aos outros conjunto de pontos) da estimativa $C$ dada por
-
-\begin{equation} \label{criterio_ransac}
-    C = \sum_{i = 0}^{N} \frac{d_i ^2}{N},
-\end{equation}
-
-onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância do i-ésimo ponto à reta.
-
-
-\begin{algorithm}
-    \caption{p-RANSAC}\label{ransac_algo}
-    \KwData{pointcloud, $N$, $d_{min}$, $tam_{min}$}
-    \For{cada iteração $ i =1,2,\ldots, N$}{
-        Seleciona dois pontos da \textit{pointcloud} de modo aleatório (\textit{Random Sampling})\;
-        Estima versor $v$ e um ponto $P_b$ que passe pela reta \textit{r} formada pelos dois pontos\;
-        \For{cada ponto $P$}{
-            Calcula a distância $d$ do ponto à reta \textit{r}\;
-            \If{$d < d_{min}$}{
-			    Guarda $P$ como pertencente à $r$\;
-	        }
-	    }
-	    \If{Número de pontos de $r > tam_{min}$}{
-	        Guarda $v$, $P_b$ e $C$\;
-	    }
-    }
-    Ordena as retas do menor para o maior $C$\;
-    \For{cada reta $r$ ordenada}{
-        \If{Número de pontos de $r > tam_{min}$}{
-            Guarda $v$, $P_b$ e pontos $P$ $\in r$\;
-        }
-    }
-    \Return Retas $r$ selecionadas na última etapa\;
-\end{algorithm}
-
-\par O \textit{RANSAC}, originalmente, consegue identificar apenas uma reta. O algoritmo \ref{ransac_algo} se baseia na ideia de usar o RANSAC sequencialmente, ou seja, no momento que um \textit{cluster} tem um tamanho mínimo, então ele é guardado para depois, então, poder ser escolhidos dentre as melhores estimativas \textit{C}. Com isso podemos identificar todas as possíveis estruturas presentes na nuvem de pontos.
-
-\par Uma mudança na eficiência do algoritmo \ref{ransac_algo} é na linha 2, chamada de \textit{Random Sampling}. Podemos nos beneficiar do \textit{Monte Carlo Rejecting} na escolha de dois pontos aleatórios. Por exemplo, caso sejam selecionados pontos muito próximos, o que poderia implicar em uma reta com poucos pontos \textit{inliers}, podemos descarta-los, aumentando a eficiência do \textit{random rampling}.
-
-\par. A abordagem feita se dá em duas etapas: primeiro comparando os versores entre duas retas e depois verificando uma condição. Caso a diferença absoluta entre os ângulos com relação ao versor (0, 0, 1) seja menor que 9º (determinado empiricamente), então as duas retas serão combinadas se obedecerem a condição dada pela equação \ref{criterio_clustering}, dada por
+\par Caso a diferença absoluta entre os ângulos com relação ao versor (0, 0, 1) seja menor que 9º (determinado empiricamente), então as duas retas serão combinadas se obedecerem a condição dada por
 
 \begin{equation}\label{criterio_clustering}
     \sum_{i = 0}^{N_1}\frac{d_{i2}}{N_1} < \alpha \space d_{min}, 
 \end{equation}
 
-onde $N_1$ é o número de pontos da reta 1, $d_{i2}$ a distância do ponto $i$ da reta 1 em relação à reta 2, $\alpha$ é um parâmetro com valor a ser escolhido e $d_{min}$ é a distância mínima de ponto a reta usada no algoritmo \ref{ransac_algo}. Os valores foram determinados empiricamente, tais que $\alpha$ = 1.75 e $d_{min}$ = 15 mm. A figura \ref{subfig:depois_clustering} mostra o resultado da clusterização baseada nesses critérios no resultado anterior mostrado na figura \ref{subfig:antes_clustering}.
+onde $N_1$ é o número de pontos da reta 1, $d_{i2}$ a distância do ponto $i$ da reta 1 em relação à reta 2, $\alpha$ é um parâmetro com valor a ser escolhido e $d_{min}$ é a distância mínima do ponto a reta. Os valores foram determinados empiricamente, tais que $\alpha$ = 1.75 e $d_{min}$ = 15 mm. A figura \ref{subfig:depois_clustering} mostra o resultado da correção baseada nesses critérios no resultado anterior mostrado na figura \ref{subfig:antes_clustering}.
 
 \par Após a correção, é necessário classificar cada reta como sendo ou o feixe, ou uma partícula originada de uma reação nuclear. O feixe incide na câmara com um ângulo muito pequeno com relação ao versor (0, 0, 1). Além disso, mesmo se o ângulo for muito pequeno, a reta do feixe cruza o plano da janela do TPC muito próximo do ponto mais provável da entrada o feixe. O ponto mais provável foi calculado usando a posição média da projeção dos pontos de um conjunto de eventos no plano \textit{x-y}. Disso obtemos que a posição inicial mais provável do feixe é tal que $x_f$ = -3.4 (6.7) mm e $y_f$ = -0.9 (6.3) mm. A incerteza é alta pois o feixe incide de modo bem distribuído da abertura da janela.
 
@@ -1364,15 +1235,90 @@ onde $\tilde{t_1}$, $\tilde{t_2}$ e $\tilde{t_3}$ são os hiperparâmetros a ser
 
 \par Da equação \ref{eq:menor_dist_retas} foi estabelecido um limite superior para $d_{max}$ tal que valores maiores que esse limite indicam uma reação nuclear em comum entre a partícula e o feixe. O valor foi determinado empiricamente e foi definido como $d_{max}^{sup}$ = 25 mm. Trajetórias cuja distância máxima de aproximação excedia $d_{max}^{sup}$, então a trajetória é descartada. A última condição para garantir que houve uma reação nuclear, é garantir que o vértice de reação está dentro da câmara, cujos limites são $|x| < $ 140mm, $|y| < $ 140mm e $|t| < $ 512.
 
-\par Para completar essa etapa, é necessário guarda a energia $E$ da trajetória. Ela é definida como
+\par Para completar essa etapa, foi necessário determinar a energia $E$ da trajetória e o comprimento $L$ da trajetória. A energia $E$ é definida como
 
 \begin{equation}
 	E = \sum_{i = 1}^{N} Q_i,
 \end{equation}
 
-\par onde $Q_i$ é a carga acumulada do i-ésimo ponto de um conjunto com $N$ pontos.
+\par onde $Q_i$ é a carga acumulada do i-ésimo ponto de um conjunto com $N$ pontos. O comprimento é definido como
 
-\par Com essa análise feita, tem-se todas as propriedades e informações necessárias dos eventos reconstruídos, sendo possível ir para a etapa de obtenção de resultados físicos mostrada no capítulo \ref{chapter:resultados}. A próxima seção irá mostrar como foi feita a mesma análise utilizando algoritmos de \textit{machine learning}.
+\begin{equation}
+	L = \max{d_{i, \vec{V_r}},
+\end{equation}
+
+\par onde $d_{Vr, i}$ é distância entre o ponto $i$ pertencente a trajetória até o vértice de reação $\vec{V_r}$.
+
+\par Com as informações da cinemática determinadas, é possível determinar as distribuições angulares, que está feito no capítulo \ref{chapter:resultados}.
+
+\par Essa não foi a única abordagem utilizada no trabalho. O objetivo da análise foi buscar eventos que possuíam, de modo geral, entre trajetórias (uma sendo o feixe, e as outras duas de partículas que surgiram da reação nuclear do feixe com o gás). Nem todos os eventos puderam ser reconstituídos, o que significou que foi utilizado tempo para a busca desses eventos. Na próxima seção foi discutido uma alternativa para se buscar, com as nuvens de pontos crua, eventos específicos que ocorreram no experimento.
+
+
+\section{Detecção de eventos com \textit{machine learning}}\label{sec:pointnet}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% Essas retas são identificadas com estimadores robustos\cite{artigo}, resultando na figura \ref{subfig:antes_clustering}, e seu resultado foi corrigido resultando na figura \ref{subfig:depois_clustering}.
+%
+%
+%
+%\par O algoritmo de \textit{tracking} escolhido deve ser capaz de identificar estruturas geométricas especificas (que no caso são retas tridimensionais) mesmo na presença de ruído, que são pontos que não pertencem à nenhum conjunto de pontos de uma reta detectada (também chamados de \textit{outliers}). Para tanto, foram testados estimadores robustos que são variações do RANSAC (\textit{RANdom SAmple Consensus})\cite{ransac, artigo}.
+%
+%\par Os algoritmos testados foram o RANSAC, MLESAC\cite{ref:MLESAC}, RRANSAC, PROSAC, dentre outros, que estão presentes na biblioteca PCL (\textit{Point Cloud Library})\cite{pcl}. Os algoritmos com os melhores resultados (melhor capacidade de \textit{tracking}) foram o RANSAC e o PROSAC, sem grandes diferenças nos resultados entre os dois. Para melhor ainda mais o resultado, foi feita uma pequena modificação no RANSAC, a fim de obter melhores resultados nos dados do pAT-TPC. O algoritmo \ref{ransac_algo} (que chamei de p-RANSAC - \textit{prototype}-RANSAC) mostra o funcionamento. O algoritmo seleciona dois pontos de modo aleatório (\textit{Random Sampling}) e determina o versor $\hat{v}$ e o ponto $P_b$ que descrevem a única reta $r$ que passa pelos dois pontos. A reta é selecionada caso tenha um número mínimo $tam_{min}$ de pontos que pertencem à reta (chamado de \textit{inliers}) e tenha o mínimo (com relação aos outros conjunto de pontos) da estimativa $C$ dada por
+%
+%\begin{equation} \label{criterio_ransac}
+%    C = \sum_{i = 0}^{N} \frac{d_i ^2}{N},
+%\end{equation}
+%
+%onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância do i-ésimo ponto à reta.
+%
+%
+%\begin{algorithm}
+%    \caption{p-RANSAC}\label{ransac_algo}
+%    \KwData{pointcloud, $N$, $d_{min}$, $tam_{min}$}
+%    \For{cada iteração $ i =1,2,\ldots, N$}{
+%        Seleciona dois pontos da \textit{pointcloud} de modo aleatório (\textit{Random Sampling})\;
+%        Estima versor $v$ e um ponto $P_b$ que passe pela reta \textit{r} formada pelos dois pontos\;
+%        \For{cada ponto $P$}{
+%            Calcula a distância $d$ do ponto à reta \textit{r}\;
+%            \If{$d < d_{min}$}{
+%			    Guarda $P$ como pertencente à $r$\;
+%	        }
+%	    }
+%	    \If{Número de pontos de $r > tam_{min}$}{
+%	        Guarda $v$, $P_b$ e $C$\;
+%	    }
+%    }
+%    Ordena as retas do menor para o maior $C$\;
+%    \For{cada reta $r$ ordenada}{
+%        \If{Número de pontos de $r > tam_{min}$}{
+%            Guarda $v$, $P_b$ e pontos $P$ $\in r$\;
+%        }
+%    }
+%    \Return Retas $r$ selecionadas na última etapa\;
+%\end{algorithm}
+%
+%\par O \textit{RANSAC}, originalmente, consegue identificar apenas uma reta. O algoritmo \ref{ransac_algo} se baseia na ideia de usar o RANSAC sequencialmente, ou seja, no momento que um \textit{cluster} tem um tamanho mínimo, então ele é guardado para depois, então, poder ser escolhidos dentre as melhores estimativas \textit{C}. Com isso podemos identificar todas as possíveis estruturas presentes na nuvem de pontos.
+%
+%\par Uma mudança na eficiência do algoritmo \ref{ransac_algo} é na linha 2, chamada de \textit{Random Sampling}. Podemos nos beneficiar do \textit{Monte Carlo Rejecting} na escolha de dois pontos aleatórios. Por exemplo, caso sejam selecionados pontos muito próximos, o que poderia implicar em uma reta com poucos pontos \textit{inliers}, podemos descarta-los, aumentando a eficiência do \textit{random rampling}.
+
+
 
 %\par O coeficiente de silhueta compara dois \textit{clusters} e retorna um valor entre -1 e 1 que informa se estão separados corretamente. O valor -1 informa que a separação dos \textit{clusters} estão errados, 0 indica sobreposição e 1 significa que a separação está correta. A métrica se mostra muito viável para análise de duas dimensões, porém para o caso de três dimensões essa métrica não se mostrou muito eficiente. Mesmo colocando um \textit{threshold} muito baixo o algoritmo indicava que deveria juntar \textit{clusters} mesmo que muito distantes um do outro.
 
