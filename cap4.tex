@@ -11,7 +11,7 @@
 \usepackage{indentfirst}
 \usepackage{float}
 \usepackage{amsmath}
-\usepackage{pgfplots}
+%\usepackage{pgfplots}
 % \usepackage{unicode-math}
 \newcommand\mathplus{+}
 % \usepackage{subfigure}
@@ -1112,7 +1112,7 @@ platô no \textit{loss}.}
 
 \par Assim como no capítulo \ref{chapter:point_cloud_analysis}, esse capítulo descreve o uso de algoritmos de \textit{machine learning} para a análise, desta vez para as nuvens de pontos. Os algoritmos usados foram tanto não supervisionados (algoritmos de \textit{clustering}) e supervisionados (redes neurais), com diferentes objetivos.
 
-\par Na seção \ref{sec:ml_pc} será mostrado o processo de detecção de trajetórias (\textit{tracking}) com algoritmos de \textit{machine learning} não supervisionados, além de mostrar alternativas com métodos supervisionados. 
+\par Na seção \ref{sec:forcabruta} será mostrado o processo de detecção de trajetórias (\textit{tracking}) com algoritmo de \textit{machine learning} não supervisionados, além de mostrar alternativas com métodos supervisionados. 
 
 
 
@@ -1244,17 +1244,64 @@ onde $\tilde{t_1}$, $\tilde{t_2}$ e $\tilde{t_3}$ são os hiperparâmetros a ser
 \par onde $Q_i$ é a carga acumulada do i-ésimo ponto de um conjunto com $N$ pontos. O comprimento é definido como
 
 \begin{equation}
-	L = \max{d_{i, \vec{V_r}},
+	L = \max{d_{i, \vec{V_r}}},
 \end{equation}
 
-\par onde $d_{Vr, i}$ é distância entre o ponto $i$ pertencente a trajetória até o vértice de reação $\vec{V_r}$.
+\par onde $d_{i, \vec{V_r}}$ é distância entre o ponto $i$ pertencente a trajetória até o vértice de reação $\vec{V_r}$.
 
-\par Com as informações da cinemática determinadas, é possível determinar as distribuições angulares, que está feito no capítulo \ref{chapter:resultados}.
-
-\par Essa não foi a única abordagem utilizada no trabalho. O objetivo da análise foi buscar eventos que possuíam, de modo geral, entre trajetórias (uma sendo o feixe, e as outras duas de partículas que surgiram da reação nuclear do feixe com o gás). Nem todos os eventos puderam ser reconstituídos, o que significou que foi utilizado tempo para a busca desses eventos. Na próxima seção foi discutido uma alternativa para se buscar, com as nuvens de pontos crua, eventos específicos que ocorreram no experimento.
+\par Essa não foi a única abordagem utilizada no trabalho. O objetivo da análise foi buscar eventos que possuíam, de modo geral, três trajetórias (uma sendo o feixe, e as outras duas de partículas que surgiram da reação nuclear do feixe com o gás). Nem todos os eventos puderam ser reconstituídos, o que significou que foi utilizado tempo para a busca desses eventos. Na próxima seção foi discutido uma alternativa para se buscar, com as nuvens de pontos crua, eventos específicos que ocorreram no experimento, sem ter que previamente buscar trajetórias.
 
 
 \section{Detecção de eventos com \textit{machine learning}}\label{sec:pointnet}
+
+\par Para evitar o processo de \textit{clustering} de nuvens de pontos que não possuem eventos de interesse (como o \textit{breakup}), é possível usar redes neurais supervisionadas capazes de processar nuvens de pontos tridimensionais para selecionar eventos de interesse. A rede neural usada para esse processo chama-se PointNet \cite{qi2016pointnet} e a arquitetura está na figura \ref{fig:aqr:pointnet}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.22]{figs/pointnet_arch.png}
+    \caption{Arquitetura da PointNet. A rede de classificação tem o \textit{input} com $n$ ponto com 3 coordenadas, onde são aplicadas sequencias de transformação que são agregadas por uma camada de max pooling. O \textit{ouput} é a classificação para $k$ classes possíveis. A rede de classificação é uma extensão da rede de classificação, classificando ponto a ponto a nuvem de pontos, em $m$ classes possíveis. Mais detalhes sobre a arquitetura podem ser encontrados na Ref. \cite{qi2016pointnet}}.
+    \label{fig:aqr:pointnet}
+\end{figure}
+
+
+\par A PointNet pode ser usada tanto para classificação quanto segmentação semântica de nuvens de pontos\cite{qi2016pointnet}. A classificação é no para a \textit{pointcloud} completa, já a segmentação semântica é a classificação ponto a ponto da nuvem de pontos\cite{qi2016pointnet}.
+
+\par  Para o uso da PointNet para classificação, foi criado um banco de dados para o treino da rede neural que tem como \textit{input} a nuvem de pontos e como \textit{output} o número de trajetórias presentes no evento. Um dos pontos negativos da PointNet é seu tamanho fixo nos dados de entrada\cite{qi2016pointnet}, pois no caso dos dados desse trabalho, o número de pontos por evento não é  fixo. Para resolver isso, foi determinado um tamanho fixo N = 300 pontos para todas as nuvens de pontos. Eventos com mais pontos que N são descartados, já eventos com menos pontos eram preenchidos com pontos repetidos da mesma nuvem de pontos, para completar até o tamanho N.
+
+\par Para determinar o número de trajetórias da rede neural, foi utilizado o estimador robusto que chamei de p-RANSAC, que é uma variação do RANSAC (RANdom SAmple Consensus). A escolha dele no lugar do HDBSCAN é pela melhor acurácia na detecção de trajetórias. As nuvens de pontos ainda passam pelos dois filtros e critérios de correção mostrados na seção \ref{sec:forcabruta}. O algoritmo \ref{ransac_algo} mostra o funcionamento do p-RANSAC. O algoritmo seleciona dois pontos de modo aleatório (\textit{Random Sampling}) e determina o versor $\hat{v}$ e o ponto $P_b$ que descrevem a única reta $r$ que passa pelos dois pontos. A reta é selecionada caso tenha um número mínimo $tam_{min}$ de pontos que pertencem à reta (chamado de \textit{inliers}) e tenha o mínimo (com relação aos outros conjunto de pontos) da estimativa $C$ dada por
+
+\begin{equation} \label{criterio_ransac}
+    C = \sum_{i = 0}^{N} \frac{d_i ^2}{N},
+\end{equation}
+
+onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância do i-ésimo ponto à reta.
+
+\begin{algorithm}[H]
+    \caption{p-RANSAC}\label{ransac_algo}
+    \KwData{pointcloud, $N$, $d_{min}$, $tam_{min}$}
+    \For{cada iteração $ i =1,2,\ldots, N$}{
+        Seleciona dois pontos da \textit{pointcloud} de modo aleatório (\textit{Random Sampling})\;
+        Estima versor $v$ e um ponto $P_b$ que passe pela reta \textit{r} formada pelos dois pontos\;
+        \For{cada ponto $P$}{
+            Calcula a distância $d$ do ponto à reta \textit{r}\;
+            \If{$d < d_{min}$}{
+			    Guarda $P$ como pertencente à $r$\;
+	        }
+	    }
+	    \If{Número de pontos de $r > tam_{min}$}{
+	        Guarda $v$, $P_b$ e $C$\;
+	    }
+    }
+    Ordena as retas do menor para o maior $C$\;
+    \For{cada reta $r$ ordenada}{
+        \If{Número de pontos de $r > tam_{min}$}{
+            Guarda $v$, $P_b$ e pontos $P$ $\in r$\;
+        }
+    }
+    \Return Retas $r$ selecionadas na última etapa\;
+\end{algorithm}
+
+
 
 
 
@@ -1282,37 +1329,10 @@ onde $\tilde{t_1}$, $\tilde{t_2}$ e $\tilde{t_3}$ são os hiperparâmetros a ser
 %
 %\par Os algoritmos testados foram o RANSAC, MLESAC\cite{ref:MLESAC}, RRANSAC, PROSAC, dentre outros, que estão presentes na biblioteca PCL (\textit{Point Cloud Library})\cite{pcl}. Os algoritmos com os melhores resultados (melhor capacidade de \textit{tracking}) foram o RANSAC e o PROSAC, sem grandes diferenças nos resultados entre os dois. Para melhor ainda mais o resultado, foi feita uma pequena modificação no RANSAC, a fim de obter melhores resultados nos dados do pAT-TPC. O algoritmo \ref{ransac_algo} (que chamei de p-RANSAC - \textit{prototype}-RANSAC) mostra o funcionamento. O algoritmo seleciona dois pontos de modo aleatório (\textit{Random Sampling}) e determina o versor $\hat{v}$ e o ponto $P_b$ que descrevem a única reta $r$ que passa pelos dois pontos. A reta é selecionada caso tenha um número mínimo $tam_{min}$ de pontos que pertencem à reta (chamado de \textit{inliers}) e tenha o mínimo (com relação aos outros conjunto de pontos) da estimativa $C$ dada por
 %
-%\begin{equation} \label{criterio_ransac}
-%    C = \sum_{i = 0}^{N} \frac{d_i ^2}{N},
-%\end{equation}
-%
-%onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância do i-ésimo ponto à reta.
+
 %
 %
-%\begin{algorithm}
-%    \caption{p-RANSAC}\label{ransac_algo}
-%    \KwData{pointcloud, $N$, $d_{min}$, $tam_{min}$}
-%    \For{cada iteração $ i =1,2,\ldots, N$}{
-%        Seleciona dois pontos da \textit{pointcloud} de modo aleatório (\textit{Random Sampling})\;
-%        Estima versor $v$ e um ponto $P_b$ que passe pela reta \textit{r} formada pelos dois pontos\;
-%        \For{cada ponto $P$}{
-%            Calcula a distância $d$ do ponto à reta \textit{r}\;
-%            \If{$d < d_{min}$}{
-%			    Guarda $P$ como pertencente à $r$\;
-%	        }
-%	    }
-%	    \If{Número de pontos de $r > tam_{min}$}{
-%	        Guarda $v$, $P_b$ e $C$\;
-%	    }
-%    }
-%    Ordena as retas do menor para o maior $C$\;
-%    \For{cada reta $r$ ordenada}{
-%        \If{Número de pontos de $r > tam_{min}$}{
-%            Guarda $v$, $P_b$ e pontos $P$ $\in r$\;
-%        }
-%    }
-%    \Return Retas $r$ selecionadas na última etapa\;
-%\end{algorithm}
+
 %
 %\par O \textit{RANSAC}, originalmente, consegue identificar apenas uma reta. O algoritmo \ref{ransac_algo} se baseia na ideia de usar o RANSAC sequencialmente, ou seja, no momento que um \textit{cluster} tem um tamanho mínimo, então ele é guardado para depois, então, poder ser escolhidos dentre as melhores estimativas \textit{C}. Com isso podemos identificar todas as possíveis estruturas presentes na nuvem de pontos.
 %
@@ -1384,66 +1404,66 @@ onde $\tilde{t_1}$, $\tilde{t_2}$ e $\tilde{t_3}$ são os hiperparâmetros a ser
 
 
 
-\section{Métodos com \textit{machine learning}}\label{sec:ml_pc}
+%\section{Métodos com \textit{machine learning}}\label{sec:ml_pc}
+%
+%\par Na seção \ref{sec:forcabruta} descrevemos o algoritmo completo de seleção de eventos para a análise. Agora o objetivo é aplicar algoritmos de \textit{machine learning} para melhorar o funcionamento de algo já existente, sugerir ou resolver o mesmo problema de uma maneira totalmente diferente.
 
-\par Na seção \ref{sec:forcabruta} descrevemos o algoritmo completo de seleção de eventos para a análise. Agora o objetivo é aplicar algoritmos de \textit{machine learning} para melhorar o funcionamento de algo já existente, sugerir ou resolver o mesmo problema de uma maneira totalmente diferente.
+%\subsection{Clusterização hierárquica}
 
-\subsection{Clusterização hierárquica}
-
-
-\par Nessa seção 
-\par Como queremos classificar pontos, dando \textit{labels} que diferenciem os pontos de cada reta, podemos usar algoritmos de clusterização (\textit{machine learning} não supervisionado). Devemos escolher algoritmos que sejam muito rápidos pois a ideia é substituir o uso do RANSAC. O algoritmo usado é o \textit{Hierarchical Density-Based Spatial Clustering of Applications with Noise} (HDBSCAN)\cite{hdbscan1, hdbscan2}, pois é muito eficiente em tempo e consegue realizar \textit{clustering} mesmo em dados muito complexos. O algoritmo consegue também nos dar os \textit{outliers} da \textit{pointcloud}, porém para eliminação de \textit{outliers} será usado novamente o \textit{outlier removal} do Open3D. A figura \ref{fig:cl_exs} mostra resultados do uso do algoritmo, já com as retas ajustadas. Percebe-se casos em que a houve falha na clusterização.
-
-\begin{figure}[H]
-\centering
-    \begin{subfigure}[b]{0.45\textwidth}
-        \centering
-        \includegraphics[scale=0.37]{figs/cl_ex1.png}
-        \caption{}
-        \label{subfig:cl_ex1}
-    \end{subfigure}%
-    \hfill
-    \begin{subfigure}[b]{0.45\textwidth}
-        \centering
-        \includegraphics[scale=0.37]{figs/cl_ex2.png}
-        \caption{}
-        \label{subfig:cl_ex2}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.45\textwidth}
-        \centering
-        \includegraphics[scale=0.37]{figs/cl_ex3.png}
-        \caption{}
-        \label{subfig:cl_ex3}
-    \end{subfigure}%
-    \hfill
-    \begin{subfigure}[b]{0.45\textwidth}
-        \centering
-        \includegraphics[scale=0.37]{figs/cl_ex4.png}
-        \caption{}
-        \label{subfig:cl_ex4}
-    \end{subfigure}
-\caption{Exemplos dos resultados para o HDBSCAN. Percebe-se que em \ref{subfig:cl_ex3} e \ref{subfig:cl_ex4} o algoritmo falhou, juntando diferentes \textit{clusters} ou simplesmente detectando ruído junto da \textit{track}.}
-\label{fig:cl_exs}
-\end{figure}
-
-\par A eficiência em relação ao RANSAC é menor, pois os \textit{clusters} são pouco densos, o que dificulta a seleção de \textit{clusters} pelo algoritmo. Além disso, o algoritmo tem dificuldade em separar \textit{clusters} que possuem pontos sobrepostos, ou seja, onde há vértice de reação (vide figuras \ref{subfig:cl_ex3} e \ref{subfig:cl_ex4}). A tabela \ref{tabela:ransacvshdbscan} mostra a comparação entre a taxa de acerto e a eficiência em tempo entre o HDBSCAN e do RANSAC. A taxa de acertos mostra mostra quantos foram corretamente solucionados (ou seja, todos os \textit{clusters} foram detectados corretamente), e a eficiência mostra a capacidade de processamento de eventos pelo algoritmo, medida em eventos por segundo. O \textit{benchmark} foi feito usando o processador Ryzen 5 3600X.
-
-\begin{table}[H]
-\centering
-\caption{Comparação entre algoritmos usados para identificar tracks em eventos. O HDBSCAN acerta menos vezes em comparação com o RANSAC (cerca de 14\% menos), porém é quase 4 vezes mais rápido. }
-\label{tabela:ransacvshdbscan}
-\begin{tabular}{|c|c|c|}
-\hline
-Método  & Taxa de acertos (\%) & Eficiência (eventos/s) \\ \hline
-RANSAC  & 78.2                 & 57                     \\ \hline
-HDBSCAN & 64.3                 & 208                    \\ \hline
-\end{tabular}
-\end{table}
-
-\par A clusterização se mostrou melhor em eventos que tinham uma separação clara entre os \textit{clusters}, sem pontos que coincidem duas \textit{tracks} diferentes\cite{TriplClust}, e também nos casos em que a densidade de pontos era muito significativo. Apesar da queda na taxa de acertos a velocidade de execução sobe significativamente, sendo uma possível escolha no lugar do RANSAC.
+%
+%\par Nessa seção 
+%\par Como queremos classificar pontos, dando \textit{labels} que diferenciem os pontos de cada reta, podemos usar algoritmos de clusterização (\textit{machine learning} não supervisionado). Devemos escolher algoritmos que sejam muito rápidos pois a ideia é substituir o uso do RANSAC. O algoritmo usado é o \textit{Hierarchical Density-Based Spatial Clustering of Applications with Noise} (HDBSCAN)\cite{hdbscan1, hdbscan2}, pois é muito eficiente em tempo e consegue realizar \textit{clustering} mesmo em dados muito complexos. O algoritmo consegue também nos dar os \textit{outliers} da \textit{pointcloud}, porém para eliminação de \textit{outliers} será usado novamente o \textit{outlier removal} do Open3D. A figura \ref{fig:cl_exs} mostra resultados do uso do algoritmo, já com as retas ajustadas. Percebe-se casos em que a houve falha na clusterização.
+%
+%\begin{figure}[H]
+%\centering
+%    \begin{subfigure}[b]{0.45\textwidth}
+%        \centering
+%        \includegraphics[scale=0.37]{figs/cl_ex1.png}
+%        \caption{}
+%        \label{subfig:cl_ex1}
+%    \end{subfigure}%
+%    \hfill
+%    \begin{subfigure}[b]{0.45\textwidth}
+%        \centering
+%        \includegraphics[scale=0.37]{figs/cl_ex2.png}
+%        \caption{}
+%        \label{subfig:cl_ex2}
+%    \end{subfigure}
+%    \begin{subfigure}[b]{0.45\textwidth}
+%        \centering
+%        \includegraphics[scale=0.37]{figs/cl_ex3.png}
+%        \caption{}
+%        \label{subfig:cl_ex3}
+%    \end{subfigure}%
+%    \hfill
+%    \begin{subfigure}[b]{0.45\textwidth}
+%        \centering
+%        \includegraphics[scale=0.37]{figs/cl_ex4.png}
+%        \caption{}
+%        \label{subfig:cl_ex4}
+%    \end{subfigure}
+%\caption{Exemplos dos resultados para o HDBSCAN. Percebe-se que em \ref{subfig:cl_ex3} e \ref{subfig:cl_ex4} o algoritmo falhou, juntando diferentes \textit{clusters} ou simplesmente detectando ruído junto da \textit{track}.}
+%\label{fig:cl_exs}
+%\end{figure}
+%
+%\par A eficiência em relação ao RANSAC é menor, pois os \textit{clusters} são pouco densos, o que dificulta a seleção de \textit{clusters} pelo algoritmo. Além disso, o algoritmo tem dificuldade em separar \textit{clusters} que possuem pontos sobrepostos, ou seja, onde há vértice de reação (vide figuras \ref{subfig:cl_ex3} e \ref{subfig:cl_ex4}). A tabela \ref{tabela:ransacvshdbscan} mostra a comparação entre a taxa de acerto e a eficiência em tempo entre o HDBSCAN e do RANSAC. A taxa de acertos mostra mostra quantos foram corretamente solucionados (ou seja, todos os \textit{clusters} foram detectados corretamente), e a eficiência mostra a capacidade de processamento de eventos pelo algoritmo, medida em eventos por segundo. O \textit{benchmark} foi feito usando o processador Ryzen 5 3600X.
+%
+%\begin{table}[H]
+%\centering
+%\caption{Comparação entre algoritmos usados para identificar tracks em eventos. O HDBSCAN acerta menos vezes em comparação com o RANSAC (cerca de 14\% menos), porém é quase 4 vezes mais rápido. }
+%\label{tabela:ransacvshdbscan}
+%\begin{tabular}{|c|c|c|}
+%\hline
+%Método  & Taxa de acertos (\%) & Eficiência (eventos/s) \\ \hline
+%RANSAC  & 78.2                 & 57                     \\ \hline
+%HDBSCAN & 64.3                 & 208                    \\ \hline
+%\end{tabular}
+%\end{table}
+%
+%\par A clusterização se mostrou melhor em eventos que tinham uma separação clara entre os \textit{clusters}, sem pontos que coincidem duas \textit{tracks} diferentes\cite{TriplClust}, e também nos casos em que a densidade de pontos era muito significativo. Apesar da queda na taxa de acertos a velocidade de execução sobe significativamente, sendo uma possível escolha no lugar do RANSAC.
 
 
-
+\par Com as informações da cinemática determinadas, é possível determinar as distribuições angulares, que está feito no capítulo \ref{chapter:resultados}.
 
 \chapter{Resultados}\label{chapter:resultados}
 
@@ -1474,6 +1494,10 @@ HDBSCAN & 64.3                 & 208                    \\ \hline
 %     \caption{Caption}
 %     \label{fig:my_label}
 % \end{figure}
+
+
+
+
 
 \chapter{Conclusão}\label{chapter:conclusao}
 
