@@ -1130,21 +1130,21 @@ platô no \textit{loss}.}
 \centering
     \begin{subfigure}[b]{\textwidth}
         \centering
-        \includegraphics[scale = 0.4]{figs/Figure_1.png}
+        \includegraphics[scale = 0.4]{figs/clustering_ex_1.png}
         \caption{Exemplo de evento analisado. Os pontos em azul são das partículas detectadas pelo TPC, a seta vermelha indicando o sentido do feixe e o TPC está representado pelo cilindro cinza.}
         \label{subfig:exemplo_1}
     \end{subfigure}%
     \hfill
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
-        \includegraphics[scale=0.25, width=.95\columnwidth]{figs/Figure_8.png}
-        \caption{Evento com as detecções sem a correção. As retas de cor amarela e verde são de um único \textit{cluster}.}
+        \includegraphics[scale=0.25, width=.95\columnwidth]{figs/clustering_ex_2.png}
+        \caption{Evento com as detecções sem a correção. As três retas de cores amarela, verde e azul são de um único \textit{cluster}.}
         \label{subfig:antes_clustering}
     \end{subfigure}%
     \hspace{0.5cm}
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
-        \includegraphics[scale=0.25, width=.95\columnwidth]{figs/fig_cluster.png}
+        \includegraphics[scale=0.25, width=.95\columnwidth]{figs/clustering_ex_3.png}
         \caption{Evento corrigido. Agora o evento possui as duas retas corretas, a azul e a verde.}
         \label{subfig:depois_clustering}
     \end{subfigure}
@@ -1152,7 +1152,7 @@ platô no \textit{loss}.}
 \label{fig:3d_examples}
 \end{figure}
 
-\par O HDBSCAN apresenta falhas no seu resultado, como visto na figura \ref{subfig:antes_clustering}, em que, por exemplo, um único \textit{cluster} acaba sendo dividido em dois \textit{clusters} muito próximos. A próxima etapa foi de correção da saída do \textit{clustering}. A ideia é comparar, dois a dois, todos os \textit{clusters} resultantes do algoritmo e, se satisfazer um determinado critério, unificar os dois clusters\cite{artigo}. Do ponto de vista computacional, esse problema é abordado avaliando a semelhança entre dois \textit{clusters}. Existem métricas como a distância de Jaccard\cite{jaccard_distance} e o coeficiente de silhueta\cite{silhueta}. A correção feita se dá em duas etapas: primeiro comparando os versores entre duas retas e depois verificando se a condição da equação \ref{criterio_clustering} é satisfeita.
+\par O HDBSCAN apresenta falhas no seu resultado, como visto na figura \ref{subfig:antes_clustering}, em que, por exemplo, um único \textit{cluster} acaba sendo dividido em três \textit{clusters} muito próximos. A próxima etapa foi de correção da saída do \textit{clustering}. A ideia é comparar, dois a dois, todos os \textit{clusters} resultantes do algoritmo e, se satisfazer um determinado critério, unificar os dois clusters\cite{artigo}. Do ponto de vista computacional, esse problema é abordado avaliando a semelhança entre dois \textit{clusters} usando métricas, como a distância de Jaccard\cite{jaccard_distance} e o coeficiente de silhueta\cite{silhueta}. A correção feita se dá em duas etapas: primeiro comparando os versores entre duas retas e depois verificando se a condição da equação \ref{criterio_clustering} é satisfeita.
 
 \par Caso a diferença absoluta entre os ângulos com relação ao versor (0, 0, 1) seja menor que 9º (determinado empiricamente), então as duas retas serão combinadas se obedecerem a condição dada por
 
@@ -1268,7 +1268,7 @@ onde $\tilde{t_1}$, $\tilde{t_2}$ e $\tilde{t_3}$ são os hiperparâmetros a ser
 
 \par  Para o uso da PointNet para classificação, foi criado um banco de dados para o treino da rede neural que tem como \textit{input} a nuvem de pontos e como \textit{output} o número de trajetórias presentes no evento. Um dos pontos negativos da PointNet é seu tamanho fixo nos dados de entrada\cite{qi2016pointnet}, pois no caso dos dados desse trabalho, o número de pontos por evento não é  fixo. Para resolver isso, foi determinado um tamanho fixo N = 300 pontos para todas as nuvens de pontos. Eventos com mais pontos que N são descartados, já eventos com menos pontos eram preenchidos com pontos repetidos da mesma nuvem de pontos, para completar até o tamanho N.
 
-\par Para determinar o número de trajetórias da rede neural, foi utilizado o estimador robusto que chamei de p-RANSAC, que é uma variação do RANSAC (RANdom SAmple Consensus). A escolha dele no lugar do HDBSCAN é pela melhor acurácia na detecção de trajetórias. As nuvens de pontos ainda passam pelos dois filtros e critérios de correção mostrados na seção \ref{sec:forcabruta}. O algoritmo \ref{ransac_algo} mostra o funcionamento do p-RANSAC. O algoritmo seleciona dois pontos de modo aleatório (\textit{Random Sampling}) e determina o versor $\hat{v}$ e o ponto $P_b$ que descrevem a única reta $r$ que passa pelos dois pontos. A reta é selecionada caso tenha um número mínimo $tam_{min}$ de pontos que pertencem à reta (chamado de \textit{inliers}) e tenha o mínimo (com relação aos outros conjunto de pontos) da estimativa $C$ dada por
+\par Para determinar o número de trajetórias nos eventos para o treino da rede neural, foi utilizado o estimador robusto que chamei de prototype-RANSAC (RANdom SAmple Consensus), que é uma variação do RANSAC. A escolha dele no lugar do HDBSCAN é pela melhor acurácia na detecção de trajetórias, apesar de ser cerca de 4 vezes mais lento. As nuvens de pontos (sem o acréscimo de pontos para a PointNet) ainda passam pelos dois filtros e critérios de correção mostrados na seção \ref{sec:forcabruta}. O algoritmo \ref{ransac_algo} mostra o funcionamento do p-RANSAC. O algoritmo seleciona dois pontos de modo aleatório (\textit{Random Sampling}) e determina o versor $\hat{v}$ e o ponto $P_b$ que descrevem a única reta $r$ que passa pelos dois pontos. A reta é selecionada caso tenha um número mínimo $tam_{min}$ de pontos que pertencem à reta (chamado de \textit{inliers}) e tenha o mínimo (com relação aos outros conjunto de pontos) da estimativa $C$ dada por
 
 \begin{equation} \label{criterio_ransac}
     C = \sum_{i = 0}^{N} \frac{d_i ^2}{N},
