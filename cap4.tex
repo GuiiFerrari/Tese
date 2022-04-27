@@ -360,7 +360,9 @@ Para o caso discreto, com $g$ sendo uma função resposta finita de tamanho $2M$
 
 \section{Estrutura da rede neural}
 
-\par Para a construção de uma rede neural (nesse caso em específico de uma rede neural supervisionada, que será discutida mais para frente), precisamos primeiro entender sobre os dados que estamos trabalhando. Grande parte das redes neurais possuem um \textit{input} que deve ter dimensão fixa. O mesmo vale para o \textit{output}.
+\par Para a construção de uma rede neural (nesse caso em específico de uma rede neural supervisionada, que está discutida mais para frente), é preciso definir sua estrutura. A estrutura da rede neural possui camadas e cada camada pode possuir uma função de ativação. No geral, tanto o \textit{input} quanto o \textit{output} possuem dimensão fixa. A rede é treinada minimizando uma função custo, otimizando os parâmetros da rede através de um otimizador.
+
+%\par Para a construção de uma rede neural , precisamos primeiro entender sobre os dados que estamos trabalhando. Grande parte das redes neurais possuem um \textit{input} que deve ter dimensão fixa. O mesmo vale para o \textit{output}.
 
 \par Para cada camada da arquitetura devemos escolher sua função de ativação. Tanto FNNNs quanto CNNs podem possuir funções de ativação (função $f$ da equação \ref{eq:model_n}). Dentre muitas funções de ativação podemos citar a \textit{Rectified Linear Units} (ReLU)\cite{RELU}, sigmoide\cite{sigmoid_act}, linear e tangente hiperbólica\cite{act_comp}. A figura \ref{fig:ativacoes} mostra os gráficos dessas funções de ativação, onde no eixo x é o argumento e no eixo y o resultado da função.
 
@@ -1324,8 +1326,8 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale = 0.22]{figs/ex1_pointnet_class.png}
-    \caption{Detecção de outliers com a rede neural de segmentação.}
+    \includegraphics[scale = 0.4]{figs/pointnet_seg_ex1.png}
+    \caption{Detecção de outliers com a rede neural de segmentação. A rede neural foi capaz de detectar os \textit{outliers} desse evento com 95\% de acurácia.}
     \label{fig:pointnet_segment_exs}
 \end{figure}
 
