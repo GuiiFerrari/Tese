@@ -148,7 +148,7 @@ Gas Electron Multiplier (GEM) \cite{GET}, que possui alta granularidade do plano
 
 \chapter{O experimento}\label{PATTPC}
 
-\par Esse capítulo descreve sobre a parte experimental desse trabalho que foi desenvolvido na Universidade de Notre Dame em Outubro de 2019. Nesse experimento o feixe radioativo $^{17}$F foi produzido e selecionado por rigidez magnética pelo sistema TWINSOL (TWIN SOLenids) \cite{twinsol}. O alvo ativo \textit{prototype Active Target - Time Projection Chamber} (pAT-TPC) \cite{pattpc} foi usando como alvo e detector simultaneamente. Na continuação, está descrito como foi feito o sistema de produção do feixe secundário $^{17}$F e a detecção das reações induzidas por esse feixe no alvo ativo.
+\par Esse capítulo descreve sobre a parte experimental desse trabalho que foi desenvolvido na Universidade de Notre Dame em Outubro de 2019. O experimento foi feito usando o feixe radioativo $^{17}$F produzido pelo sistema TWINSOL (TWIN SOLenids) \cite{twinsol} e o alvo ativo pAT-TPC \textit{prototype Active Target - Time Projection Chamber} \cite{pattpc} foi usando como alvo e detector simultaneamente. Na continuação, está descrito como foi feito o sistema de produção do feixe secundário $^{17}$F e a detecção das reações induzidas por esse feixe no alvo ativo.
 
 % \par Primeiro será descrita a produção do feixe de $^{17}$F com foco na descrição do sistema de produção de feixes radioativos (TWINSOL). Na seção seguinte será apresentado o detector pAT-TPC.
 
@@ -162,7 +162,7 @@ Gas Electron Multiplier (GEM) \cite{GET}, que possui alta granularidade do plano
 % \section{Produção do feixe de $^{17}$F}
 \section{Produção do feixe secundário $^{17}$F usando o sistema TWINSOL}
 
-\par A produção do feixe radioativo $^{17}$F foi feita a partir da reação do feixe estável de $^{16}$O com um alvo de deutério gasoso. O feixe primário $^{16}$O foi produzido e acelerado por um acelerador tipo Tandem van de Graff do ISNAP (\textit{Institute for Structure and Nuclear Astrophysics}) localizado na Universidade de Notre Dame, Estados Unidos, que possui uma tensão terminal de até 10 MV\cite{KOLATA1989503, NDtandem}. O feixe de $^{16}$O foi conduzido até a câmara alvo de produção, preenchida com $^4$He, no início do sistema TWINSOL, onde partículas emergentes de reações nucleares surgiram ($^{17}$F, $^{16}$O $^{17}$O). A figura \ref{fig:twinsol+pattpc} mostra o sistema TWINSOL acoplado com o pAT-TPC.
+\par A produção do feixe radioativo $^{17}$F foi feita a partir da reação do feixe estável de $^{16}$O com um alvo de deutério gasoso. O feixe primário $^{16}$O foi produzido e acelerado por um acelerador tipo Tandem van de Graff do ISNAP (\textit{Institute for Structure and Nuclear Astrophysics}) localizado na Universidade de Notre Dame, Estados Unidos, que possui uma tensão terminal de até 10 MV \cite{KOLATA1989503, NDtandem}. O feixe de $^{16}$O foi conduzido até a câmara alvo de produção, preenchida com deutério, no início do sistema TWINSOL, onde partículas emergentes de reações nucleares surgiram ($^{17}$F, $^{16}$O $^{17}$O). A figura \ref{fig:twinsol+pattpc} mostra o sistema TWINSOL acoplado com o pAT-TPC.
 
 \begin{figure}[H]
     \centering
@@ -171,7 +171,7 @@ Gas Electron Multiplier (GEM) \cite{GET}, que possui alta granularidade do plano
     \label{fig:twinsol+pattpc}
 \end{figure}
 
-\par O TWINSOL é um sistema de produção de feixes radioativos em voo que possui dois solenoides supercondutores alinhados que são usados para produzir, coletar, transportar, focar e analisar feixes estáveis e radioativos. O sistema se baseia na seleção de partículas a partir da sua rigidez magnética ($B\rho$)\cite{twinsol, ribras_leo, zamora_mater}. Cada solenoide possui 30 cm de raio interno e 1 m de comprimento\cite{twinsol}. O fato de ser um solenoide finito faz com que surjam efeitos de borda na componente radial do campo magnético do solenoide, cujo efeito faz com que o solenoide seja capaz de focalizar partículas. Para entender melhor o efeito de borda no campo magnético, e consequentemente o funcionamento do TWINSOL, simulações computacionais usando a biblioteca GEANT4\cite{geant4} foram feitas usando a geometria do sistema ``irmão" do TWINSOL, o Radioactive Ion Beams in Brasil (RIBRAS), que também possui dois solenoides supercondutores alinhados\cite{ribras_leo, ribras}. A figura \ref{fig:sim_ribras} da geometria usada na simulação mostra os dois solenoides de cor verde focalizando as partículas de cor laranja em um ponto do plano focal em vermelho. O campo magnético usado na simulação é função da posição do eixo, de cada solenoide, e está mostrado na figura \ref{fig:campo_mag}.
+\par O TWINSOL é um sistema de produção de feixes radioativos em voo que possui dois solenoides supercondutores alinhados que são usados para produzir, coletar, transportar, focar e analisar feixes estáveis e radioativos. O sistema se baseia na seleção de partículas a partir da sua rigidez magnética ($B\rho$) \cite{twinsol, ribras_leo, zamora_mater}. Cada solenoide possui 30 cm de raio interno e 1 m de comprimento \cite{twinsol}. O fato de ser um solenoide finito faz com que surjam efeitos de borda na componente radial do campo magnético do solenoide, cujo efeito faz com que o solenoide seja capaz de focalizar partículas. Para entender melhor o efeito de borda no campo magnético, e consequentemente o funcionamento do TWINSOL, simulações computacionais usando a biblioteca GEANT4 \cite{geant4} foram feitas usando a geometria do sistema ``irmão" do TWINSOL, o Radioactive Ion Beams in Brasil (RIBRAS), que também possui dois solenoides supercondutores alinhados \cite{ribras_leo, ribras}. A figura \ref{fig:sim_ribras} mostra a geometria usada na simulação, onde os solenoides são de cor verde focalizando as partículas de cor laranja em um ponto do plano focal em vermelho. O campo magnético usado na simulação é função da posição do eixo, de cada solenoide, e está mostrado na figura \ref{fig:campo_mag}.
 
 
 % A figura  mostra um exemplo de calculo do valor do campo magnético, usando valores do sistema , para as componentes $x$, $y$ e $z$. É nítido que o campo em $z$ permanece praticamente constante e próximo das extremidades da bobina (linha vertical tracejada preta), $B_x$ e $B_y$ crescem em módulo, fazendo com que o solenoide funcione como uma lente delgada.
@@ -179,19 +179,19 @@ Gas Electron Multiplier (GEM) \cite{GET}, que possui alta granularidade do plano
 \begin{figure}[H]
     \centering
     \includegraphics[scale = 0.95]{figs/Foco2S.png}
-    \caption{Simulação computacional do sistema RIBRAS, onde as partículas carregas em laranja surgem do ponto à direita daq figura e passam pelos dois solenoides em verde, para então serem focalizada em um ponto do plano focal em vermelho. A parte em preto dos solenoides corresponde aos limites físicos da bobina\cite{ribras_leo}.}
+    \caption{Simulação computacional do sistema RIBRAS, onde as partículas carregas em laranja surgem do ponto à direita da figura e passam pelos dois solenoides em verde, para então serem focalizada em um ponto do plano focal em vermelho. A parte em preto dos solenoides corresponde aos limites físicos da bobina \cite{ribras_leo}.}
     \label{fig:sim_ribras}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[scale = 0.85]{figs/Campo_mag.png}
-    \caption{Valor do campo magnético $B$ em tesla em função da posição em $z$ em centímetro da bobina. A linha vertical tracejada preta indica o limite físico da bobina. O campo foi calculado à uma distância de 8 cm do eixo do solenoide. É possível ver claramente o efeito de borda que há em um solenoide finito\cite{magnetic_field}.}
+    \caption{Valor do campo magnético $B$ em tesla em função da posição em $z$ em centímetro da bobina. A linha vertical tracejada preta indica o limite físico da bobina. O campo foi calculado à uma distância de 8 cm do eixo do solenoide. É possível ver claramente o efeito de borda que há em um solenoide finito \cite{magnetic_field}.}
     \label{fig:campo_mag}
 \end{figure}
 
 
-\par A trajetória as partículas dentro do solenoide são helicoidais devido à força de Lorentz e possuem uma determinada frequancia de ciclotron\cite{ribras_leo}. Além disso, cada solenoide é uma lente grossa usada para focalizar os feixes. Em uma aproximação de um solenoide como uma lente grossa, o foco depende da rigidez magnética da partícula através da relação\cite{KOLATA1989503, zamora_mater}:
+\par A trajetória as partículas dentro do solenoide são helicoidais devido à força de Lorentz e possuem uma determinada frequancia de ciclotron \cite{ribras_leo}. Além disso, cada solenoide é uma lente grossa usada para focalizar os feixes. Em uma aproximação de um solenoide como uma lente grossa, o foco depende da rigidez magnética da partícula através da relação \cite{KOLATA1989503, zamora_mater}:
 
 \begin{equation}
     \frac{1}{f} = \frac{B_z ^2}{(B\rho)^2},
@@ -207,7 +207,7 @@ onde $E$ é a energia, $m$ sua massa e $q$ seu estado de carga.
 
 %\par Para produzir $^{17}$F, uma célula gasosa localizada na câmara alvo de produção\cite{twinsol} preenchida com deutério foi bombardeada pelo feixe primário. Além de $^{17}$F, outras partículas também foram geradas, como o $^{17}$O, além de $^{16}$O do feixe espalhado.
 
-\par No experimento, os campos magnéticos dos solenoides foram ajustados para focalizar o feixe de $^{17}$F dentro do pAT-TPC. No entanto, mesmo para partículas diferentes, o $B_{\rho}$ pode ser muito próximo ou igual. Isso faz com que não seja possível obter um feixe de $^{17}$F com 100\% de pureza, e sim um coquetel de partículas\cite{zamora_mater}. O coquetel de partículas produzido possui 54\% de $^{17}$F, 41\% de $^{16}$O e cerca de 5\% de $^{17}$O. A figura \ref{fig:PID_17F} mostra o espectro biparamétrico de identificação de partículas, onde é possível identificar as partículas que estão presentes no feixe (coquetel de partículas). Por fim, o feixe  produzido pelo TWINSOL é conduzido até o pAT-TPC.
+\par No experimento, os campos magnéticos dos solenoides foram ajustados para focalizar o feixe de $^{17}$F dentro do pAT-TPC. No entanto, mesmo para partículas diferentes, o $B\rho$ pode ser muito próximo ou igual. Isso faz com que não seja possível obter um feixe de $^{17}$F com 100\% de pureza, e sim um coquetel de partículas \cite{zamora_mater}. O coquetel de partículas produzido possui 54\% de $^{17}$F, 41\% de $^{16}$O e cerca de 5\% de $^{17}$O. A figura \ref{fig:PID_17F} mostra o espectro biparamétrico de identificação de partículas obtido durante o experimento, onde é possível identificar as partículas que estão presentes no feixe (coquetel de partículas). Por fim, o feixe  produzido pelo TWINSOL é conduzido até o pAT-TPC.
 
 \begin{figure}[H]
     \centering
@@ -220,7 +220,7 @@ onde $E$ é a energia, $m$ sua massa e $q$ seu estado de carga.
 
 %\par Essa seção irá descrever brevemente propriedades geométricas e físicas relacionadas ao sistema de detecção usado neste experimento, o alvo ativo pAT-TPC.
 %  O pAT-TPC é um detector preenchido com gás que é usado como alvo-ativo.
-\par A figura \ref{subfig:pattpc} mostra o desenho esquemático do pAT-TPC. O detector possui uma cela cilíndrica de 50 cm de comprimento e 28 cm de diâmetro, onde o seu eixo é alinhado com o eixo do feixe\cite{pattpc}, que entra pelo duto central. Nesse experimento, a câmara foi preenchida com o $^4$He gasoso puro à uma pressão de 350 Torr que serve tanto para alvo de reações nucleares, quanto para a própria medição e detecção dos produtos da reação\cite{pattpc, pattpc2}. Tanto o feixe quanto partículas originadas da reação ionizam o gás e os elétrons que surgem dessa ionização foram conduzidos por um campo elétrico de 1 kV/cm perpendicular ao eixo da câmara até o plano detector (\textit{pad plane}), o \textit{Micromegas}\cite{micromegas}, mostrado na figura \ref{subfig:micromegas}.
+\par A figura \ref{subfig:pattpc} mostra o desenho esquemático do pAT-TPC. O detector possui uma cela cilíndrica de 50 cm de comprimento e 28 cm de diâmetro, onde o seu eixo é alinhado com o eixo do feixe \cite{pattpc}, que entra pelo duto central. Nesse experimento, a câmara foi preenchida com $^4$He gasoso puro à uma pressão de 350 Torr que serve tanto para alvo de reações nucleares, quanto para a própria medição e detecção dos produtos da reação \cite{pattpc, pattpc2}. Tanto o feixe quanto partículas originadas da reação ionizam o gás e os elétrons que surgem dessa ionização foram conduzidos por um campo elétrico de 1 kV/cm perpendicular ao eixo da câmara até o plano detector (\textit{pad plane}), o \textit{Micromegas} \cite{micromegas}, mostrado na figura \ref{subfig:micromegas}.
 
 \begin{figure}[H]
 \centering
@@ -234,14 +234,14 @@ onde $E$ é a energia, $m$ sua massa e $q$ seu estado de carga.
     \begin{subfigure}[t]{0.49\textwidth}
         \centering
         \includegraphics[scale=0.28]{figs/micromegas.png}
-        \caption{Foto do \textit{Micromegas}. O detector é multipixelado com uma maior densidade no centro, parte destacada na imagem. O \textit{pad} central tem diâmetro de 5 mm enquanto que as faixas coaxiais possuem passo de 2mm\cite{attpc, josh_bradt}.}
+        \caption{Foto do \textit{Micromegas}. O detector é multipixelado com uma maior densidade no centro, parte destacada na imagem. O \textit{pad} central tem diâmetro de 5 mm enquanto que as faixas coaxiais possuem passo de 2mm \cite{attpc, josh_bradt}.}
         \label{subfig:micromegas} 
     \end{subfigure}
 \caption{Figura esquemática do pAT-TPC e o detector \textit{Micromegas}\cite{pattpc}.}
 \label{fig:pattpc_e_micromegas}
 \end{figure}
 
-\par O \textit{Micromegas} é um dispositivo de amplificação de elétrons, que consiste em um plano detector com 2048 canais (\textit{pads}) triangulares com eletrônica independente, que usa o \textit{Generic Electronics for TPCs} (GET)\cite{GET}. Detalhes sobre a eletrônica podem ser encontrados nas Refs. \cite{GET, josh_bradt}. O formato triangular dos canais tem como objetivo maximizar a resolução espacial do detector\cite{attpc}. Cada canal possui uma posição ($x$, $y$) fixa e a terceira coordenada $z$ será determinada a partir do tempo de deriva dos elétrons no gás\cite{pattpc, pattpc2, attpc, josh_bradt}. Isso só é possível pois a velocidade de deriva (\textit{drift}) dos elétrons é constante\cite{drift_constant}, portanto a posição em $z$ da partícula é diretamente proporcional ao tempo de voo. Esse princípio que deu origem ao nome de \textit{Time Projection Chamber}, pois o evento é projetado no tempo de deriva dos elétrons no gás. A equação  \ref{eq:langevin} (equação de Langevin) descreve o movimento de um elétron com massa $m$ e carga $e$ é descrito por\cite{drift_constant}
+\par O \textit{Micromegas} é um dispositivo de amplificação de elétrons, que consiste em um plano detector com 2048 canais (\textit{pads}) triangulares com eletrônica independente, que usa o \textit{Generic Electronics for TPCs} (GET) \cite{GET}. Detalhes sobre a eletrônica podem ser encontrados nas Refs. \cite{GET, josh_bradt}. O formato triangular dos canais tem como objetivo maximizar a resolução espacial do detector \cite{attpc}. Cada canal possui uma posição ($x$, $y$) fixa e a terceira coordenada $z$ será determinada a partir do tempo de deriva dos elétrons no gás \cite{pattpc, pattpc2, attpc, josh_bradt}. Isso só é possível pois a velocidade de deriva (\textit{drift}) dos elétrons é constante \cite{drift_constant}, portanto a posição em $z$ da partícula é diretamente proporcional ao tempo de voo. Esse princípio que deu origem ao nome de \textit{Time Projection Chamber}, pois o evento é projetado no tempo de deriva dos elétrons no gás. A equação  \ref{eq:langevin} (equação de Langevin) descreve o movimento de um elétron com massa $m$ e carga $e$ é descrito por \cite{drift_constant}
 
 \begin{equation}\label{eq:langevin}
     m\frac{d\vec{v}}{dt} = e\left(\vec{E} +\vec{v}\times \vec{B}\right) - \frac{m}{\tau}\vec{v},
@@ -253,7 +253,7 @@ onde $\vec{E}$ é o vetor campo elétrico, $\vec{B}$ o vetor campo magnético, $
     \vec{v} = \frac{\tau}{m}e\vec{E}.
 \end{equation}
 
-\par A velocidade de deriva depende das propriedades termodinâmicas do gás (temperatura, pressão) e também de sua condutividade elétrica\cite{drift_constant}. Isso significa que a calibração da velocidade envolve não depende só do campo elétrico, mas também das propriedades do gás dentro do alvo ativo\cite{pattpc, drift_constant}. Para acharmos a coordenada $z$, basta integrar a equação \ref{eq:v_tpc} para obter
+\par A velocidade de deriva depende das propriedades termodinâmicas do gás (temperatura, pressão) e também de sua condutividade elétrica \cite{drift_constant}. Isso significa que a calibração da velocidade não depende só do campo elétrico, mas também das propriedades do gás dentro do alvo ativo \cite{pattpc, drift_constant}. Para acharmos a coordenada $z$, basta integrar a equação \ref{eq:v_tpc} para obter
 
 \begin{equation}
     z = \frac{\tau}{m}e\vec{E}(t - t_0),
@@ -261,7 +261,7 @@ onde $\vec{E}$ é o vetor campo elétrico, $\vec{B}$ o vetor campo magnético, $
 
 onde no tempo $t_0$ = 0 o elétron está no plano do detector ($z$ = 0).
 
-\par O pAT-TPC conta com uma camada extra de \textit{thick gems} acoplada ao detector micromegas. \textit{Thick gems} usam do fato de que, no momento em que o elétron passa para uma região de campo elétrico ordens de grandeza maior que de sua origem, ocorre a ionização secundária (quando o elétron ioniza o gás). Isso provoca o que é chamado de avalanche de elétrons, amplificando a intensidade do sinal recebido\cite{GET}. A figura \ref{fig:thick_gems} mostra a esquematização do \textit{Micromegas}, onde na eletrônica de saída é produzido um sinal em função do tempo.
+\par O pAT-TPC conta com uma camada extra de \textit{thick gems} acoplada ao detector micromegas. \textit{Thick gems} usam do fato de que, no momento em que o elétron passa para uma região de campo elétrico ordens de grandeza maior que de sua origem, ocorre a ionização secundária (quando o elétron ioniza o gás). Isso provoca o que é chamado de avalanche de elétrons, amplificando a intensidade do sinal recebido \cite{GET}. A figura \ref{fig:thick_gems} mostra a esquematização do \textit{Micromegas}, onde na eletrônica de saída é produzido um sinal em função do tempo.
 
 \begin{figure}[H]
     \centering
@@ -270,7 +270,7 @@ onde no tempo $t_0$ = 0 o elétron está no plano do detector ($z$ = 0).
     \label{fig:thick_gems}
 \end{figure}
 
-\par O sinal é discretizado no tempo levando em conta a velocidade de deriva dos elétrons, dividindo em 512 canais o tempo que o elétron leva para percorrer toda câmara do TPC\cite{josh_bradt, pattpc}. A velocidade de deriva do elétron no gás $^4$He é da ordem de 5 $mm$/$\mu s$\cite{pattpc}, onde o elétron percorre os 50 cm da câmara em cerca de 100 $\mu s$. Dividindo esse tempo pelos 512 canais tem-se que cada canal (\textit{time bucket}) possui 192 $ns$ de largura. Cada centroide detectado é um ponto de interação de uma partícula carregada com o gás. A carga acumulada $Q$ dessa interação é a área do pulso associado ao centroide. Cada centroide então representa um ponto no espaço ($x$, $y$, $t$, $Q$). Um exemplo de evento reconstruído está na figura \ref{fig:event_cap_exp}.
+\par O sinal é discretizado no tempo levando em conta a velocidade de deriva dos elétrons, dividindo em 512 canais o tempo que o elétron leva para percorrer toda câmara do TPC \cite{josh_bradt, pattpc}. A velocidade de deriva do elétron no gás $^4$He é da ordem de 5 $mm$/$\mu s$  \cite{pattpc}, onde o elétron percorre os 50 cm da câmara em cerca de 100 $\mu s$. Dividindo esse tempo pelos 512 canais tem-se que cada canal (\textit{time bucket}) possui 192 $ns$ de largura. Cada centroide detectado é um ponto de interação de uma partícula carregada com o gás. A carga acumulada $Q$ dessa interação é a área do pulso associado ao centroide. Cada centroide então representa um ponto no espaço ($x$, $y$, $t$, $Q$). Um exemplo de evento reconstruído está na figura \ref{fig:event_cap_exp}.
 
 \begin{figure}[H]
     \centering
@@ -279,7 +279,7 @@ onde no tempo $t_0$ = 0 o elétron está no plano do detector ($z$ = 0).
     \label{fig:event_cap_exp}
 \end{figure}
 
-\par Para reconstituir eventos como o da figura \ref{fig:event_cap_exp}, foram analisados cerca de 300 pulsos. Existem canais auxiliares que servem para evitar armazenar canais sem detecção. Caso haja detecção além do centro do \textit{Micromegas} então os sinais gerados pelo evento são armazenados\cite{josh_bradt, attpc}. O número de eventos reconstruídos é da ordem de milhões, portanto a quantidade de sinais que precisam ser analisados é muito grande, em comparação com experimentos em física nuclear com apenas alguns canais de detecção, o que gera a necessidade de desenvolvimento de algoritmos extremamente eficientes em tempo para que a análise não demande muito tempo. Para a análise completa do experimento foram seguidas as seguintes etapas:
+\par Para reconstituir eventos como o da figura \ref{fig:event_cap_exp}, foram analisados cerca de 300 pulsos. Existem canais auxiliares que servem para evitar armazenar canais sem detecção. Caso haja detecção além do centro do \textit{Micromegas} então os sinais gerados pelo evento são armazenados \cite{josh_bradt, attpc}. O número de eventos reconstruídos é da ordem de milhões, portanto a quantidade de sinais que precisam ser analisados é muito grande, em comparação com experimentos em física nuclear com apenas alguns canais de detecção, o que gera a necessidade de desenvolvimento de algoritmos extremamente eficientes em tempo para que a análise não demande muito tempo. Para a análise completa do experimento foram seguidas as seguintes etapas:
 
 % \par Nem todos os \textit{pads} do detector são ativados por evento. Existem canais auxiliares que servem para evitar armazenar canais sem detecção. Caso haja detecção além do centro do \textit{Micromegas} então os sinais gerados pelo evento são armazenados\cite{josh_bradt, attpc}. São gerados cerca de 300 sinais por evento, sendo que existem milhões de eventos, o que gera a necessidade de desenvolvimento de algoritmos extremamente eficientes em tempo para a análise. Para a análise completa do experimento precisamos seguir as seguintes etapas:
 
@@ -300,9 +300,9 @@ onde no tempo $t_0$ = 0 o elétron está no plano do detector ($z$ = 0).
 % \chapter{Uma breve introdução ao \textit{Machine Learning}}\label{sec:ml}
 \chapter{Desenvolvimento de ferramentas de \textit{machine learning} para analise de dados}\label{sec:ml}
 
-\par Um dos objetivos desse trabalho está em desenvolver ferramentas baseadas em \textit{machine learning} para a análise do grande volume de dados gerada pelo alvo ativo. Nesse capítulo está explicada a metodologia usada para a implementação dessas ferramentas, e algumas aplicações na física nuclear.
+\par Um dos objetivos desse trabalho está em desenvolver ferramentas baseadas em \textit{machine learning} para a análise do grande volume de dados gerada pelo alvo ativo. Nesse capítulo está explicada a metodologia usada para a implementação dessas ferramentas.
 
-\par \textit{Machine learning} é a área de estudo que desenvolve algoritmos para que eles possam aprender com os dados, sem serem explicitamente programados para isso\cite{mlbook}. Supõe-se que uma rede neural imite um sistema biológico, em que os neurônios interajam enviando sinais na forma de funções matemáticas entre as camadas. Isso inspirou o uso do modelo matemático simples de uma função linear nos parâmetros para um neurônio artificial\cite{curso}:
+\par \textit{Machine learning} é a área de estudo que desenvolve algoritmos para que eles possam aprender com os dados, sem serem explicitamente programados para isso \cite{mlbook}. Supõe-se que uma rede neural imite um sistema biológico, em que os neurônios interajam enviando sinais na forma de funções matemáticas entre as camadas. Isso inspirou o uso do modelo matemático simples de uma função linear nos parâmetros para um neurônio artificial \cite{curso}:
 
 \begin{equation}\label{eq:model_n}
     y = f\left(\sum^{n}_{i = 1}\omega_i x_i + bi\right) = f(z),
@@ -316,7 +316,7 @@ onde no tempo $t_0$ = 0 o elétron está no plano do detector ($z$ = 0).
 
 \subsubsection*{Feed-Forward Neural Networks}
 
-\par A \textit{Feed-forward neural networks} (FFNN) é a primeira e mais simples rede neural desenvolvida\cite{talent_ml, bishop2016pattern}. Nessa rede a informação se move apenas para frente através de camadas (da camada de entrada até a camada de saída). A figura \ref{fig:FFNN} mostra uma representação de rede, onde os neurônios são representados por círculos, enquanto que as linhas mostram as conexões entre os neurônios. Cada neurônio recebe informação de todos os neurônios da camada anterior, portanto a rede é chamada de totalmente conectada, \textit{fully-connected} (FC), FFNN. 
+\par A \textit{Feed-forward neural networks} (FFNN) é a primeira e mais simples rede neural desenvolvida \cite{talent_ml, bishop2016pattern}. Nessa rede a informação se move apenas para frente através de camadas (da camada de entrada até a camada de saída). A figura \ref{fig:FFNN} mostra uma representação de rede, onde os neurônios são representados por círculos, enquanto que as linhas mostram as conexões entre os neurônios. Cada neurônio recebe informação de todos os neurônios da camada anterior, portanto a rede é chamada de totalmente conectada, \textit{fully-connected} (FC), FFNN. 
 
 \begin{figure}[H]
     \centering
@@ -339,7 +339,7 @@ Para o caso discreto, com $g$ sendo uma função resposta finita de tamanho $2M$
     (f*g)[n] = \sum^{M}_{m = -M} f[n - m]g[m]. 
 \end{equation}
 
-\par Convoluções são invariantes sobre rotação e translação, portanto são muito utilizadas para processamento de sinais e imagens\cite{signal_book}. Para a convolução discreta se escolhe um filtro que irá atuar no vetor desejado. Para ilustrar o que significa isso, no caso discreto e unidimensional, a figura \ref{fig:conv_valid} mostra o processo de convolução de um vetor de tamanho 9 e um filtro de tamanho 3.
+\par Convoluções são invariantes sobre rotação e translação, portanto são muito utilizadas para processamento de sinais e imagens \cite{signal_book}. Para a convolução discreta se escolhe um filtro que irá atuar no vetor desejado. Para ilustrar o que significa isso, no caso discreto e unidimensional, a figura \ref{fig:conv_valid} mostra o processo de convolução de um vetor de tamanho 9 e um filtro de tamanho 3.
 
 \begin{figure}[H]
     \centering
@@ -376,7 +376,7 @@ Para o caso discreto, com $g$ sendo uma função resposta finita de tamanho $2M$
 
 %\par Para a construção de uma rede neural , precisamos primeiro entender sobre os dados que estamos trabalhando. Grande parte das redes neurais possuem um \textit{input} que deve ter dimensão fixa. O mesmo vale para o \textit{output}.
 
-\par Para cada camada da arquitetura devemos escolher sua função de ativação. Tanto FNNNs quanto CNNs podem possuir funções de ativação (função $f$ da equação \ref{eq:model_n}). Dentre muitas funções de ativação podemos citar a \textit{Rectified Linear Units} (ReLU)\cite{RELU}, sigmoide\cite{sigmoid_act}, linear e tangente hiperbólica\cite{act_comp}. A figura \ref{fig:ativacoes} mostra os gráficos dessas funções de ativação, onde no eixo x é o argumento e no eixo y o resultado da função.
+\par Para cada camada da arquitetura devemos escolher sua função de ativação. Tanto FNNNs quanto CNNs podem possuir funções de ativação (função $f$ da equação \ref{eq:model_n}). Dentre muitas funções de ativação podemos citar a \textit{Rectified Linear Units} (ReLU)\cite{RELU}, sigmoide \cite{sigmoid_act}, linear e tangente hiperbólica\cite{act_comp}. A figura \ref{fig:ativacoes} mostra os gráficos dessas funções de ativação, onde no eixo x é o argumento e no eixo y o resultado da função.
 
 \begin{figure}[H]
     \centering
@@ -391,9 +391,9 @@ Para o caso discreto, com $g$ sendo uma função resposta finita de tamanho $2M$
     C(p(y_i)) = -\frac{1}{N}\sum_{i = 1} ^N y_i \log(p(y_i)) + (1 - y_i)\log(1 - p(y_i)),
 \end{equation}
 
-\par onde $y_i$ é o rótulo (\textit{label}), $p(y_i)$ é a probabilidade do ponto $y_i$ ser 1 e $N$ é o número de pontos. O objetivo da rede neural é achar o mínimo da função $C(p(y_i))$, o que implica diretamente na melhor solução para o conjunto de dados. Isso é feito pelo método de retropropagação do erro (\textit{backpropagation}\cite{backpropagation}) por um otimizador. Outros exemplos de \textit{loss} são o erro quadrático médio ou \textit{categorical cross-entropy}\cite{MSE_CEF_review}.
+\par onde $y_i$ é o rótulo (\textit{label}), $p(y_i)$ é a probabilidade do ponto $y_i$ ser 1 e $N$ é o número de pontos. O objetivo da rede neural é achar o mínimo da função $C(p(y_i))$, o que implica diretamente na melhor solução para o conjunto de dados. Isso é feito pelo método de retropropagação do erro (\textit{backpropagation} \cite{backpropagation}) por um otimizador. Outros exemplos de \textit{loss} são o erro quadrático médio ou \textit{categorical cross-entropy} \cite{MSE_CEF_review}.
 
-\par O otimizador tem o objetivo de otimizar os parâmetros presentes na rede neural, buscando o mínimo global da função custo, o que nem sempre acontece, pois a minimização pode parar em um mínimo local da função. Existem diversos otimizadores, como por exemplo o \textit{Stochastic Gradient Descent} (SGD), ADAM, ADAMAX\cite{ADAMAX}, entre outros\cite{gradient_over}. Para o SGD, temos que a atualização de parâmetros é dada por
+\par O otimizador tem o objetivo de otimizar os parâmetros presentes na rede neural, buscando o mínimo global da função custo, o que nem sempre acontece, pois a minimização pode parar em um mínimo local da função. Existem diversos otimizadores, como por exemplo o \textit{Stochastic Gradient Descent} (SGD), ADAM, ADAMAX \cite{ADAMAX}, entre outros \cite{gradient_over}. Para o SGD, temos que a atualização de parâmetros é dada por
 
 \begin{equation}\label{eq:SGD}
     \theta_j = \theta_{j} - \alpha \frac{\partial }{\partial \theta_j}C(\theta),
@@ -405,7 +405,7 @@ Para o caso discreto, com $g$ sendo uma função resposta finita de tamanho $2M$
 
 \par Para avaliação do modelo se usam dados de validação, que servem para verificar o comportamento da rede neural que está sendo treinada. Esse conjunto de dados usados não é usado para o treino, são usados apenas para verificar possíveis problemas como o \textit{overfit}. O \textit{overfit} ocorre quando a rede neural começa a se adequar perfeitamente aos dados de treino, perdendo a capacidade de previsão em dados que não estão sendo usados no treino pela rede neural.
 
-\par Além dos dados de validação, podemos escolher métricas que auxiliam a visualização do comportamento da rede neural durante o treino e nos retornam informações importantes sobre sua qualidade. Exemplos importantes de métricas são: acurácia binária, erro médio absoluto e acurácia categórica\cite{metrics}. Por exemplo, caso seja necessário verificar se uma rede neural está fazendo previsões certas em um problema cuja classificação é binária, então a métrica deve ser a acurácia binária. Tudo depende do objetivo da rede neural.
+\par Além dos dados de validação, podemos escolher métricas que auxiliam a visualização do comportamento da rede neural durante o treino e nos retornam informações importantes sobre sua qualidade. Exemplos importantes de métricas são: acurácia binária, erro médio absoluto e acurácia categórica \cite{metrics}. Por exemplo, caso seja necessário verificar se uma rede neural está fazendo previsões certas em um problema cuja classificação é binária, então a métrica deve ser a acurácia binária. Tudo depende do objetivo da rede neural.
 
 \section{Sistemas de \textit{machine learning}}
 
@@ -419,10 +419,10 @@ Podemos dividir os sistemas de \textit{machine learning} em quatro tipos:
 %     \item aprendizado por reforço.
 % \end{enumerate}
 
-\par Aprendizado supervisionado é quando fornecemos para a rede neural um conjunto de dados para o treino com a solução desejada (chamados de \textit{labels}). Um uso típico é para problemas de classificação\cite{mlbook}. Por exemplo, classificação de imagens (identificação de figuras), previsão de valores numéricos etc. Exemplos de de algoritmos supervisionados são:
+\par Aprendizado supervisionado é quando fornecemos para a rede neural um conjunto de dados para o treino com a solução desejada (chamados de \textit{labels}). Um uso típico é para problemas de classificação \cite{mlbook}. Por exemplo, classificação de imagens (identificação de figuras), previsão de valores numéricos etc. Exemplos de de algoritmos supervisionados são:
 
 \begin{itemize}
-    \item \textit{k-Nearest Neighbors}\cite{knn}
+    \item \textit{k-Nearest Neighbors} \cite{knn}
     \item Regressão linear
     \item \textit{Support Vector Machines} (SVMs)
     \item \textit{Decision Trees} and \textit{Random Forests}
@@ -431,15 +431,15 @@ Podemos dividir os sistemas de \textit{machine learning} em quatro tipos:
 
 \subsubsection*{Aprendizado não supervisionado}
 
-\par Aprendizado não supervisionado é quando fornecemos o conjunto de dados para o treino, porém sem solução. A ideia é aprender sem supervisão. Um problema comum, por exemplo, é quando queremos identificar \textit{clusters} em um conjunto de dados (\textit{clustering})\cite{unsupervised, knn_uns}.
+\par Aprendizado não supervisionado é quando fornecemos o conjunto de dados para o treino, porém sem solução. A ideia é aprender sem supervisão. Um problema comum, por exemplo, é quando queremos identificar \textit{clusters} em um conjunto de dados (\textit{clustering})  \cite{unsupervised, knn_uns}.
 
 \subsubsection*{Aprendizado semi supervisionado}
 
-\par Aprendizado supervisionado é quando apenas parte do conjunto de dados para o treino possui \textit{labels}. Isso é comum quando se obtém conjuntos de dados diferentes e apenas parte deles foi classificado\cite{semi_supervised}.
+\par Aprendizado supervisionado é quando apenas parte do conjunto de dados para o treino possui \textit{labels}. Isso é comum quando se obtém conjuntos de dados diferentes e apenas parte deles foi classificado \cite{semi_supervised}.
 
 \subsubsection*{Aprendizado por reforço}
 
-\par Aprendizado por reforço é quando um sistema, chamado de \textit{agente} nesse contexto, aprende através do ambiente, realizando ações que maximizam sua recompensa. Por exemplo, caso o sistema realize uma ação incorreta, ele recebe uma penalidade, fazendo com que procure outra maneira de realizar a ação, dessa vez de maneira correta, para poder ganhar uma recompensa\cite{reinforcement}. Esse tipo de sistema é muito usado, por exemplo, em automatização robótica, como carros que pilotam sozinhos, robôs que aprendem a andar etc\cite{robot_ml}.
+\par Aprendizado por reforço é quando um sistema, chamado de \textit{agente} nesse contexto, aprende através do ambiente, realizando ações que maximizam sua recompensa. Por exemplo, caso o sistema realize uma ação incorreta, ele recebe uma penalidade, fazendo com que procure outra maneira de realizar a ação, dessa vez de maneira correta, para poder ganhar uma recompensa \cite{reinforcement}. Esse tipo de sistema é muito usado, por exemplo, em automatização robótica, como carros que pilotam sozinhos, robôs que aprendem a andar etc \cite{robot_ml}.
 
 \section{Aplicações de \textit{machine learning} na física nuclear}
 
@@ -447,14 +447,14 @@ Podemos dividir os sistemas de \textit{machine learning} em quatro tipos:
 
 \subsection{Análise de espectros para identificação de partículas (\textit{particle identification}, PID)}
 
-\par O uso de técnicas de aprendizado não supervisionado pode ser usado para a identificar de partículas em espectros $\Delta E$ - $E$. Neste tipo de espectros, as partículas são detectadas e separadas por regiões que facilmente podem ser identificadas visualmente\cite{DETC_TELE}. No entanto, a identificação visual desses espectros com os sistemas de detecção com milhares de canais é inviável de forma manual. Assim, ferramentas de \textit{machine learning} (ou inteligencia artificial) são de grande relevância para esse tipo de analise.
+\par O uso de técnicas de aprendizado não supervisionado pode ser usado para a identificar de partículas em espectros $\Delta E$ - $E$. Neste tipo de espectros, as partículas são detectadas e separadas por regiões que facilmente podem ser identificadas visualmente \cite{DETC_TELE}. No entanto, a identificação visual desses espectros com os sistemas de detecção com milhares de canais é inviável de forma manual. Assim, ferramentas de \textit{machine learning} (ou inteligencia artificial) são de grande relevância para esse tipo de analise.
 
 Os resultados apresentados nessa seção foram obtidos na etapa inicial desta dissertação. Para o presente estudo, o espectro biparamétrico ($\Delta E$-$E$) mostrado na Figura \ref{subfig:espectro_1} foi analisado. Os dados correspondem a reação de espalhamento e transferência no sistema $^{6}$Li +  $^{12}$C.
 
 
 % O espectro biparamétrico ($\Delta E$ - $E$) mostrado pela figura \ref{subfig:espectro_1} é o resultado obtido do espalhamento do $^6$Li em $^{12}$C por um detector telescópio\cite{DETC_TELE}.
 
-\par O objetivo é identificar conjuntos (ou \textit{clusters}) diferentes a partir do espectro. É claro para o olho humano que existem conjuntos diferentes, e eles podem ser identificados usando algoritmos de aprendizado não supervisionado, como por exemplo o \textit{density-based spatial clustering of applications with noise} (DBSCAN)\cite{dbscan}. O DBSCAN consegue identificar \textit{clusters} apenas com as informações características de densidade existente pelos conjuntos que existem nos dados. O resultado da aplicação do algoritmo está na figura \ref{subfig:espectro_2}, onde é mostrado que o espectro agora está separado por diferentes conjuntos.
+\par O objetivo é identificar conjuntos (ou \textit{clusters}) diferentes a partir do espectro. É claro para o olho humano que existem conjuntos diferentes, e eles podem ser identificados usando algoritmos de aprendizado não supervisionado, como por exemplo o \textit{density-based spatial clustering of applications with noise} (DBSCAN) \cite{dbscan}. O DBSCAN consegue identificar \textit{clusters} apenas com as informações características de densidade existente pelos conjuntos que existem nos dados. O resultado da aplicação do algoritmo está na figura \ref{subfig:espectro_2}, onde é mostrado que o espectro agora está separado por diferentes conjuntos.
 %\newpage
 
 \begin{figure}[H]
@@ -489,7 +489,7 @@ Os resultados apresentados nessa seção foram obtidos na etapa inicial desta di
 
 \par Frequentemente é necessário calcular com alta precisão observáveis que ainda não foram medidos, para contribuir com dados já existentes. É possível estimar propriedades de núcleos usando modelos e dados experimentais já existentes em conjunto com técnicas de \textit{machine learning}.
 
-\par É possível usar redes neurais que façam previsão de massa nucleares com informações de massa já disponíveis. Isso foi feito usando o algoritmo \textit{Light Gradient Boosting Machine} (LightGBM)\cite{LightGBM}. O algoritmo é uma rede neural cujo aprendizado é supervisionado e minimiza o erro entre a energia de ligação teórica e a energia de ligação experimental dos núcleos (essa diferença é chamada de resíduo), usando 10 quantidades físicas como dados de entrada (\textit{input})\cite{nuclear_mass}. O desvio quadrático médio para a massa dos núcleos é de 0.234 $\pm$ 0.022 MeV, valor melhor que muitos modelos físicos de massa nuclear. A figura \ref{fig:nuclei_mass_ml} mostra os resíduos calculados entre a energia de ligação calculada pelo rede neural e a energia de ligação determinada experimentalmente.
+\par É possível usar redes neurais que façam previsão de massa nucleares com informações de massa já disponíveis. Isso foi feito usando o algoritmo \textit{Light Gradient Boosting Machine} (LightGBM) \cite{LightGBM}. O algoritmo é uma rede neural cujo aprendizado é supervisionado e minimiza o erro entre a energia de ligação teórica e a energia de ligação experimental dos núcleos (essa diferença é chamada de resíduo), usando 10 quantidades físicas como dados de entrada (\textit{input}) \cite{nuclear_mass}. O desvio quadrático médio para a massa dos núcleos é de 0.234 $\pm$ 0.022 MeV, valor melhor que muitos modelos físicos de massa nuclear. A figura \ref{fig:nuclei_mass_ml} mostra os resíduos calculados entre a energia de ligação calculada pelo rede neural e a energia de ligação determinada experimentalmente.
 
 \begin{figure}[H]
     \centering
@@ -524,32 +524,32 @@ onde $T^{a}_{1/2}$ é o tempo de meia vida do decaimento beta medido experimenta
 \begin{figure}[H]
     \centering
     \includegraphics[scale = 0.35]{figs/beta_predict_2.png}
-    \caption{Meias-vidas de decaimento $\beta$ para isótonos com N = 126. A região hachurada verde mostra as previsões de uma rede neural. A região hachurada em azul mostra os resultados da mesma rede neural, porém seus dados de aprendizado são estendidos para incluir três meias-vidas extras de decaimento $\beta$ para cada isótopo (indicado por círculos abertos) em direção à \textit{drip-line} de nêutrons\cite{mlbetadecay}.}
+    \caption{Meias-vidas de decaimento $\beta$ para isótonos com N = 126. A região hachurada verde mostra as previsões de uma rede neural. A região hachurada em azul mostra os resultados da mesma rede neural, porém seus dados de aprendizado são estendidos para incluir três meias-vidas extras de decaimento $\beta$ para cada isótopo (indicado por círculos abertos) em direção à \textit{drip-line} de nêutrons \cite{mlbetadecay}.}
     \label{fig:beta_decay}
 \end{figure}
 
 \subsection{Alvos ativos}
 
-\par Experimentos com alvos ativos geram enormes quantidades de dados. Uma semana de experimento pode gerar até 10Tb de dados\cite{KUCHERAML}, o que gera a necessidade do uso de algoritmos de \textit{machine learning} para diminuir o consumo de tempo da análise desses dados.
+\par Experimentos com alvos ativos geram enormes quantidades de dados. Uma semana de experimento pode gerar até 10Tb de dados \cite{KUCHERAML}, o que gera a necessidade do uso de algoritmos de \textit{machine learning} para diminuir o consumo de tempo da análise desses dados.
 
 \par A análise dos dados envolve a reconstrução tridimensional dos eventos e posteriormente a reconstrução da cinemática, com a identificação de partículas e de reações nucleares. O uso de técnicas de \textit{machine learning} pode diminuir o consumo de tempo dessas etapas.
 
 \par O uso de CNNs em imagens feitas a partir das projeções de eventos pode ser útil para a classificação de eventos, sem a necessidade de reconstruir a cinemática em uma etapa anterior. A figura \ref{fig:tpc_ml} mostra exemplos de projeções de trajetórias de partículas dentro do alvo ativo, onde a partir da projeção no plano $xy$ é possível identificar a partícula que a originou.
 
-\par Primeiro, com o objetivo de classificar as projeções entre próton ou carbono, é possível construir uma rede neural para a classificação binária. Para isso foi usada uma arquitetura com camadas convolucionais seguidas de \textit{max-pooling} e por fim uma camada FC\cite{KUCHERAML}. A função a ser minimizada é a dada pela equação \ref{eq:binary_cross_entropy} e a métrica para entender o comportamento da rede neural é a acurácia binária.
+\par Primeiro, com o objetivo de classificar as projeções entre próton ou carbono, é possível construir uma rede neural para a classificação binária. Para isso foi usada uma arquitetura com camadas convolucionais seguidas de \textit{max-pooling} e por fim uma camada FC \cite{KUCHERAML}. A função a ser minimizada é a dada pela equação \ref{eq:binary_cross_entropy} e a métrica para entender o comportamento da rede neural é a acurácia binária.
 
 \par Caso o objetivo seja classificar entre três ou mais possibilidades (como por exemplo próton, carbono e outros), então a classificação não será binária, passará a ser categórica, pois será necessário classificar a imagem em alguma categoria. A função custo passará a ser a \textit{categorical cross-entropy} e a métrica será a acurácia categórica.
 
 \begin{figure}[H]
     \centering
     \includegraphics[scale = 0.5]{figs/tpc_ml.png}
-    \caption{Projeções no plano $xy$ de partículas dentro do alvo ativo, onde quanto mais escura for a cor, mais carga tem o ponto, e quanto mais clara a cor, menos carga tem o ponto. O objetivo da rede neural pode ser classificar corretamente se a imagem à direita corresponde à uma trajetória de um próton, carbono ou outra partícula, ou pode ser uma rede neural para classificação binária caso seja necessário classificar apenas entre próton ou carbono\cite{KUCHERAML}.}
+    \caption{Projeções no plano $xy$ de partículas dentro do alvo ativo, onde quanto mais escura for a cor, mais carga tem o ponto, e quanto mais clara a cor, menos carga tem o ponto. O objetivo da rede neural pode ser classificar corretamente se a imagem à direita corresponde à uma trajetória de um próton, carbono ou outra partícula, ou pode ser uma rede neural para classificação binária caso seja necessário classificar apenas entre próton ou carbono \cite{KUCHERAML}.}
     \label{fig:tpc_ml}
 \end{figure}
 
-\par A rede criada para a classificação binária (entre próton e carbono) atingiu cerca de 90\% de acurácia. Somado ao fato de que redes neurais são muito eficientes em tempo, isso mostra uma possibilidade de que seja possível utilizar redes neurais como essa para o processamento em tempo real dos dados, com pouca supervisão humana durante o processo\cite{KUCHERAML}.
+\par A rede criada para a classificação binária (entre próton e carbono) atingiu cerca de 90\% de acurácia. Somado ao fato de que redes neurais são muito eficientes em tempo, isso mostra uma possibilidade de que seja possível utilizar redes neurais como essa para o processamento em tempo real dos dados, com pouca supervisão humana durante o processo \cite{KUCHERAML}.
 
-\par Outro problema que pode ser resolvido com técnicas de \textit{machine learning} é a remoção de ruído de eventos. Para isso, pode ser usado o algoritmo não supervisionado \textit{Hough transform}\cite{hough}, que é capaz de detectar padrões de interesse nos dados e evitar regiões ou pontos que não seguem o padrão desejado. 
+\par Outro problema que pode ser resolvido com técnicas de \textit{machine learning} é a remoção de ruído de eventos. Para isso, pode ser usado o algoritmo não supervisionado \textit{Hough transform} \cite{hough}, que é capaz de detectar padrões de interesse nos dados e evitar regiões ou pontos que não seguem o padrão desejado. 
 
 
 % Além disso são geradas nuvens de pontos tridimensionais, o que demanda um grande trabalho do ponto de vista de visão computacional, com algoritmos capazes de identificar estruturas em três dimensões. A figura \ref{fig:tpc_ml} mostra um exemplo de \textit{clustering} aplicado na identificação de trajetórias tridimensionais.
@@ -569,13 +569,13 @@ onde $T^{a}_{1/2}$ é o tempo de meia vida do decaimento beta medido experimenta
 
 \par Esse capítulo descreve o procedimento usado para criar as nuvens de pontos (\textit{pointclouds}) a partir dos pulsos gerados por cada pixel do \textit{micromegas}, usando algoritmos de \textit{machine learning} supervisionado.
 
-\par Algoritmos baseados em CNNs vem sendo usados com relativo sucesso para o processamento e análise de sinais\cite{FORTINO2022166497}, como por exemplo para discriminação de pulsos \cite{Holl2019}. CNNs possuem a capacidade de fazer ajustes multidimensionais e aprender padrões extremamente complexos. Além disso, CNNs são mais eficientes em tempo para a análise de grandes quantidades de dados em comparação com algoritmos comuns\cite{FORTINO2022166497}.
+\par Algoritmos baseados em CNNs vem sendo usados com relativo sucesso para o processamento e análise de sinais \cite{FORTINO2022166497}, como por exemplo para discriminação de pulsos \cite{Holl2019}. CNNs possuem a capacidade de fazer ajustes multidimensionais e aprender padrões complexos. Além disso, CNNs são mais eficientes em tempo para a análise de grandes quantidades de dados em comparação com algoritmos comuns \cite{FORTINO2022166497}.
 
-\par A quantidade de pulsos gerados nesse experimento é da ordem de centenas de milhões. Para a análise completa dos pulsos, são necessárias diferentes etapas que envolvem processos que muitas vezes precisam ser refeitos por causa de algum um erro no processo análise. Caso uma etapa dure cerca de 10 horas, notar algum erro no processo, ou ter que mudar algum parâmetro da análise, significaria ter que analisar novamente os dados, sendo um processo muito custoso em tempo.
+\par A quantidade de pulsos gerados nesse experimento é da ordem de centenas de milhões. Para a análise completa dos pulsos, são necessárias diferentes etapas que envolvem processos que muitas vezes precisam ser refeitos por causa de algum um erro no processo análise. Notar algum erro no processo, ou ter que mudar algum parâmetro da análise, significaria ter que analisar novamente os dados, sendo um processo muito custoso em tempo.
 
-\par O uso de algoritmos de CNNs tem o objetivo de diminuir o tempo consumido para a análise dos pulsos. As redes neurais criadas são treinadas uma única vez e podem ser utilizadas de modo separado e/ou acoplado\cite{FORTINO2022166497}, como está mostrado na sequencia do capítulo.
+\par O uso de algoritmos de CNNs tem o objetivo de diminuir o tempo consumido para a análise dos pulsos. As redes neurais criadas são treinadas uma única vez e podem ser utilizadas de modo separado e/ou acoplado \cite{FORTINO2022166497}, como está mostrado na sequencia do capítulo.
 
-\par A análise dos dados experimentais foi dividida em três etapas: correção do fundo, deconvolução do sinal e detecção de picos. As redes neurais criadas foram supervisionadas, o que significa que foi preciso determinar a entrada (\textit{input}) e a saída (\textit{output}) das redes. Para isso foi feito um grande banco de dados, para utilizar no treinamento das redes neurais, que se beneficiam da grande quantidade de dados usada para o treino\cite{mlbook}.
+\par A análise dos dados experimentais foi dividida em três etapas: correção do fundo, deconvolução do sinal e detecção de picos. As redes neurais criadas foram supervisionadas, o que significa que foi preciso determinar a entrada (\textit{input}) e a saída (\textit{output}) das redes. Para isso foi feito um grande banco de dados, para utilizar no treinamento das redes neurais, que se beneficiam da grande quantidade de dados usada para o treino \cite{mlbook}.
 
 \par Na seção \ref{sec:pulses_trad}, está mostrado como o banco de dados para o treino das redes neurais desenvolvidas foi criado, e a construção das redes neurais está na seção \ref{sec:pulsos_ml}.
 
@@ -588,7 +588,7 @@ onde $T^{a}_{1/2}$ é o tempo de meia vida do decaimento beta medido experimenta
 
 \section{Construção do banco de dados para as redes neurais}\label{sec:pulses_trad}
 
-\par Essa seção descreve o processo de construção do banco de dados que foi usado para o treino das redes neurais das subseções \ref{subsec:pulso_ml_fundo}, \ref{subsec:pulso_ml_deconv} e \ref{subsec:pulso_ml_peaks}. Centenas de sinais foram produzidos pelo detector micromegas em cada evento. Cada um dos pixels do micromegas possui uma eletrônica independente que gera uma resposta como os mostrados na figura \ref{fig:exemplos_sinais}.
+\par Cada um dos pixels do detector micromegas possui uma eletrônica independente que gera pulso digitais como os mostrados na \ref{fig:exemplos_sinais}. Centenas de sinais coo essas são produzidas em cada um dos eventos.
 
 \begin{figure}[H]
 \centering
@@ -914,7 +914,7 @@ platô no \textit{loss}.}
 
 \par Assim como na rede anterior, foram usados 160.000 sinais para treino e 40.000 para validação. O \textit{loss} foi escolhido como sendo o erro quadrático médio, o otimizador foi o \textit{ADAM}, com \textit{learning rate} de 0.0005 porém com o parâmetro \textit{clipnorm} igual a 0.45. A métrica para avaliação foi o erro médio absoluto. Foram 75 \textit{epochs} e o \textit{batch-size} foi 8. Os resultados do treino estão na figura \ref{fig:source_wo_bkg_to_deconv_results}.
 
-\par Alterar a norma do gradiente (usar o parâmetro \textit{clipnorm} = 0.45) significa que, caso a norma do vetor do gradiente exceda 0.45, então o valor da norma é reajustado para o limiar (\textit{threshold}) escolhido (0.45)\cite{FORTINO2022166497}. Isso faz com que não ocorra problemas comuns como o gradiente sumir\cite{VGP, ADAMAX}, o que estava acontecendo especificamente nesse caso.
+\par Alterar a norma do gradiente (usar o parâmetro \textit{clipnorm} = 0.45) significa que, caso a norma do vetor do gradiente exceda 0.45, então o valor da norma é reajustado para o limiar (\textit{threshold}) escolhido (0.45)\cite{FORTINO2022166497}. Isso faz com que não ocorra problemas comuns como o gradiente sumir\cite{VGP, ADAMAX}, um dos problemas que teve que ser resolvido nessa rede.
 
 \par O treino foi realizado no Google Colaboratory \cite{google_colab} usando a GPU NVIDIA Tesla P100 e demorou cerca de 54 minutos. Os resultados do treino estão na figura \ref{fig:source_to_bkg_results}, onde eles indicam que, visualmente, a rede neural consegue distinguir muito bem diferentes centroides presentes no pulso. Empiricamente, a rede é capaz de executar 200.000 sinais em 5.4 segundos (ou 37.000 sinais por segundo).
 
@@ -1118,11 +1118,11 @@ platô no \textit{loss}.}
 \label{fig:ex_eventos}
 \end{figure}
 
-\par Com as redes neurais desenvolvidas, o consumo de tempo para o processamento dos pulsos diminuiu em cerca de 90 vezes em relação à algoritmos mais tradicionais mostrados na seção \ref{sec:pulses_trad}, abrindo possibilidades para a análise em tempo real de um experimento. Com as nuvens de pontos reconstruídas, pode-se extrair propriedades físicas dos eventos, processo que será descrito no capítulo \ref{chapter:point_cloud_analysis}.
+\par Com as redes neurais desenvolvidas, o consumo de tempo para o processamento dos pulsos diminuiu em cerca de 90 vezes em relação à algoritmos mais tradicionais mostrados na seção \ref{sec:pulses_trad}, abrindo possibilidades para a análise em tempo real de um experimento com alvo ativo usando grande granularidade (milhares de canais). Com as nuvens de pontos reconstruídas, pode-se extrair propriedades físicas dos eventos, processo que será descrito no capítulo \ref{chapter:point_cloud_analysis}.
 
 \chapter{Análise das nuvens de pontos}\label{chapter:point_cloud_analysis}
 
-\par Esse capítulo irá mostrar como foram analisadas as nuvens de pontos com algoritmos de \textit{machine learning}. O objetivo desta etapa, do ponto de vista computacional, foi de detectar \textit{clusters}, que nesse caso são retas tridimensionais. Já do ponto de vista físico, o objetivo é, com as trajetórias identificadas, extrair as informações físicas (energia $E$, momento $\vec{p}$ e comprimento $L$). Com isso, foi possível distinguir cada reta detectada, e determinar o vértice de reação (entre uma partícula originada da reação nuclear entre o feixe e o gás). Após a detecção, foram selecionados os eventos que possuíam reações nucleares.
+\par O objetivo desta etapa, do ponto de vista computacional, foi de detectar \textit{clusters}, que nesse caso são retas tridimensionais. Já do ponto de vista físico, o objetivo é, com as trajetórias identificadas, extrair as informações físicas (energia $E$, momento $\vec{p}$ e comprimento $L$). Com isso, foi possível distinguir cada reta detectada, e determinar o vértice de reação (entre uma partícula originada da reação nuclear entre o feixe e o gás). Após a detecção, foram selecionados os eventos que possuíam reações nucleares.
 
 \par Assim como no capítulo \ref{chapter:point_cloud_analysis}, esse capítulo descreve o uso de algoritmos de \textit{machine learning} para a análise, desta vez para as nuvens de pontos. Os algoritmos usados foram tanto não supervisionados (algoritmos de \textit{clustering}) e supervisionados (redes neurais), com diferentes objetivos.
 
