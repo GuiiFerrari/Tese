@@ -11,6 +11,7 @@
 \usepackage{indentfirst}
 \usepackage{float}
 \usepackage{amsmath}
+\usepackage{appendix}
 %\usepackage{pgfplots}
 % \usepackage{unicode-math}
 \newcommand\mathplus{+}
@@ -144,7 +145,7 @@ Gas Electron Multiplier (GEM) \cite{GET}, que possui alta granularidade do plano
 
 \par Este trabalho abordou a análise do experimento feito com o \textit{prototype Active Target - Time Projection Chamber} (pAT-TPC) \cite{pattpc} usando técnicas de \textit{machine learning}. Os algoritmos de \textit{machine learning} viabilizaram análises mais rápidas em comparação à algoritmos mais tradicionais. O trabalhou, até a data em que a dissertação foi escrita, resultou nos artigos encontrados nas Refs. \cite{artigo, FORTINO2022166497}.
 
-\par A dissertação está esquematizada da seguinte forma: no capítulo \ref{PATTPC} está feita a descrição do experimento; no capítulo \ref{sec:ml} está feita uma breve descrição do que é \textit{machine learning} com exemplos de aplicações em física nuclear; O capítulo \ref{chapter:point_cloud_analysis} foi dedicado para a análise dos sinais (pulsos) gerados no experimento; No capítulo \ref{chapter:point_cloud_analysis} está descrita a análise das nuvens de pontos reconstruídas a partir dos sinais; No capítulo \ref{chapter:resultados} foi feita a construção das distribuições angulares; Por fim, no capítulo \ref{chapter:conclusao} está a conclusão do trabalho.
+\par A dissertação está esquematizada da seguinte forma: no capítulo \ref{PATTPC} está feita a descrição do experimento; no capítulo \ref{sec:ml} está feita uma breve descrição do que é \textit{machine learning} com exemplos de aplicações em física nuclear; O capítulo \ref{chapter:sinais} foi dedicado para a análise dos sinais (pulsos) gerados no experimento; No capítulo \ref{chapter:point_cloud_analysis} está descrita a análise das nuvens de pontos reconstruídas a partir dos sinais; No capítulo \ref{chapter:resultados} foi feita a construção das distribuições angulares; Por fim, no capítulo \ref{chapter:conclusao} está a conclusão do trabalho.
 
 \chapter{O experimento}\label{PATTPC}
 
@@ -162,7 +163,7 @@ Gas Electron Multiplier (GEM) \cite{GET}, que possui alta granularidade do plano
 % \section{Produção do feixe de $^{17}$F}
 \section{Produção do feixe secundário $^{17}$F usando o sistema TWINSOL}
 
-\par A produção do feixe radioativo $^{17}$F foi feita a partir da reação do feixe estável de $^{16}$O com um alvo de deutério gasoso. O feixe primário $^{16}$O foi produzido e acelerado por um acelerador tipo Tandem van de Graff do ISNAP (\textit{Institute for Structure and Nuclear Astrophysics}) localizado na Universidade de Notre Dame, Estados Unidos, que possui uma tensão terminal de até 10 MV \cite{KOLATA1989503, NDtandem}. O feixe de $^{16}$O foi conduzido até a câmara alvo de produção, preenchida com deutério, no início do sistema TWINSOL, onde partículas emergentes de reações nucleares surgiram ($^{17}$F, $^{16}$O $^{17}$O). A figura \ref{fig:twinsol+pattpc} mostra o sistema TWINSOL acoplado com o pAT-TPC.
+\par A produção do feixe radioativo $^{17}$F foi feita a partir da reação do feixe estável de $^{16}$O com um alvo de deutério gasoso. O feixe primário $^{16}$O foi produzido e acelerado por um acelerador tipo Tandem van de Graff do ISNAP (\textit{Institute for Structure and Nuclear Astrophysics}) localizado na Universidade de Notre Dame, Estados Unidos, que possui uma tensão terminal de até 10 MV \cite{KOLATA1989503, NDtandem}. O feixe de $^{16}$O foi conduzido até a câmara alvo de produção, preenchida com deutério, no início do sistema TWINSOL, onde partículas emergentes de reações nucleares surgiram ($^{17}$F, $^{16}$O, $^{17}$O). A figura \ref{fig:twinsol+pattpc} mostra o sistema TWINSOL acoplado com o pAT-TPC.
 
 \begin{figure}[H]
     \centering
@@ -300,7 +301,7 @@ onde no tempo $t_0$ = 0 o elétron está no plano do detector ($z$ = 0).
 % \chapter{Uma breve introdução ao \textit{Machine Learning}}\label{sec:ml}
 \chapter{Desenvolvimento de ferramentas de \textit{machine learning} para analise de dados}\label{sec:ml}
 
-\par Um dos objetivos desse trabalho está em desenvolver ferramentas baseadas em \textit{machine learning} para a análise do grande volume de dados gerada pelo alvo ativo. Nesse capítulo está explicada a metodologia usada para a implementação dessas ferramentas.
+\par Um dos objetivos desse trabalho está em desenvolver ferramentas baseadas em \textit{machine learning} para a análise do grande volume de dados gerada pelo alvo ativo. Nesse capítulo está explicada a metodologia usada para a implementação dessas ferramentas. O apêndice \ref{appendix:ml_nuclear} mostra algumas aplicações de \textit{machine learning} na física nuclear.
 
 \par \textit{Machine learning} é a área de estudo que desenvolve algoritmos para que eles possam aprender com os dados, sem serem explicitamente programados para isso \cite{mlbook}. Supõe-se que uma rede neural imite um sistema biológico, em que os neurônios interajam enviando sinais na forma de funções matemáticas entre as camadas. Isso inspirou o uso do modelo matemático simples de uma função linear nos parâmetros para um neurônio artificial \cite{curso}:
 
@@ -357,7 +358,7 @@ Para o caso discreto, com $g$ sendo uma função resposta finita de tamanho $2M$
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale = 0.33]{figs/conv_same.png}
+    \includegraphics[scale = 0.38]{figs/conv_same.png}
     \caption{Processo de convolução entre o sinal azul em cima e o filtro em verde, resultando no sinal azul embaixo. Agora são acrescentados zeros no inicio e no final do vetor para que o vetor saída tenha o mesmo tamanho do vetor de entrada (nesse caso 9).}
     \label{fig:conv_same}
 \end{figure}
@@ -441,129 +442,10 @@ Podemos dividir os sistemas de \textit{machine learning} em quatro tipos:
 
 \par Aprendizado por reforço é quando um sistema, chamado de \textit{agente} nesse contexto, aprende através do ambiente, realizando ações que maximizam sua recompensa. Por exemplo, caso o sistema realize uma ação incorreta, ele recebe uma penalidade, fazendo com que procure outra maneira de realizar a ação, dessa vez de maneira correta, para poder ganhar uma recompensa \cite{reinforcement}. Esse tipo de sistema é muito usado, por exemplo, em automatização robótica, como carros que pilotam sozinhos, robôs que aprendem a andar etc \cite{robot_ml}.
 
-\section{Aplicações de \textit{machine learning} na física nuclear}
-
-\par Em física nuclear, o uso de técnicas de \textit{machine learning} tem se mostrado cada vez mais importante. Na continuação são citados alguns exemplos.
-
-\subsection{Análise de espectros para identificação de partículas (\textit{particle identification}, PID)}
-
-\par O uso de técnicas de aprendizado não supervisionado pode ser usado para a identificar de partículas em espectros $\Delta E$ - $E$. Neste tipo de espectros, as partículas são detectadas e separadas por regiões que facilmente podem ser identificadas visualmente \cite{DETC_TELE}. No entanto, a identificação visual desses espectros com os sistemas de detecção com milhares de canais é inviável de forma manual. Assim, ferramentas de \textit{machine learning} (ou inteligencia artificial) são de grande relevância para esse tipo de analise.
-
-Os resultados apresentados nessa seção foram obtidos na etapa inicial desta dissertação. Para o presente estudo, o espectro biparamétrico ($\Delta E$-$E$) mostrado na Figura \ref{subfig:espectro_1} foi analisado. Os dados correspondem a reação de espalhamento e transferência no sistema $^{6}$Li +  $^{12}$C.
+%\section{Aplicações de \textit{machine learning} na física nuclear}
 
 
-% O espectro biparamétrico ($\Delta E$ - $E$) mostrado pela figura \ref{subfig:espectro_1} é o resultado obtido do espalhamento do $^6$Li em $^{12}$C por um detector telescópio\cite{DETC_TELE}.
-
-\par O objetivo é identificar conjuntos (ou \textit{clusters}) diferentes a partir do espectro. É claro para o olho humano que existem conjuntos diferentes, e eles podem ser identificados usando algoritmos de aprendizado não supervisionado, como por exemplo o \textit{density-based spatial clustering of applications with noise} (DBSCAN) \cite{dbscan}. O DBSCAN consegue identificar \textit{clusters} apenas com as informações características de densidade existente pelos conjuntos que existem nos dados. O resultado da aplicação do algoritmo está na figura \ref{subfig:espectro_2}, onde é mostrado que o espectro agora está separado por diferentes conjuntos.
-%\newpage
-
-\begin{figure}[H]
-\centering
-    \begin{subfigure}[t]{0.48\textwidth}
-        \centering
-        \includegraphics[scale=0.21]{figs/espectro_1.png}
-        \caption{Espectro biparamétrico $\Delta E$ x $E$ (energia no referencial do centro de massa).}
-        \label{subfig:espectro_1}
-    \end{subfigure}%
-    \hfill
-    \begin{subfigure}[t]{0.48\textwidth}
-        \centering
-        \includegraphics[scale=0.52]{figs/espectro_2.png}
-        \caption{Espectro biparamétrico $\Delta E$ x $E$ (energia no referencial do centro de massa) com os conjuntos identificados com o uso do DBSCAN.}
-        \label{subfig:espectro_2}
-    \end{subfigure}
-\caption{Espectros biparamétricos $\Delta E$ x $E$, em \ref{subfig:espectro_1} o espectro cru com uma pré marcação das partículas, e em \ref{subfig:espectro_2} os conjuntos identificados usando \textit{machine learning}.}
-\label{fig:espectros_ex_ml}
-\end{figure}
-
-\par Usando o conjunto 1, por exemplo, é possível criar o histograma de identificação de partículas dado pela figura \ref{fig:PID_hist}.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale=0.11]{figs/espectro_3.png}
-    \caption{Histograma de identificação de partículas, a partir do conjunto 1 identificado na figura \ref{subfig:espectro_2}. Em \textbf{a} temos o primeiro pico que corresponde ao estamos fundamental do $^{14}$N e em \textbf{b} temos o primeiro estado excitado do $^{14}$N.}
-    \label{fig:PID_hist}
-\end{figure}
-
-\subsection{Estimativa de raios e massas nucleares}
-
-\par Frequentemente é necessário calcular com alta precisão observáveis que ainda não foram medidos, para contribuir com dados já existentes. É possível estimar propriedades de núcleos usando modelos e dados experimentais já existentes em conjunto com técnicas de \textit{machine learning}.
-
-\par É possível usar redes neurais que façam previsão de massa nucleares com informações de massa já disponíveis. Isso foi feito usando o algoritmo \textit{Light Gradient Boosting Machine} (LightGBM) \cite{LightGBM}. O algoritmo é uma rede neural cujo aprendizado é supervisionado e minimiza o erro entre a energia de ligação teórica e a energia de ligação experimental dos núcleos (essa diferença é chamada de resíduo), usando 10 quantidades físicas como dados de entrada (\textit{input}) \cite{nuclear_mass}. O desvio quadrático médio para a massa dos núcleos é de 0.234 $\pm$ 0.022 MeV, valor melhor que muitos modelos físicos de massa nuclear. A figura \ref{fig:nuclei_mass_ml} mostra os resíduos calculados entre a energia de ligação calculada pelo rede neural e a energia de ligação determinada experimentalmente.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale = 0.60]{figs/nuclei_mass.png}
-    \caption{Painel acima mostra a localização dos núcleos usados para o treino da rede neural. No painel de baixo temos o erro entre a previsão e o valor experimental da energia de ligação do núcleo para os núcleos usados como dados de validação. $\sigma$ é o erro quadrático médio da rede neural.}
-    \label{fig:nuclei_mass_ml}
-\end{figure}
-
-\par Outro exemplo de uso é para a estimativa de raio de carga nuclear. Usando uma rede neural (chamada de \textit{Bayesian neural network extended liquid drop} - BNN-ELD) FC com duas variáveis de entrada, o número de prótons Z e o número de massa A, com a condição de que Z $\geq$ 20 e A $\geq$ 40. A rede é supervisionada e usa 722 núcleos para dados de treino e 98 núcleos como validação. Resultados para o desvio quadrático médio do raio de carga são de cerca de 0.02 fm para os 820 núcleos utilizados. A figura \ref{fig:radii} mostra a diferença entre o raio de carga calculado teoricamente e o determinado experimentalmente para isótopos do chumbo, usando diferentes neurais e modelos teóricos. Mais detalhes podem ser encontrados na Ref. \cite{raio_carga}.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale = 0.60]{figs/radii.png}
-    \caption{Previsões para o raio de carga para isótopos do chumbo (Z = 82) para diferentes modelos teóricos ou que usam redes neurais. A previsão que contém barras de erro é a que foi brevemente descrita no texto.}
-    \label{fig:radii}
-\end{figure}
-
-% \par Dada a capacidade de redes neurais de aprenderem padrões não lineares nos dados, isso tem se mostrado muito útil uma alternativa para estimar propriedades dos núcleos como: raio de carga nuclear \cite{raio_carga}, massa de núcleos \cite{nuclear_mass} etc.
-
-\subsection{Decaimento $\beta$ e processo $r$}
-
-\par O decaimento $\beta$ é fundamental para entender a origem dos elementos pesados. Prever o tempo de meia vida do decaimento $\beta$ é de grande importância para simulações do processo $r$ (captura rápida de nêutrons). Com redes neurais é possível fazer previsões que levam em conta a física do problema, como visto na Ref. \cite{mlbetadecay}. O modelo de inteligência artificial leva em conta a teoria de Fermi para o decaimento beta, onde a função $f$ que é minimizada (função custo) é dada por
-
-\begin{equation}\label{eq:half_life}
-    f = \log_{10}(T^{a}_{1/2}/T^{b}_{1/2}),
-\end{equation}
-
-onde $T^{a}_{1/2}$ é o tempo de meia vida do decaimento beta medido experimentalmente e $T^{b}_{1/2}$ é o tempo de meia vida do decaimento beta determinado teoricamente. As variáveis de entrada são o número de prótons Z, o número de nêtrons N, a energia total do decaimento beta e o parâmetro de paridade $\delta$ = 1, 0, -1, para núcleos par-par, ímpar-par e ímpar-ímpar, respectivamente.
-
-\par A figura \ref{fig:beta_decay} mostra a previsão do tempo de meia vida ($T_{1/2}$) do decaimento $\beta$ (em segundos) para isótonos com número de nêutrons N = 126 usando redes neurais.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale = 0.35]{figs/beta_predict_2.png}
-    \caption{Meias-vidas de decaimento $\beta$ para isótonos com N = 126. A região hachurada verde mostra as previsões de uma rede neural. A região hachurada em azul mostra os resultados da mesma rede neural, porém seus dados de aprendizado são estendidos para incluir três meias-vidas extras de decaimento $\beta$ para cada isótopo (indicado por círculos abertos) em direção à \textit{drip-line} de nêutrons \cite{mlbetadecay}.}
-    \label{fig:beta_decay}
-\end{figure}
-
-\subsection{Alvos ativos}
-
-\par Experimentos com alvos ativos geram enormes quantidades de dados. Uma semana de experimento pode gerar até 10Tb de dados \cite{KUCHERAML}, o que gera a necessidade do uso de algoritmos de \textit{machine learning} para diminuir o consumo de tempo da análise desses dados.
-
-\par A análise dos dados envolve a reconstrução tridimensional dos eventos e posteriormente a reconstrução da cinemática, com a identificação de partículas e de reações nucleares. O uso de técnicas de \textit{machine learning} pode diminuir o consumo de tempo dessas etapas.
-
-\par O uso de CNNs em imagens feitas a partir das projeções de eventos pode ser útil para a classificação de eventos, sem a necessidade de reconstruir a cinemática em uma etapa anterior. A figura \ref{fig:tpc_ml} mostra exemplos de projeções de trajetórias de partículas dentro do alvo ativo, onde a partir da projeção no plano $xy$ é possível identificar a partícula que a originou.
-
-\par Primeiro, com o objetivo de classificar as projeções entre próton ou carbono, é possível construir uma rede neural para a classificação binária. Para isso foi usada uma arquitetura com camadas convolucionais seguidas de \textit{max-pooling} e por fim uma camada FC \cite{KUCHERAML}. A função a ser minimizada é a dada pela equação \ref{eq:binary_cross_entropy} e a métrica para entender o comportamento da rede neural é a acurácia binária.
-
-\par Caso o objetivo seja classificar entre três ou mais possibilidades (como por exemplo próton, carbono e outros), então a classificação não será binária, passará a ser categórica, pois será necessário classificar a imagem em alguma categoria. A função custo passará a ser a \textit{categorical cross-entropy} e a métrica será a acurácia categórica.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale = 0.5]{figs/tpc_ml.png}
-    \caption{Projeções no plano $xy$ de partículas dentro do alvo ativo, onde quanto mais escura for a cor, mais carga tem o ponto, e quanto mais clara a cor, menos carga tem o ponto. O objetivo da rede neural pode ser classificar corretamente se a imagem à direita corresponde à uma trajetória de um próton, carbono ou outra partícula, ou pode ser uma rede neural para classificação binária caso seja necessário classificar apenas entre próton ou carbono \cite{KUCHERAML}.}
-    \label{fig:tpc_ml}
-\end{figure}
-
-\par A rede criada para a classificação binária (entre próton e carbono) atingiu cerca de 90\% de acurácia. Somado ao fato de que redes neurais são muito eficientes em tempo, isso mostra uma possibilidade de que seja possível utilizar redes neurais como essa para o processamento em tempo real dos dados, com pouca supervisão humana durante o processo \cite{KUCHERAML}.
-
-\par Outro problema que pode ser resolvido com técnicas de \textit{machine learning} é a remoção de ruído de eventos. Para isso, pode ser usado o algoritmo não supervisionado \textit{Hough transform} \cite{hough}, que é capaz de detectar padrões de interesse nos dados e evitar regiões ou pontos que não seguem o padrão desejado. 
-
-
-% Além disso são geradas nuvens de pontos tridimensionais, o que demanda um grande trabalho do ponto de vista de visão computacional, com algoritmos capazes de identificar estruturas em três dimensões. A figura \ref{fig:tpc_ml} mostra um exemplo de \textit{clustering} aplicado na identificação de trajetórias tridimensionais.
-
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[scale = 0.5]{figs/tpc_ml_2.png}
-%     \caption{Resultado do algoritmo iterativo \textit{Hough transform}\cite{hough} que separa os pontos originados de interações de partículas carregadas com o alvo ativo. O algoritmo não é 100\% correto e neste evento alguns dos pontos atribuídos à trajetória 0 e à trajetória 3 na verdade pertencem à trajetória 2.\cite{DALITZ2019159}}
-%     \label{fig:tpc_ml}
-% \end{figure}
-
-    % \caption{Projeções de partículas dentro do alvo ativo. O objetivo da rede neural é classificar corretamente se a imagem à direita corresponde à uma trajetória de um próton, carbono ou outra partícula.}
-
-\par Com essa breve descrição sobre \textit{machine learning} e exemplos do seu uso em problemas de física nuclear, pode-se seguir adiante e entender seu uso dentro deste trabalho, que será feito nos próximos capítulos.
+\par Com essa breve descrição sobre \textit{machine learning} e exemplos do seu uso em problemas de física nuclear (apêndica \ref{appendix:ml_nuclear}), pode-se seguir adiante e entender seu uso dentro deste trabalho, que será feito nos próximos capítulos.
 
 \chapter{Reconstrução de nuvens de pontos a partir de algoritmos de \textit{machine learning}}\label{chapter:sinais}
 
@@ -620,8 +502,8 @@ onde $T^{a}_{1/2}$ é o tempo de meia vida do decaimento beta medido experimenta
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale = 0.325]{figs/get.png}
-    \caption{Ilustração que mostra a variação no formato da carga coletada a partir da passagem de uma partícula carregada dentro do TPC, onde o plano do detector está embaixo. No lado esquerdo de cada imagem, a distribuição do sinal coletado por um único pad (escuro) do plano de coleta é mostrado (o canal eletrônico de leitura é representado pela seta cinza em negrito). No caso de uma trajetória quase horizontal em relação ao plano do detector (a), o sinal é uma distribuição estreita, enquanto para uma trajetória próxima a uma direção vertical (ou perpendicular) em relação ao detector (b), a distribuição deve ser muito mais ampla (vários pontos de interação da partícula com o gás devem ser extraídos desse sinal). A última imagem ilustra o caso em mais de uma trajetória de partículas contribui para o sinal\cite{GET}.}
+    \includegraphics[scale = 0.29]{figs/get.png}
+    \caption{Ilustração que mostra a variação no formato da carga coletada a partir da passagem de uma partícula carregada dentro do TPC, onde o plano do detector está embaixo. No lado esquerdo de cada imagem, a distribuição do sinal coletado por um único pad (escuro) do plano de coleta é mostrado (o canal eletrônico de leitura é representado pela seta cinza em negrito). No caso de uma trajetória quase horizontal em relação ao plano do detector (a), o sinal é uma distribuição estreita, enquanto para uma trajetória próxima a uma direção vertical (ou perpendicular) em relação ao detector (b), a distribuição deve ser muito mais ampla (vários pontos de interação da partícula com o gás devem ser extraídos desse sinal). A última imagem ilustra o caso em mais de uma trajetória de partículas contribui para o sinal \cite{GET}.}
     \label{fig:get_signal}
 \end{figure}
 
@@ -635,13 +517,13 @@ onde $T^{a}_{1/2}$ é o tempo de meia vida do decaimento beta medido experimenta
 
 \par Essa subseção descreve a estimativa do fundo de cada, para formar o banco de dados da rede neural que estima o fundo descrita na subseção \ref{subsec:pulso_ml_fundo}.
 
-\par A primeira tentativa de estimar o sinal sem o fundo é usando transformada de Fourier e um filtro passa-baixa, que é a função resposta do detector fornecida na Ref.\cite{GET}. Seja $f(t)$ uma função qualquer, sua transformada de Fourier é dada por
+\par A primeira tentativa de estimar o sinal sem o fundo é usando transformada de Fourier e um filtro passa-baixa, que é a função resposta do detector fornecida na Ref. \cite{GET}. Seja $f(t)$ uma função qualquer, sua transformada de Fourier é dada por
 
 \begin{equation} \label{eq:fourier}
     \hat{f}(\nu)=\mathscr{F}[f(t)]=\int_{-\infty}^{\infty} f(t) e^{-2 \pi i \nu t} d t.
 \end{equation}
 
-\par Primeiro calculamos a transformada de Fourier $\hat{f}(\nu)$ do sinal, em seguida multiplicamos pela função resposta do detector $h(\nu)$ dada por\cite{GET}
+\par Primeiro calculamos a transformada de Fourier $\hat{f}(\nu)$ do sinal, em seguida multiplicamos pela função resposta do detector $h(\nu)$ dada por \cite{GET}
 
 \begin{equation}
     h(\nu) = A*\exp\left (\nu \tau \right)\left(\nu \tau\right)^3 \sin \left( \nu \tau \right) ,
@@ -659,7 +541,7 @@ onde $T^{a}_{1/2}$ é o tempo de meia vida do decaimento beta medido experimenta
     \mathscr{F}^{-1}[\hat{f}(\nu) \hat{g}(\nu)]=(f * g)(t)=\int_{-\infty}^{\infty} f(\tau) g(t-\tau) d \tau, 
 \end{equation}
 
-\par onde $(f * g)(t)$ é a convolução entre $f(t)$ e $g(t)$. Multiplicar o sinal transformado por $h(\nu)$ e depois inverter inverter a transformação é o mesmo que convoluir o sinal original com a transformação inversa de $h(\nu)$, o que resulta no sinal sem o fundo\cite{josh_bradt, GET}. Resultados desse procedimento estão na figura \ref{fig:bs_fourier_exs}.
+\par onde $(f * g)(t)$ é a convolução entre $f(t)$ e $g(t)$. Multiplicar o sinal transformado por $h(\nu)$ e depois inverter inverter a transformação é o mesmo que convoluir o sinal original com a transformação inversa de $h(\nu)$, o que resulta no sinal sem o fundo \cite{josh_bradt, GET}. Resultados desse procedimento estão na figura \ref{fig:bs_fourier_exs}.
 
 %Multiplicar o sinal transformado por $\sinc (\nu / a)$ e depois inverter inverter a transformação é o mesmo que convoluir o sinal original com a transformação inversa de $\sinc (\nu / a)$, pois
 
@@ -673,27 +555,27 @@ onde $T^{a}_{1/2}$ é o tempo de meia vida do decaimento beta medido experimenta
 \centering
     \begin{subfigure}[c]{0.45\textwidth}
         % \centering
-        \includegraphics[scale=0.45]{figs/bs_fourier_1.png}
+        \includegraphics[scale=0.42]{figs/bs_fourier_1.png}
         \caption{}
         \label{subfig:bs_fourier_1}
     \end{subfigure}%
     \hfill
     \begin{subfigure}[c]{0.45\textwidth}
         % \centering
-        \includegraphics[scale=0.45]{figs/bs_fourier_2.png}
+        \includegraphics[scale=0.42]{figs/bs_fourier_2.png}
         \caption{}
         \label{subfig:bs_fourier_2}
     \end{subfigure}
     \begin{subfigure}[b]{0.45\textwidth}
         \centering
-        \includegraphics[scale=0.45]{figs/bs_fourier_3.png}
+        \includegraphics[scale=0.42]{figs/bs_fourier_3.png}
         \caption{}
         \label{subfig:bs_fourier_3}
     \end{subfigure}%
     \hfill
     \begin{subfigure}[b]{0.45\textwidth}
         \centering
-        \includegraphics[scale=0.45]{figs/bs_fourier_4.png}
+        \includegraphics[scale=0.42]{figs/bs_fourier_4.png}
         \caption{}
         \label{subfig:bs_fourier_4}
     \end{subfigure}
@@ -703,7 +585,7 @@ onde $T^{a}_{1/2}$ é o tempo de meia vida do decaimento beta medido experimenta
 
 % Dos exemplo acima em muitos casos, acaba estimando o sinal original, na região do pulso, menor do que deveria ser, fazendo com que o sinal tenha menos carga do que deveria.
 
-\par Fica claro que visualmente, por exemplo na figura \ref{subfig:bs_fourier_4}, que o filtro utilizado não é a melhor função resposta do detector. Poderia-se estimar essa função resposta empiricamente, porém os canais auxiliares chamados de \textit{Fixed Pattern Noise} (FPN)\cite{GET} usados para esta estimativa não foram armazenados. Portanto, a estimativa do fundo foi feita sinal por sinal\cite{FORTINO2022166497, GET}. Para isso, o fundo foi determinado usando o algoritmo \textit{background removal} da biblioteca \textit{TSpectrum} do \textit{ROOT} \cite{root}. A função tem a capacidade de separar o fundo dos picos presentes no espectro\cite{BKG_1, BKG_2, BKG_3}. Exemplos de estimativa do fundo estão na figura \ref{fig:ex_sinal_bkg}.
+\par Fica claro que visualmente, por exemplo na figura \ref{subfig:bs_fourier_4}, que o filtro utilizado não é a melhor função resposta do detector. Poderia-se estimar essa função resposta empiricamente, porém os canais auxiliares chamados de \textit{Fixed Pattern Noise} (FPN) \cite{GET} usados para esta estimativa não foram armazenados. Portanto, a estimativa do fundo foi feita sinal por sinal\cite{FORTINO2022166497, GET}. Para isso, o fundo foi determinado usando o algoritmo \textit{background removal} da biblioteca \textit{TSpectrum} do \textit{ROOT} \cite{root}. A função tem a capacidade de separar o fundo dos picos presentes no espectro \cite{BKG_1, BKG_2, BKG_3}. Exemplos de estimativa do fundo estão na figura \ref{fig:ex_sinal_bkg}.
 
 %, pois o fundo é não analítico\cite{GET}. Para um resultado mais adequado, o fundo será determinado usando o algoritmo \textit{background removal} da biblioteca \textit{TSpectrum} do \textit{ROOT} \cite{root}. A função tem a capacidade de separar o fundo dos picos presentes no espectro\cite{BKG_1, BKG_2, BKG_3}. Exemplos de estimativa do fundo estão na figura \ref{fig:ex_sinal_bkg}.
 
@@ -711,27 +593,27 @@ onde $T^{a}_{1/2}$ é o tempo de meia vida do decaimento beta medido experimenta
 \centering
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
-        \includegraphics[scale=0.395]{figs/ex_sinal_bkg_1.png}
+        \includegraphics[scale=0.394]{figs/ex_sinal_bkg_1.png}
         \caption{}
         \label{subfig:ex_sinal_bkg_1}
     \end{subfigure}%
     \hfill
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
-        \includegraphics[scale=0.395]{figs/ex_sinal_bkg_2.png}
+        \includegraphics[scale=0.394]{figs/ex_sinal_bkg_2.png}
         \caption{}
         \label{subfig:ex_sinal_bkg_2}
     \end{subfigure}
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
-        \includegraphics[scale=0.395]{figs/ex_sinal_bkg_3.png}
+        \includegraphics[scale=0.394]{figs/ex_sinal_bkg_3.png}
         \caption{}
         \label{subfig:ex_sinal_bkg_3}
     \end{subfigure}%
     \hfill
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
-        \includegraphics[scale=0.395]{figs/ex_sinal_bkg_4.png}
+        \includegraphics[scale=0.394]{figs/ex_sinal_bkg_4.png}
         \caption{}
         \label{subfig:ex_sinal_bkg_4}
     \end{subfigure}
@@ -748,9 +630,9 @@ onde $T^{a}_{1/2}$ é o tempo de meia vida do decaimento beta medido experimenta
 
 %\par Essa subseção descreve a etapa de deconvolução do sinal, que serve de banco de dados para o treinamento da rede neural descrita na subseção \ref{subsec:pulso_ml_deconv}.
 
-\par Para aumentar a resolução dos picos foi usado o algoritmo \textit{gold deconvolution} presente na biblioteca \textit{TSpectrum} do \textit{ROOT}\cite{paper_gold_deconv}. O algoritmo tem como objetivo fazer a deconvolução do espectro, gerando uma função (nesse caso um sinal) resposta de acordo com o sigma esperado para os pulsos. O sinal resposta corresponde ao espectro com as gaussianas não sobrespostas. Isso significa que foi necessário determinar qual o valor de sigma dos pulsos para buscar a função resposta.
+\par Para aumentar a resolução dos picos foi usado o algoritmo \textit{gold deconvolution} presente na biblioteca \textit{TSpectrum} do \textit{ROOT} \cite{paper_gold_deconv}. O algoritmo tem como objetivo fazer a deconvolução do espectro, gerando uma função (nesse caso um sinal) resposta de acordo com o sigma esperado para os pulsos. O sinal resposta corresponde ao espectro com as gaussianas não sobrespostas. Isso significa que foi necessário determinar qual o valor de sigma dos pulsos para buscar a função resposta.
 
-\par A largura dos pulsos é o mesmo de um sinal que possui apenas um pico. Ou seja, a largura dos pulsos foi determinada fazendo a análise de sinais que possuem apenas 1 pico, fazendo um ajuste pelo método dos mínimos quadrados (MMQ) de uma gaussiana. Para buscar espectros com apenas um pico, foi usado o algoritmo de detecção de picos \textit{peak\_finder}, presente na biblioteca do \textit{scipy}\cite{scipy}, e para o ajuste da gaussiana foi usada o pacote \textit{lmfit} \cite{lmfit}. O valor de sigma encontrado foi de 4.09 (17) \textit{time buckets}.
+\par A largura dos pulsos é o mesmo de um sinal que possui apenas um pico. Ou seja, a largura dos pulsos foi determinada fazendo a análise de sinais que possuem apenas 1 pico, fazendo um ajuste pelo método dos mínimos quadrados (MMQ) de uma gaussiana. Para buscar espectros com apenas um pico, foi usado o algoritmo de detecção de picos \textit{peak\_finder}, presente na biblioteca do \textit{scipy} \cite{scipy}, e para o ajuste da gaussiana foi usada o pacote \textit{lmfit} \cite{lmfit}. O valor de sigma encontrado foi de 4.09 (17) \textit{time buckets}.
 
 \par A largura escolhida foi ligeiramente maior pois, verificando empiricamente, em alguns casos o algoritmo separava o que deveria ser uma única gaussiana em duas. O valor de sigma usado na deconvolução foi de 4.30 \textit{time buckets}. Foi determinado também o número de iterações do algoritmo de deconvolução. O número de iterações escolhido foi de 700, menos que isso o algoritmo não estava separando totalmente picos sobrepostos. O limiar para a escolha de um ponto como um pico foi definido como ter altura maior que 20\% do valor máximo do sinal. Resultados da deconvolução estão na figura \ref{fig:ex_sinal_deconv}.
 
@@ -815,14 +697,14 @@ onde $T^{a}_{1/2}$ é o tempo de meia vida do decaimento beta medido experimenta
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale = 0.28]{figs/Source to only bkg.png}
+    \includegraphics[scale = 0.238]{figs/Source to only bkg.png}
     \caption{Arquitetura da rede neural que faz a inferência do fundo. O vetor de entrada deve ter dimensionalidade 512 x 1. Todas as partes com convolução não possuem o parâmetro \textit{bias}.}
     \label{fig:arq_source_to_bkg}
 \end{figure}
 
-\par A entrada da rede é o sinal cru com dimensionalidade 521 x 1. Há duas convoluções seguidas (passagens \textit{a} e \textit{b}) com \textit{padding same}, seguida de uma camada com \textit{Max pooling}. Os dois canais restantes sofrem uma planificação (ou \textit{flat}), diminuindo sua dimensionalidade, para então passar por mais uma convolução com \textit{padding same} e filtros de tamanho 19 seguido de uma camada \textit{Max pooling} e uma camada \textit{Fully Connected} com função de ativação \textit{ReLU}. Toda a rede neural foi construída usando o TensorFlow 2 e possui um total de 545.536 parâmetros, todos treináveis. O tamanho dos filtros das convoluções levam em conta a largura do pulso, sendo no mínimo maior que a largura, a fim de que cada \textit{kernel} atue em um pulso completo na convolução\cite{FORTINO2022166497}.
+\par A entrada da rede é o sinal cru com dimensionalidade 521 x 1. Há duas convoluções seguidas (passagens \textit{a} e \textit{b}) com \textit{padding same}, seguida de uma camada com \textit{Max pooling}. Os dois canais restantes sofrem uma planificação (ou \textit{flat}), diminuindo sua dimensionalidade, para então passar por mais uma convolução com \textit{padding same} e filtros de tamanho 19 seguido de uma camada \textit{Max pooling} e uma camada \textit{Fully Connected} com função de ativação \textit{ReLU}. Toda a rede neural foi construída usando o TensorFlow 2 e possui um total de 545.536 parâmetros, todos treináveis. O tamanho dos filtros das convoluções levam em conta a largura do pulso, sendo no mínimo maior que a largura, a fim de que cada \textit{kernel} atue em um pulso completo na convolução \cite{FORTINO2022166497}.
 
-\par A camada final com função de ativação \textit{ReLU} garante o valor mínimo de saída em 0 e, principalmente, pelo fato de não causar problemas à minimização do gradiente \cite{VGP}. Foram testadas diversas combinações e a mostrada na figura \ref{fig:arq_source_to_bkg} é a que obteve os melhores resultados\cite{FORTINO2022166497}. 
+\par A camada final com função de ativação \textit{ReLU} garante o valor mínimo de saída em 0 e, principalmente, pelo fato de não causar problemas à minimização do gradiente \cite{VGP}. Foram testadas diversas combinações e a mostrada na figura \ref{fig:arq_source_to_bkg} é a que obteve os melhores resultados \cite{FORTINO2022166497}. 
 % Caso, por exemplo, na passagem \textit{c} da figura, o \textit{pool size} da camada de \textit{max pooling} fosse 32 (a fim de sobrarem 512 canais igual na entrada e na saída), a rede parece não entender as oscilações grandes do sinal de fundo.
 
 \par Para o treino foram usados 160.000 sinais para treino e 40.000 para validação. O \textit{loss} foi escolhido como sendo o erro quadrático médio (equação \ref{eq:erro_abs_m}, o otimizador foi o \textit{ADAMAX} \cite{ADAMAX}, com \textit{learning rate} de 0.0005, e métrica para avaliação foi o erro médio absoluto, dado por
@@ -837,16 +719,16 @@ onde $E$ é o erro absoluto médio, $N$ é o número de pontos e $x_i$ o ponto d
 
 \begin{figure}[H]
 \centering
-    \begin{subfigure}[t]{0.49\textwidth}
+    \begin{subfigure}[t]{\textwidth}
         \centering
-        \includegraphics[scale=0.42]{figs/source_to_bkg_loss.png}
+        \includegraphics[scale=0.51]{figs/source_to_bkg_loss.png}
         \caption{\textit{Loss} dos dados de treino (linha contínua) e dos dados de validação (linha tracejada) em função da \textit{epoch} no treino da rede dada pela figura \ref{fig:arq_source_to_bkg}.}
         \label{subfig:source_to_bkg_loss}
     \end{subfigure}%
-    \hfill
-    \begin{subfigure}[t]{0.45\textwidth}
+    \vfill
+    \begin{subfigure}[t]{\textwidth}
         \centering
-        \includegraphics[scale=0.42]{figs/source_to_bkg_metric.png}
+        \includegraphics[scale=0.51]{figs/source_to_bkg_metric.png}
         \caption{Erro absoluto médio dos dados de treino (linha contínua) e dos dados de validação (linha tracejada) em função da \textit{epoch} no treino da rede dada pela figura \ref{fig:arq_source_to_bkg}.}
         \label{subfig:source_to_bkg_metric}
     \end{subfigure}
@@ -862,11 +744,11 @@ platô no \textit{loss}.}
 \par Exemplos de resultados de previsões da rede neural estão na figura \ref{fig:stb_examples}. A previsão do fundo possui um erro absoluto nos dados de treino de 6.5315 ADC Channels e nos dados de validação de 6.0783 ADC Channels. O sinal cru é subtraído do fundo, colocando o valor mínimo da subtração em 0. Comparando o erro médio absoluto de 200.000 sinais sem o respectivo fundo (resultante do algoritmo do TSpectrum) com o resultado da rede neural obtemos 4.5 ADC Channels.
 % Esse erro significa que, por exemplo, para o menor pico detectado considerado, que possui amplitude de cerca de 60 unidades em y, a incerteza estimada da amplitude seria de 7.5\%, ou seja, na menor amplitude possível para um pico a incerteza propagada seria de 7.5\% da amplitude.
 
-\par Rede neurais convolucionais têm a vantagem de usarem poucas variáveis e serem facilmente paralelizadas em sua execução\cite{mlbook}. Uma vantagem de redes neurais é o seu tempo de execução. Empiricamente a rede neural pode processar 200.000 sinais em apenas 8s (ou 25.000 sinais por segundo), sendo muito eficiente em tempo.
+\par Rede neurais convolucionais têm a vantagem de usarem poucas variáveis e serem facilmente paralelizadas em sua execução \cite{mlbook}. Uma vantagem de redes neurais é o seu tempo de execução. Empiricamente a rede neural pode processar 200.000 sinais em apenas 8s (ou 25.000 sinais por segundo), sendo muito eficiente em tempo.
 
 \begin{figure}[H]
 \centering
-    \begin{subfigure}[b]{0.49\textwidth}
+    \begin{subfigure}[b]{0.47\textwidth}
         \centering
         \includegraphics[scale=0.43]{figs/stb_1.png}
         \caption{}
@@ -879,7 +761,7 @@ platô no \textit{loss}.}
         \caption{}
         \label{subfig:stb_ex2}
     \end{subfigure}
-    \begin{subfigure}[b]{0.49\textwidth}
+    \begin{subfigure}[b]{0.47\textwidth}
         \centering
         \includegraphics[scale=0.43]{figs/stb_3.png}
         \caption{}
@@ -910,11 +792,11 @@ platô no \textit{loss}.}
 
 \par A mesma abordagem da rede neural anterior foi usada, que é fazer uma sequencia de convoluções e por fim uma camada \textit{fully connected} com função de ativação \textit{ReLU}, pois precisamos ter o valor mínimo do espectro em 0. Os filtros das convoluções precisam ter tamanho mínimo de duas vezes o sigma das gaussianas para atuarem sobre cada pulso do espectro. A entrada da rede é o sinal com o fundo subtraído e com mínimo em 0. A saída é o sinal após deconvolução dada pelo algoritmo \textit{gold deconvolution} na biblioteca \textit{TSpectrum} do ROOT, já mostrado na subseção \ref{subsec:pulses_deconv}. A figura \ref{fig:source_to_deconv} mostra a arquitetura da rede de deconvolução.
 
-\par A rede é a sequência de duas convoluções com 32 filtros, \textit{valid padding} e \textit{kernels} de tamanho 19 e 17, respectivamente, seguida de uma camada \textit{Max pooling} com \textit{pool size} igual à 16. No final há o \textit{flat} na camada para seguir com uma camada \textit{fully connected} com função de ativação \textit{ReLU}. O \textit{valid padding} se mostrou mais eficiente para a convergência da rede. Toda a rede foi construída usando o TensorFlow 2, possuindo 508.000 parâmetros treináveis\cite{FORTINO2022166497}.
+\par A rede é a sequência de duas convoluções com 32 filtros, \textit{valid padding} e \textit{kernels} de tamanho 19 e 17, respectivamente, seguida de uma camada \textit{Max pooling} com \textit{pool size} igual à 16. No final há o \textit{flat} na camada para seguir com uma camada \textit{fully connected} com função de ativação \textit{ReLU}. O \textit{valid padding} se mostrou mais eficiente para a convergência da rede. Toda a rede foi construída usando o TensorFlow 2, possuindo 508.000 parâmetros treináveis \cite{FORTINO2022166497}.
 
 \par Assim como na rede anterior, foram usados 160.000 sinais para treino e 40.000 para validação. O \textit{loss} foi escolhido como sendo o erro quadrático médio, o otimizador foi o \textit{ADAM}, com \textit{learning rate} de 0.0005 porém com o parâmetro \textit{clipnorm} igual a 0.45. A métrica para avaliação foi o erro médio absoluto. Foram 75 \textit{epochs} e o \textit{batch-size} foi 8. Os resultados do treino estão na figura \ref{fig:source_wo_bkg_to_deconv_results}.
 
-\par Alterar a norma do gradiente (usar o parâmetro \textit{clipnorm} = 0.45) significa que, caso a norma do vetor do gradiente exceda 0.45, então o valor da norma é reajustado para o limiar (\textit{threshold}) escolhido (0.45)\cite{FORTINO2022166497}. Isso faz com que não ocorra problemas comuns como o gradiente sumir\cite{VGP, ADAMAX}, um dos problemas que teve que ser resolvido nessa rede.
+\par Alterar a norma do gradiente (usar o parâmetro \textit{clipnorm} = 0.45) significa que, caso a norma do vetor do gradiente exceda 0.45, então o valor da norma é reajustado para o limiar (\textit{threshold}) escolhido (0.45) \cite{FORTINO2022166497}. Isso faz com que não ocorra problemas comuns como o gradiente sumir \cite{VGP, ADAMAX}, um dos problemas que teve que ser resolvido nessa rede.
 
 \par O treino foi realizado no Google Colaboratory \cite{google_colab} usando a GPU NVIDIA Tesla P100 e demorou cerca de 54 minutos. Os resultados do treino estão na figura \ref{fig:source_to_bkg_results}, onde eles indicam que, visualmente, a rede neural consegue distinguir muito bem diferentes centroides presentes no pulso. Empiricamente, a rede é capaz de executar 200.000 sinais em 5.4 segundos (ou 37.000 sinais por segundo).
 
@@ -1126,18 +1008,18 @@ platô no \textit{loss}.}
 
 \par Assim como no capítulo \ref{chapter:point_cloud_analysis}, esse capítulo descreve o uso de algoritmos de \textit{machine learning} para a análise, desta vez para as nuvens de pontos. Os algoritmos usados foram tanto não supervisionados (algoritmos de \textit{clustering}) e supervisionados (redes neurais), com diferentes objetivos.
 
-\par Na seção \ref{sec:forcabruta} está mostrado o processo de detecção de trajetórias (\textit{tracking}) com algoritmo de \textit{machine learning} não supervisionados. Na seção \ref{subsec:pointnet} estão mostradas alternativas com outros algoritmos de \textit{machine learning}, porém que não foram utilizadas para a análise dos dados, apenas estudadas suas respectivas viabilidades.
+\par Na seção \ref{sec:forcabruta} está mostrado o processo de detecção de trajetórias (\textit{tracking}) com algoritmo de \textit{machine learning} não supervisionados. Na seção \ref{subsec:pointnet} estão mostradas alternativas com outros algoritmos de \textit{machine learning}, porém que não foram utilizadas para a análise dos dados, mas abrem um grande leque de possibilidades para estudos futuros.
 
 
 
 \section{Detecção de trajetórias}\label{sec:forcabruta}
 
-\par Essa seção irá descrever o processo de \textit{tracking} usando algoritmos de \textit{machine learning} não supervisionados. As nuvens de pontos (eventos) que foram analisadas são como o da figura \ref{subfig:exemplo_1}. Nessa figura é notável ao olho humano que os pontos formam estruturas de retas. Essa retas foram detectadas com algoritmos de \textit{clustering}, pelo fato da estrutura aparente dos dados e, também, por não existir um tamanho fixo das nuvens de pontos. O número de pontos pode variar de 30 até cerca de 200, não considerando pontos ruidosos.
+\par Uma vez reconstruídas as nuvens de pontos de cada evento, é necessário classificar cada um dos tracks das partículas dentro do gás. A  \ref{subfig:exemplo_1} mostra um exemplo de uma nuvem de pontos. A classificação de tracks pode ser realizada a partir de algoritmos de \textit{machine learning} não supervisionados. Nessa figura é notável ao olho humano que os pontos formam estruturas de retas. Essa retas foram detectadas com algoritmos de \textit{clustering}, pelo fato da estrutura aparente dos dados e, também, por não existir um tamanho fixo das nuvens de pontos. O número de pontos pode variar de 30 até cerca de 200, não considerando pontos ruidosos.
 
 
-\par Para diminuir a quantidade de pontos ruidosos, foram usados dois filtros. O primeiro filtro exclui pontos baseado na sua carga, colocando um limiar onde pontos com carga $Q$ $<$ 110 são descartados. O segundo filtro, chamado de \textit{outlier removal}, elimina pontos considerados \textit{outliers} globais, de modo que, caso um ponto não possua um número mínimo de vizinhos $n_{or}$ = 4 em um raio de distância $d_{or}$ = 12 mm, então ele é descartado. O \textit{outlier removal} está presente na biblioteca Open3D\cite{open3d} no Python e funciona excluindo pontos muito isolados uns dos outros.
+\par Para diminuir a quantidade de pontos ruidosos, foram usados dois filtros. O primeiro filtro exclui pontos baseado na sua carga, colocando um limiar onde pontos com carga $Q$ $<$ 110 são descartados. O segundo filtro, chamado de \textit{outlier removal}, elimina pontos considerados \textit{outliers} globais, de modo que, caso um ponto não possua um número mínimo de vizinhos $n_{or}$ = 4 em um raio de distância tridimensional $d_{or}$ = 12 mm, então ele é descartado. O \textit{outlier removal} está presente na biblioteca Open3D\cite{open3d} no Python e funciona excluindo pontos muito isolados uns dos outros.
 
-\par Existem diversas opções de algoritmos de clustering, como o \textit{Density-based spatial clustering of applications with noise} (DBSCAN)\cite{dbscan}, porém a escolha deve levar em conta a performance em tempo, por isso o algoritmo usado foi o \textit{Hierarchical} DBSCAN (HDBSCAN) \cite{hdbscan1, hdbscan2}. O algoritmo tem como entrada a nuvem de pontos e parâmetros esperados para a densidade dos \textit{clusters} presentes no conjunto de pontos. O algoritmo retorna os diferentes \textit{clusters} identificados. Os \textit{clusters} então passam por um ajuste por mínimos quadrados, para determinar o versor e um ponto arbitrário que determinam a reta tridimensional. A figura \ref{subfig:antes_clustering} mostra o resultado da aplicação do HDBSCAN na nuvem de pontos mostrada na figura \ref{subfig:exemplo_1}. O algoritmo não é perfeito e possui falhas em alguns resultados, como por exemplo na figura [xx]. As nuvens de pontos reconstruídas não possuem, em certos casos, densidade de pontos o suficiente para resultar em 100\% de acurácia do evento.
+\par Existem diversas opções de algoritmos de clustering, como o \textit{Density-based spatial clustering of applications with noise} (DBSCAN) \cite{dbscan}, porém a escolha deve levar em conta a performance em tempo, por isso o algoritmo usado foi o \textit{Hierarchical} DBSCAN (HDBSCAN) \cite{hdbscan1, hdbscan2}. O algoritmo tem como entrada a nuvem de pontos e parâmetros esperados para a densidade dos \textit{clusters} presentes no conjunto de pontos. O algoritmo retorna os diferentes \textit{clusters} identificados. Os \textit{clusters} então passam por um ajuste por mínimos quadrados, para determinar o versor e um ponto arbitrário que determinam a reta tridimensional. A figura \ref{subfig:antes_clustering} mostra o resultado da aplicação do HDBSCAN na nuvem de pontos mostrada na figura \ref{subfig:exemplo_1}. As nuvens de pontos reconstruídas não possuem, em certos casos, densidade de pontos o suficiente para resultar em 100\% de acurácia do evento.
 
 
 \begin{figure}[H]
@@ -1166,9 +1048,9 @@ platô no \textit{loss}.}
 \label{fig:3d_examples}
 \end{figure}
 
-\par O HDBSCAN apresenta falhas no seu resultado, como visto na figura \ref{subfig:antes_clustering}, em que, por exemplo, um único \textit{cluster} acaba sendo dividido em três \textit{clusters} muito próximos. A próxima etapa foi de correção da saída do \textit{clustering}. A ideia é comparar, dois a dois, todos os \textit{clusters} resultantes do algoritmo e, se satisfazer um determinado critério, unificar os dois clusters\cite{artigo}. Do ponto de vista computacional, esse problema é abordado avaliando a semelhança entre dois \textit{clusters} usando métricas, como a distância de Jaccard\cite{jaccard_distance} e o coeficiente de silhueta\cite{silhueta}. A correção feita se dá em duas etapas: primeiro comparando os versores entre duas retas e depois verificando se a condição da equação \ref{criterio_clustering} é satisfeita.
+\par O HDBSCAN apresenta falhas no seu resultado, como visto na figura \ref{subfig:antes_clustering}, em que, por exemplo, um único \textit{cluster} acaba sendo dividido em três \textit{clusters} muito próximos. A próxima etapa foi de correção da saída do \textit{clustering}. A ideia é comparar, dois a dois, todos os \textit{clusters} resultantes do algoritmo e, se satisfazer um determinado critério, unificar os dois clusters \cite{artigo}. Do ponto de vista computacional, esse problema é abordado avaliando a semelhança entre dois \textit{clusters} usando métricas, como a distância de Jaccard \cite{jaccard_distance} e o coeficiente de silhueta \cite{silhueta}. A correção feita se dá em duas etapas: primeiro comparando os versores entre duas retas e depois verificando se a condição da equação \ref{criterio_clustering} é satisfeita.
 
-\par Caso a diferença absoluta entre os ângulos com relação ao versor (0, 0, 1) seja menor que 9º (determinado empiricamente), então as duas retas serão combinadas se obedecerem a condição dada por
+\par Caso a diferença absoluta entre os ângulos com relação ao versor (0, 0, 1) (direção do feixe de $^{17}$F) seja menor que 9º (determinado empiricamente), então as duas retas serão combinadas se obedecerem a condição dada por
 
 \begin{equation}\label{criterio_clustering}
     \sum_{i = 0}^{N_1}\frac{d_{i2}}{N_1} < \alpha \space d_{min}, 
@@ -1176,11 +1058,11 @@ platô no \textit{loss}.}
 
 onde $N_1$ é o número de pontos da reta 1, $d_{i2}$ a distância do ponto $i$ da reta 1 em relação à reta 2, $\alpha$ é um parâmetro com valor a ser escolhido e $d_{min}$ é a distância mínima do ponto a reta. Os valores foram determinados empiricamente, tais que $\alpha$ = 1.75 e $d_{min}$ = 15 mm. A figura \ref{subfig:depois_clustering} mostra o resultado da correção baseada nesses critérios no resultado anterior mostrado na figura \ref{subfig:antes_clustering}.
 
-\par Após a correção, é necessário classificar cada reta como sendo ou o feixe, ou uma partícula originada de uma reação nuclear. O feixe incide na câmara com um ângulo muito pequeno com relação ao versor (0, 0, 1). Além disso, mesmo se o ângulo for muito pequeno, a reta do feixe cruza o plano da janela do TPC muito próximo do ponto mais provável da entrada o feixe. O ponto mais provável foi calculado usando a posição média da projeção dos pontos de um conjunto de eventos no plano \textit{x-y}. Disso obtemos que a posição inicial mais provável do feixe é tal que $x_f$ = -3.4 (6.7) mm e $y_f$ = -0.9 (6.3) mm. A incerteza é alta pois o feixe incide de modo bem distribuído da abertura da janela.
+\par Após a correção, é necessário classificar cada reta como sendo ou o feixe, ou uma partícula originada de uma reação nuclear. O feixe incide na câmara com um ângulo muito pequeno com relação ao versor (0, 0, 1), que é o versor de incidência do feixe. Além disso, mesmo se o ângulo for pequeno, a reta do feixe cruza o plano da janela do TPC próximo do ponto mais provável da entrada o feixe. O ponto mais provável foi calculado usando a posição média da projeção dos pontos de um conjunto de eventos no plano \textit{x-y}. Disso obtemos que a posição inicial mais provável do feixe é tal que $x_f$ = -3.4 (6.7) mm e $y_f$ = -0.9 (6.3) mm. A incerteza é alta pois o feixe incide de modo bem distribuído da abertura da janela.
 
 \par Portanto se o ângulo entre o versor $\hat{v}_i$ de uma reta $r_i$ for menor que 5° (determinado de modo empírico novamente) e a distância $d$ entre o ponto $P_i$ que intercepta o plano e o ponto ($x_f$, $y_f$, 0), for menor que 15 mm (pouco mais que duas vezes a incerteza de cada ponto), então a reta foi considerada como o feixe do evento. No caso de não satisfazer essas condições, então ela foi classificada como uma possível partícula originada da reação do feixe com o gás.
 
-\par Importante notar que há eventos que não possuem o feixe detectado, como mostrado na figura \ref{fig:exemplo_sem_feixe}. Neste caso, foi necessário assumir as propriedades da reta mais provável para o feixe, ou seja, precisa passar pelo ponto ($x_f$, $y_f$, 0) e ter versor (0, 0, 1).
+\par Importante notar que há eventos que não possuem projétil ou ejétil ($^{17}$F por exemplo), como mostrado na figura \ref{fig:exemplo_sem_feixe}. Neste caso, foi necessário assumir as propriedades da reta mais provável para o feixe, ou seja, precisa passar pelo ponto ($x_f$, $y_f$, 0) e ter versor (0, 0, 1).
 
 \begin{figure}[H]
     \centering
@@ -1189,7 +1071,7 @@ onde $N_1$ é o número de pontos da reta 1, $d_{i2}$ a distância do ponto $i$ 
     \label{fig:exemplo_sem_feixe}
 \end{figure}
 
-\par Para completar a cinemática do evento, foi necessário calcular o vértice de reação, para cada evento, entre a partícula e o feixe. O vértice de reação é o ponto médio do segmento de reta que conecta a reta a ser analisada (partícula) e o feixe, no ponto de menor distância entre as retas. Ele permitiu fazer correções em etapas futuras e diferençar o começo e o fim de uma trajetória.
+\par Para completar a cinemática do evento, foi necessário calcular o vértice de reação, para cada evento, entre o track da partícula e a direção do feixe. O vértice de reação é o ponto médio do segmento de reta que conecta a reta a ser analisada (partícula) e o feixe, no ponto de menor distância entre as retas. Ele permitiu fazer correções em etapas futuras e diferençar o começo e o fim de uma trajetória.
 
 \par Para deduzir a equação para o vértice de reação, primeiro temos as seguintes equações das retas $\vec{P_1}$ e $\vec{P_2}$ como vetores:
 
@@ -1243,10 +1125,6 @@ onde $\tilde{t_1}$, $\tilde{t_2}$ e $\tilde{t_3}$ são os hiperparâmetros a ser
 
 % \par No caso em que $\vec{V_c}$ em \ref{eq:versor_menor_dist} é zero, então as retas analisadas são paralelas. Nesse caso não há vértice de reação e a distância de máxima aproximação é dada por
 
-\begin{equation}
-    d_{max} = \left | \left(\vec{P_1} - \vec{P_2}\right) \right |.
-\end{equation}
-
 \par Da equação \ref{eq:menor_dist_retas} foi estabelecido um limite superior para $d_{max}$ tal que valores maiores que esse limite indicam uma reação nuclear em comum entre a partícula e o feixe. O valor foi determinado empiricamente e foi definido como $d_{max}^{sup}$ = 25 mm. Trajetórias cuja distância máxima de aproximação excedia $d_{max}^{sup}$, então a trajetória é descartada. A última condição para garantir que houve uma reação nuclear, é garantir que o vértice de reação está dentro da câmara, cujos limites são $|x| < $ 140mm, $|y| < $ 140mm e $|t| < $ 512.
 
 \par Para completar essa etapa, foi necessário determinar a energia $E$ da trajetória e o comprimento $L$ da trajetória. A energia $E$ é definida como
@@ -1269,8 +1147,6 @@ onde $\tilde{t_1}$, $\tilde{t_2}$ e $\tilde{t_3}$ são os hiperparâmetros a ser
 
 \par  O objetivo da análise das nuvens de pontos foi buscar eventos que possuíam, de modo geral, três trajetórias (uma sendo o feixe, e as outras duas de partículas que surgiram da reação nuclear do feixe com o gás). Nem todos os eventos puderam ser analisados, devido à falta de trajetórias, o que significa que foi utilizado tempo para a busca desses eventos que poderiam ser descartados.
 
-\par Para facilitar a análise, pode ser necessário investigar eventos atípicos, ou mesmo
-
 \subsection{Detecção de eventos com \textit{machine learning}}\label{subsec:pointnet}
 
 \par Para evitar o processo de \textit{clustering} de nuvens de pontos que não possuem eventos de interesse (como o \textit{breakup}), é possível usar redes neurais supervisionadas capazes de processar nuvens de pontos tridimensionais para selecionar eventos de interesse. A rede neural usada para esse processo chama-se PointNet \cite{qi2016pointnet} e a arquitetura está na figura \ref{fig:aqr:pointnet}.
@@ -1282,11 +1158,11 @@ onde $\tilde{t_1}$, $\tilde{t_2}$ e $\tilde{t_3}$ são os hiperparâmetros a ser
     \label{fig:aqr:pointnet}
 \end{figure}
 
-\par A PointNet é uma rede neural capaz de processar \textit{pointclouds}, entendendo que a estrutura dos dados é invariante à troca de pontos e invariante sobre transformações (rotação e translação)\cite{RF_pc}, pode ser usada tanto para classificação quanto segmentação semântica de nuvens de pontos\cite{qi2016pointnet}. A classificação é no para a \textit{pointcloud} completa, já a segmentação semântica é a classificação ponto a ponto da nuvem de pontos\cite{qi2016pointnet}.
+\par A PointNet é uma rede neural capaz de processar \textit{pointclouds}, entendendo que a estrutura dos dados é invariante à troca de pontos e invariante sobre transformações (rotação e translação) \cite{RF_pc}, pode ser usada tanto para classificação quanto segmentação semântica de nuvens de pontos \cite{qi2016pointnet}. A classificação é no para a \textit{pointcloud} completa, já a segmentação semântica é a classificação ponto a ponto da nuvem de pontos \cite{qi2016pointnet}.
 
-\par  Para o uso da PointNet para classificação, foi criado um banco de dados para o treino da rede neural que tem como \textit{input} a nuvem de pontos e como \textit{output} o número de trajetórias presentes no evento. Um dos pontos negativos da PointNet é seu tamanho fixo nos dados de entrada\cite{qi2016pointnet}, pois no caso dos dados desse trabalho, o número de pontos por evento não é  fixo. Para resolver isso, foi determinado um tamanho fixo $n$ = 300 pontos para todas as nuvens de pontos. Eventos com mais pontos que $n$ são descartados, já eventos com menos pontos eram preenchidos com pontos repetidos da mesma nuvem de pontos, para completar até o tamanho $n$. Eventos com menos que 100 pontos também foram descartados.
+\par  Para o uso da PointNet para classificação, foi criado um banco de dados para o treino da rede neural que tem como \textit{input} a nuvem de pontos e como \textit{output} o número de trajetórias presentes no evento. Um dos pontos negativos da PointNet é seu tamanho fixo nos dados de entrada \cite{qi2016pointnet}, pois no caso dos dados desse trabalho, o número de pontos por evento não é  fixo. Para resolver isso, foi determinado um tamanho fixo $n$ = 300 pontos para todas as nuvens de pontos. Eventos com mais pontos que $n$ são descartados, já eventos com menos pontos eram preenchidos com pontos repetidos da mesma nuvem de pontos, para completar até o tamanho $n$. Eventos com menos que 100 pontos também foram descartados.
 
-\par Para determinar o número de trajetórias nos eventos para o treino da rede neural, foi utilizado o estimador robusto que chamei de prototype-RANSAC (RANdom SAmple Consensus), que é uma variação do RANSAC\cite{ransac, artigo}. A escolha dele no lugar do HDBSCAN é pela melhor acurácia na detecção de trajetórias, apesar de ser cerca de 4 vezes mais lento. As nuvens de pontos (sem o acréscimo de pontos para a PointNet) ainda passam pelos dois filtros e critérios de correção mostrados na seção \ref{sec:forcabruta}. O algoritmo \ref{ransac_algo} mostra o funcionamento do p-RANSAC. O algoritmo seleciona dois pontos de modo aleatório (\textit{Random Sampling}) e determina o versor $\hat{v}$ e o ponto $P_b$ que descrevem a única reta $r$ que passa pelos dois pontos. A reta é selecionada caso tenha um número mínimo $tam_{min}$ = 24 de pontos que pertencem à reta (chamado de \textit{inliers}) e tenha o mínimo (com relação aos outros conjunto de pontos) da estimativa $C$ dada por\cite{artigo}
+\par Para determinar o número de trajetórias nos eventos para o treino da rede neural, foi utilizado o estimador robusto que chamei de prototype-RANSAC (RANdom SAmple Consensus), que é uma variação do RANSAC  \cite{ransac, artigo}. A escolha dele no lugar do HDBSCAN é pela melhor acurácia na detecção de trajetórias, apesar de ser cerca de 4 vezes mais lento. As nuvens de pontos (sem o acréscimo de pontos para a PointNet) ainda passam pelos dois filtros e critérios de correção mostrados na seção \ref{sec:forcabruta}. O algoritmo \ref{ransac_algo} mostra o funcionamento do p-RANSAC. O algoritmo seleciona dois pontos de modo aleatório (\textit{Random Sampling}) e determina o versor $\hat{v}$ e o ponto $P_b$ que descrevem a única reta $r$ que passa pelos dois pontos. A reta é selecionada caso tenha um número mínimo de pontos $N_{min}$ = 24 que pertencem à reta (chamado de \textit{inliers}) e tenha o mínimo (com relação aos outros conjunto de pontos) da estimativa $C$ dada por \cite{artigo}
 
 \begin{equation} \label{criterio_ransac}
     C = \sum_{i = 0}^{N} \frac{d_i ^2}{N},
@@ -1296,7 +1172,7 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 
 \begin{algorithm}[H]
     \caption{p-RANSAC}\label{ransac_algo}
-    \KwData{pointcloud, $N$, $d_{min}$, $tam_{min}$}
+    \KwData{pointcloud, $N$, $d_{min}$, $N_{min}$}
     \For{cada iteração $ i =1,2,\ldots, N$}{
         Seleciona dois pontos da \textit{pointcloud} de modo aleatório (\textit{Random Sampling})\;
         Estima versor $v$ e um ponto $P_b$ que passe pela reta \textit{r} formada pelos dois pontos\;
@@ -1306,20 +1182,20 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 			    Guarda $P$ como pertencente à $r$\;
 	        }
 	    }
-	    \If{Número de pontos de $r > tam_{min}$}{
+	    \If{Número de pontos de $r > N_{min}$}{
 	        Guarda $v$, $P_b$ e $C$\;
 	    }
     }
     Ordena as retas do menor para o maior $C$\;
     \For{cada reta $r$ ordenada}{
-        \If{Número de pontos de $r > tam_{min}$}{
+        \If{Número de pontos de $r > N_{min}$}{
             Guarda $v$, $P_b$ e pontos $P$ $\in r$\;
         }
     }
     \Return Retas $r$ selecionadas na última etapa\;
 \end{algorithm}
 
-\par Para o \textit{output} foram escolhidos eventos que possuem de 0 até 5 trajetórias. Com o \textit{output} construído, a rede para classificação foi treinada, onde a função custo foi a \textit{categorical cross entropy}\cite{MSE_CEF_review} e o otimizador o ADAM\cite{ADAMAX}. A métrica utilizada foi a acurácia categórica e foi de 70\% quando concluído o treino. Exemplo do resultado da aplicação da rede neural em nuvens de pontos está na figura \ref{fig:pointnet_class_exs}.
+\par Para o \textit{output} foram escolhidos eventos que possuem de 0 até 5 trajetórias. Com o \textit{output} construído, a rede para classificação foi treinada, onde a função custo foi a \textit{categorical cross entropy} \cite{MSE_CEF_review} e o otimizador o ADAM \cite{ADAMAX}. A métrica utilizada foi a acurácia categórica e foi de 70\% quando concluído o treino. Exemplo do resultado da aplicação da rede neural em nuvens de pontos está na figura \ref{fig:pointnet_class_exs}.
 
 \begin{figure}[H]
     \centering
@@ -1328,11 +1204,11 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
     \label{fig:pointnet_class_exs}
 \end{figure}
 
-\par Eventos com 4 ou 5 trajetórias ocorrem com uma frequência muito menor (menos que 5\% do total de dados) que eventos de 1 e 2 trajetórias (cerca de 85\% do total de dados), caracterizando o banco de dados com o problema de desbalanço de classe, o que pode ter prejudicado o treino para identificar eventos mais incomuns. No dados do experimento desse trabalho não foi necessário utilizar essa rede neural, pois a etapa de identificação de trajetórias é rápida em comparação com a mesma etapa usado dados gerados nos experimentos com o AT-TPC\cite{attpc, FORTINO2022166497}.
+\par Eventos com 4 ou 5 trajetórias ocorrem com uma frequência muito menor (menos que 5\% do total de dados) que eventos de 1 e 2 trajetórias (cerca de 85\% do total de dados), caracterizando o banco de dados com o problema de desbalanço de classe, o que pode ter prejudicado o treino para identificar eventos mais incomuns. No dados do experimento desse trabalho não foi necessário utilizar essa rede neural, pois a etapa de identificação de trajetórias é rápida em comparação com a mesma etapa usado dados gerados nos experimentos com o AT-TPC \cite{attpc, FORTINO2022166497}.
 
 \subsection{Detecção de \textit{outliers}}
 
-\par Um possível uso para a rede de segmentação semântica é para classificar pontos como \textit{inliers} ou \textit{outliers}, semelhante ao uso do algoritmo \textit{outlier removal} da biblioteca Open3D\cite{open3d}. A diferença é que com a PointNet pode-se incluir \textit{outliers} locais\cite{RF_pc}, não apenas os globais para serem identificados.
+\par Um possível uso para a rede de segmentação semântica é para classificar pontos como \textit{inliers} ou \textit{outliers}, semelhante ao uso do algoritmo \textit{outlier removal} da biblioteca Open3D \cite{open3d}. A diferença é que com a PointNet pode-se incluir \textit{outliers} locais \cite{RF_pc}, não apenas os globais para serem identificados.
 
 \par Para o \textit{output} da rede neural, os pontos classificados como \textit{outliers} globais ou locais possuem valor 0 e pontos que são \textit{inliers} (pertencem à alguma trajetória) possuem valor 1. A rede de segmentação foi treinada, com a função custo sendo a \textit{binary cross entropy} e a mética a acurácia binária. A acurácia da rede foi de aproximadamente 93\%, se mostrando uma boa alternativa para eliminação de ruído nos eventos. A figura \ref{fig:pointnet_segment_exs} mostra o resultado da aplicação da rede de segmentação em uma nuvem de pontos.
 
@@ -1343,9 +1219,9 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
     \label{fig:pointnet_segment_exs}
 \end{figure}
 
-\par Existem outras redes neurais que são capazes de lidar com \textit{pointclouds}, como a PointNet++\cite{qi2017pointnetplusplus} e Dynamic Graph CNN\cite{graph_cnn}. Para a abordagem de detecção de trajetórias de forma direta, uma opção é utilizar a rede neural ContrastNet\cite{contrastnet}, pois a rede é capaz de fazer \textit{clustering} nos dados, retornando os diferentes \textit{clusters} existentes nos dados.
+\par Existem outras redes neurais que são capazes de lidar com \textit{pointclouds}, como a PointNet++ \cite{qi2017pointnetplusplus} e Dynamic Graph CNN \cite{graph_cnn}. Para a abordagem de detecção de trajetórias de forma direta, uma opção é utilizar a rede neural ContrastNet \cite{contrastnet}, pois a rede é capaz de fazer \textit{clustering} nos dados, retornando os diferentes \textit{clusters} existentes nos dados. Num futuro, estamos pensando em utilizar esses tipos de ferramentas para realizar \textit{clustering} em nuvens de pontos em outros experimentos usando múltiplos canais de reação. No entanto, esse projeto esta alem dos objetivos desta dissertação.
 
-\par Com as informações da cinemática determinadas, foi possível determinar as distribuições angulares, que está feito no capítulo \ref{chapter:resultados}.
+\par A classifição e ajuste de tracks apresentados no presente capítulo permitem obter informação da cinemática das reações nucleares e extrair as respetivas distribuições angulares. Essa análise é discutida no próximo capítulo.
 
 \chapter{Resultados}\label{chapter:resultados}
 
@@ -1358,7 +1234,7 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
     \label{fig:coincidencia_detec}
 \end{figure}
 
-\par Para determinar qual é a partícula de cada \textit{track} podemos usar o LISE++\cite{lise++} para calcular o alcance (\textit{range}) das possíveis partículas ($^{17}$F, $^{16}$O e próton) dada as propriedades do alvo ($^4$He à uma pressão de 350 Torr). A figura \ref{fig:alcance_vs_energia} mostra o alcance em mm das partículas em função da energia em MeV.
+\par Para determinar qual é a partícula de cada \textit{track} podemos usar o LISE++ \cite{lise++} para calcular o alcance (\textit{range}) das possíveis partículas ($^{17}$F, $^{16}$O e próton) dada as propriedades do alvo ($^4$He à uma pressão de 350 Torr). A figura \ref{fig:alcance_vs_energia} mostra o alcance em mm das partículas em função da energia em MeV.
 
 % \begin{figure}[H]
 %     \centering
@@ -1394,6 +1270,133 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 % \end{equation}
 
 % onde $\hat{v}_i$ é o versor de uma reta $i$ e $\beta$ é um limiar dado em graus a ser determinado empiricamente, que neste caso foi considerado como 5°.
+
+\begin{appendices}
+
+
+\chapter{Aplicações de \textit{machine learning} na física nuclear} \label{appendix:ml_nuclear}
+
+\par Em física nuclear, o uso de técnicas de \textit{machine learning} tem se mostrado cada vez mais importante. Na continuação são citados alguns exemplos.
+
+\section{Análise de espectros para identificação de partículas (\textit{particle identification}, PID)}
+
+\par O uso de técnicas de aprendizado não supervisionado pode ser usado para a identificar de partículas em espectros $\Delta E$ - $E$. Neste tipo de espectros, as partículas são detectadas e separadas por regiões que facilmente podem ser identificadas visualmente \cite{DETC_TELE}. No entanto, a identificação visual desses espectros com os sistemas de detecção com milhares de canais é inviável de forma manual. Assim, ferramentas de \textit{machine learning} (ou inteligencia artificial) são de grande relevância para esse tipo de analise.
+
+Os resultados apresentados nessa seção foram obtidos na etapa inicial desta dissertação. Para o presente estudo, o espectro biparamétrico ($\Delta E$-$E$) mostrado na Figura \ref{subfig:espectro_1} foi analisado. Os dados correspondem a reação de espalhamento e transferência no sistema $^{6}$Li +  $^{12}$C.
+
+
+% O espectro biparamétrico ($\Delta E$ - $E$) mostrado pela figura \ref{subfig:espectro_1} é o resultado obtido do espalhamento do $^6$Li em $^{12}$C por um detector telescópio\cite{DETC_TELE}.
+
+\par O objetivo é identificar conjuntos (ou \textit{clusters}) diferentes a partir do espectro. É claro para o olho humano que existem conjuntos diferentes, e eles podem ser identificados usando algoritmos de aprendizado não supervisionado, como por exemplo o \textit{density-based spatial clustering of applications with noise} (DBSCAN) \cite{dbscan}. O DBSCAN consegue identificar \textit{clusters} apenas com as informações características de densidade existente pelos conjuntos que existem nos dados. O resultado da aplicação do algoritmo está na figura \ref{subfig:espectro_2}, onde é mostrado que o espectro agora está separado por diferentes conjuntos.
+%\newpage
+
+\begin{figure}[H]
+\centering
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[scale=0.21]{figs/espectro_1.png}
+        \caption{Espectro biparamétrico $\Delta E$ x $E$ (energia no referencial do centro de massa).}
+        \label{subfig:espectro_1}
+    \end{subfigure}%
+    \hfill
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[scale=0.52]{figs/espectro_2.png}
+        \caption{Espectro biparamétrico $\Delta E$ x $E$ (energia no referencial do centro de massa) com os conjuntos identificados com o uso do DBSCAN.}
+        \label{subfig:espectro_2}
+    \end{subfigure}
+\caption{Espectros biparamétricos $\Delta E$ x $E$, em \ref{subfig:espectro_1} o espectro cru com uma pré marcação das partículas, e em \ref{subfig:espectro_2} os conjuntos identificados usando \textit{machine learning}.}
+\label{fig:espectros_ex_ml}
+\end{figure}
+
+\par Usando o conjunto 1, por exemplo, é possível criar o histograma de identificação de partículas dado pela figura \ref{fig:PID_hist}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.11]{figs/espectro_3.png}
+    \caption{Histograma de identificação de partículas, a partir do conjunto 1 identificado na figura \ref{subfig:espectro_2}. Em \textbf{a} temos o primeiro pico que corresponde ao estamos fundamental do $^{14}$N e em \textbf{b} temos o primeiro estado excitado do $^{14}$N.}
+    \label{fig:PID_hist}
+\end{figure}
+
+\section{Estimativa de raios e massas nucleares}
+
+\par Frequentemente é necessário calcular com alta precisão observáveis que ainda não foram medidos, para contribuir com dados já existentes. É possível estimar propriedades de núcleos usando modelos e dados experimentais já existentes em conjunto com técnicas de \textit{machine learning}.
+
+\par É possível usar redes neurais que façam previsão de massa nucleares com informações de massa já disponíveis. Isso foi feito usando o algoritmo \textit{Light Gradient Boosting Machine} (LightGBM) \cite{LightGBM}. O algoritmo é uma rede neural cujo aprendizado é supervisionado e minimiza o erro entre a energia de ligação teórica e a energia de ligação experimental dos núcleos (essa diferença é chamada de resíduo), usando 10 quantidades físicas como dados de entrada (\textit{input}) \cite{nuclear_mass}. O desvio quadrático médio para a massa dos núcleos é de 0.234 $\pm$ 0.022 MeV, valor melhor que muitos modelos físicos de massa nuclear. A figura \ref{fig:nuclei_mass_ml} mostra os resíduos calculados entre a energia de ligação calculada pelo rede neural e a energia de ligação determinada experimentalmente.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.60]{figs/nuclei_mass.png}
+    \caption{Painel acima mostra a localização dos núcleos usados para o treino da rede neural. No painel de baixo temos o erro entre a previsão e o valor experimental da energia de ligação do núcleo para os núcleos usados como dados de validação. $\sigma$ é o erro quadrático médio da rede neural.}
+    \label{fig:nuclei_mass_ml}
+\end{figure}
+
+\par Outro exemplo de uso é para a estimativa de raio de carga nuclear. Usando uma rede neural (chamada de \textit{Bayesian neural network extended liquid drop} - BNN-ELD) FC com duas variáveis de entrada, o número de prótons Z e o número de massa A, com a condição de que Z $\geq$ 20 e A $\geq$ 40. A rede é supervisionada e usa 722 núcleos para dados de treino e 98 núcleos como validação. Resultados para o desvio quadrático médio do raio de carga são de cerca de 0.02 fm para os 820 núcleos utilizados. A figura \ref{fig:radii} mostra a diferença entre o raio de carga calculado teoricamente e o determinado experimentalmente para isótopos do chumbo, usando diferentes neurais e modelos teóricos. Mais detalhes podem ser encontrados na Ref. \cite{raio_carga}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.60]{figs/radii.png}
+    \caption{Previsões para o raio de carga para isótopos do chumbo (Z = 82) para diferentes modelos teóricos ou que usam redes neurais. A previsão que contém barras de erro é a que foi brevemente descrita no texto.}
+    \label{fig:radii}
+\end{figure}
+
+% \par Dada a capacidade de redes neurais de aprenderem padrões não lineares nos dados, isso tem se mostrado muito útil uma alternativa para estimar propriedades dos núcleos como: raio de carga nuclear \cite{raio_carga}, massa de núcleos \cite{nuclear_mass} etc.
+
+\section{Decaimento $\beta$ e processo $r$}
+
+\par O decaimento $\beta$ é fundamental para entender a origem dos elementos pesados. Prever o tempo de meia vida do decaimento $\beta$ é de grande importância para simulações do processo $r$ (captura rápida de nêutrons). Com redes neurais é possível fazer previsões que levam em conta a física do problema, como visto na Ref. \cite{mlbetadecay}. O modelo de inteligência artificial leva em conta a teoria de Fermi para o decaimento beta, onde a função $f$ que é minimizada (função custo) é dada por
+
+\begin{equation}\label{eq:half_life}
+    f = \log_{10}(T^{a}_{1/2}/T^{b}_{1/2}),
+\end{equation}
+
+onde $T^{a}_{1/2}$ é o tempo de meia vida do decaimento beta medido experimentalmente e $T^{b}_{1/2}$ é o tempo de meia vida do decaimento beta determinado teoricamente. As variáveis de entrada são o número de prótons Z, o número de nêtrons N, a energia total do decaimento beta e o parâmetro de paridade $\delta$ = 1, 0, -1, para núcleos par-par, ímpar-par e ímpar-ímpar, respectivamente.
+
+\par A figura \ref{fig:beta_decay} mostra a previsão do tempo de meia vida ($T_{1/2}$) do decaimento $\beta$ (em segundos) para isótonos com número de nêutrons N = 126 usando redes neurais.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.35]{figs/beta_predict_2.png}
+    \caption{Meias-vidas de decaimento $\beta$ para isótonos com N = 126. A região hachurada verde mostra as previsões de uma rede neural. A região hachurada em azul mostra os resultados da mesma rede neural, porém seus dados de aprendizado são estendidos para incluir três meias-vidas extras de decaimento $\beta$ para cada isótopo (indicado por círculos abertos) em direção à \textit{drip-line} de nêutrons \cite{mlbetadecay}.}
+    \label{fig:beta_decay}
+\end{figure}
+
+\section{Alvos ativos}
+
+\par Experimentos com alvos ativos geram enormes quantidades de dados. Uma semana de experimento pode gerar até 10Tb de dados \cite{KUCHERAML}, o que gera a necessidade do uso de algoritmos de \textit{machine learning} para diminuir o consumo de tempo da análise desses dados.
+
+\par A análise dos dados envolve a reconstrução tridimensional dos eventos e posteriormente a reconstrução da cinemática, com a identificação de partículas e de reações nucleares. O uso de técnicas de \textit{machine learning} pode diminuir o consumo de tempo dessas etapas.
+
+\par O uso de CNNs em imagens feitas a partir das projeções de eventos pode ser útil para a classificação de eventos, sem a necessidade de reconstruir a cinemática em uma etapa anterior. A figura \ref{fig:tpc_ml} mostra exemplos de projeções de trajetórias de partículas dentro do alvo ativo, onde a partir da projeção no plano $xy$ é possível identificar a partícula que a originou.
+
+\par Primeiro, com o objetivo de classificar as projeções entre próton ou carbono, é possível construir uma rede neural para a classificação binária. Para isso foi usada uma arquitetura com camadas convolucionais seguidas de \textit{max-pooling} e por fim uma camada FC \cite{KUCHERAML}. A função a ser minimizada é a dada pela equação \ref{eq:binary_cross_entropy} e a métrica para entender o comportamento da rede neural é a acurácia binária.
+
+\par Caso o objetivo seja classificar entre três ou mais possibilidades (como por exemplo próton, carbono e outros), então a classificação não será binária, passará a ser categórica, pois será necessário classificar a imagem em alguma categoria. A função custo passará a ser a \textit{categorical cross-entropy} e a métrica será a acurácia categórica.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.5]{figs/tpc_ml.png}
+    \caption{Projeções no plano $xy$ de partículas dentro do alvo ativo, onde quanto mais escura for a cor, mais carga tem o ponto, e quanto mais clara a cor, menos carga tem o ponto. O objetivo da rede neural pode ser classificar corretamente se a imagem à direita corresponde à uma trajetória de um próton, carbono ou outra partícula, ou pode ser uma rede neural para classificação binária caso seja necessário classificar apenas entre próton ou carbono \cite{KUCHERAML}.}
+    \label{fig:tpc_ml}
+\end{figure}
+
+\par A rede criada para a classificação binária (entre próton e carbono) atingiu cerca de 90\% de acurácia. Somado ao fato de que redes neurais são muito eficientes em tempo, isso mostra uma possibilidade de que seja possível utilizar redes neurais como essa para o processamento em tempo real dos dados, com pouca supervisão humana durante o processo \cite{KUCHERAML}.
+
+\par Outro problema que pode ser resolvido com técnicas de \textit{machine learning} é a remoção de ruído de eventos. Para isso, pode ser usado o algoritmo não supervisionado \textit{Hough transform} \cite{hough}, que é capaz de detectar padrões de interesse nos dados e evitar regiões ou pontos que não seguem o padrão desejado. 
+
+
+% Além disso são geradas nuvens de pontos tridimensionais, o que demanda um grande trabalho do ponto de vista de visão computacional, com algoritmos capazes de identificar estruturas em três dimensões. A figura \ref{fig:tpc_ml} mostra um exemplo de \textit{clustering} aplicado na identificação de trajetórias tridimensionais.
+
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[scale = 0.5]{figs/tpc_ml_2.png}
+%     \caption{Resultado do algoritmo iterativo \textit{Hough transform}\cite{hough} que separa os pontos originados de interações de partículas carregadas com o alvo ativo. O algoritmo não é 100\% correto e neste evento alguns dos pontos atribuídos à trajetória 0 e à trajetória 3 na verdade pertencem à trajetória 2.\cite{DALITZ2019159}}
+%     \label{fig:tpc_ml}
+% \end{figure}
+
+    % \caption{Projeções de partículas dentro do alvo ativo. O objetivo da rede neural é classificar corretamente se a imagem à direita corresponde à uma trajetória de um próton, carbono ou outra partícula.}
+\end{appendices}
+
 
 \printbibliography[title={Referências}]
 \end{document}
