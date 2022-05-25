@@ -37,7 +37,8 @@
 \hypersetup{colorlinks=false, pdftitle={Tese}}
 % \usepackage[backend=biber]{biblatex}
 % \addbibresource{sample.bib}
-
+\renewcommand\appendixname{Apêndice}
+\renewcommand\appendixpagename{Apêndices}
 
 
 
@@ -1228,11 +1229,48 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
     \label{fig:pointnet_segment_exs}
 \end{figure}
 
-\par Existem outras redes neurais que são capazes de lidar com \textit{pointclouds}, como a PointNet++ \cite{qi2017pointnetplusplus} e Dynamic Graph CNN \cite{graph_cnn}. Para a abordagem de detecção de trajetórias de forma direta, uma opção é utilizar a rede neural ContrastNet \cite{contrastnet}, pois a rede é capaz de fazer \textit{clustering} nos dados, retornando os diferentes \textit{clusters} existentes nos dados. Num futuro, estamos pensando em utilizar esses tipos de ferramentas para realizar \textit{clustering} em nuvens de pontos em outros experimentos usando múltiplos canais de reação. No entanto, esse projeto esta alem dos objetivos desta dissertação.
+\par Existem outras redes neurais que são capazes de lidar com \textit{pointclouds}, como a PointNet++ \cite{qi2017pointnetplusplus} e Dynamic Graph CNN \cite{graph_cnn}. Para a abordagem de detecção de trajetórias de forma direta, uma opção é utilizar a rede neural ContrastNet \cite{contrastnet}, pois a rede é capaz de fazer \textit{clustering} nos dados, retornando os diferentes \textit{clusters} existentes nos dados. Num futuro, estamos pensando em utilizar esses tipos de ferramentas para realizar \textit{clustering} em nuvens de pontos em outros experimentos usando múltiplos canais de reação. No entanto, esse projeto esta além dos objetivos desta dissertação.
 
-\par A classifição e ajuste de tracks apresentados no presente capítulo permitem obter informação da cinemática das reações nucleares e extrair as respetivas distribuições angulares. Essa análise é discutida no próximo capítulo.
+\par A classificação e ajuste de trajetórias apresentados no presente capítulo permitem obter informação da cinemática das reações nucleares e extrair as respetivas distribuições angulares. Essa análise é discutida no próximo capítulo.
 
 \chapter{Resultados}\label{chapter:resultados}
+
+\par Esse capítulo mostra como foram construídas as distribuições angulares a partir das informações obtidas da análise das nuvens de pontos, que representam reações nucleares. No capítulo \ref{chapter:point_cloud_analysis} a parte computacional e matemática foi desenvolvida, a continuidade da análise é completar a cinemática das reações nucleares, para identificar qual a reação nuclear e quais as partículas identificadas. 
+
+\par Na seção [xx] está descrito como identificar reações nucleares. A seção [yy] descreve como identificar as partículas das reações nucleares e como construir as distribuições angulares.
+
+\section{Identificação de reações nucleares}
+
+\par Para cada reação nuclear, é necessário determinar o vértice de reação, dado pela equação \ref{eq:vertice_reacao}. O vértice de reação é importante pois determina, a partir de sua posição e informações das outras trajetórias presentes no evento, o comprimento das trajetórias e o local da reação nuclear. O vértice de reação possui uma maior probabilidade de ocorrer na região central da câmara, pois o feixe incide na câmara com um ângulo muito pequeno em relação ao eixo da câmara, o que significa que eventos onde foram identificadas reações fora da região central foram descartados.
+
+\par Dentre os eventos análise, existem casos em que o feixe foi identificado juntamente com outras duas partículas, caso com duas trajetórias (podendo ser a do feixe e uma partículas ou apenas duas partículas) e o caso com apenas uma trajetória identificada. A figura [xx] ilustra os exemplos.
+
+\par No caso mostrado na figura [xx], onde há a identificação do feixe e de outras duas trajetórias, é possível determinar o vértice de reação a partir das propriedades das trajetórias do feixe e das outras partículas. Cada partículas tem seu vértice de reação com o feixe, nesse caso é preciso determinar se os vértices calculados correspondem à mesma reação nuclear, pois foi feita a busca de reações de breakup.
+
+\par A figura [xx] mostra o caso em que há a identificação do feixe e de uma outra trajetória. O vértice é calculado e a terceira partícula da reação nuclear de breakup é determinada de maneira indireta, por conservação do momento linear. Importante notar que o aglomerado identificado não possui pontos na perto da parte central da câmara, pois o ganho da eletrônica do micromegas na parte central é menor em comparação com a região não central.
+
+\par No caso em que não há o feixe identificado, como mostrado na figura [xx], foram assumidas as propriedades mais prováveis da trajetória do feixe dentro da câmara, como já discutido no capítulo \ref{chapter:point_cloud_analysis}.
+
+\par 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \par Após identificar todos os \textit{clusters} de cada evento devemos identificar quais são as partículas que originaram cada uma das trajetórias detectadas. Temos o comprimento de cada trajetória e sua energia, portanto o objetivo é, dada essas duas informações, identificar qual a partícula. A figura \ref{fig:coincidencia_detec} mostra um histograma bidimensional do comprimento de cada \textit{track} em função do ângulo de espalhamento no referencial do laboratório, usando apenas eventos que possuíam duas \textit{tracks} com o mesmo vértice de reação. É possível perceber as medidas coincidentes do $^{16}$O e do próton.
 
