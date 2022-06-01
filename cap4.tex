@@ -139,7 +139,7 @@ Prof(a). Dr(a). Nome do(a) Professor(a) (institui\c{c}\~{a}o de trabalho) \\
     \label{fig:chart_nuclides}
 \end{figure}
 
-\par Para investigar a estrutura de núcleos ricos em prótons ou em nêutrons, é possível usar reações nuclear como espalhamento elástico, transferência e breakup [xxx]. A reação de breakup é a reação nuclear tal que o projétil ao interagir com o alvo, se dissocia em seus constituintes [x]. A reação estudada nessa dissertação é a reação de breakup $^4$He($^{17}$F,$^{16}$O+p)$^4$He, onde o $^{17}$F é um núcleo próton-halo que pode ser descrito como um núcleo de $^{16}$O mais um próton fracamente ligado ($S_p$ = 600 keV).
+\par Para investigar a estrutura de núcleos ricos em prótons ou em nêutrons, é possível usar reações nuclear como espalhamento elástico, transferência e breakup \cite{Kolata2016}. A reação de breakup é a reação nuclear tal que o projétil ao interagir com o alvo, se dissocia em seus constituintes \cite{Kolata2016, MORO_BREAKUP}. A reação estudada nessa dissertação é a reação de breakup $^4$He($^{17}$F,$^{16}$O+p)$^4$He, onde o $^{17}$F é um núcleo próton-halo que pode ser descrito como um núcleo de $^{16}$O mais um próton fracamente ligado ($S_p$ = 600 keV) \cite{MORO_BREAKUP}.
 
 \par Para a investigação de reação nuclear de breakup, é importante identificar todas as partículas que se quebraram, necessitando de um sistema de detecção sofisticado, como o alvo ativo. O alvo ativo é um sistema detector que funciona tanto quanto meio detector quanto alvo de reações nucleares. Com o alvo ativo, é possível determinar as trajetórias das partículas presentes antes e depois de reações nucleares, sendo de grande interesse para medir reações de breakup. Na experiência, o alvo ativo utilizado foi o gás $^4$He.
 
@@ -1241,38 +1241,49 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 
 \section{Identificação de reações nucleares}
 
-\par Para cada reação nuclear, é necessário determinar o vértice de reação, dado pela equação \ref{eq:vertice_reacao}. O vértice de reação é importante pois determina, a partir de sua posição e informações das outras trajetórias presentes no evento, o comprimento das trajetórias e o local da reação nuclear. O vértice de reação possui uma maior probabilidade de ocorrer na região central da câmara, pois o feixe incide na câmara com um ângulo muito pequeno em relação ao eixo da câmara, o que significa que eventos onde foram identificadas reações fora da região central foram descartados.
+\par Como visto no capítulo \ref{chapter:point_cloud_analysis}, para analisar as nuvens de pontos (reações nucleares) é necessário identificar os aglomerados de pontos presentes (que possuem estruturas que formam trajetórias retas). Isso é feito com estimadores robustos, como o algoritmo \ref{ransac_algo}, que é capaz de identificar os diferentes aglomerados mesmo na presença de \textit{outliers} \cite{artigo}.
 
-\par Dentre os eventos análise, existem casos em que o feixe foi identificado juntamente com outras duas partículas, caso com duas trajetórias (podendo ser a do feixe e uma partículas ou apenas duas partículas) e o caso com apenas uma trajetória identificada. A figura [xx] ilustra os exemplos.
+\par Para cada reação nuclear, após a identificação das trajetórias, é necessário determinar o vértice de reação, dado pela equação \ref{eq:vertice_reacao}. O vértice de reação é importante pois determina, a partir de sua posição e informações das outras trajetórias presentes no evento, o comprimento das trajetórias e o local da reação nuclear. O vértice de reação possui uma maior probabilidade de ocorrer na região central da câmara, pois o feixe incide na câmara com um ângulo muito pequeno em relação ao eixo da câmara, o que significa que eventos onde foram identificadas reações fora da região central foram descartados.
 
-\par No caso mostrado na figura [xx], onde há a identificação do feixe e de outras duas trajetórias, é possível determinar o vértice de reação a partir das propriedades das trajetórias do feixe e das outras partículas. Cada partículas tem seu vértice de reação com o feixe, nesse caso é preciso determinar se os vértices calculados correspondem à mesma reação nuclear, pois foi feita a busca de reações de breakup.
+\par Dentre os eventos análise, existem casos em que o feixe foi identificado juntamente com outras duas partículas, caso com duas trajetórias (podendo ser a do feixe e uma partículas ou apenas duas partículas) e o caso com apenas uma trajetória identificada. A figura \ref{fig:res_tracks} ilustra os exemplos.
 
-\par A figura [xx] mostra o caso em que há a identificação do feixe e de uma outra trajetória. O vértice é calculado e a terceira partícula da reação nuclear de breakup é determinada de maneira indireta, por conservação do momento linear. Importante notar que o aglomerado identificado não possui pontos na perto da parte central da câmara, pois o ganho da eletrônica do micromegas na parte central é menor em comparação com a região não central.
+\begin{figure}[H]
+\centering
+    \begin{subfigure}[b]{\textwidth}
+        \centering
+        \includegraphics[scale = 0.3]{figs/results_ex_3_tracks.png}
+        \caption{Exemplo de reação nuclear onde foram identificadas três trajetórias.}
+        \label{subfig:res_exemplo_3_tracks}
+    \end{subfigure}%
+    \hfill
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includegraphics[scale=0.4, width=.95\columnwidth]{figs/results_ex_2_tracks.png}
+        \caption{Exemplo de reação nuclear onde foram identificadas duas trajetórias, sendo uma delas a do feixe.}
+        \label{subfig:res_exemplo_2_tracks}
+    \end{subfigure}%
+    \hspace{0.5cm}
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includegraphics[scale=0.4, width=.95\columnwidth]{figs/results_ex_1_track.png}
+        \caption{Exemplo de reação nuclear onde foi identificada apenas uma trajetória.}
+        \label{subfig:res_exemplo_1_track}
+    \end{subfigure}
+\caption{Exemplos de reações nucleares com as trajetórias identificadas. O vértice de reação é indicado por um \textit{X}. As cores servem apenas para a diferenciação.}
+\label{fig:res_tracks}
+\end{figure}
 
-\par No caso em que não há o feixe identificado, como mostrado na figura [xx], foram assumidas as propriedades mais prováveis da trajetória do feixe dentro da câmara, como já discutido no capítulo \ref{chapter:point_cloud_analysis}.
+\par No caso mostrado na figura \ref{subfig:res_exemplo_3_tracks}, onde há a identificação do feixe e de outras duas trajetórias, é possível determinar o vértice de reação a partir das propriedades das trajetórias do feixe e das outras partículas. Cada partículas tem seu vértice de reação com o feixe, nesse caso é preciso determinar se os vértices calculados correspondem à mesma reação nuclear, pois foi feita a busca de reações de breakup.
 
-\par 
+\par A figura \ref{subfig:res_exemplo_2_tracks} mostra o caso em que há a identificação do feixe e de uma outra trajetória. O vértice é calculado e a terceira partícula da reação nuclear de breakup é determinada de maneira indireta, por conservação do momento linear. Importante notar que o aglomerado identificado de cor azul não possui pontos na perto da parte central da câmara, pois o ganho da eletrônica do micromegas na parte central é menor em comparação com a região não central.
 
+\par No caso em que não há o feixe identificado, como mostrado na figura \ref{subfig:res_exemplo_1_track}, foram assumidas as propriedades mais prováveis da trajetória do feixe dentro da câmara, como já discutido no capítulo \ref{chapter:point_cloud_analysis}.
 
+\par Para determinar a energia do feixe é necessário identificar qual a energia do feixe no tempo em que ocorreu a reação, pois o feixe (assim como as partículas originadas das reações) perdem energia ao atravessar o gás. Para isso o espaço no eixo $z$ é discretizado para determinar a energia do feixe no momento da reação.
 
+\par falar sobre energias etc
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\par Após identificar todos os \textit{clusters} de cada evento devemos identificar quais são as partículas que originaram cada uma das trajetórias detectadas. Temos o comprimento de cada trajetória e sua energia, portanto o objetivo é, dada essas duas informações, identificar qual a partícula. A figura \ref{fig:coincidencia_detec} mostra um histograma bidimensional do comprimento de cada \textit{track} em função do ângulo de espalhamento no referencial do laboratório, usando apenas eventos que possuíam duas \textit{tracks} com o mesmo vértice de reação. É possível perceber as medidas coincidentes do $^{16}$O e do próton.
+\par Após identificar todos os \textit{clusters} de cada evento deve-se identificar quais são as partículas que originaram cada uma das trajetórias identificadas. Isso é feito a partir do comprimento de cada trajetória e de sua energia. A figura \ref{fig:coincidencia_detec} mostra um histograma bidimensional do comprimento de cada \textit{track} em função do ângulo de espalhamento no referencial do laboratório, usando apenas eventos que possuíam duas \textit{tracks} com o mesmo vértice de reação. É possível perceber as medidas coincidentes do $^{16}$O e do próton.
 
 \begin{figure}[H]
     \centering
@@ -1281,15 +1292,16 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
     \label{fig:coincidencia_detec}
 \end{figure}
 
-\par Para determinar qual é a partícula de cada \textit{track} podemos usar o LISE++ \cite{lise++} para calcular o alcance (\textit{range}) das possíveis partículas ($^{17}$F, $^{16}$O e próton) dada as propriedades do alvo ($^4$He à uma pressão de 350 Torr). A figura \ref{fig:alcance_vs_energia} mostra o alcance em mm das partículas em função da energia em MeV.
+\par A identificação da partícula é feita através da relação de alcance (\textit{range}) da partícula em função da energia. Cada partícula possui uma diferente penetrabilidade na matéria, o que significa que dada uma energia, diferentes partículas possuem diferentes alcances. Usando o LISE++ \cite{lise++} foi possível calcular o alcance das possíveis partículas ($^{16}$O e próton) dada as propriedades do alvo ($^4$He gasoso à uma pressão de 350 Torr). A figura \ref{fig:alcance_vs_energia} mostra o alcance em mm das partículas ($^{17}$F, $^{16}$O e próton) em função da energia em MeV. 
 
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[scale = 0.75]{figs/alcance_vs_energia_2.png}\
-%     \caption{Alcance (mm) em função da energia (MeV) para o $^{17}$F, $^{16}$O e próton. A grande diferença está no próton que tem um alcance muito maior que os outros núcleos.}
-%     \label{fig:alcance_vs_energia}
-% \end{figure}
+ \begin{figure}[H]
+     \centering
+     \includegraphics[scale = 0.75]{figs/alcance_vs_energia_2.png}\
+     \caption{Alcance (mm) em função da energia (MeV) para o $^{17}$F, $^{16}$O e próton. A grande diferença está no próton que tem um alcance muito maior que os outros núcleos.}
+     \label{fig:alcance_vs_energia}
+ \end{figure}
 
+\par A identificação do feixe ($^{17}$F) é feita a partir das propriedades geométricas das trajetórias, portanto fica evidente a diferença de alcance entre uma partícula de $^{16}$O e um próton, o $^{16}$O possui uma penetrabilidade muito menor que o próton.
 
 \par 
 
