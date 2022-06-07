@@ -154,7 +154,9 @@ Gas Electron Multiplier (GEM) \cite{GET}, que possui alta granularidade do plano
 
 \chapter{O experimento}\label{PATTPC}
 
-\par Esse capítulo descreve sobre a parte experimental desse trabalho que foi desenvolvido na Universidade de Notre Dame em Outubro de 2019. O experimento foi feito usando o feixe radioativo $^{17}$F produzido pelo sistema TWINSOL (TWIN SOLenids) \cite{twinsol} e o alvo ativo pAT-TPC \textit{prototype Active Target - Time Projection Chamber} \cite{pattpc} foi usando como alvo e detector simultaneamente. Na continuação, está descrito como foi feito o sistema de produção do feixe secundário $^{17}$F e a detecção das reações induzidas por esse feixe no alvo ativo.
+%\par Esse capítulo descreve sobre a parte experimental desse trabalho que foi desenvolvido na Universidade de Notre Dame em Outubro de 2019. O experimento foi feito usando o feixe radioativo $^{17}$F produzido pelo sistema TWINSOL (TWIN SOLenids) \cite{twinsol} e o alvo ativo pAT-TPC \textit{prototype Active Target - Time Projection Chamber} \cite{pattpc} foi usando como alvo e detector simultaneamente. Na continuação, está descrito como foi feito o sistema de produção do feixe secundário $^{17}$F e a detecção das reações induzidas por esse feixe no alvo ativo.
+
+\par Esse trabalho corresponde a analise de dados obtidos da experiência onde foi medida a reação de breakup para o $^{17}$F+$^{4}$He. Neste capítulo, está descrito como o feixe radioativo de 17F foi obtido e como os fragmentos da reação de breakup foram medidos. A experiência foi realizada em outubro de 2019 na University of Notre Dame, Estados. Unidos. O feixe radioativo de $^{17}$F foi obtido como sistema de produção chamado TWINSOL (TWIN SOLenids) \cite{twinsol} e conduzido até o alvo ativo pAT-TPC \textit{prototype Active Target - Time Projection Chamber} \cite{pattpc}.
 
 % \par Primeiro será descrita a produção do feixe de $^{17}$F com foco na descrição do sistema de produção de feixes radioativos (TWINSOL). Na seção seguinte será apresentado o detector pAT-TPC.
 
@@ -166,9 +168,11 @@ Gas Electron Multiplier (GEM) \cite{GET}, que possui alta granularidade do plano
 % \par Essa seção irá descrever brevemente o pAT-TPC, bem como o TWINSOL. Descrições mais detalhadas podem ser encontradas nas referências \cite{pattpc, twinsol}.
 
 % \section{Produção do feixe de $^{17}$F}
-\section{Produção do feixe secundário $^{17}$F usando o sistema TWINSOL}
+\section{Produção do feixe secundário $^{17}$F usando o sistema TWINSOL}\label{sec:twinsol}
 
-\par A produção do feixe radioativo $^{17}$F foi feita a partir da reação do feixe estável de $^{16}$O com um alvo de deutério gasoso. O feixe primário $^{16}$O foi produzido e acelerado por um acelerador tipo Tandem van de Graff do ISNAP (\textit{Institute for Structure and Nuclear Astrophysics}) localizado na Universidade de Notre Dame, Estados Unidos, que possui uma tensão terminal de até 10 MV \cite{KOLATA1989503, NDtandem}. O feixe de $^{16}$O foi conduzido até a câmara alvo de produção, preenchida com deutério, no início do sistema TWINSOL, onde partículas emergentes de reações nucleares surgiram ($^{17}$F, $^{16}$O, $^{17}$O). A figura \ref{fig:twinsol+pattpc} mostra o sistema TWINSOL acoplado com o pAT-TPC.
+\par Nesse sistema o feixe de $^{17}$F é produzido em voo \cite{KOLATA1989503, NDtandem}. Um feixe de $^{16}$O é acelerado a uma energia de 70 MeV e intensidade de 10$^4$ $\sim$ 10$^5$ partículas por segundo e é conduzido até a câmara de produção. Nessa câmara temos um alvo de produção que consiste de uma célula gasosa, preenchida com gás de deutério à uma pressão de 1 atm. A partir da reação do feixe primário com o alvo de produção (deutério), partículas como $^{17}$F, $^{17}$O, são produzidas a partir de reações nucleares de transferência \cite{KOLATA1989503, twinsol}. Essas partículas são selecionadas com um sistema de duplo solenoides \cite{twinsol, ribras_leo}. A figura \ref{fig:twinsol+pattpc} mostra o sistema TWINSOL acoplado com o pAT-TPC.
+
+%\par A produção do feixe radioativo $^{17}$F foi feita a partir da reação do feixe estável de $^{16}$O com um alvo de deutério gasoso. O feixe primário $^{16}$O foi produzido e acelerado por um acelerador tipo Tandem van de Graff do ISNAP (\textit{Institute for Structure and Nuclear Astrophysics}) localizado na Universidade de Notre Dame, Estados Unidos, que possui uma tensão terminal de até 10 MV \cite{KOLATA1989503, NDtandem}. O feixe de $^{16}$O foi conduzido até a câmara alvo de produção, preenchida com deutério, no início do sistema TWINSOL, onde partículas emergentes de reações nucleares surgiram ($^{17}$F, $^{16}$O, $^{17}$O). A figura \ref{fig:twinsol+pattpc} mostra o sistema TWINSOL acoplado com o pAT-TPC.
 
 \begin{figure}[H]
     \centering
@@ -197,7 +201,7 @@ Gas Electron Multiplier (GEM) \cite{GET}, que possui alta granularidade do plano
 \end{figure}
 
 
-\par A trajetória as partículas dentro do solenoide são helicoidais devido à força de Lorentz e possuem uma determinada frequancia de ciclotron \cite{ribras_leo}. Além disso, cada solenoide é uma lente grossa usada para focalizar os feixes. Em uma aproximação de um solenoide como uma lente grossa, o foco depende da rigidez magnética da partícula através da relação \cite{KOLATA1989503, zamora_mater}:
+\par A trajetória as partículas dentro do solenoide são helicoidais devido à força de Lorentz e possuem uma determinada frequência de ciclotron \cite{ribras_leo}. Além disso, cada solenoide é uma lente grossa usada para focalizar os feixes. Em uma aproximação de um solenoide como uma lente grossa, o foco depende da rigidez magnética da partícula através da relação \cite{KOLATA1989503, zamora_mater}:
 
 \begin{equation}
     \frac{1}{f} = \frac{B_z ^2}{(B\rho)^2},
@@ -213,7 +217,7 @@ onde $E$ é a energia, $m$ sua massa e $q$ seu estado de carga.
 
 %\par Para produzir $^{17}$F, uma célula gasosa localizada na câmara alvo de produção\cite{twinsol} preenchida com deutério foi bombardeada pelo feixe primário. Além de $^{17}$F, outras partículas também foram geradas, como o $^{17}$O, além de $^{16}$O do feixe espalhado.
 
-\par No experimento, os campos magnéticos dos solenoides foram ajustados para focalizar o feixe de $^{17}$F dentro do pAT-TPC. No entanto, mesmo para partículas diferentes, o $B\rho$ pode ser muito próximo ou igual. Isso faz com que não seja possível obter um feixe de $^{17}$F com 100\% de pureza, e sim um coquetel de partículas \cite{zamora_mater}. O coquetel de partículas produzido possui 54\% de $^{17}$F, 41\% de $^{16}$O e cerca de 5\% de $^{17}$O. A figura \ref{fig:PID_17F} mostra o espectro biparamétrico de identificação de partículas obtido durante o experimento, onde é possível identificar as partículas que estão presentes no feixe (coquetel de partículas). Por fim, o feixe  produzido pelo TWINSOL é conduzido até o pAT-TPC.
+\par No experimento, os campos magnéticos dos solenoides foram ajustados para focalizar o feixe de $^{17}$F dentro do pAT-TPC, produzindo $^{17}$F com energia de 51 MeV e intensidade da ordem de 10$^2$ $\sim$ 10$^3$ partículas por segundo. No entanto, mesmo para partículas diferentes, o $B\rho$ pode ser muito próximo ou igual. Isso faz com que não seja possível obter um feixe de $^{17}$F com 100\% de pureza, e sim um coquetel de partículas \cite{zamora_mater}. O coquetel de partículas produzido possui 54\% de $^{17}$F, 41\% de $^{16}$O e cerca de 5\% de $^{17}$O. A figura \ref{fig:PID_17F} mostra o espectro biparamétrico de identificação de partículas obtido durante o experimento, onde é possível identificar as partículas que estão presentes no feixe (coquetel de partículas). Por fim, o feixe produzido pelo TWINSOL é conduzido até o pAT-TPC.
 
 \begin{figure}[H]
     \centering
@@ -231,7 +235,7 @@ onde $E$ é a energia, $m$ sua massa e $q$ seu estado de carga.
 
 \par Alvos ativos vêm sendo cada vez mais utilizados em experimentos para investigações de reações nucleares \cite{FORTINO2022166497}, dentre os diversos laboratórios que utilizam alvos ativos podemos citar o TexAT \cite{KOSHCHIY2020163398} e o MAIKo \cite{FURUNO2018215}.
 
-\par A figura \ref{subfig:pattpc} mostra o desenho esquemático do pAT-TPC, que possui o alvo ativo utilizado no experimento. O detector possui uma cela cilíndrica de 50 cm de comprimento e 28 cm de diâmetro, onde o seu eixo é alinhado com o eixo do feixe \cite{pattpc}, que entra pelo duto central. Nesse experimento, a câmara foi preenchida com $^4$He gasoso puro à uma pressão de 350 Torr que serve tanto para alvo de reações nucleares, quanto para a própria medição e detecção dos produtos da reação \cite{pattpc, pattpc2}. Tanto o feixe quanto partículas originadas da reação ionizam o gás e os elétrons que surgem dessa ionização foram conduzidos por um campo elétrico de 1 kV/cm perpendicular ao eixo da câmara até o plano detector (\textit{pad plane}), o \textit{Micromegas} \cite{micromegas}, mostrado na figura \ref{subfig:micromegas}.
+\par A figura \ref{subfig:pattpc} mostra o desenho esquemático do pAT-TPC, que possui o alvo ativo utilizado no experimento. O detector possui uma cela cilíndrica de 50 cm de comprimento e 28 cm de diâmetro, onde o seu eixo é alinhado com o eixo do feixe \cite{pattpc}, que passa pela câmara de íons até o duto central. Durante a passagem pela câmara de íons e pela janela (feita de PPTA com 12 $\mu m$ de espessura) do pATTPC, o feixe $^{17}$F perde energia e entra na câmara com cerca de 34.76 MeV. Nesse experimento, a câmara foi preenchida com $^4$He gasoso puro à uma pressão de 350 Torr que serve tanto para alvo de reações nucleares, quanto para a própria medição e detecção dos produtos da reação \cite{pattpc, pattpc2}. Tanto o feixe quanto partículas originadas da reação ionizam o gás e os elétrons que surgem dessa ionização foram conduzidos por um campo elétrico de 1 kV/cm perpendicular ao eixo da câmara até o plano detector (\textit{pad plane}), o \textit{Micromegas} \cite{micromegas}, mostrado na figura \ref{subfig:micromegas}.
 
 \begin{figure}[H]
 \centering
@@ -455,7 +459,7 @@ Podemos dividir os sistemas de \textit{machine learning} em quatro tipos:
 %\section{Aplicações de \textit{machine learning} na física nuclear}
 
 
-\par Com essa breve descrição sobre \textit{machine learning} e exemplos do seu uso em problemas de física nuclear (apêndica \ref{appendix:ml_nuclear}), pode-se seguir adiante e entender seu uso dentro deste trabalho, que será feito nos próximos capítulos.
+\par Com essa breve descrição sobre \textit{machine learning} e exemplos do seu uso em problemas de física nuclear (apêndica \ref{appendix:ml_nuclear}), pode-se seguir adiante e entender seu uso dentro deste trabalho, que está feito nos próximos capítulos.
 
 \chapter{Reconstrução de nuvens de pontos a partir de algoritmos de \textit{machine learning}}\label{chapter:sinais}
 
@@ -1237,9 +1241,9 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 
 \par Esse capítulo mostra como foram construídas as distribuições angulares a partir das informações obtidas da análise das nuvens de pontos, que representam reações nucleares. No capítulo \ref{chapter:point_cloud_analysis} a parte computacional e matemática foi desenvolvida, a continuidade da análise é completar a cinemática das reações nucleares, para identificar qual a reação nuclear e quais as partículas identificadas. 
 
-\par Na seção [xx] está descrito como identificar reações nucleares. A seção [yy] descreve como identificar as partículas das reações nucleares e como construir as distribuições angulares.
+\par Na seção \ref{sec:identif_reac_nucl} está descrito como identificar reações nucleares e as partículas presentes. A seção \ref{sec:sec_choque} descreve como construir as distribuições angulares.
 
-\section{Identificação de reações nucleares}
+\section{Identificação de reações nucleares}\label{sec:identif_reac_nucl}
 
 \par Como visto no capítulo \ref{chapter:point_cloud_analysis}, para analisar as nuvens de pontos (reações nucleares) é necessário identificar os aglomerados de pontos presentes (que possuem estruturas que formam trajetórias retas). Isso é feito com estimadores robustos, como o algoritmo \ref{ransac_algo}, que é capaz de identificar os diferentes aglomerados mesmo na presença de \textit{outliers} \cite{artigo}.
 
@@ -1275,13 +1279,13 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 
 \par No caso mostrado na figura \ref{subfig:res_exemplo_3_tracks}, onde há a identificação do feixe e de outras duas trajetórias, é possível determinar o vértice de reação a partir das propriedades das trajetórias do feixe e das outras partículas. Cada partículas tem seu vértice de reação com o feixe, nesse caso é preciso determinar se os vértices calculados correspondem à mesma reação nuclear, pois foi feita a busca de reações de breakup.
 
-\par A figura \ref{subfig:res_exemplo_2_tracks} mostra o caso em que há a identificação do feixe e de uma outra trajetória. O vértice é calculado e a terceira partícula da reação nuclear de breakup é determinada de maneira indireta, por conservação do momento linear. Importante notar que o aglomerado identificado de cor azul não possui pontos na perto da parte central da câmara, pois o ganho da eletrônica do micromegas na parte central é menor em comparação com a região não central.
+\par A figura \ref{subfig:res_exemplo_2_tracks} mostra o caso em que há a identificação do feixe e de uma outra trajetória. O vértice é calculado e a terceira partícula da reação nuclear de breakup é determinada de maneira indireta, por conservação do momento linear. Importante notar que o aglomerado identificado de cor azul não possui pontos na perto da parte central da câmara, pois o ganho da eletrônica do micromegas na parte central é menor em comparação com a região não central. A energia então é determinada a partir do comprimento de sua trajetória dentro do gás.
 
 \par No caso em que não há o feixe identificado, como mostrado na figura \ref{subfig:res_exemplo_1_track}, foram assumidas as propriedades mais prováveis da trajetória do feixe dentro da câmara, como já discutido no capítulo \ref{chapter:point_cloud_analysis}.
 
 \par Para determinar a energia do feixe é necessário identificar qual a energia do feixe no tempo em que ocorreu a reação, pois o feixe (assim como as partículas originadas das reações) perdem energia ao atravessar o gás. Para isso o espaço no eixo $z$ é discretizado para determinar a energia do feixe no momento da reação.
 
-\par falar sobre energias etc
+%\par falar sobre energias etc
 
 \par Após identificar todos os \textit{clusters} de cada evento deve-se identificar quais são as partículas que originaram cada uma das trajetórias identificadas. Isso é feito a partir do comprimento de cada trajetória e de sua energia. A figura \ref{fig:coincidencia_detec} mostra um histograma bidimensional do comprimento de cada \textit{track} em função do ângulo de espalhamento no referencial do laboratório, usando apenas eventos que possuíam duas \textit{tracks} com o mesmo vértice de reação. É possível perceber as medidas coincidentes do $^{16}$O e do próton.
 
@@ -1303,15 +1307,7 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 
 \par A identificação do feixe ($^{17}$F) é feita a partir das propriedades geométricas das trajetórias, portanto fica evidente a diferença de alcance entre uma partícula de $^{16}$O e um próton, o $^{16}$O possui uma penetrabilidade muito menor que o próton.
 
-\par 
-
-% \begin{figure}[H]
-%     \centering
-%     \input{figs/espectrum.pgf}
-%     \caption{Caption}
-%     \label{fig:my_label}
-% \end{figure}
-
+\section{Construção das distribuições angulares}\label{sec:sec_choque}
 
 
 
