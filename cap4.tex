@@ -285,7 +285,7 @@ onde no tempo $t_0$ = 0 o elétron está no plano do detector ($z$ = 0).
     \label{fig:thick_gems}
 \end{figure}
 
-\par O sinal é discretizado no tempo levando em conta a velocidade de deriva dos elétrons, dividindo em 512 canais o tempo que o elétron leva para percorrer toda câmara do TPC \cite{josh_bradt, pattpc}. A velocidade de deriva do elétron no gás $^4$He é da ordem de 5 $mm$/$\mu s$  \cite{pattpc}, onde o elétron percorre os 50 cm da câmara em cerca de 100 $\mu s$. Dividindo esse tempo pelos 512 canais tem-se que cada canal (\textit{time bucket}) possui 192 $ns$ de largura. Cada centroide detectado é um ponto de interação de uma partícula carregada com o gás. A carga acumulada $Q$ dessa interação é a área do pulso associado ao centroide. Cada centroide então representa um ponto no espaço ($x$, $y$, $t$, $Q$). Um exemplo de evento reconstruído está na figura \ref{fig:event_cap_exp}.
+\par O sinal é discretizado no tempo levando em conta a velocidade de deriva dos elétrons, dividindo em 512 canais o tempo que o elétron leva para percorrer toda câmara do TPC \cite{josh_bradt, pattpc}. A velocidade de deriva do elétron no gás $^4$He é da ordem de 5 $mm$/$\mu s$  \cite{pattpc}, onde o elétron percorre os 50 cm da câmara em cerca de 100 $\mu s$. Dividindo esse tempo pelos 512 canais tem-se que cada canal (\textit{time bucket}) possui 192 $ns$ de largura. Cada centroide identificado é um ponto de interação de uma partícula carregada com o gás. A carga acumulada $Q$ dessa interação é a área do pulso associado ao centroide. Cada centroide então representa um ponto no espaço ($x$, $y$, $t$, $Q$). Um exemplo de evento reconstruído está na figura \ref{fig:event_cap_exp}.
 
 \begin{figure}[H]
     \centering
@@ -471,7 +471,7 @@ Podemos dividir os sistemas de \textit{machine learning} em quatro tipos:
 
 \par O uso de algoritmos de CNNs tem o objetivo de diminuir o tempo consumido para a análise dos pulsos. As redes neurais criadas são treinadas uma única vez e podem ser utilizadas de modo separado e/ou acoplado \cite{FORTINO2022166497}, como está mostrado na sequencia do capítulo.
 
-\par A análise dos dados experimentais foi dividida em três etapas: correção do fundo, deconvolução do sinal e detecção de picos. As redes neurais criadas foram supervisionadas, o que significa que foi preciso determinar a entrada (\textit{input}) e a saída (\textit{output}) das redes. Para isso foi feito um grande banco de dados, para utilizar no treinamento das redes neurais, que se beneficiam da grande quantidade de dados usada para o treino \cite{mlbook}.
+\par A análise dos dados experimentais foi dividida em três etapas: correção do fundo, deconvolução do sinal e identificação de picos. As redes neurais criadas foram supervisionadas, o que significa que foi preciso determinar a entrada (\textit{input}) e a saída (\textit{output}) das redes. Para isso foi feito um grande banco de dados, para utilizar no treinamento das redes neurais, que se beneficiam da grande quantidade de dados usada para o treino \cite{mlbook}.
 
 \par Na seção \ref{sec:pulses_trad}, está mostrado como o banco de dados para o treino das redes neurais desenvolvidas foi criado, e a construção das redes neurais está na seção \ref{sec:pulsos_ml}.
 
@@ -635,7 +635,7 @@ Podemos dividir os sistemas de \textit{machine learning} em quatro tipos:
 \label{fig:ex_sinal_bkg}
 \end{figure}
 
-\par Os resultados do calculo do fundo de cada sinal foram armazenados e usados para a etapa de deconvolução do sinal, que deve ser feita com o sinal sem o fundo. Para diminuir as flutuações numéricas após a remoção do fundo, o valor mínimo do sinal sem o fundo é zero. Sem o fundo podemos buscar por todos os picos e suas cargas correspondentes no sinal. Não podemos detectar diretamente todos os picos pois muitos deles estão em sobreposição. Para isso foi feita a deconvolução do sinal, descrita na subseção \ref{subsec:pulses_deconv}.
+\par Os resultados do calculo do fundo de cada sinal foram armazenados e usados para a etapa de deconvolução do sinal, que deve ser feita com o sinal sem o fundo. Para diminuir as flutuações numéricas após a remoção do fundo, o valor mínimo do sinal sem o fundo é zero. Sem o fundo podemos buscar por todos os picos e suas cargas correspondentes no sinal. Não podemos identificar diretamente todos os picos pois muitos deles estão em sobreposição. Para isso foi feita a deconvolução do sinal, descrita na subseção \ref{subsec:pulses_deconv}.
 
 % \par Com o fundo podemos então subtraí-lo do espectro. Podem aparecer valores negativos após a retirada do fundo, então para evitar esse problema o valor mínimo do sinal, após a retirada do fundo, é zero.
 
@@ -646,7 +646,7 @@ Podemos dividir os sistemas de \textit{machine learning} em quatro tipos:
 
 \par Para aumentar a resolução dos picos foi usado o algoritmo \textit{gold deconvolution} presente na biblioteca \textit{TSpectrum} do \textit{ROOT} \cite{paper_gold_deconv}. O algoritmo tem como objetivo fazer a deconvolução do espectro, gerando uma função (nesse caso um sinal) resposta de acordo com o sigma esperado para os pulsos. O sinal resposta corresponde ao espectro com as gaussianas não sobrespostas. Isso significa que foi necessário determinar qual o valor de sigma dos pulsos para buscar a função resposta.
 
-\par A largura dos pulsos é o mesmo de um sinal que possui apenas um pico. Ou seja, a largura dos pulsos foi determinada fazendo a análise de sinais que possuem apenas 1 pico, fazendo um ajuste pelo método dos mínimos quadrados (MMQ) de uma gaussiana. Para buscar espectros com apenas um pico, foi usado o algoritmo de detecção de picos \textit{peak\_finder}, presente na biblioteca do \textit{scipy} \cite{scipy}, e para o ajuste da gaussiana foi usada o pacote \textit{lmfit} \cite{lmfit}. O valor de sigma encontrado foi de 4.09 (17) \textit{time buckets}.
+\par A largura dos pulsos é o mesmo de um sinal que possui apenas um pico. Ou seja, a largura dos pulsos foi determinada fazendo a análise de sinais que possuem apenas 1 pico, fazendo um ajuste pelo método dos mínimos quadrados (MMQ) de uma gaussiana. Para buscar espectros com apenas um pico, foi usado o algoritmo de identificação de picos \textit{peak\_finder}, presente na biblioteca do \textit{scipy} \cite{scipy}, e para o ajuste da gaussiana foi usada o pacote \textit{lmfit} \cite{lmfit}. O valor de sigma encontrado foi de 4.09 (17) \textit{time buckets}.
 
 \par A largura escolhida foi ligeiramente maior pois, verificando empiricamente, em alguns casos o algoritmo separava o que deveria ser uma única gaussiana em duas. O valor de sigma usado na deconvolução foi de 4.30 \textit{time buckets}. Foi determinado também o número de iterações do algoritmo de deconvolução. O número de iterações escolhido foi de 700, menos que isso o algoritmo não estava separando totalmente picos sobrepostos. O limiar para a escolha de um ponto como um pico foi definido como ter altura maior que 20\% do valor máximo do sinal. Resultados da deconvolução estão na figura \ref{fig:ex_sinal_deconv}.
 
@@ -678,13 +678,13 @@ Podemos dividir os sistemas de \textit{machine learning} em quatro tipos:
         \caption{}
         \label{subfig:ex_sinal_deconv_4}
     \end{subfigure}
-\caption{Histogramas sem as \textit{baselines} antes (em azul) e depois da deconvolução (em vermelho). Os picos (em verde) e o limiar (linha tracejada preta) de detecção também estão indicados.}
+\caption{Histogramas sem as \textit{baselines} antes (em azul) e depois da deconvolução (em vermelho). Os picos (em verde) e o limiar (linha tracejada preta) de identificação também estão indicados.}
 \label{fig:ex_sinal_deconv}
 \end{figure}
 
-\par O algoritmo de deconvolução também retorna a posição dos centroides encontrados, que indica a localização de um pico. Os mesmo picos podem ser obtidos com o \textit{peak\_finder}, com a vantagem de que o algoritmo possui muitos parâmetros diferentes para calibração, melhorando a detecção em comparação com os picos detectados pelo algoritmo do TSpectrum. A execução de 200.000 sinais, desde a estimativa e remoção do fundo, até a detecção dos centroides, demora cerca de 23.25 minutos, usando o processador Ryzen 5 3600X.
+\par O algoritmo de deconvolução também retorna a posição dos centroides encontrados, que indica a localização de um pico. Os mesmo picos podem ser obtidos com o \textit{peak\_finder}, com a vantagem de que o algoritmo possui muitos parâmetros diferentes para calibração, melhorando a identificação em comparação com os picos identificados pelo algoritmo do TSpectrum. A execução de 200.000 sinais, desde a estimativa e remoção do fundo, até a identificação dos centroides, demora cerca de 23.25 minutos, usando o processador Ryzen 5 3600X.
 
-\par Para determinar a carga acumulada $Q$ de cada ponto, é necessário calcular a área do centroide do pico detectado. A área do sinal antes e depois da deconvolução é a mesma, mesmo para a região dos pulsos, portanto pode-se analisar diretamente o sinal após a deconvolução. Para achar a área do pulso, foi calculada a largura dos pulsos após a deconvolução, para determinar a área como uma simples integral gaussiana. O sigma dos pulsos após a deconvolução é $\sigma_{dd}$ = 1.1543 (44) \textit{time buckets}. Com isso foi calculada a carga acumulada para cada ponto descoberto do evento. A carga acumulada $Q$ para cada ponto $i$ é dada por:
+\par Para determinar a carga acumulada $Q$ de cada ponto, é necessário calcular a área do centroide do pico identificado. A área do sinal antes e depois da deconvolução é a mesma, mesmo para a região dos pulsos, portanto pode-se analisar diretamente o sinal após a deconvolução. Para achar a área do pulso, foi calculada a largura dos pulsos após a deconvolução, para determinar a área como uma simples integral gaussiana. O sigma dos pulsos após a deconvolução é $\sigma_{dd}$ = 1.1543 (44) \textit{time buckets}. Com isso foi calculada a carga acumulada para cada ponto descoberto do evento. A carga acumulada $Q$ para cada ponto $i$ é dada por:
 
 \begin{equation}\label{eq:gauss_area}
     Q = \int^\infty _{-\infty} Ae^{-(t' - t_i)^2 / 2\sigma_{dd}^2} dt' = A\left |\sigma_{dd} \right|\sqrt{2\pi},
@@ -692,12 +692,12 @@ Podemos dividir os sistemas de \textit{machine learning} em quatro tipos:
 
 \par onde $A$ é a amplitude do ponto com centroide $t_i$ e desvio padrão após a deconvolução $\sigma_{dd}$.
 
-\par Com o banco de dados para a deconvolução e também para a detecção de picos, basta criar as redes neurais, que serão descritas na seção \ref{sec:pulsos_ml}.
+\par Com o banco de dados para a deconvolução e também para a identificação de picos, basta criar as redes neurais, que serão descritas na seção \ref{sec:pulsos_ml}.
 
 \section{Análise dos pulsos com \textit{machine learning}}\label{sec:pulsos_ml}
 
 
-\par Com \textit{machine learning} temos a possibilidade de criar algoritmos de alta complexidade sem definir operações explícitas. Usando os resultados das seções anteriores foram desenvolvidas três redes neurais, com o objetivo de: estimar o fundo (subseção \ref{subsec:pulso_ml_fundo}), fazer a deconvolução (\ref{subsec:pulso_ml_deconv}) e por fim detectar os picos (subseção \ref{subsec:pulso_ml_peaks}). 
+\par Com \textit{machine learning} temos a possibilidade de criar algoritmos de alta complexidade sem definir operações explícitas. Usando os resultados das seções anteriores foram desenvolvidas três redes neurais, com o objetivo de: estimar o fundo (subseção \ref{subsec:pulso_ml_fundo}), fazer a deconvolução (\ref{subsec:pulso_ml_deconv}) e por fim identificar os picos (subseção \ref{subsec:pulso_ml_peaks}). 
 
 %Os resultados dos algoritmos usados nas subseções \ref{subsec:pulses_baseline} e \ref{subsec:pulses_deconv} foram usados como \textit{outputs} para o aprendizado das redes neurais que foram desenvolvidas em cada etapa.
 
@@ -874,24 +874,24 @@ platô no \textit{loss}.}
 \label{fig:std_examples}
 \end{figure}
 
-\par Com a rede neural para a deconvolução feita, a última etapa é a construção de uma rede neural para a detecção de picos, mostrada na \ref{subsec:pulso_ml_peaks}.
+\par Com a rede neural para a deconvolução feita, a última etapa é a construção de uma rede neural para a identificação de picos, mostrada na \ref{subsec:pulso_ml_peaks}.
 
-\subsection{Detecção de picos}\label{subsec:pulso_ml_peaks}
+\subsection{Identificação de picos}\label{subsec:pulso_ml_peaks}
 
-\par A última etapa dessa análise com \textit{machine learning} foi analisar possíveis soluções para a detecção de picos. Esse é um problema muito complexo, pois há uma variação muito grande na quantidade de picos por sinal e também há um desbalanço muito grande na quantidade de pontos comuns (aqueles que não são picos) e pontos que são picos. Por exemplo, caso haja um sinal que possui apenas um pico, devemos detectar uma posição, dar o valor de saída como 1, por exemplo, dentre 512 pontos, onde 511 terão o valor de saída como 0. Caso a rede determine que todos os pontos são não picos, ainda assim a acurácia binária seria maior que 99\%. Isso é conhecido como desbalanço de classe\cite{inproceedings}.
+\par A última etapa dessa análise com \textit{machine learning} foi analisar possíveis soluções para a identificação de picos. Esse é um problema muito complexo, pois há uma variação muito grande na quantidade de picos por sinal e também há um desbalanço muito grande na quantidade de pontos comuns (aqueles que não são picos) e pontos que são picos. Por exemplo, caso haja um sinal que possui apenas um pico, deve-se identificar uma posição, dar o valor de saída como 1, por exemplo, dentre 512 pontos, onde 511 terão o valor de saída como 0. Caso a rede determine que todos os pontos são não picos, ainda assim a acurácia binária seria maior que 99\%. Isso é conhecido como desbalanço de classe\cite{inproceedings}.
 
-\par Para corrigir esse desbalanço, foram acrescentados pontos simetricamente em torno do pulso, de forma que a somatória das amplitudes das regiões é equivalente a carga $Q$ acumulada no ponto. Isso faz com que não seja preciso detectar um único ponto, mas sim uma região em torno do pico. Com isso podemos nos basear na ideia de segmentar o sinal para destacar regiões de interesse\cite{aly2011research}. Segmentar significa ter uma rede neural com a saída com o mesmo tamanho do vetor de entrada (512) e saída com valores entre 0 e 1, onde 1 indica uma região com um pico e 0 não. A figura \ref{fig:n_peaks_exs} mostra um exemplo de um sinal após a deconvolução onde há os picos detectados com o algoritmo \textit{peak\_finder} e os pontos acrescentados simetricamente em torno dos picos para representar as regiões dos pulsos.
+\par Para corrigir esse desbalanço, foram acrescentados pontos simetricamente em torno do pulso, de forma que a somatória das amplitudes das regiões é equivalente a carga $Q$ acumulada no ponto. Isso faz com que não seja preciso identificar um único ponto, mas sim uma região em torno do pico. Com isso podemos nos basear na ideia de segmentar o sinal para destacar regiões de interesse\cite{aly2011research}. Segmentar significa ter uma rede neural com a saída com o mesmo tamanho do vetor de entrada (512) e saída com valores entre 0 e 1, onde 1 indica uma região com um pico e 0 não. A figura \ref{fig:n_peaks_exs} mostra um exemplo de um sinal após a deconvolução onde há os picos identificados com o algoritmo \textit{peak\_finder} e os pontos acrescentados simetricamente em torno dos picos para representar as regiões dos pulsos.
 
 % \par Para resolver esse problema podemos nos basear na ideia de recortar regiões de interesse, como feito pela rede U-Net\cite{unet}. Recortar regiões significa, nesse caso, ter uma rede neural com a saída com o mesmo tamanho do vetor de entrada (512) e saída com valores entre 0 e 1, onde 1 indica uma região com um pico e 0 não. Como temos as posições dos picos, basta acrescentar pontos simetricamente em torno do pulso. A figura \ref{fig:n_peaks_exs} mostra um exemplo de um sinal após a deconvolução onde há o pico detectado e os pontos acrescentados para representar a região do pulso.
 
 \begin{figure}[H]
     \centering
     \includegraphics[scale = 0.6]{figs/np_ex1.png}
-    \caption{Sinal após a deconvolução que mostra o pico detectado mais os pontos adicionais que irão facilitar o trabalho da rede neural (evitar o desbalanço de classe). Foram acrescentados 2 pontos à esquerda e à direita.}
+    \caption{Sinal após a deconvolução que mostra o pico identificado mais os pontos adicionais que irão facilitar o trabalho da rede neural (evitar o desbalanço de classe). Foram acrescentados 2 pontos à esquerda e à direita.}
     \label{fig:n_peaks_exs}
 \end{figure}
 
-\par A rede construída é a sequência de uma convolução com \textit{kernel} de tamanho 13 e \textit{same padding} seguida de \textit{Max-Pooling} e uma \textit{fully-connected} com função de ativação sigmoide, possuindo um total de 263.104 parâmetros treináveis. Para o treino foram usados sinais que possuíam entre 1 e 6 picos, resultantes da saída do algoritmo \textit{peak\_finder} do \textit{SciPy}, o que resultou em 120.024 de dados para o treino e 30.006 para validação. A escolha pelos picos detectados pelo \textit{peak\_finder} ao invés do algoritmo de detecção do TSpectrum é pela maior flexibilidade de ajuste fino do algoritmo, tornando a detecção de picos muito melhor\cite{FORTINO2022166497}. A função custo escolhida foi a \textit{binary cross-entropy} (dada pela equação \ref{eq:binary_cross_entropy}), o otimizador o \textit{ADAM} com \textit{learning rate} de 0.001. A métrica utilizada foi a acurácia binária. O treino também foi realizado por uma GPU NVIDIA Tesla P100 e durou cerca de 8 minutos com 12 \textit{epochs}. A arquitetura da rede está na figura \ref{fig:arq:n_peaks} e os resultados do treino estão na figura \ref{fig:n_peaks_results}.
+\par A rede construída é a sequência de uma convolução com \textit{kernel} de tamanho 13 e \textit{same padding} seguida de \textit{Max-Pooling} e uma \textit{fully-connected} com função de ativação sigmoide, possuindo um total de 263.104 parâmetros treináveis. Para o treino foram usados sinais que possuíam entre 1 e 6 picos, resultantes da saída do algoritmo \textit{peak\_finder} do \textit{SciPy}, o que resultou em 120.024 de dados para o treino e 30.006 para validação. A escolha pelos picos identificados pelo \textit{peak\_finder} ao invés do algoritmo de identificação do TSpectrum é pela maior flexibilidade de ajuste fino do algoritmo, tornando a identificação de picos muito melhor\cite{FORTINO2022166497}. A função custo escolhida foi a \textit{binary cross-entropy} (dada pela equação \ref{eq:binary_cross_entropy}), o otimizador o \textit{ADAM} com \textit{learning rate} de 0.001. A métrica utilizada foi a acurácia binária. O treino também foi realizado por uma GPU NVIDIA Tesla P100 e durou cerca de 8 minutos com 12 \textit{epochs}. A arquitetura da rede está na figura \ref{fig:arq:n_peaks} e os resultados do treino estão na figura \ref{fig:n_peaks_results}.
 
 \begin{figure}[H]
     \centering
@@ -919,7 +919,7 @@ platô no \textit{loss}.}
 \label{fig:n_peaks_results}
 \end{figure}
 
-\par A saída da rede neural é um vetor de tamanho 512 com valores entre 0 e 1, onde valores maiores que 0.5 são considerados como pertencentes à um pulso. Com as regiões identificadas podemos fazer uma média ponderada com o espectro de entrada para achar o centroide. O tempo de processamento da rede neural é de 150.030 sinais em cerca de 4.11 segundos (aproximadamente 36.500 sinais por segundo). Para determinar os picos a partir da saída da rede neural, o tempo é de aproximadamente 4.3 segundos, onde o algoritmo pode ser ainda mais rápido se for paralelizado. Resultados para picos detectados pela rede neural em comparação com o algoritmo \textit{peak\_finder} estão na figura \ref{fig:exs_n_peaks}.
+\par A saída da rede neural é um vetor de tamanho 512 com valores entre 0 e 1, onde valores maiores que 0.5 são considerados como pertencentes à um pulso. Com as regiões identificadas podemos fazer uma média ponderada com o espectro de entrada para achar o centroide. O tempo de processamento da rede neural é de 150.030 sinais em cerca de 4.11 segundos (aproximadamente 36.500 sinais por segundo). Para determinar os picos a partir da saída da rede neural, o tempo é de aproximadamente 4.3 segundos, onde o algoritmo pode ser ainda mais rápido se for paralelizado. Resultados para picos identificados pela rede neural em comparação com o algoritmo \textit{peak\_finder} estão na figura \ref{fig:exs_n_peaks}.
 
 \begin{figure}[H]
 \centering
@@ -949,7 +949,7 @@ platô no \textit{loss}.}
         \caption{}
         \label{subfig:exs_n_peaks_4}
     \end{subfigure}
-\caption{Exemplos de detecção de picos usando a rede neural, em comparação com a detecção feita pelo algoritmo presente no SciPy, mostrada na figura \ref{fig:arq:n_peaks}. Os centroides detectados pela rede neural estão em vermelho, e os centroides detectados pelo SciPy estão em verde. Em azul está o espectro sem fundo após a deconvolução, resultantes }
+\caption{Exemplos de identificação de picos usando a rede neural, em comparação com a identificação feita pelo algoritmo presente no SciPy, mostrada na figura \ref{fig:arq:n_peaks}. Os centroides identificados pela rede neural estão em vermelho, e os centroides identificados pelo SciPy estão em verde. Em azul está o espectro sem fundo após a deconvolução, resultantes }
 \label{fig:exs_n_peaks}
 \end{figure}
 
@@ -1022,11 +1022,11 @@ platô no \textit{loss}.}
 
 \par Assim como no capítulo \ref{chapter:point_cloud_analysis}, esse capítulo descreve o uso de algoritmos de \textit{machine learning} para a análise, desta vez para as nuvens de pontos. Os algoritmos usados foram tanto não supervisionados (algoritmos de \textit{clustering}) e supervisionados (redes neurais), com diferentes objetivos.
 
-\par Na seção \ref{sec:forcabruta} está mostrado o processo de detecção de trajetórias (\textit{tracking}) com algoritmo de \textit{machine learning} não supervisionados. Na seção \ref{subsec:pointnet} estão mostradas alternativas com outros algoritmos de \textit{machine learning}, porém que não foram utilizadas para a análise dos dados, mas abrem um grande leque de possibilidades para estudos futuros.
+\par Na seção \ref{sec:forcabruta} está mostrado o processo de identificação de trajetórias (\textit{tracking}) com algoritmo de \textit{machine learning} não supervisionados. Na seção \ref{subsec:pointnet} estão mostradas alternativas com outros algoritmos de \textit{machine learning}, porém que não foram utilizadas para a análise dos dados, mas abrem um grande leque de possibilidades para estudos futuros.
 
 
 
-\section{Detecção de trajetórias}\label{sec:forcabruta}
+\section{Identificação de trajetórias}\label{sec:forcabruta}
 
 \par Uma vez reconstruídas as nuvens de pontos de cada evento, é necessário classificar cada uma das trajetórias (tracks) das partículas dentro do gás. A figura \ref{subfig:exemplo_1} mostra um exemplo de uma nuvem de pontos. A classificação de tracks pode ser realizada a partir de algoritmos de \textit{machine learning} não supervisionados. Nessa figura é notável ao olho humano que os pontos formam estruturas de aglomerados de pontos. Pode-se associar uma reta a essas estruturas que corresponderiam a trajetória das partículas dentro do alvo gasoso. Essa retas foram identificadas com algoritmos de \textit{clustering}, pelo fato da estrutura aparente dos dados e, também, por não existir um tamanho fixo das nuvens de pontos. O número de pontos pode variar de 30 até cerca de 200, não considerando pontos que não pertencem à nenhum aglomerado (também chamado de \textit{outliers}).
 
@@ -1048,7 +1048,7 @@ platô no \textit{loss}.}
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
         \includegraphics[scale=0.25, width=.95\columnwidth]{figs/clustering_ex_2.png}
-        \caption{Evento com as detecções sem a correção. As três retas de cores amarela, verde e azul são de um único \textit{cluster}.}
+        \caption{Evento com as identificações sem a correção. As três retas de cores amarela, verde e azul são de um único \textit{cluster}.}
         \label{subfig:antes_clustering}
     \end{subfigure}%
     \hspace{0.5cm}
@@ -1081,7 +1081,7 @@ onde $N_1$ é o número de pontos da reta 1, $d_{i2}$ a distância do ponto $i$ 
 \begin{figure}[H]
     \centering
     \includegraphics[scale = 0.65]{figs/Figure_12.png}
-    \caption{Evento em que não foi detectado o feixe, apenas a partícula espalhada. O triângulo azul é o local calculo do vértice de reação dado pela equação \ref{eq:vertice_reacao}.}
+    \caption{Evento em que não foi identificado o feixe, apenas a partícula espalhada. O triângulo azul é o local calculo do vértice de reação dado pela equação \ref{eq:vertice_reacao}.}
     \label{fig:exemplo_sem_feixe}
 \end{figure}
 
@@ -1143,13 +1143,13 @@ onde $\tilde{t_1}$, $\tilde{t_2}$ e $\tilde{t_3}$ são os hiperparâmetros a ser
 
 \par Para completar essa etapa, foi necessário determinar a energia $E$ da trajetória e o comprimento $L$ da trajetória. A energia $E$ é definida como
 
-\begin{equation}
+\begin{equation}\label{eq:carga_acumulada}
 	E = \sum_{i = 1}^{N} Q_i,
 \end{equation}
 
 \par onde $Q_i$ é a carga acumulada do i-ésimo ponto de um conjunto com $N$ pontos. O comprimento é definido como
 
-\begin{equation}
+\begin{equation}\label{eq:comprimento_trajetoria}
 	L = \max{d_{i, \vec{V_r}}},
 \end{equation}
 
@@ -1161,7 +1161,7 @@ onde $\tilde{t_1}$, $\tilde{t_2}$ e $\tilde{t_3}$ são os hiperparâmetros a ser
 
 \par  O objetivo da análise das nuvens de pontos foi buscar eventos que possuíam, de modo geral, três trajetórias (uma sendo o feixe, e as outras duas de partículas que surgiram da reação nuclear do feixe com o gás). Nem todos os eventos puderam ser analisados, devido à falta de trajetórias, o que significa que foi utilizado tempo para a busca desses eventos que poderiam ser descartados.
 
-\subsection{Detecção de eventos com \textit{machine learning}}\label{subsec:pointnet}
+\subsection{Identificação de eventos com \textit{machine learning}}\label{subsec:pointnet}
 
 \par Para evitar o processo de \textit{clustering} de nuvens de pontos que não possuem eventos de interesse (como o \textit{breakup}), é possível usar redes neurais supervisionadas capazes de processar nuvens de pontos tridimensionais para selecionar eventos de interesse. A rede neural usada para esse processo chama-se PointNet \cite{qi2016pointnet} e a arquitetura está na figura \ref{fig:aqr:pointnet}.
 
@@ -1176,7 +1176,7 @@ onde $\tilde{t_1}$, $\tilde{t_2}$ e $\tilde{t_3}$ são os hiperparâmetros a ser
 
 \par  Para o uso da PointNet para classificação, foi criado um banco de dados para o treino da rede neural que tem como \textit{input} a nuvem de pontos e como \textit{output} o número de trajetórias presentes no evento. Um dos pontos negativos da PointNet é seu tamanho fixo nos dados de entrada \cite{qi2016pointnet}, pois no caso dos dados desse trabalho, o número de pontos por evento não é  fixo. Para resolver isso, foi determinado um tamanho fixo $n$ = 300 pontos para todas as nuvens de pontos. Eventos com mais pontos que $n$ são descartados, já eventos com menos pontos eram preenchidos com pontos repetidos da mesma nuvem de pontos, para completar até o tamanho $n$. Eventos com menos que 100 pontos também foram descartados.
 
-\par Para determinar o número de trajetórias nos eventos para o treino da rede neural, foi utilizado o estimador robusto que chamei de prototype-RANSAC (RANdom SAmple Consensus), que é uma variação do RANSAC  \cite{ransac, artigo}. A escolha dele no lugar do HDBSCAN é pela melhor acurácia na detecção de trajetórias, apesar de ser cerca de 4 vezes mais lento. As nuvens de pontos (sem o acréscimo de pontos para a PointNet) ainda passam pelos dois filtros e critérios de correção mostrados na seção \ref{sec:forcabruta}. O algoritmo \ref{ransac_algo} mostra o funcionamento do p-RANSAC. O algoritmo seleciona dois pontos de modo aleatório (\textit{Random Sampling}) e determina o versor $\hat{v}$ e o ponto $P_b$ que descrevem a única reta $r$ que passa pelos dois pontos. A reta é selecionada caso tenha um número mínimo de pontos $N_{min}$ = 24 que pertencem à reta (chamado de \textit{inliers}) e tenha o mínimo (com relação aos outros conjunto de pontos) da estimativa $C$ dada por \cite{artigo}
+\par Para determinar o número de trajetórias nos eventos para o treino da rede neural, foi utilizado o estimador robusto que chamei de prototype-RANSAC (RANdom SAmple Consensus), que é uma variação do RANSAC  \cite{ransac, artigo}. A escolha dele no lugar do HDBSCAN é pela melhor acurácia na identificação de trajetórias, apesar de ser cerca de 4 vezes mais lento. As nuvens de pontos (sem o acréscimo de pontos para a PointNet) ainda passam pelos dois filtros e critérios de correção mostrados na seção \ref{sec:forcabruta}. O algoritmo \ref{ransac_algo} mostra o funcionamento do p-RANSAC. O algoritmo seleciona dois pontos de modo aleatório (\textit{Random Sampling}) e determina o versor $\hat{v}$ e o ponto $P_b$ que descrevem a única reta $r$ que passa pelos dois pontos. A reta é selecionada caso tenha um número mínimo de pontos $N_{min}$ = 24 que pertencem à reta (chamado de \textit{inliers}) e tenha o mínimo (com relação aos outros conjunto de pontos) da estimativa $C$ dada por \cite{artigo}
 
 \begin{equation} \label{criterio_ransac}
     C = \sum_{i = 0}^{N} \frac{d_i ^2}{N},
@@ -1214,13 +1214,13 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 \begin{figure}[H]
     \centering
     \includegraphics[scale = 0.5]{figs/ex1_pointnet_class.png}
-    \caption{Nuvem de pontos que possui 3 trajetórias para serem detectadas e a rede neural de classificação calculou que haviam 3 trajetórias, o que indica um resultado correto do algoritmo.}
+    \caption{Nuvem de pontos que possui 3 trajetórias para serem identificadas e a rede neural de classificação calculou que haviam 3 trajetórias, o que indica um resultado correto do algoritmo.}
     \label{fig:pointnet_class_exs}
 \end{figure}
 
 \par Eventos com 4 ou 5 trajetórias ocorrem com uma frequência muito menor (menos que 5\% do total de dados) que eventos de 1 e 2 trajetórias (cerca de 85\% do total de dados), caracterizando o banco de dados com o problema de desbalanço de classe, o que pode ter prejudicado o treino para identificar eventos mais incomuns. No dados do experimento desse trabalho não foi necessário utilizar essa rede neural, pois a etapa de identificação de trajetórias é rápida em comparação com a mesma etapa usado dados gerados nos experimentos com o AT-TPC \cite{attpc, FORTINO2022166497}.
 
-\subsection{Detecção de \textit{outliers}}
+\subsection{Identificação de \textit{outliers}}
 
 \par Um possível uso para a rede de segmentação semântica é para classificar pontos como \textit{inliers} ou \textit{outliers}, semelhante ao uso do algoritmo \textit{outlier removal} da biblioteca Open3D \cite{open3d}. A diferença é que com a PointNet pode-se incluir \textit{outliers} locais \cite{RF_pc}, não apenas os globais para serem identificados.
 
@@ -1229,11 +1229,11 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 \begin{figure}[H]
     \centering
     \includegraphics[scale = 0.4]{figs/pointnet_seg_ex1.png}
-    \caption{Detecção de outliers com a rede neural de segmentação. A rede neural foi capaz de detectar os \textit{outliers} desse evento com 95\% de acurácia.}
+    \caption{Identificação de outliers com a rede neural de segmentação. A rede neural foi capaz de identificar os \textit{outliers} desse evento com 95\% de acurácia.}
     \label{fig:pointnet_segment_exs}
 \end{figure}
 
-\par Existem outras redes neurais que são capazes de lidar com \textit{pointclouds}, como a PointNet++ \cite{qi2017pointnetplusplus} e Dynamic Graph CNN \cite{graph_cnn}. Para a abordagem de detecção de trajetórias de forma direta, uma opção é utilizar a rede neural ContrastNet \cite{contrastnet}, pois a rede é capaz de fazer \textit{clustering} nos dados, retornando os diferentes \textit{clusters} existentes nos dados. Num futuro, estamos pensando em utilizar esses tipos de ferramentas para realizar \textit{clustering} em nuvens de pontos em outros experimentos usando múltiplos canais de reação. No entanto, esse projeto esta além dos objetivos desta dissertação.
+\par Existem outras redes neurais que são capazes de lidar com \textit{pointclouds}, como a PointNet++ \cite{qi2017pointnetplusplus} e Dynamic Graph CNN \cite{graph_cnn}. Para a abordagem de identificação de trajetórias de forma direta, uma opção é utilizar a rede neural ContrastNet \cite{contrastnet}, pois a rede é capaz de fazer \textit{clustering} nos dados, retornando os diferentes \textit{clusters} existentes nos dados. Num futuro, estamos pensando em utilizar esses tipos de ferramentas para realizar \textit{clustering} em nuvens de pontos em outros experimentos usando múltiplos canais de reação. No entanto, esse projeto esta além dos objetivos desta dissertação.
 
 \par A classificação e ajuste de trajetórias apresentados no presente capítulo permitem obter informação da cinemática das reações nucleares e extrair as respetivas distribuições angulares. Essa análise é discutida no próximo capítulo.
 
@@ -1245,11 +1245,17 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 
 \section{Identificação de reações nucleares}\label{sec:identif_reac_nucl}
 
+\par O processo de identificação de reações nucleares envolve a identificação de trajetórias, determinação do vértice de reação e determinação de partículas através das propriedades dos ajustes feitos a partir das trajetórias identificadas e características físicas, como energia  e comprimento da trajetória.
+
+\par As subseções a seguir descrevem as etapas de identificação de reações nucleares.
+
+\subsection{Reconstrução do vértice da reação}
+
 \par Como visto no capítulo \ref{chapter:point_cloud_analysis}, para analisar as nuvens de pontos (reações nucleares) é necessário identificar os aglomerados de pontos presentes (que possuem estruturas que formam trajetórias retas). Isso é feito com estimadores robustos, como o algoritmo \ref{ransac_algo}, que é capaz de identificar os diferentes aglomerados mesmo na presença de \textit{outliers} \cite{artigo}.
 
-\par Para cada reação nuclear, após a identificação das trajetórias, é necessário determinar o vértice de reação, dado pela equação \ref{eq:vertice_reacao}. O vértice de reação é importante pois determina, a partir de sua posição e informações das outras trajetórias presentes no evento, o comprimento das trajetórias e o local da reação nuclear. O vértice de reação possui uma maior probabilidade de ocorrer na região central da câmara, pois o feixe incide na câmara com um ângulo muito pequeno em relação ao eixo da câmara, o que significa que eventos onde foram identificadas reações fora da região central foram descartados.
+\par Para cada reação nuclear, após a identificação das trajetórias, é necessário determinar o vértice de reação, dado pela equação \ref{eq:vertice_reacao}. Ele é o ponto no qual ocorreu uma reação nuclear, e portanto de extrema importância para completar a cinemática da reação nuclear. Com o vértice de reação é possível determinar, a partir de sua posição e informações das outras trajetórias presentes no evento, o comprimento das trajetórias e a posição da reação nuclear. O vértice de reação possui uma maior probabilidade de ocorrer na região central (em uma projeção do plano $x$-$y$) da câmara, podendo ocorrer até cerca de 3/4 de seu comprimento, pois o feixe incide na câmara com um ângulo muito pequeno em relação ao eixo da câmara e energia que faz com que ele pare antes de chegar no plano do detector. Isso significa que eventos onde foram identificadas reações fora da região central foram descartados.
 
-\par Dentre os eventos análise, existem casos em que o feixe foi identificado juntamente com outras duas partículas, caso com duas trajetórias (podendo ser a do feixe e uma partículas ou apenas duas partículas) e o caso com apenas uma trajetória identificada. A figura \ref{fig:res_tracks} ilustra os exemplos.
+\par Há três casos diferentes que foram trabalhados com relação à determinação do vértice de reação: o caso em que há o feixe e outras duas trajetórias identificadas; o caso em que há o feixe e mais uma trajetória identificada; e por fim o caso em que há uma ou mais trajetórias identificadas, porém sem o feixe. A figura \ref{fig:res_tracks} ilustra os exemplos.
 
 \begin{figure}[H]
 \centering
@@ -1283,16 +1289,24 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 
 \par No caso em que não há o feixe identificado, como mostrado na figura \ref{subfig:res_exemplo_1_track}, foram assumidas as propriedades mais prováveis da trajetória do feixe dentro da câmara, como já discutido no capítulo \ref{chapter:point_cloud_analysis}.
 
-\par Para determinar a energia do feixe é necessário identificar qual a energia do feixe no tempo em que ocorreu a reação, pois o feixe (assim como as partículas originadas das reações) perdem energia ao atravessar o gás. Para isso o espaço no eixo $z$ é discretizado para determinar a energia do feixe no momento da reação.
+\par Com o vértice de reação é possível determinar a energia, os ângulos de reação e por fim identificar quais as partículas que originaram tais trajetórias.
 
-%\par falar sobre energias etc
+\subsection{Reconstrução da energia das partículas}
+
+\par Para reconstruir a energia das partículas, foi necessário utilizar das propriedades da trajetória e também do poder de freamento (\textit{stopping power}) \cite{DETC_TELE} da partícula no gás. \textit{Cada partícula tem  Stopping power}
+
+\subsection{Reconstrução dos ângulos de reação}
+
+\subsection{Identificação de tipos de trajetórias}
+
+\par Para determinar a energia do feixe é necessário identificar qual a energia do feixe no tempo em que ocorreu a reação, pois o feixe (assim como as partículas originadas das reações) perdem energia ao atravessar o gás. Para isso o espaço no eixo $z$ é discretizado para determinar a energia do feixe no momento da reação.
 
 \par Após identificar todos os \textit{clusters} de cada evento deve-se identificar quais são as partículas que originaram cada uma das trajetórias identificadas. Isso é feito a partir do comprimento de cada trajetória e de sua energia. A figura \ref{fig:coincidencia_detec} mostra um histograma bidimensional do comprimento de cada \textit{track} em função do ângulo de espalhamento no referencial do laboratório, usando apenas eventos que possuíam duas \textit{tracks} com o mesmo vértice de reação. É possível perceber as medidas coincidentes do $^{16}$O e do próton.
 
 \begin{figure}[H]
     \centering
     \includegraphics[scale = 0.75]{figs/coincidencias_tpc.png}\
-    \caption{Histograma de comprimento de \textit{track} no eixo y e ângulo de espalhamento no eixo x. O histograma foi feito coletando eventos que possuíam duas trajetórias com o mesmo vértice de reação, indicando a detecção simultânea do $^{16}$O e do próton.}
+    \caption{Histograma de comprimento de \textit{track} no eixo y e ângulo de espalhamento no eixo x. O histograma foi feito coletando eventos que possuíam duas trajetórias com o mesmo vértice de reação, indicando a identificação simultânea do $^{16}$O e do próton.}
     \label{fig:coincidencia_detec}
 \end{figure}
 
@@ -1335,7 +1349,7 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 
 \section{Análise de espectros para identificação de partículas (\textit{particle identification}, PID)}
 
-\par O uso de técnicas de aprendizado não supervisionado pode ser usado para a identificar de partículas em espectros $\Delta E$ - $E$. Neste tipo de espectros, as partículas são detectadas e separadas por regiões que facilmente podem ser identificadas visualmente \cite{DETC_TELE}. No entanto, a identificação visual desses espectros com os sistemas de detecção com milhares de canais é inviável de forma manual. Assim, ferramentas de \textit{machine learning} (ou inteligencia artificial) são de grande relevância para esse tipo de analise.
+\par O uso de técnicas de aprendizado não supervisionado pode ser usado para a identificar de partículas em espectros $\Delta E$ - $E$. Neste tipo de espectros, as partículas são identificadas e separadas por regiões que facilmente podem ser identificadas visualmente \cite{DETC_TELE}. No entanto, a identificação visual desses espectros com os sistemas de detecção com milhares de canais é inviável de forma manual. Assim, ferramentas de \textit{machine learning} (ou inteligencia artificial) são de grande relevância para esse tipo de analise.
 
 Os resultados apresentados nessa seção foram obtidos na etapa inicial desta dissertação. Para o presente estudo, o espectro biparamétrico ($\Delta E$-$E$) mostrado na Figura \ref{subfig:espectro_1} foi analisado. Os dados correspondem a reação de espalhamento e transferência no sistema $^{6}$Li +  $^{12}$C.
 
@@ -1437,7 +1451,7 @@ onde $T^{a}_{1/2}$ é o tempo de meia vida do decaimento beta medido experimenta
 
 \par A rede criada para a classificação binária (entre próton e carbono) atingiu cerca de 90\% de acurácia. Somado ao fato de que redes neurais são muito eficientes em tempo, isso mostra uma possibilidade de que seja possível utilizar redes neurais como essa para o processamento em tempo real dos dados, com pouca supervisão humana durante o processo \cite{KUCHERAML}.
 
-\par Outro problema que pode ser resolvido com técnicas de \textit{machine learning} é a remoção de ruído de eventos. Para isso, pode ser usado o algoritmo não supervisionado \textit{Hough transform} \cite{hough}, que é capaz de detectar padrões de interesse nos dados e evitar regiões ou pontos que não seguem o padrão desejado. 
+\par Outro problema que pode ser resolvido com técnicas de \textit{machine learning} é a remoção de ruído de eventos. Para isso, pode ser usado o algoritmo não supervisionado \textit{Hough transform} \cite{hough}, que é capaz de identificar padrões de interesse nos dados e evitar regiões ou pontos que não seguem o padrão desejado. 
 
 
 % Além disso são geradas nuvens de pontos tridimensionais, o que demanda um grande trabalho do ponto de vista de visão computacional, com algoritmos capazes de identificar estruturas em três dimensões. A figura \ref{fig:tpc_ml} mostra um exemplo de \textit{clustering} aplicado na identificação de trajetórias tridimensionais.
