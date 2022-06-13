@@ -32,6 +32,7 @@
 \usepackage[scr=rsfs]{mathalpha}
 \DeclareMathOperator{\sinc}{sinc}
 \DeclareMathOperator{\rect}{rect}
+\DeclareMathOperator{\atantwo}{atan2}
 
 \usepackage{hyperref}
 \hypersetup{colorlinks=false, pdftitle={Tese}}
@@ -1283,7 +1284,7 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 \label{fig:res_tracks}
 \end{figure}
 
-\par No caso mostrado na figura \ref{subfig:res_exemplo_3_tracks}, onde há a identificação do feixe e de outras duas trajetórias, é possível determinar o vértice de reação a partir das propriedades das trajetórias do feixe e das outras partículas. Cada partículas tem seu vértice de reação com o feixe, nesse caso é preciso determinar se os vértices calculados correspondem à mesma reação nuclear, pois foi feita a busca de reações de breakup.
+\par No caso mostrado na figura \ref{subfig:res_exemplo_3_tracks}, onde há a identificação do feixe e de outras duas trajetórias, é possível determinar o vértice de reação a partir das propriedades das trajetórias do feixe e das outras partículas. Cada partículas tem seu vértice de reação com o feixe, nesse caso é preciso determinar se os vértices calculados correspondem à mesma reação nuclear, pois foi feita a busca de reações de breakup. O limite de distância dos vértices calculados, para serem considerados pertencentes a mesma reação, foi de 20 mm.
 
 \par A figura \ref{subfig:res_exemplo_2_tracks} mostra o caso em que há a identificação do feixe e de uma outra trajetória. O vértice é calculado e a terceira partícula da reação nuclear de breakup é determinada de maneira indireta, por conservação do momento linear. Importante notar que o aglomerado identificado de cor azul não possui pontos na perto da parte central da câmara, pois o ganho da eletrônica do micromegas na parte central é menor em comparação com a região não central. A energia então é determinada a partir do comprimento de sua trajetória dentro do gás.
 
@@ -1293,24 +1294,9 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 
 \subsection{Reconstrução da energia das partículas}
 
-\par Para reconstruir a energia das partículas, foi necessário utilizar das propriedades da trajetória e também do poder de freamento (\textit{stopping power}) \cite{DETC_TELE} da partícula no gás. \textit{Cada partícula tem  Stopping power}
+\par Para reconstruir a energia das partículas, foi necessário utilizar das propriedades da trajetória e também do poder de freamento (\textit{stopping power}) \cite{DETC_TELE} da partícula no gás. Cada partícula tem um  \textit{Stopping power} diferente, que depende do meio (que nesse é o gás em que a partícula está atravessando) e da pressão do gás.
 
-\subsection{Reconstrução dos ângulos de reação}
-
-\subsection{Identificação de tipos de trajetórias}
-
-\par Para determinar a energia do feixe é necessário identificar qual a energia do feixe no tempo em que ocorreu a reação, pois o feixe (assim como as partículas originadas das reações) perdem energia ao atravessar o gás. Para isso o espaço no eixo $z$ é discretizado para determinar a energia do feixe no momento da reação.
-
-\par Após identificar todos os \textit{clusters} de cada evento deve-se identificar quais são as partículas que originaram cada uma das trajetórias identificadas. Isso é feito a partir do comprimento de cada trajetória e de sua energia. A figura \ref{fig:coincidencia_detec} mostra um histograma bidimensional do comprimento de cada \textit{track} em função do ângulo de espalhamento no referencial do laboratório, usando apenas eventos que possuíam duas \textit{tracks} com o mesmo vértice de reação. É possível perceber as medidas coincidentes do $^{16}$O e do próton.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale = 0.75]{figs/coincidencias_tpc.png}\
-    \caption{Histograma de comprimento de \textit{track} no eixo y e ângulo de espalhamento no eixo x. O histograma foi feito coletando eventos que possuíam duas trajetórias com o mesmo vértice de reação, indicando a identificação simultânea do $^{16}$O e do próton.}
-    \label{fig:coincidencia_detec}
-\end{figure}
-
-\par A identificação da partícula é feita através da relação de alcance (\textit{range}) da partícula em função da energia. Cada partícula possui uma diferente penetrabilidade na matéria, o que significa que dada uma energia, diferentes partículas possuem diferentes alcances. Usando o LISE++ \cite{lise++} foi possível calcular o alcance das possíveis partículas ($^{16}$O e próton) dada as propriedades do alvo ($^4$He gasoso à uma pressão de 350 Torr). A figura \ref{fig:alcance_vs_energia} mostra o alcance em mm das partículas ($^{17}$F, $^{16}$O e próton) em função da energia em MeV. 
+\par A energia da trajetória pode ser estimativa a partir da equação \ref{eq:carga_acumulada}, onde são somadas todas as cargas acumuladas dos pontos das trajetórias, porém determinar a energia depende do \textit{stopping power} da partícula no gás. Usando o LISE++ \cite{lise++} foi possível calcular o alcance das possíveis partículas ($^{16}$O e próton) dada as propriedades do alvo ($^4$He gasoso à uma pressão de 350 Torr). A figura \ref{fig:alcance_vs_energia} mostra o alcance em mm das partículas ($^{17}$F, $^{16}$O e próton) em função da energia em MeV. 
 
  \begin{figure}[H]
      \centering
@@ -1319,7 +1305,74 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
      \label{fig:alcance_vs_energia}
  \end{figure}
 
-\par A identificação do feixe ($^{17}$F) é feita a partir das propriedades geométricas das trajetórias, portanto fica evidente a diferença de alcance entre uma partícula de $^{16}$O e um próton, o $^{16}$O possui uma penetrabilidade muito menor que o próton.
+\par A identificação do feixe ($^{17}$F) é feita a partir das propriedades geométricas das trajetórias, portanto fica evidente a diferença de alcance entre uma partícula de $^{16}$O e um próton, o $^{16}$O possui uma penetrabilidade muito menor que o próton. Com isso, no caso em que há duas trajetórias identificadas, a trajetória que tem o comprimento maior é determinada como próton, enquanto que a menor é associada ao $^{16}$O.
+
+\par Para os outros casos (onde só há uma trajetória), é necessário determinar o ângulo de reação, pois com ele é possível identificar a partícula associada a trajetória, mesmo sem determinar todas as trajetórias.
+
+\subsection{Reconstrução dos ângulos de reação}
+
+\par A determinação dos ângulos de reação é extremamente importante pois, com as informações dos ângulos de reação, são construídas as distribuições angulares. Para determinar os ângulos azimutais e axiais (em coordenadas esféricas), é necessário fazer os ajustes tridimensionais dos aglomerados identificados (usando estimadores robustos ou algoritmos de \textit{clustering}, como discutido no capítulo \ref{chapter:point_cloud_analysis}).
+
+\par O ângulo de reação, para cada trajetória identificada, depende da determinação do versor de cada uma das trajetórias e também do versor do feixe. A partir das propriedades geométricas das trajetórias (versores das retas), são calculados os ângulos azimutal e axial, em relação ao feixe, pois o espalhamento não deve ser calculado diretamente em relação ao eixo do TPC, mas sim em relação ao ângulo em que o feixe incide na câmara.
+
+\par Para cada trajetória (reta) $i$, o ângulo $\phi_i$ é dado por
+
+\begin{equation}
+	\phi_i = \atantwo \left (\frac{y_i}{x_i} \right),
+\end{equation}
+
+\par onde atan2 é o arco-tangente calculado no segundo quadrante, $y_i$ e $x_i$ são componentes $x$ e $y$ do versor da reta $i$. Para o ângulo $\theta$ temos que
+
+\begin{equation}
+	\theta = \arcsin \left (\frac{z_i}{L} \right),
+\end{equation}
+
+\par onde $z_i$ é a componente $z$ da reta $i$ e $L$ seu comprimento, dado pela equação \ref{eq:comprimento_trajetoria}.
+
+\par No caso do versor do feixe não ser (0, 0, 1), basta subtrair os ângulos do ângulos calculados para o feixe para determinar os ângulos de reação.
+
+\subsection{Identificação de tipos de trajetórias}
+
+\par Com as informações angulares e de energia é possível completar a cinemática da reação, determinando qual partícula originou cada trajetória.
+
+\par O feixe ($^{17}$F) é identificado a partir das propriedades geométricas de sua trajetória, enquanto que o $^{16}$O e o próton dependem do ângulo de espalhamento e comprimento de suas respectivas trajetórias. A figura \ref{fig:alcance_vs_energia} mostra que a diferença de alcance no gás para uma mesma energia é grande entre o $^{16}$O e o próton, e isso é perceptível nos eventos analisados, como os mostrados na figura \ref{fig:res_tracks}.
+
+\par O $^{17}$F incide com um ângulo muito pequeno em relação ao eixo da câmara. Na figura \ref{subfig:res_exemplo_3_tracks}, a trajetória de com azul é o feixe, e na figura \ref{subfig:res_exemplo_2_tracks} a trajetória de cor verde é o feixe.
+
+\par O próton possui um alcance muito grande e ângulos de espalhamento maiores em relação ao $^{16}$O. A figura \ref{fig:exemplos_tracks_diff} mostra diferentes eventos com as partículas associadas às trajetórias.
+
+\begin{figure}[H]
+\centering
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includegraphics[scale=0.5, width=.95\columnwidth]{figs/exemplo_track_2.png}
+        \caption{Evento que possui duas trajetórias, uma delas o feixe em azul (ângulo muito pequeno em relação ao eixo da câmara) e a outra a de um próton (trajetória de cor verde).}
+        \label{subfig:exemplo_track_proton_16O}
+    \end{subfigure}%
+    \hspace{0.5cm}
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includegraphics[scale=0.5, width=.95\columnwidth]{figs/exemplo_track_4.png}
+        \caption{Evento que possui três trajetórias, uma delas o feixe em azul (ângulo muito pequeno em relação ao eixo da câmara), a trajetória verde corresponde à um próton e a outra trajetória, em amarelo, representa o $^{16}$O.}
+        \label{subfig:exemplo_track_beam_proton_16O}
+    \end{subfigure}
+\caption{Exemplos de reações nucleares com as trajetórias identificadas. O vértice de reação é indicado por um \textit{X}. Visualmente é possível notar a diferença de comprimento das trajetórias de um próton e de um $^{16}$O. O feixe ($^{17}$F) possui um ângulo pequeno em relação ao eixo da câmara. As cores servem apenas para a diferenciação.}
+\label{fig:exemplos_tracks_diff}
+\end{figure}
+
+
+%\par Para determinar a energia do feixe é necessário identificar qual a energia do feixe no tempo em que ocorreu a reação, pois o feixe (assim como as partículas originadas das reações) perdem energia ao atravessar o gás. Para isso o espaço no eixo $z$ é discretizado para determinar a energia do feixe no momento da reação.
+
+\par Para ilustrar a diferença entre as trajetórias do próton e do $^{16}$O, a figura \ref{fig:coincidencia_detec} mostra um histograma bidimensional do comprimento de cada trajetória em função do ângulo de espalhamento no referencial do laboratório, usando apenas eventos que possuíam duas trajetórias, com o mesmo vértice de reação. É possível perceber as medidas coincidentes do $^{16}$O e do próton.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.75]{figs/coincidencias_tpc.png}\
+    \caption{Histograma de comprimento de \textit{track} no eixo y e ângulo de espalhamento no eixo x. O histograma foi feito coletando eventos que possuíam duas trajetórias com o mesmo vértice de reação, indicando a identificação simultânea do $^{16}$O e do próton.}
+    \label{fig:coincidencia_detec}
+\end{figure}
+
+\par Com todas as informações e as diferenças entre as trajetórias atribuídas, foi possível identificar os tipos de trajetórias dos eventos, para enfim construir as distribuições angulares.
 
 \section{Construção das distribuições angulares}\label{sec:sec_choque}
 
