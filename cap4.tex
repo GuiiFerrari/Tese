@@ -1019,9 +1019,9 @@ platô no \textit{loss}.}
 
 \chapter{Análise das nuvens de pontos}\label{chapter:point_cloud_analysis}
 
-\par Com as nuvens de pontos construídas, que são os eventos tridimensionais reconstruídos, foi possível identificar trajetórias para, posteriormente, identificar os mecanismos de reações. O objetivo desta etapa, do ponto de vista computacional, foi de identificar \textit{clusters} (aglomerados) tridimensionais, que nesse caso possuem estruturas que formam retas retas. Já do ponto de vista físico, o objetivo é, com as trajetórias identificadas, extrair as informações físicas (energia $E$, momento $\vec{p}$ e comprimento $L$). Com isso, foi possível distinguir cada trajetória identificada, e determinar o vértice de reação (entre uma partícula originada da reação nuclear entre o feixe e o gás). Após a identificação, foram selecionados os eventos correspondentes a uma reação nuclear.
+\par As nuvens de pontos representam eventos de reações nucleares dentro do alvo ativo. Portanto, os mecanismos de reação podem ser estudados a partir da analise das nuvens de pontos. O objetivo desta etapa, do ponto de vista computacional, foi de identificar \textit{clusters} (aglomerados) tridimensionais, que nesse caso possuem estruturas que formam retas retas. Já do ponto de vista físico, o objetivo é, com as trajetórias identificadas, extrair as informações físicas (energia $E$, momento $\vec{p}$ e comprimento $L$). Com isso, foi possível distinguir cada trajetória identificada, e determinar o vértice de reação (entre uma partícula originada da reação nuclear entre o feixe e o gás). Após a identificação, foram selecionados os eventos correspondentes a uma reação nuclear.
 
-\par Assim como no capítulo \ref{chapter:point_cloud_analysis}, esse capítulo descreve o uso de algoritmos de \textit{machine learning} para a análise, desta vez para as nuvens de pontos. Os algoritmos usados foram tanto não supervisionados (algoritmos de \textit{clustering}) e supervisionados (redes neurais), com diferentes objetivos.
+\par Assim como no capítulo \ref{chapter:sinais}, esse capítulo descreve o uso de algoritmos de \textit{machine learning} para a análise, desta vez para as nuvens de pontos. Os algoritmos usados foram tanto não supervisionados (algoritmos de \textit{clustering}) e supervisionados (redes neurais), com diferentes objetivos.
 
 \par Na seção \ref{sec:forcabruta} está mostrado o processo de identificação de trajetórias (\textit{tracking}) com algoritmo de \textit{machine learning} não supervisionados. Na seção \ref{subsec:pointnet} estão mostradas alternativas com outros algoritmos de \textit{machine learning}, porém que não foram utilizadas para a análise dos dados, mas abrem um grande leque de possibilidades para estudos futuros.
 
@@ -1075,7 +1075,7 @@ onde $N_1$ é o número de pontos da reta 1, $d_{i2}$ a distância do ponto $i$ 
 
 \par Após a correção, é necessário classificar cada reta como sendo ou o feixe, ou uma partícula originada de uma reação nuclear. O feixe incide na câmara com um ângulo muito pequeno com relação ao versor (0, 0, 1), que é o versor de incidência do feixe. Além disso, mesmo se o ângulo for pequeno, a reta do feixe cruza o plano da janela do TPC próximo do ponto mais provável da entrada o feixe. O ponto mais provável foi calculado usando a posição média da projeção dos pontos de um conjunto de eventos no plano \textit{x-y}. Disso obtemos que a posição inicial mais provável do feixe é tal que $x_f$ = -3.4 (6.7) mm e $y_f$ = -0.9 (6.3) mm. A incerteza é alta pois o feixe incide de modo bem distribuído da abertura da janela.
 
-\par Portanto se o ângulo entre o versor $\hat{v}_i$ de uma reta $r_i$ for menor que 5° (determinado de modo empírico novamente) e a distância $d$ entre o ponto $P_i$ que intercepta o plano e o ponto ($x_f$, $y_f$, 0), for menor que 15 mm (pouco mais que duas vezes a incerteza de cada ponto), então a reta foi considerada como o feixe do evento. No caso de não satisfazer essas condições, então ela foi classificada como uma possível partícula originada da reação do feixe com o gás.
+\par Portanto, se o ângulo entre o versor $\hat{v}_i$ de uma reta $r_i$ for menor que 5° (determinado de modo empírico novamente) e a distância $d$ entre o ponto $P_i$ que intercepta o plano e o ponto ($x_f$, $y_f$, 0) for menor que 15 mm (pouco mais que duas vezes a incerteza de cada ponto), então a reta foi considerada como o feixe do evento. No caso de não satisfazer essas condições, então ela foi classificada como uma possível partícula originada da reação do feixe com o gás.
 
 \par Importante notar que há eventos que não possuem projétil ou ejétil ($^{17}$F por exemplo), como mostrado na figura \ref{fig:exemplo_sem_feixe}. Neste caso, foi necessário assumir as propriedades da reta mais provável para o feixe, ou seja, precisa passar pelo ponto ($x_f$, $y_f$, 0) e ter versor (0, 0, 1).
 
@@ -1240,63 +1240,62 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 
 \chapter{Resultados}\label{chapter:resultados}
 
-\par Esse capítulo mostra como foram construídas as distribuições angulares a partir das informações obtidas da análise das nuvens de pontos, que representam reações nucleares. No capítulo \ref{chapter:point_cloud_analysis} a parte computacional e matemática foi desenvolvida, a continuidade da análise é completar a cinemática das reações nucleares, para identificar qual a reação nuclear e quais as partículas identificadas. 
+\par Esse capítulo mostra como foram construídas as distribuições angulares a partir das informações obtidas da análise das nuvens de pontos. No capítulo \ref{chapter:point_cloud_analysis} a parte computacional e matemática foi desenvolvida, a continuidade da análise é completar a cinemática das reações nucleares, para identificar qual a reação nuclear e quais as partículas identificadas. 
 
 \par Na seção \ref{sec:identif_reac_nucl} está descrito como identificar reações nucleares e as partículas presentes. A seção \ref{sec:sec_choque} descreve como construir as distribuições angulares.
 
-\section{Identificação de reações nucleares}\label{sec:identif_reac_nucl}
+\section{Reconstrução das reações nucleares}\label{sec:identif_reac_nucl}
 
-\par O processo de identificação de reações nucleares envolve a identificação de trajetórias, determinação do vértice de reação e determinação de partículas através das propriedades dos ajustes feitos a partir das trajetórias identificadas e características físicas, como energia  e comprimento da trajetória.
+\par O processo de reconstrução de reações nucleares envolve a identificação de trajetórias, determinação do vértice de reação e identificação de partículas envolvidas nos eventos de reações nucleares.
 
 \par As subseções a seguir descrevem as etapas de identificação de reações nucleares.
 
 \subsection{Reconstrução do vértice da reação}
 
-\par Como visto no capítulo \ref{chapter:point_cloud_analysis}, para analisar as nuvens de pontos (reações nucleares) é necessário identificar os aglomerados de pontos presentes (que possuem estruturas que formam trajetórias retas). Isso é feito com estimadores robustos, como o algoritmo \ref{ransac_algo}, que é capaz de identificar os diferentes aglomerados mesmo na presença de \textit{outliers} \cite{artigo}.
+\par Como foi descrito no capítulo \ref{chapter:point_cloud_analysis}, para analisar as nuvens de pontos (reações nucleares) é necessário identificar os aglomerados de pontos presentes (que possuem estruturas que formam trajetórias retas). Isso é feito com estimadores robustos, como o algoritmo p-RANSAC (algoritmo \ref{ransac_algo}, apresentado na subseção \ref{subsec:pointnet} e também na referência \cite{artigo}), que é capaz de identificar os diferentes aglomerados mesmo na presença de \textit{outliers} \cite{artigo}.
 
-\par Para cada reação nuclear, após a identificação das trajetórias, é necessário determinar o vértice de reação, dado pela equação \ref{eq:vertice_reacao}. Ele é o ponto no qual ocorreu uma reação nuclear, e portanto de extrema importância para completar a cinemática da reação nuclear. Com o vértice de reação é possível determinar, a partir de sua posição e informações das outras trajetórias presentes no evento, o comprimento das trajetórias e a posição da reação nuclear. O vértice de reação possui uma maior probabilidade de ocorrer na região central (em uma projeção do plano $x$-$y$) da câmara, podendo ocorrer até cerca de 3/4 de seu comprimento, pois o feixe incide na câmara com um ângulo muito pequeno em relação ao eixo da câmara e energia que faz com que ele pare antes de chegar no plano do detector. Isso significa que eventos onde foram identificadas reações fora da região central foram descartados.
+\par Após a identificação e ajuste das trajetórias, é necessário determinar o vértice da reação para cada evento. O vértice é o ponto no espaço no qual ocorreu a reação nuclear e pode ser determinado pela extrapolação das trajetórias na região central do alvo ativo. Para isso, é necessário obter o ponto de interseção (ou mais próximo) entre duas retas, como mostra a  equação \ref{eq:vertice_reacao}. Com o vértice de reação é possível determinar, a partir de sua posição e informações das outras trajetórias presentes no evento, o comprimento das trajetórias e a posição da reação nuclear. O feixe incide na parte central pelo eixo axial do alvo, região que possui sinais saturados (devido à passagem do feixe). Devido à saturação dos sinais, não é possível obter informações dessa região, pois há ausência de pontos identificados nessa região. Portanto, para calcular o vértice de reação, é necessário extrapolar as trajetórias na região central. A partir do vértice, então, é possível calcular o comprimento $L$ da trajetória (dado pela equação \ref{eq:comprimento_trajetoria}), mesmo com a ausência de informação na região central.
 
-\par Há três casos diferentes que foram trabalhados com relação à determinação do vértice de reação: o caso em que há o feixe e outras duas trajetórias identificadas; o caso em que há o feixe e mais uma trajetória identificada; e por fim o caso em que há uma ou mais trajetórias identificadas, porém sem o feixe. A figura \ref{fig:res_tracks} ilustra os exemplos.
+\par Para alguns eventos foi possível observar a trajetórias do feixe e partículas produto da reação saindo de um mesmo vértice (ver figura \ref{subfig:res_exemplo_3_tracks}). Neste caso, o vértice corresponde ao ponto médio da interseção dessas trajetórias. Porém, na maioria dos casos não foi possível observar a trajetória do feixe por causa do baixo ganho nos pixels centrais do detector. Por exemplo, a figura \ref{subfig:res_exemplo_2_tracks} mostra só dois produtos de reação saindo aparentemente do mesmo vértice. Neste caso, o vértice pode ser reconstruido pela extrapolação das retas ajustadas às trajetórias das partículas. Por fim, o caso mais complicado é quando apenas foi identificada uma trajetória (ver figura \ref{subfig:res_exemplo_1_track}). Para reconstruir o vértice com apenas uma trajetória, é necessário assumir uma direção para a partícula do feixe. Assim como foi mencionado no capitulo 5, se assume que o feixe tem direção (0,0,1) e ponto de corte (-3.4,-0.9,0). Portanto, o vértice corresponde ao ponto mais próximo da trajetória partícula com a trajetória assumida para o feixe. A figura \ref{fig:res_tracks} ilustra os exemplos.
 
 \begin{figure}[H]
 \centering
     \begin{subfigure}[b]{\textwidth}
         \centering
-        \includegraphics[scale = 0.3]{figs/results_ex_3_tracks.png}
+        \includegraphics[scale = 0.3]{figs/results_ex_3_tracks_2.png}
         \caption{Exemplo de reação nuclear onde foram identificadas três trajetórias.}
         \label{subfig:res_exemplo_3_tracks}
     \end{subfigure}%
     \hfill
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
-        \includegraphics[scale=0.4, width=.95\columnwidth]{figs/results_ex_2_tracks.png}
-        \caption{Exemplo de reação nuclear onde foram identificadas duas trajetórias, sendo uma delas a do feixe.}
+        \includegraphics[scale=0.4, width=.95\columnwidth]{figs/results_ex_2_tracks_3.png}
+        \caption{Exemplo de reação nuclear onde foram identificadas duas trajetórias.}
         \label{subfig:res_exemplo_2_tracks}
     \end{subfigure}%
     \hspace{0.5cm}
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
-        \includegraphics[scale=0.4, width=.95\columnwidth]{figs/results_ex_1_track.png}
+        \includegraphics[scale=0.4, width=.95\columnwidth]{figs/results_ex_1_track_num_220.png}
         \caption{Exemplo de reação nuclear onde foi identificada apenas uma trajetória.}
         \label{subfig:res_exemplo_1_track}
     \end{subfigure}
-\caption{Exemplos de reações nucleares com as trajetórias identificadas. O vértice de reação é indicado por um \textit{X}. As cores servem apenas para a diferenciação.}
+\caption{Exemplos de reações nucleares com as trajetórias identificadas. O vértice de reação é indicado por um \textit{X}, em preto. As cores servem apenas para a diferenciação.}
 \label{fig:res_tracks}
 \end{figure}
 
-\par No caso mostrado na figura \ref{subfig:res_exemplo_3_tracks}, onde há a identificação do feixe e de outras duas trajetórias, é possível determinar o vértice de reação a partir das propriedades das trajetórias do feixe e das outras partículas. Cada partículas tem seu vértice de reação com o feixe, nesse caso é preciso determinar se os vértices calculados correspondem à mesma reação nuclear, pois foi feita a busca de reações de breakup. O limite de distância dos vértices calculados, para serem considerados pertencentes a mesma reação, foi de 20 mm.
-
-\par A figura \ref{subfig:res_exemplo_2_tracks} mostra o caso em que há a identificação do feixe e de uma outra trajetória. O vértice é calculado e a terceira partícula da reação nuclear de breakup é determinada de maneira indireta, por conservação do momento linear. Importante notar que o aglomerado identificado de cor azul não possui pontos na perto da parte central da câmara, pois o ganho da eletrônica do micromegas na parte central é menor em comparação com a região não central. A energia então é determinada a partir do comprimento de sua trajetória dentro do gás.
-
-\par No caso em que não há o feixe identificado, como mostrado na figura \ref{subfig:res_exemplo_1_track}, foram assumidas as propriedades mais prováveis da trajetória do feixe dentro da câmara, como já discutido no capítulo \ref{chapter:point_cloud_analysis}.
+%\par O limite de distância dos vértices calculados, para serem considerados pertencentes a mesma reação, foi de 20 mm.
+%\par Importante notar que o aglomerado identificado de cor azul não possui pontos na perto da parte central da câmara, pois o ganho da eletrônica do micromegas na parte central é menor em comparação com a região não central.
 
 \par Com o vértice de reação é possível determinar a energia, os ângulos de reação e por fim identificar quais as partículas que originaram tais trajetórias.
 
 \subsection{Reconstrução da energia das partículas}
 
-\par Para reconstruir a energia das partículas, foi necessário utilizar das propriedades da trajetória e também do poder de freamento (\textit{stopping power}) \cite{DETC_TELE} da partícula no gás. Cada partícula tem um  \textit{Stopping power} diferente, que depende do meio (que nesse é o gás em que a partícula está atravessando) e da pressão do gás.
+\par Para reconstruir a energia das partículas, foi necessário utilizar do comprimento da trajetória e também do poder de freamento (\textit{stopping power}) \cite{DETC_TELE} da partícula no gás. O \textit{stopping power} depende principalmente na carga da partícula incidente e na propriedades do gás como a pressão e temperatura.
 
-\par A energia da trajetória pode ser estimativa a partir da equação \ref{eq:carga_acumulada}, onde são somadas todas as cargas acumuladas dos pontos das trajetórias, porém determinar a energia depende do \textit{stopping power} da partícula no gás. Usando o LISE++ \cite{lise++} foi possível calcular o alcance das possíveis partículas ($^{16}$O e próton) dada as propriedades do alvo ($^4$He gasoso à uma pressão de 350 Torr). A figura \ref{fig:alcance_vs_energia} mostra o alcance em mm das partículas ($^{17}$F, $^{16}$O e próton) em função da energia em MeV. 
+\par Numa primeira aproximação, a energia da trajetória pode ser estimada a partir da equacao \ref{eq:carga_acumulada}, onde são somadas todas as cargas acumuladas dos pontos da trajetória. Porem a eficiência de detecção depende da energia da partícula e algumas regiões das trajetórias podem não ser detectadas. Outra forma de reconstruir a energia da partícula é a partir do comprimento da trajetória usando o respetivo poder de freamento (\textit{stopping power}). O \textit{stopping power} depende principalmente da carga da partícula incidente e das propriedades do gás, como a pressão e temperatura. O \textit{stopping power} foi calculado usando o programa LISE++\cite{lise++} e os respectivos comprimentos das trajetórias associadas a partículas como $^{16}$O, alfas e protons num gás de $^4$He à uma pressão de 350 Torr.
+
+%\par Numa primeira aproximação, a energia da trajetória pode ser estimativa a partir da equação \ref{eq:carga_acumulada}, onde são somadas todas as cargas acumuladas dos pontos das trajetórias. Porém a eficiência de detecção depende da energia da partícula e algumas regiões das trajetórias podem não ser detectadas. Usando o LISE++ \cite{lise++} foi possível calcular o alcance das possíveis partículas ($^{16}$O e próton) dada as propriedades do alvo ($^4$He gasoso à uma pressão de 350 Torr). A figura \ref{fig:alcance_vs_energia} mostra o alcance em mm das partículas ($^{17}$F, $^{16}$O e próton) em função da energia em MeV. 
 
  \begin{figure}[H]
      \centering
@@ -1305,26 +1304,24 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
      \label{fig:alcance_vs_energia}
  \end{figure}
 
-\par A identificação do feixe ($^{17}$F) é feita a partir das propriedades geométricas das trajetórias, portanto fica evidente a diferença de alcance entre uma partícula de $^{16}$O e um próton, o $^{16}$O possui uma penetrabilidade muito menor que o próton. Com isso, no caso em que há duas trajetórias identificadas, a trajetória que tem o comprimento maior é determinada como próton, enquanto que a menor é associada ao $^{16}$O.
-
-\par Para os outros casos (onde só há uma trajetória), é necessário determinar o ângulo de reação, pois com ele é possível identificar a partícula associada a trajetória, mesmo sem determinar todas as trajetórias.
+\par A identificação do feixe ($^{17}$F) é feita a partir das propriedades geométricas das trajetórias, portanto fica evidente a diferença de alcance entre uma partícula de $^{16}$O e um próton, o $^{16}$O possui uma penetrabilidade muito menor que o próton.
 
 \subsection{Reconstrução dos ângulos de reação}
 
-\par A determinação dos ângulos de reação é extremamente importante pois, com as informações dos ângulos de reação, são construídas as distribuições angulares. Para determinar os ângulos azimutais e axiais (em coordenadas esféricas), é necessário fazer os ajustes tridimensionais dos aglomerados identificados (usando estimadores robustos ou algoritmos de \textit{clustering}, como discutido no capítulo \ref{chapter:point_cloud_analysis}).
+\par Para determinar os ângulos azimutal e axial (em coordenadas esféricas), é necessário fazer os ajustes tridimensionais dos aglomerados identificados (usando estimadores robustos ou algoritmos de \textit{clustering}, como discutido no capítulo \ref{chapter:point_cloud_analysis}).
 
 \par O ângulo de reação, para cada trajetória identificada, depende da determinação do versor de cada uma das trajetórias e também do versor do feixe. A partir das propriedades geométricas das trajetórias (versores das retas), são calculados os ângulos azimutal e axial, em relação ao feixe, pois o espalhamento não deve ser calculado diretamente em relação ao eixo do TPC, mas sim em relação ao ângulo em que o feixe incide na câmara.
 
-\par Para cada trajetória (reta) $i$, o ângulo $\phi_i$ é dado por
+\par Para cada trajetória (reta) $i$, o ângulo axial $\phi_i$ é dado por
 
 \begin{equation}
 	\phi_i = \atantwo \left (\frac{y_i}{x_i} \right),
 \end{equation}
 
-\par onde atan2 é o arco-tangente calculado no segundo quadrante, $y_i$ e $x_i$ são componentes $x$ e $y$ do versor da reta $i$. Para o ângulo $\theta$ temos que
+\par onde atan2 é o arco-tangente calculado no segundo quadrante, $y_i$ e $x_i$ são componentes $x$ e $y$ do versor da reta $i$. Para o ângulo azimutal $\theta$ temos que
 
 \begin{equation}
-	\theta = \arcsin \left (\frac{z_i}{L} \right),
+	\theta = \arccos \left (\frac{z_i}{L} \right),
 \end{equation}
 
 \par onde $z_i$ é a componente $z$ da reta $i$ e $L$ seu comprimento, dado pela equação \ref{eq:comprimento_trajetoria}.
@@ -1335,26 +1332,30 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 
 \par Com as informações angulares e de energia é possível completar a cinemática da reação, determinando qual partícula originou cada trajetória.
 
-\par O feixe ($^{17}$F) é identificado a partir das propriedades geométricas de sua trajetória, enquanto que o $^{16}$O e o próton dependem do ângulo de espalhamento e comprimento de suas respectivas trajetórias. A figura \ref{fig:alcance_vs_energia} mostra que a diferença de alcance no gás para uma mesma energia é grande entre o $^{16}$O e o próton, e isso é perceptível nos eventos analisados, como os mostrados na figura \ref{fig:res_tracks}.
+\par A figura \ref{fig:exemplos_tracks_diff} mostra as trajetórias de diferentes partículas no gás. Na figura \ref{subfig:exemplo_alpha_alpha} há a reação de espalhamento entre duas partículas alfas, enquanto que na figura \ref{subfig:exemplo_scatt_17F_alpha} há o espalhamento elástico do $^{17}$F (trajetória em alfa verde) em alfa (trajetória verde). Percebe que a trajetória da partícula alfa possui mais pontos e maior comprimento, enquanto a trajetória do $^{17}$F é mais curta e com um ângulo mais dianteiro.
 
-\par O $^{17}$F incide com um ângulo muito pequeno em relação ao eixo da câmara. Na figura \ref{subfig:res_exemplo_3_tracks}, a trajetória de com azul é o feixe, e na figura \ref{subfig:res_exemplo_2_tracks} a trajetória de cor verde é o feixe.
+\par Para o cálculo do vértice de reação, no caso em que há duas trajetórias, como as mostradas na figura \ref{fig:exemplos_tracks_diff}, o vértice de reação então é o ponto médio de intersecção entre as duas retas.
 
-\par O próton possui um alcance muito grande e ângulos de espalhamento maiores em relação ao $^{16}$O. A figura \ref{fig:exemplos_tracks_diff} mostra diferentes eventos com as partículas associadas às trajetórias.
+%\par O feixe ($^{17}$F) é identificado a partir das propriedades geométricas de sua trajetória, enquanto que o $^{16}$O e o próton dependem do ângulo de espalhamento e comprimento de suas respectivas trajetórias. A figura \ref{fig:alcance_vs_energia} mostra que a diferença de alcance no gás para uma mesma energia é grande entre o $^{16}$O e o próton, e isso é perceptível nos eventos analisados, como os mostrados na figura \ref{fig:res_tracks}.
+
+%\par O $^{17}$F incide com um ângulo muito pequeno em relação ao eixo da câmara. Na figura \ref{subfig:res_exemplo_3_tracks}, a trajetória de com azul é o feixe, e na figura \ref{subfig:res_exemplo_2_tracks} a trajetória de cor verde é o feixe.
+%
+%\par O próton possui um alcance muito grande e ângulos de espalhamento maiores em relação ao $^{16}$O. A figura \ref{fig:exemplos_tracks_diff} mostra diferentes eventos com as partículas associadas às trajetórias.
 
 \begin{figure}[H]
 \centering
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
-        \includegraphics[scale=0.5, width=.95\columnwidth]{figs/exemplo_track_2.png}
-        \caption{Evento que possui duas trajetórias, uma delas o feixe em azul (ângulo muito pequeno em relação ao eixo da câmara) e a outra a de um próton (trajetória de cor verde).}
-        \label{subfig:exemplo_track_proton_16O}
+        \includegraphics[scale=0.5, width=.95\columnwidth]{figs/reac_alpha_alpha_num_177.png}
+        \caption{Evento de reação .}
+        \label{subfig:exemplo_alpha_alpha}
     \end{subfigure}%
     \hspace{0.5cm}
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
-        \includegraphics[scale=0.5, width=.95\columnwidth]{figs/exemplo_track_4.png}
-        \caption{Evento que possui três trajetórias, uma delas o feixe em azul (ângulo muito pequeno em relação ao eixo da câmara), a trajetória verde corresponde à um próton e a outra trajetória, em amarelo, representa o $^{16}$O.}
-        \label{subfig:exemplo_track_beam_proton_16O}
+        \includegraphics[scale=0.5, width=.95\columnwidth]{figs/espalhamento_17F_alpha_num_212.png}
+        \caption{Evento de espalhamento elástico do $^{17}$F (aglomerado verde) e uma partícula alfa (aglomerado azul).}
+        \label{subfig:exemplo_scatt_17F_alpha}
     \end{subfigure}
 \caption{Exemplos de reações nucleares com as trajetórias identificadas. O vértice de reação é indicado por um \textit{X}. Visualmente é possível notar a diferença de comprimento das trajetórias de um próton e de um $^{16}$O. O feixe ($^{17}$F) possui um ângulo pequeno em relação ao eixo da câmara. As cores servem apenas para a diferenciação.}
 \label{fig:exemplos_tracks_diff}
@@ -1382,16 +1383,6 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 \chapter{Conclusão}\label{chapter:conclusao}
 
 
-
-
-
-% \par As duas condição que precisam ser satisfeitas para uma reta ser considerada um feixe são dadas por [XX].
-
-% \begin{equation}\label{criterio_feixe_p}
-%     \arccos{(\hat{v}_i \cdot (0, 0, 1))} < \beta, 
-% \end{equation}
-
-% onde $\hat{v}_i$ é o versor de uma reta $i$ e $\beta$ é um limiar dado em graus a ser determinado empiricamente, que neste caso foi considerado como 5°.
 
 \begin{appendices}
 
