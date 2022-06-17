@@ -1269,7 +1269,7 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
     \hfill
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
-        \includegraphics[scale=0.4, width=.95\columnwidth]{figs/results_ex_2_tracks_3.png}
+        \includegraphics[scale=0.4, width=.95\columnwidth]{figs/reac_alpha_alpha_num_177.png}
         \caption{Exemplo de reação nuclear onde foram identificadas duas trajetórias.}
         \label{subfig:res_exemplo_2_tracks}
     \end{subfigure}%
@@ -1304,7 +1304,15 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
      \label{fig:alcance_vs_energia}
  \end{figure}
 
-\par A identificação do feixe ($^{17}$F) é feita a partir das propriedades geométricas das trajetórias, portanto fica evidente a diferença de alcance entre uma partícula de $^{16}$O e um próton, o $^{16}$O possui uma penetrabilidade muito menor que o próton.
+\par Para determinar a energia de reação, é necessário calcular a energia do feixe na posição da reação nuclear. Para isso, o espaço no eixo $z$ foi discretizado, a fim de calcular a energia no momento da reação. O feixe, ao entrar no gás, possui energia inicial $E_i$ = 34.76 MeV, e perde energia ao atravessar o gás. A energia de reação $E_r$ é dada por
+
+\begin{equation}
+	E_r = E_i - E_{loss},
+\end{equation}
+
+\par onde $E_{loss}$ é a energia perdida pelo feixe até o vértice de reação.
+
+%\par A identificação do feixe ($^{17}$F) é feita a partir das propriedades geométricas das trajetórias, portanto fica evidente a diferença de alcance entre uma partícula de $^{16}$O e um próton, o $^{16}$O possui uma penetrabilidade muito menor que o próton.
 
 \subsection{Reconstrução dos ângulos de reação}
 
@@ -1321,12 +1329,10 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 \par onde atan2 é o arco-tangente calculado no segundo quadrante, $y_i$ e $x_i$ são componentes $x$ e $y$ do versor da reta $i$. Para o ângulo azimutal $\theta$ temos que
 
 \begin{equation}
-	\theta = \arccos \left (\frac{z_i}{L} \right),
+	\theta = \arccos \left (\vec{V_i} \cdot \vec{V_f} \right),
 \end{equation}
 
-\par onde $z_i$ é a componente $z$ da reta $i$ e $L$ seu comprimento, dado pela equação \ref{eq:comprimento_trajetoria}.
-
-\par No caso do versor do feixe não ser (0, 0, 1), basta subtrair os ângulos do ângulos calculados para o feixe para determinar os ângulos de reação.
+\par onde $\vec{V_i}$ é o versor da reta $i$ e $\vec{V_f}$ é o versor do feixe.
 
 \subsection{Identificação de tipos de trajetórias}
 
