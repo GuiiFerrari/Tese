@@ -121,9 +121,9 @@ Prof(a). Dr(a). Nome do(a) Professor(a) (institui\c{c}\~{a}o de trabalho) \\
 \clearpage
 
 \tableofcontents
-\listoffigures
-\listoftables
-\listofalgorithms
+%\listoffigures
+%\listoftables
+%\listofalgorithms
 \newpage
 
 \chapter{Introdução}
@@ -1269,7 +1269,7 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
     \hfill
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
-        \includegraphics[scale=0.4, width=.95\columnwidth]{figs/reac_alpha_alpha_num_177.png}
+        \includegraphics[scale=0.4, width=.95\columnwidth]{figs/reac_alpha_alpha_num_212.png}
         \caption{Exemplo de reação nuclear onde foram identificadas duas trajetórias.}
         \label{subfig:res_exemplo_2_tracks}
     \end{subfigure}%
@@ -1299,7 +1299,7 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 
  \begin{figure}[H]
      \centering
-     \includegraphics[scale = 0.75]{figs/alcance_vs_energia_2.png}\
+     \includegraphics[scale = 0.85]{figs/alcance_vs_energia_2.png}\
      \caption{Alcance (mm) em função da energia (MeV) para o $^{17}$F, $^{16}$O e próton. A grande diferença está no próton que tem um alcance muito maior que os outros núcleos.}
      \label{fig:alcance_vs_energia}
  \end{figure}
@@ -1336,41 +1336,22 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 
 \subsection{Identificação de tipos de trajetórias}
 
-\par Com as informações angulares e de energia é possível completar a cinemática da reação, determinando qual partícula originou cada trajetória.
+\par Com as informações angulares e de energia é possível completar a cinemática da reação, determinando qual partícula originou cada trajetória. Primeiro é preciso entender os tipos de trajetórias identificados em eventos como os mostrados na figura \ref{fig:res_tracks}, que mostra as trajetórias de diferentes partículas no gás.
 
-\par A figura \ref{fig:exemplos_tracks_diff} mostra as trajetórias de diferentes partículas no gás. Na figura \ref{subfig:exemplo_alpha_alpha} há a reação de espalhamento entre duas partículas alfas, enquanto que na figura \ref{subfig:exemplo_scatt_17F_alpha} há o espalhamento elástico do $^{17}$F (trajetória em alfa verde) em alfa (trajetória verde). Percebe que a trajetória da partícula alfa possui mais pontos e maior comprimento, enquanto a trajetória do $^{17}$F é mais curta e com um ângulo mais dianteiro.
+\par Na figura \ref{subfig:res_exemplo_3_tracks} há a reação de breakup entre o $^{17}$F (trajetória de cor amarela) e o $^{4}$He gasoso. Os produtos da reação são o próton (trajetória de cor azul) e o $^{16}$O (trajetória de cor verde). Pela imagem é possível ver a diferença no comprimento das trajetórias, o próton possui um alcance maior que o $^{16}$O no gás.
 
-\par Para o cálculo do vértice de reação, no caso em que há duas trajetórias, como as mostradas na figura \ref{fig:exemplos_tracks_diff}, o vértice de reação então é o ponto médio de intersecção entre as duas retas.
+\par Na figura \ref{subfig:res_exemplo_2_tracks} há o espalhamento elástico do $^{17}$F (trajetória em cor verde) em alfa (trajetória de cor azul). Percebe que a trajetória da partícula alfa possui mais pontos e maior comprimento, enquanto a trajetória do $^{17}$F é mais curta e com um ângulo mais dianteiro.
 
-%\par O feixe ($^{17}$F) é identificado a partir das propriedades geométricas de sua trajetória, enquanto que o $^{16}$O e o próton dependem do ângulo de espalhamento e comprimento de suas respectivas trajetórias. A figura \ref{fig:alcance_vs_energia} mostra que a diferença de alcance no gás para uma mesma energia é grande entre o $^{16}$O e o próton, e isso é perceptível nos eventos analisados, como os mostrados na figura \ref{fig:res_tracks}.
-
-%\par O $^{17}$F incide com um ângulo muito pequeno em relação ao eixo da câmara. Na figura \ref{subfig:res_exemplo_3_tracks}, a trajetória de com azul é o feixe, e na figura \ref{subfig:res_exemplo_2_tracks} a trajetória de cor verde é o feixe.
-%
-%\par O próton possui um alcance muito grande e ângulos de espalhamento maiores em relação ao $^{16}$O. A figura \ref{fig:exemplos_tracks_diff} mostra diferentes eventos com as partículas associadas às trajetórias.
+\par No caso da figura \ref{subfig:res_exemplo_1_track}, há uma única trajetória que não é possível de ser identificada visualmente. Identificar as partículas que originaram as trajetórias não é possível de se fazer diretamente (só com as informações descritas até este ponto). Para entender melhor a identificação de trajetórias, é necessário estudar todas as trajetórias identificadas. A figura \ref{fig:comp_vs_ang} mostra o histograma bidimensional do comprimento de cada trajetória em função do ângulo de espalhamento no referencial do laboratório.
 
 \begin{figure}[H]
-\centering
-    \begin{subfigure}[t]{0.45\textwidth}
-        \centering
-        \includegraphics[scale=0.5, width=.95\columnwidth]{figs/reac_alpha_alpha_num_177.png}
-        \caption{Evento de reação .}
-        \label{subfig:exemplo_alpha_alpha}
-    \end{subfigure}%
-    \hspace{0.5cm}
-    \begin{subfigure}[t]{0.45\textwidth}
-        \centering
-        \includegraphics[scale=0.5, width=.95\columnwidth]{figs/espalhamento_17F_alpha_num_212.png}
-        \caption{Evento de espalhamento elástico do $^{17}$F (aglomerado verde) e uma partícula alfa (aglomerado azul).}
-        \label{subfig:exemplo_scatt_17F_alpha}
-    \end{subfigure}
-\caption{Exemplos de reações nucleares com as trajetórias identificadas. O vértice de reação é indicado por um \textit{X}. Visualmente é possível notar a diferença de comprimento das trajetórias de um próton e de um $^{16}$O. O feixe ($^{17}$F) possui um ângulo pequeno em relação ao eixo da câmara. As cores servem apenas para a diferenciação.}
-\label{fig:exemplos_tracks_diff}
+    \centering
+    \includegraphics[scale = 0.93]{figs/comp_vs_ang.png}\
+    \caption{Histograma de comprimento de \textit{track} no eixo $y$ e ângulo de espalhamento no eixo $x$. Pela figura é perceptível que, sem filtros, não é possível notar diferenças entre diferentes trajetórias.}
+    \label{fig:comp_vs_ang}
 \end{figure}
 
-
-%\par Para determinar a energia do feixe é necessário identificar qual a energia do feixe no tempo em que ocorreu a reação, pois o feixe (assim como as partículas originadas das reações) perdem energia ao atravessar o gás. Para isso o espaço no eixo $z$ é discretizado para determinar a energia do feixe no momento da reação.
-
-\par Para ilustrar a diferença entre as trajetórias do próton e do $^{16}$O, a figura \ref{fig:coincidencia_detec} mostra um histograma bidimensional do comprimento de cada trajetória em função do ângulo de espalhamento no referencial do laboratório, usando apenas eventos que possuíam duas trajetórias, com o mesmo vértice de reação. É possível perceber as medidas coincidentes do $^{16}$O e do próton.
+\par Para entender melhor as diferenças entre as trajetórias de diferentes partículas, o mesmo histograma da figura \ref{fig:comp_vs_ang} foi feito, agora aplicando a condição de que são selecionados apenas eventos com duas trajetórias identificadas e que possuem o mesmo vértice de reação. A figura \ref{fig:coincidencia_detec} mostra o histograma, onde agora é possível notar as características de trajetórias de partículas diferentes.
 
 \begin{figure}[H]
     \centering
@@ -1379,7 +1360,43 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
     \label{fig:coincidencia_detec}
 \end{figure}
 
-\par Com todas as informações e as diferenças entre as trajetórias atribuídas, foi possível identificar os tipos de trajetórias dos eventos, para enfim construir as distribuições angulares.
+\par Com a figura \ref{fig:coincidencia_detec} é possível perceber as medidas coincidentes do $^{16}$O e do próton. Além disso, o histograma ainda fornece a informação de que os comprimentos das trajetórias dos prótons estão no limite geométrico do detector, pois não há medidas que possuem ângulo de espalhamento maior que 80º e comprimento maior que 150 mm. No caso do $^{16}$O, o ângulo de espalhamento não passa de 45º, porém as trajetórias param no gás, ao contrário do próton.
+
+\par Com as trajetórias identificadas, foi possível construir as distribuições angulares, na seção \ref{sec:sec_choque}.
+
+%\par O feixe ($^{17}$F) é identificado a partir das propriedades geométricas de sua trajetória, enquanto que o $^{16}$O e o próton dependem do ângulo de espalhamento e comprimento de suas respectivas trajetórias. A figura \ref{fig:alcance_vs_energia} mostra que a diferença de alcance no gás para uma mesma energia é grande entre o $^{16}$O e o próton, e isso é perceptível nos eventos analisados, como os mostrados na figura \ref{fig:res_tracks}.
+
+%\par O $^{17}$F incide com um ângulo muito pequeno em relação ao eixo da câmara. Na figura \ref{subfig:res_exemplo_3_tracks}, a trajetória de com azul é o feixe, e na figura \ref{subfig:res_exemplo_2_tracks} a trajetória de cor verde é o feixe.
+%
+%\par O próton possui um alcance muito grande e ângulos de espalhamento maiores em relação ao $^{16}$O. A figura \ref{fig:exemplos_tracks_diff} mostra diferentes eventos com as partículas associadas às trajetórias.
+
+%\begin{figure}[H]
+%\centering
+%    \begin{subfigure}[t]{0.45\textwidth}
+%        \centering
+%        \includegraphics[scale=0.5, width=.95\columnwidth]{figs/reac_alpha_alpha_num_177.png}
+%        \caption{Evento de reação .}
+%        \label{subfig:exemplo_alpha_alpha}
+%    \end{subfigure}%
+%    \hspace{0.5cm}
+%    \begin{subfigure}[t]{0.45\textwidth}
+%        \centering
+%        \includegraphics[scale=0.5, width=.95\columnwidth]{figs/espalhamento_17F_alpha_num_212.png}
+%        \caption{Evento de espalhamento elástico do $^{17}$F (aglomerado verde) e uma partícula alfa (aglomerado azul).}
+%        \label{subfig:exemplo_scatt_17F_alpha}
+%    \end{subfigure}
+%\caption{Exemplos de reações nucleares com as trajetórias identificadas. O vértice de reação é indicado por um \textit{X}. Visualmente é possível notar a diferença de comprimento das trajetórias de um próton e de um $^{16}$O. O feixe ($^{17}$F) possui um ângulo pequeno em relação ao eixo da câmara. As cores servem apenas para a diferenciação.}
+%\label{fig:exemplos_tracks_diff}
+%\end{figure}
+
+
+%\par Para determinar a energia do feixe é necessário identificar qual a energia do feixe no tempo em que ocorreu a reação, pois o feixe (assim como as partículas originadas das reações) perdem energia ao atravessar o gás. Para isso o espaço no eixo $z$ é discretizado para determinar a energia do feixe no momento da reação.
+
+%\par Para ilustrar a diferença entre as trajetórias do próton e do $^{16}$O, a figura \ref{fig:coincidencia_detec} mostra um histograma bidimensional do comprimento de cada trajetória em função do ângulo de espalhamento no referencial do laboratório, usando apenas eventos que possuíam duas trajetórias, com o mesmo vértice de reação. É possível perceber as medidas coincidentes do $^{16}$O e do próton.
+
+
+
+%\par Com todas as informações e as diferenças entre as trajetórias atribuídas, foi possível identificar os tipos de trajetórias dos eventos, para enfim construir as distribuições angulares.
 
 \section{Construção das distribuições angulares}\label{sec:sec_choque}
 
