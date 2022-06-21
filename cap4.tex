@@ -1019,7 +1019,7 @@ platô no \textit{loss}.}
 
 \chapter{Análise das nuvens de pontos}\label{chapter:point_cloud_analysis}
 
-\par As nuvens de pontos representam eventos de reações nucleares dentro do alvo ativo. Portanto, os mecanismos de reação podem ser estudados a partir da analise das nuvens de pontos. O objetivo desta etapa, do ponto de vista computacional, foi de identificar \textit{clusters} (aglomerados) tridimensionais, que nesse caso possuem estruturas que formam retas retas. Já do ponto de vista físico, o objetivo é, com as trajetórias identificadas, extrair as informações físicas (energia $E$, momento $\vec{p}$ e comprimento $L$). Com isso, foi possível distinguir cada trajetória identificada, e determinar o vértice de reação (entre uma partícula originada da reação nuclear entre o feixe e o gás). Após a identificação, foram selecionados os eventos correspondentes a uma reação nuclear.
+\par As nuvens de pontos representam eventos de reações nucleares dentro do alvo ativo. O objetivo desta etapa, do ponto de vista computacional, foi de identificar \textit{clusters} (aglomerados) tridimensionais, que no caso do pAT-TPC sem a presença de campo magnético, possuem estruturas em forma de linha reta. Já do ponto de vista físico, o objetivo é, com as trajetórias identificadas, extrair as informações físicas (energia $E$, momento $\vec{p}$ e comprimento $L$). Com isso, foi possível distinguir cada trajetória identificada, e determinar o vértice de reação (entre uma partícula originada da reação nuclear entre o feixe e o gás). Após a identificação, foram selecionados os eventos correspondentes a uma reação nuclear.
 
 \par Assim como no capítulo \ref{chapter:sinais}, esse capítulo descreve o uso de algoritmos de \textit{machine learning} para a análise, desta vez para as nuvens de pontos. Os algoritmos usados foram tanto não supervisionados (algoritmos de \textit{clustering}) e supervisionados (redes neurais), com diferentes objetivos.
 
@@ -1240,7 +1240,9 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 
 \chapter{Resultados}\label{chapter:resultados}
 
-\par Esse capítulo mostra como foram construídas as distribuições angulares a partir das informações obtidas da análise das nuvens de pontos. No capítulo \ref{chapter:point_cloud_analysis} a parte computacional e matemática foi desenvolvida, a continuidade da análise é completar a cinemática das reações nucleares, para identificar qual a reação nuclear e quais as partículas identificadas. 
+\par Esse capítulo mostra como foram construídas as distribuições angulares a partir das informações obtidas da análise das nuvens de pontos. No capítulo \ref{chapter:point_cloud_analysis} foram desenvolvidas as partes computacionais e matemáticas. A análise segue de modo a completar a cinemática das reações nucleares para identificar reações nucleares e quais as partículas identificadas
+
+% No capítulo \ref{chapter:point_cloud_analysis} a parte computacional e matemática foi desenvolvida, a continuidade da análise é completar a cinemática das reações nucleares, para identificar qual a reação nuclear e quais . 
 
 \par Na seção \ref{sec:identif_reac_nucl} está descrito como identificar reações nucleares e as partículas presentes. A seção \ref{sec:sec_choque} descreve como construir as distribuições angulares.
 
@@ -1291,7 +1293,7 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 
 \subsection{Reconstrução da energia das partículas}
 
-\par Para reconstruir a energia das partículas, foi necessário utilizar do comprimento da trajetória e também do poder de freamento (\textit{stopping power}) \cite{DETC_TELE} da partícula no gás. O \textit{stopping power} depende principalmente na carga da partícula incidente e na propriedades do gás como a pressão e temperatura.
+%\par Para reconstruir a energia das partículas, foi necessário utilizar do comprimento da trajetória e também do poder de freamento (\textit{stopping power}) \cite{DETC_TELE} da partícula no gás. O \textit{stopping power} depende principalmente na carga da partícula incidente e na propriedades do gás como a pressão e temperatura.
 
 \par Numa primeira aproximação, a energia da trajetória pode ser estimada a partir da equacao \ref{eq:carga_acumulada}, onde são somadas todas as cargas acumuladas dos pontos da trajetória. Porem a eficiência de detecção depende da energia da partícula e algumas regiões das trajetórias podem não ser detectadas. Outra forma de reconstruir a energia da partícula é a partir do comprimento da trajetória usando o respetivo poder de freamento (\textit{stopping power}). O \textit{stopping power} depende principalmente da carga da partícula incidente e das propriedades do gás, como a pressão e temperatura. O \textit{stopping power} foi calculado usando o programa LISE++\cite{lise++} e os respectivos comprimentos das trajetórias associadas a partículas como $^{16}$O, alfas e protons num gás de $^4$He à uma pressão de 350 Torr.
 
@@ -1304,13 +1306,13 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
      \label{fig:alcance_vs_energia}
  \end{figure}
 
-\par Para determinar a energia de reação, é necessário calcular a energia do feixe na posição da reação nuclear. Para isso, o espaço no eixo $z$ foi discretizado, a fim de calcular a energia no momento da reação. O feixe, ao entrar no gás, possui energia inicial $E_i$ = 34.76 MeV, e perde energia ao atravessar o gás. A energia de reação $E_r$ é dada por
+\par Portanto, cada tipo de partícula tem um alcance diferente dentro do mesmo gás que depende da energia incidente. Por exemplo, para determinar a energia cinética do $^{17}$F antes da reação nuclear, pode se usar a distancia entre a janela do detector e o vértice da reação. Para isso, o espaço no eixo $z$ foi discretizado, a fim de calcular a energia no momento da reação. O feixe, ao entrar no gás, possui energia inicial $E_i$ = 34.76 MeV, e perde energia ao atravessar o gás. A energia de reação $E_r$ é dada por
 
 \begin{equation}
 	E_r = E_i - E_{loss},
 \end{equation}
 
-\par onde $E_{loss}$ é a energia perdida pelo feixe até o vértice de reação.
+\par onde $E_{loss}$ é a energia do $^{17}$F depositada no gás que é calculada a partir da distancia $L$ ate o vértice da reação. O comprimento $L$ é transformado em energia cinética  usando uma tabela de \textit{stopping power}. Similarmente, a energia de outras  partículas (i.e. alfa), que param completamente no gás, é calculado com o alcance da partícula (relativo ao vértice) e a sua respetiva tabela de \textit{stopping power}.
 
 %\par A identificação do feixe ($^{17}$F) é feita a partir das propriedades geométricas das trajetórias, portanto fica evidente a diferença de alcance entre uma partícula de $^{16}$O e um próton, o $^{16}$O possui uma penetrabilidade muito menor que o próton.
 
@@ -1329,7 +1331,7 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 \par onde atan2 é o arco-tangente calculado no segundo quadrante, $y_i$ e $x_i$ são componentes $x$ e $y$ do versor da reta $i$. Para o ângulo azimutal $\theta$ temos que
 
 \begin{equation}
-	\theta = \arccos \left (\vec{V_i} \cdot \vec{V_f} \right),
+	\theta = \arccos \left (\frac{\vec{V_i} \cdot \vec{V_f}}{|\vec{V_i}| |\vec{V_f}|}  \right),
 \end{equation}
 
 \par onde $\vec{V_i}$ é o versor da reta $i$ e $\vec{V_f}$ é o versor do feixe.
