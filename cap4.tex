@@ -1240,17 +1240,20 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 
 \chapter{Resultados}\label{chapter:resultados}
 
-\par Esse capítulo mostra como foram construídas as distribuições angulares a partir das informações obtidas da análise das nuvens de pontos. No capítulo \ref{chapter:point_cloud_analysis} foram desenvolvidas as partes computacionais e matemáticas. A análise segue de modo a completar a cinemática das reações nucleares para identificar reações nucleares e quais as partículas identificadas.
+\par Esse capítulo mostra como foram construídas as distribuições angulares da reação de breakup do $^{17}$F a partir das informações obtidas da análise das nuvens de pontos. As ferramentas matemáticas e computacionais foram apresentadas e desenvolvidas no capítulo \ref{chapter:point_cloud_analysis} para ser possível buscar reações nucleares.
+
+
+%No capítulo \ref{chapter:point_cloud_analysis} foram desenvolvidas as partes computacionais e matemáticas. A análise segue de modo a completar a cinemática das reações nucleares para identificar reações nucleares e quais as partículas identificadas.
 
 % No capítulo \ref{chapter:point_cloud_analysis} a parte computacional e matemática foi desenvolvida, a continuidade da análise é completar a cinemática das reações nucleares, para identificar qual a reação nuclear e quais . 
 
-\par Na seção \ref{sec:identif_reac_nucl} está descrito como identificar reações nucleares e as partículas presentes. A seção \ref{sec:sec_choque} descreve como construir as distribuições angulares.
+\par Na seção \ref{sec:identif_reac_nucl} está descrito como identificar o canal de reação de breakup e as partículas presentes. A seção \ref{sec:sec_choque} descreve como construir as distribuições angulares.
 
 \section{Reconstrução das reações nucleares}\label{sec:identif_reac_nucl}
 
 \par O processo de reconstrução de reações nucleares envolve a identificação de trajetórias, determinação do vértice de reação e identificação de partículas envolvidas nos eventos de reações nucleares.
 
-\par As subseções a seguir descrevem as etapas de identificação de reações nucleares.
+\par As subseções a seguir descrevem as etapas de identificação de reações nucleares de breakup do $^{17}$F.
 
 \subsection{Reconstrução do vértice da reação}
 
@@ -1336,15 +1339,19 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 
 \par onde $\vec{V_i}$ é o versor da reta $i$ e $\vec{V_f}$ é o versor do feixe.
 
-\subsection{Identificação de tipos de trajetórias}
+\subsection{Identificação do canal de breakup}
 
-\par Com as informações angulares e de energia é possível completar a cinemática da reação, determinando qual partícula originou cada trajetória. Primeiro é preciso entender os tipos de trajetórias identificados em eventos como os mostrados na figura \ref{fig:res_tracks}, que mostra as trajetórias de diferentes partículas no gás.
+\par Com as informações angulares e de energia é possível identificar o canal de reação de breakup.
 
-\par Na figura \ref{subfig:res_exemplo_3_tracks} há a reação de breakup entre o $^{17}$F (trajetória de cor amarela) e o $^{4}$He gasoso. Os produtos da reação são o próton (trajetória de cor azul) e o $^{16}$O (trajetória de cor verde). Pela imagem é possível ver a diferença no comprimento das trajetórias, o próton possui um alcance maior que o $^{16}$O no gás.
+%Primeiro é preciso entender os tipos de trajetórias identificados em eventos como os mostrados na figura \ref{fig:res_tracks}, que mostra as trajetórias de diferentes partículas no gás.
 
-\par Na figura \ref{subfig:res_exemplo_2_tracks} há o espalhamento elástico do $^{17}$F (trajetória em cor verde) em alfa (trajetória de cor azul). Percebe que a trajetória da partícula alfa possui mais pontos e maior comprimento, enquanto a trajetória do $^{17}$F é mais curta e com um ângulo mais dianteiro.
+%\par Na figura \ref{subfig:res_exemplo_3_tracks} há a reação de breakup entre o $^{17}$F (trajetória de cor amarela) e o $^{4}$He gasoso. Os produtos da reação são o próton (trajetória de cor azul) e o $^{16}$O (trajetória de cor verde). Pela imagem é possível ver a diferença no comprimento das trajetórias, o próton possui um alcance maior que o $^{16}$O no gás.
+%
+%\par Na figura \ref{subfig:res_exemplo_2_tracks} há o espalhamento elástico do $^{17}$F (trajetória em cor verde) em alfa (trajetória de cor azul). Percebe que a trajetória da partícula alfa possui mais pontos e maior comprimento, enquanto a trajetória do $^{17}$F é mais curta e com um ângulo mais dianteiro.
 
-\par No caso da figura \ref{subfig:res_exemplo_1_track}, há uma única trajetória que não é possível de ser identificada visualmente. Identificar as partículas que originaram as trajetórias não é possível de se fazer diretamente (só com as informações descritas até este ponto). Para entender melhor a identificação de trajetórias, é necessário estudar todas as trajetórias identificadas. A figura \ref{fig:comp_vs_ang} mostra o histograma bidimensional do comprimento de cada trajetória em função do ângulo de espalhamento no referencial do laboratório.
+%\par No caso da figura \ref{subfig:res_exemplo_1_track}, há uma única trajetória que não é possível de ser identificada visualmente. Identificar as partículas que originaram as trajetórias não é possível de se fazer diretamente (só com as informações descritas até este ponto).
+
+ Para entender melhor a identificação de trajetórias, é necessário estudar todas as trajetórias identificadas. A figura \ref{fig:comp_vs_ang} mostra o histograma bidimensional do comprimento de cada trajetória em função do ângulo de espalhamento no referencial do laboratório.
 
 \begin{figure}[H]
     \centering
