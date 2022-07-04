@@ -1267,21 +1267,21 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 \centering
     \begin{subfigure}[b]{\textwidth}
         \centering
-        \includegraphics[scale = 0.3]{figs/results_ex_3_tracks_2.png}
+        \includegraphics[scale = 0.3]{figs/results_ex_3_tracks_41.png}
         \caption{Exemplo de reação nuclear onde foram identificadas três trajetórias.}
         \label{subfig:res_exemplo_3_tracks}
     \end{subfigure}%
     \hfill
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
-        \includegraphics[scale=0.4, width=.95\columnwidth]{figs/reac_alpha_alpha_num_212.png}
+        \includegraphics[scale=0.5, width=.95\columnwidth]{figs/reac_alpha_alpha_num_212.png}
         \caption{Exemplo de reação nuclear onde foram identificadas duas trajetórias.}
         \label{subfig:res_exemplo_2_tracks}
     \end{subfigure}%
     \hspace{0.5cm}
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
-        \includegraphics[scale=0.4, width=.95\columnwidth]{figs/results_ex_1_track_num_220.png}
+        \includegraphics[scale=0.5, width=.95\columnwidth]{figs/results_ex_1_track_num_220.png}
         \caption{Exemplo de reação nuclear onde foi identificada apenas uma trajetória.}
         \label{subfig:res_exemplo_1_track}
     \end{subfigure}
@@ -1339,9 +1339,9 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 
 \par onde $\vec{V_i}$ é o versor da reta $i$ e $\vec{V_f}$ é o versor do feixe.
 
-\subsection{Identificação do canal de breakup}
+\subsection{Identificação do canal de reação de breakup}
 
-\par Com as informações angulares e de energia é possível identificar o canal de reação de breakup.
+\par Com as informações angulares, de comprimento e de energia das trajetórias, foi possível identificar o canal de reação de breakup. Com o alvo ativo, é possível medir diversos canais de reação, não só o de breakup. Isso fica evidente ao olhar para a figura \ref{fig:comp_vs_ang} (onde já foram removidas trajetórias que correspondem ao feixe espalhado à baixos ângulos), que mostra o histograma bidimensional do comprimento (mm) em função do ângulo de espalhamento (graus) no referêncial do laboratório das trajetórias identificadas.
 
 %Primeiro é preciso entender os tipos de trajetórias identificados em eventos como os mostrados na figura \ref{fig:res_tracks}, que mostra as trajetórias de diferentes partículas no gás.
 
@@ -1351,18 +1351,20 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 
 %\par No caso da figura \ref{subfig:res_exemplo_1_track}, há uma única trajetória que não é possível de ser identificada visualmente. Identificar as partículas que originaram as trajetórias não é possível de se fazer diretamente (só com as informações descritas até este ponto).
 
- Para entender melhor a identificação de trajetórias, é necessário estudar todas as trajetórias identificadas. A figura \ref{fig:comp_vs_ang} mostra o histograma bidimensional do comprimento de cada trajetória em função do ângulo de espalhamento no referencial do laboratório.
+% Para entender melhor a identificação de trajetórias, é necessário estudar todas as trajetórias identificadas. A figura \ref{fig:comp_vs_ang} mostra o histograma bidimensional do comprimento de cada trajetória em função do ângulo de espalhamento no referencial do laboratório.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale = 0.5, width=\columnwidth]{figs/comp_vs_ang.png}\
+    \includegraphics[scale = 0.5, width=\columnwidth]{figs/comp_vs_ang_n_base.png}\
     \caption{Histograma de comprimento de \textit{track} no eixo $y$ e ângulo de espalhamento no eixo $x$.}
     \label{fig:comp_vs_ang}
 \end{figure}
 
-\par Pela figura \ref{fig:comp_vs_ang}, é possível dois aspectos importantes sobre os dados. O primeiro é com relação à assimetria do ângulo de espalhamento. O desbalanço entre trajetórias com ângulo de espalhamento menor que 90º e maior que 90º ocorre pelo uso no referencial do laboratório. O ângulo de espalhamento no referencial do laboratório é metade do ângulo de espalhamento no referencial do centro de massa \cite{two_body_mec}. Ângulos maior que 90º na figura representam eventos de cinemática inversa. O segundo aspecto é a ausência de trajetórias na região central da figura. Essa ausência ocorre devido à limitações geométricas da câmara. Por exemplo, uma trajetória com ângulo de espalhamento de cerca de 90º não pode ter comprimento maior que 140 mm, pois o evento ocorre na região central da câmara e isso significa ultrapassar o limite geométrico do TPC.
+\par Pela figura \ref{fig:comp_vs_ang}, é possível dois aspectos importantes sobre os dados. O primeiro é que o canal de reação elástico e inelástico é predominante no espectro. Esse é um dos motivos pela assimetria com relação ao ângulo de espalhamento. Para o espalhamento elástico, o ângulo de espalhamento no referencial do laboratório é metade do ângulo de espalhamento no referencial do centro de massa \cite{two_body_mec}, portanto é natural haver muito mais trajetórias com ângulos de espalhamento menores que 90º no referencial do laboratório. Ângulos maiores que 90º na figura representam eventos de cinemática inversa. O segundo aspecto é a ausência de trajetórias na região central da figura. Essa ausência ocorre devido à limitações geométricas da câmara. Por exemplo, uma trajetória com ângulo de espalhamento de cerca de 90º não pode ter comprimento maior que 140 mm, pois o evento ocorre na região central da câmara e isso significa ultrapassar o limite geométrico do TPC.
 
-\par É necessário aplicar vários gates (condições de inclusão os exclusão de trajetórias) para poder identificar partículas únicas no espectro. A primeira partícula a ser identificada foi o próton, onde foram aplicados cinco gates. O primeiro gate aplicado para a identificação, como mostrado na figura \ref{fig:gate_1}, é tal que trajetórias que possuem comprimento e carga total fora de determinada região (ver linha vermelha na figura \ref{subfig:carga_comp_nocut}), foram excluídos. A figura \ref{subfig:carga_comp_cut1} mostra o resultado da aplicação do gate. O resultado da aplicação do gate para o espectro de comprimento em função do ângulo (ver figura \ref{fig:comp_vs_ang}) está na figura \ref{subfig:comp_vs_carga_cut1}.
+% O primeiro é com relação à assimetria do ângulo de espalhamento. O desbalanço entre trajetórias com ângulo de espalhamento menor que 90º e maior que 90º ocorre pelo uso no referencial do laboratório. O ângulo de espalhamento no referencial do laboratório é metade do ângulo de espalhamento no referencial do centro de massa \cite{two_body_mec}. Ângulos maior que 90º na figura representam eventos de cinemática inversa. O segundo aspecto é a ausência de trajetórias na região central da figura. Essa ausência ocorre devido à limitações geométricas da câmara. Por exemplo, uma trajetória com ângulo de espalhamento de cerca de 90º não pode ter comprimento maior que 140 mm, pois o evento ocorre na região central da câmara e isso significa ultrapassar o limite geométrico do TPC.
+
+\par É necessário aplicar vários gates (condições de inclusão os exclusão de trajetórias) para poder identificar trajetórias cujo canal de reação foi o de breakup. O primeiro gate aplicado para a identificação, como mostrado na figura \ref{fig:gate_1}, é tal que trajetórias que possuem comprimento e carga total fora de determinada região (ver linha vermelha na figura \ref{subfig:carga_comp_nocut}), foram excluídos. Além disso, para excluir trajetórias cujo vértice de reação, no eixo $z$, estavam 30 mm e 70 mm com ângulos de espalhamento entre 10º e 100º também foram removidas. A figura \ref{subfig:carga_comp_cut1} mostra o resultado da aplicação do gate. O resultado da aplicação do gate para o espectro de comprimento em função do ângulo de espalhamento (ver figura \ref{fig:comp_vs_ang}) está na figura \ref{subfig:comp_vs_carga_cut1}.
 
 \begin{figure}[H]
 \centering
@@ -1383,32 +1385,34 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 	\hfill
     \begin{subfigure}[b]{\textwidth}
         \centering
-        \includegraphics[scale=0.5, width=\columnwidth]{figs/comp_vs_ang_cut1.png}
+        \includegraphics[scale=0.5, width=\columnwidth]{figs/comp_vs_ang_n_base_cut_alpha1.png}
         \caption{Histograma bidimensional do comprimento (mm) em função do ângulo de espalhamento (graus) no referencial do laboratório.}
         \label{subfig:comp_vs_carga_cut1}
     \end{subfigure}%
     \hfill
-\caption{Processo de aplicação do primeiro gate para identificar os prótons. O resultado é um espectro da figura \ref{subfig:comp_vs_carga_cut1}.}
+\caption{Processo de aplicação do primeiro gate para identificar as trajetórias do anal de reação de breakup. O resultado é o espectro da figura \ref{subfig:comp_vs_carga_cut1}.}
 \label{fig:gate_1}
 \end{figure}
 
 \par O primeiro gate manteve trajetórias maiores que 60 mm e que não depositam muita energia no gás, o que removeu trajetórias de partículas alfas vindas do espalhamento elástico com o feixe.
 
-\par Os próximos três gates removem trajetórias do feixe espalhado. Um gate verifica se o comprimento e a densidade de carga (carga dividida pelo número de pontos) está dentro de determinada região, como é possível ver na figura \ref{fig:gate2}. Na figura \ref{subfig:gate2_antes} há o gráfico de densidade de carga em função do comprimento e a linha vermelha indicando a região das trajetórias removidas. O mesmo gráfico, agora sem a região, está na figura \ref{subfig:gate2_depois}.
+\par O segundo gate elimina trajetórias originadas de partículas pesadas. O gate está indicado na figura \ref{subfig:gate2_antes}. O resultado, para o espectro de comprimento em função do ângulo de espalhamento, está na figura \ref{subfig:gate2_depois}, onde é possível distinguir dois tipos de trajetórias, uma originada por partículas pesadas ($^{16}$O) e uma por partículas leves (próton).
+
+%\par Os próximos três gates removem trajetórias do feixe espalhado. Um gate verifica se o comprimento e a densidade de carga (carga dividida pelo número de pontos) está dentro de determinada região, como é possível ver na figura \ref{fig:gate2}. Na figura \ref{subfig:gate2_antes} há o gráfico de densidade de carga em função do comprimento e a linha vermelha indicando a região das trajetórias removidas. O mesmo gráfico, agora sem a região, está na figura \ref{subfig:gate2_depois}.
 
 \begin{figure}[H]
 \centering
     \begin{subfigure}[b]{\textwidth}
         \centering
-        \includegraphics[scale = 0.5, width=\columnwidth]{figs/densidade_carga_cut1_com2.png}
-        \caption{Histograma bidimensional da densidade de carga em função do comprimento (mm). A linha vermelha indica o gate 2, onde pontos (trajetórias) dentro da região foram descartados.}
+        \includegraphics[scale = 0.5, width=\columnwidth]{figs/densidade_carga_cut_den1.png}
+        \caption{Histograma bidimensional da densidade de carga em função do comprimento (mm). A linha vermelha indica o segundo gate, onde pontos (trajetórias) dentro da região foram descartados.}
         \label{subfig:gate2_antes}
     \end{subfigure}%
     \hfill
     \begin{subfigure}[b]{\textwidth}
         \centering
-        \includegraphics[scale=0.5, width=\columnwidth]{figs/densidade_carga_cut2.png}
-        \caption{Histograma bidimensional da densidade de carga em função do comprimento (mm) após a aplicação do gate 2.}
+        \includegraphics[scale=0.5, width=\columnwidth]{figs/comp_vs_ang_n_base_cut_alpha12_ident.png}
+        \caption{Histograma bidimensional do comprimento (mm) em função do ângulo de espalhamento (graus) após a aplicação do gate mostrado na figura \ref{subfig:gate2_antes}. Com esse gate, é possível identificar as trajetórias do $^{16}$O e o próton, indicadas na figura.}
         \label{subfig:gate2_depois}
     \end{subfigure}%
 %    \hspace{0.5cm}
@@ -1417,55 +1421,66 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 \label{fig:gate_2}
 \end{figure}
 
-\par Também para remover trajetórias do feixe espalhadas, foram removidas trajetórias com ângulo de espalhamento muito baixo. O gate 3 está na figura \ref{subfig:gate3_antes} e o resultado de sua aplicação está na figura \ref{subfig:gate3_depois}, onde é possível perceber que as partículas resultantes até então são as que possuem trajetórias grandes (pois estão limitadas pela geometria da câmara, como discutido anteriormente).
+\par Para ilustrar o significado da aplicação do último gate, e o resultado mostrado na figura \ref{subfig:gate2_depois}, o evento mostrado na figura \ref{fig:exemplo_proton_16O} mostra três trajetórias. A trajetória do próton (em cor verde) está no limite geométrico da câmara (em cor cinza transparente), e com ângulo próximo de 90º. O $^{16}$O originou a trajetória de cor amarela, e possui comprimento muito menor que o do próton, além de um ângulo de espalhamento mais dianteiro.
 
 \begin{figure}[H]
-\centering
-    \begin{subfigure}[b]{\textwidth}
-        \centering
-        \includegraphics[scale = 0.5, width=\columnwidth]{figs/comp_vs_ang_cut12_com_cut3.png}
-        \caption{Histograma bidimensional do comprimento (mm) em função do ângulo de espalhamento (graus) no referencial do laboratório. A linha vermelha indica o gate 3, onde pontos (trajetórias) dentro da região foram descartados.}
-        \label{subfig:gate3_antes}
-    \end{subfigure}%
-    \hfill
-    \begin{subfigure}[b]{\textwidth}
-        \centering
-        \includegraphics[scale=0.5, width=\columnwidth]{figs/comp_vs_ang_cut123.png}
-        \caption{Histograma bidimensional do comprimento (mm) em função do ângulo de espalhamento (graus) após a aplicação do gate 3.}
-        \label{subfig:gate3_depois}
-    \end{subfigure}%
-%    \hspace{0.5cm}
-	\hfill
-\caption{Processo de aplicação do terceiro gate para identificar os prótons. O resultado é um espectro da figura \ref{subfig:comp_vs_carga_cut1}.}
-\label{fig:gate_3}
+    \centering
+    \includegraphics[scale = 1., width=0.75\columnwidth]{figs/evento_ex_4186.png}
+    \caption{Evento onde há a trajetória originada por um próton (trajetória em verde), onde percebe-se que seu comprimento vai até o limite geométrico da câmara (cilindro cinza transparente). O feixe está em azul e o $^{16}$O originou a trajetória em amarelo.}
+    \label{fig:exemplo_proton_16O}
 \end{figure}
 
-\par Os últimos gates aplicados foram para remover possíveis espalhamentos elásticos de partículas alfa. Trajetórias cujo vértice de reação, na coordenada $z$, estavam entre 30 mm e 70 mm e ângulo de espalhamento entre 10º e 100º foram removidas. Junto ao último gate, trajetórias com ângulo de espalhamento menores que 5º ou maiores que 175º foram removidas. A figura \ref{subfig:antes_cut4} mostra o gráfico do comprimento em função do ângulo de espalhamento antes da aplicação dos últimos gates e a figura \ref{subfig:depois_cut4} mostra o mesmo gráfico após a aplicação deles.
+\par Identificado o canal de breakup, foi possível construir as distribuições angulares da reação de breakup.
 
-\begin{figure}[H]
-\centering
-    \begin{subfigure}[b]{\textwidth}
-        \centering
-        \includegraphics[scale = 0.5, width=\columnwidth]{figs/comp_vs_ang_cut1234.png}
-        \caption{Histograma bidimensional do comprimento (mm) em função do ângulo de espalhamento (graus) no referencial do laboratório. Trajetórias com baixo ângulo espalhamento ainda estão presentes.}
-        \label{subfig:antes_cut4}
-    \end{subfigure}%
-    \hfill
-    \begin{subfigure}[b]{\textwidth}
-        \centering
-        \includegraphics[scale=0.5, width=\columnwidth]{figs/comp_vs_ang_cut12345.png}
-        \caption{Histograma bidimensional do comprimento (mm) em função do ângulo de espalhamento (graus) após a aplicação do último gate.}
-        \label{subfig:depois_cut4}
-    \end{subfigure}%
-%    \hspace{0.5cm}
-	\hfill
-\caption{Processo de aplicação do último gate para identificar os prótons. O resultado é um espectro da figura \ref{subfig:depois_cut4}.}
-\label{fig:gate_45}
-\end{figure}
+%\par Também para remover trajetórias do feixe espalhadas, foram removidas trajetórias com ângulo de espalhamento muito baixo. O gate 3 está na figura \ref{subfig:gate3_antes} e o resultado de sua aplicação está na figura \ref{subfig:gate3_depois}, onde é possível perceber que as partículas resultantes até então são as que possuem trajetórias grandes (pois estão limitadas pela geometria da câmara, como discutido anteriormente).
+%
+%\begin{figure}[H]
+%\centering
+%    \begin{subfigure}[b]{\textwidth}
+%        \centering
+%        \includegraphics[scale = 0.5, width=\columnwidth]{figs/comp_vs_ang_cut12_com_cut3.png}
+%        \caption{Histograma bidimensional do comprimento (mm) em função do ângulo de espalhamento (graus) no referencial do laboratório. A linha vermelha indica o gate 3, onde pontos (trajetórias) dentro da região foram descartados.}
+%        \label{subfig:gate3_antes}
+%    \end{subfigure}%
+%    \hfill
+%    \begin{subfigure}[b]{\textwidth}
+%        \centering
+%        \includegraphics[scale=0.5, width=\columnwidth]{figs/comp_vs_ang_cut123.png}
+%        \caption{Histograma bidimensional do comprimento (mm) em função do ângulo de espalhamento (graus) após a aplicação do gate 3.}
+%        \label{subfig:gate3_depois}
+%    \end{subfigure}%
+%%    \hspace{0.5cm}
+%	\hfill
+%\caption{Processo de aplicação do terceiro gate para identificar os prótons. O resultado é um espectro da figura \ref{subfig:comp_vs_carga_cut1}.}
+%\label{fig:gate_3}
+%\end{figure}
+%
+%\par Os últimos gates aplicados foram para remover possíveis espalhamentos elásticos de partículas alfa. Trajetórias cujo vértice de reação, na coordenada $z$, estavam entre 30 mm e 70 mm e ângulo de espalhamento entre 10º e 100º foram removidas. Junto ao último gate, trajetórias com ângulo de espalhamento menores que 5º ou maiores que 175º foram removidas. A figura \ref{subfig:antes_cut4} mostra o gráfico do comprimento em função do ângulo de espalhamento antes da aplicação dos últimos gates e a figura \ref{subfig:depois_cut4} mostra o mesmo gráfico após a aplicação deles.
+%
+%\begin{figure}[H]
+%\centering
+%    \begin{subfigure}[b]{\textwidth}
+%        \centering
+%        \includegraphics[scale = 0.5, width=\columnwidth]{figs/comp_vs_ang_cut1234.png}
+%        \caption{Histograma bidimensional do comprimento (mm) em função do ângulo de espalhamento (graus) no referencial do laboratório. Trajetórias com baixo ângulo espalhamento ainda estão presentes.}
+%        \label{subfig:antes_cut4}
+%    \end{subfigure}%
+%    \hfill
+%    \begin{subfigure}[b]{\textwidth}
+%        \centering
+%        \includegraphics[scale=0.5, width=\columnwidth]{figs/comp_vs_ang_cut12345.png}
+%        \caption{Histograma bidimensional do comprimento (mm) em função do ângulo de espalhamento (graus) após a aplicação do último gate.}
+%        \label{subfig:depois_cut4}
+%    \end{subfigure}%
+%%    \hspace{0.5cm}
+%	\hfill
+%\caption{Processo de aplicação do último gate para identificar os prótons. O resultado é um espectro da figura \ref{subfig:depois_cut4}.}
+%\label{fig:gate_45}
+%\end{figure}
 
-\par Com os gates aplicados, é possível ver, pela figura \ref{subfig:depois_cut4}, que as trajetórias restantes estão todas no limite geométrico da câmara, ou seja, as partículas não param no gás, indicando que as trajetórias foram originadas por prótons (que possui baixa perda de energia no gás).
-
-\par Com os prótons identificados, foi possível criar novos gates para identificar sua presença nos eventos.
+%\par Com os gates aplicados, é possível ver, pela figura \ref{subfig:depois_cut4}, que as trajetórias restantes estão todas no limite geométrico da câmara, ou seja, as partículas não param no gás, indicando que as trajetórias foram originadas por prótons (que possui baixa perda de energia no gás).
+%
+%\par Com os prótons identificados, foi possível criar novos gates para identificar sua presença nos eventos.
 
 
 
