@@ -1355,7 +1355,7 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale = 0.5, width=\columnwidth]{figs/comp_vs_ang_n_base.png}\
+    \includegraphics[scale = 0.5, width=\columnwidth]{figs/comp_vs_ang_n2.png}\
     \caption{Histograma de comprimento de \textit{track} no eixo $y$ e ângulo de espalhamento no eixo $x$.}
     \label{fig:comp_vs_ang}
 \end{figure}
@@ -1368,8 +1368,8 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale = 1., width=0.75\columnwidth]{figs/evento_ex_4186.png}
-    \caption{Evento onde há a trajetória originada por um próton (trajetória em verde), onde percebe-se que seu comprimento vai até o limite geométrico da câmara (cilindro cinza transparente). O feixe está em azul e o $^{16}$O originou a trajetória em amarelo.}
+    \includegraphics[scale = 1., width=0.75\columnwidth]{figs/evento_ex_run_261_evento_5853.png}
+    \caption{Evento onde há a trajetória originada por um próton (trajetória em amarelo), onde percebe-se que seu comprimento vai até o limite geométrico da câmara (cilindro cinza transparente). O feixe está em azul e o $^{16}$O originou a trajetória em verde.}
     \label{fig:exemplo_proton_16O}
 \end{figure}
 
@@ -1399,20 +1399,20 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 	E = \sqrt{(Lm)}\sqrt{(4\pi N e^2_1 e^2)}.
 \end{equation}
 
-Portanto, existe um relação do quadrado da energia (ou carga depositada) com o comprimento da trajetória. O termo $\sqrt{m}$ mostra que quanto maior o $Z$ da particula, maior é a carga depositada. Dessa forma, os prótons podem ser identificados num histograma de carga em função do comprimento do track como a região inferior à faixa das alfas, assim como mostrado na figura \ref{subfig:carga_comp_cut1}. O resultado da aplicação do gate para o espectro de comprimento em função do ângulo de espalhamento (ver figura \ref{fig:comp_vs_ang}) está na figura \ref{subfig:comp_vs_carga_cut1}.
+Portanto, existe uma relação do quadrado da energia (ou carga depositada) com o comprimento da trajetória. O termo $\sqrt{m}$ mostra que quanto maior o $Z$ da particula, maior é a carga depositada. Dessa forma, os prótons podem ser identificados num histograma de carga em função do comprimento do track como a região inferior à faixa das alfas, assim como mostrado na figura \ref{subfig:carga_comp_cut1}. O resultado da aplicação do gate para o espectro de comprimento em função do ângulo de espalhamento (ver figura \ref{fig:comp_vs_ang}) está na figura \ref{subfig:comp_vs_carga_cut1}.
 
 \begin{figure}[H]
 \centering
     \begin{subfigure}[b]{\textwidth}
         \centering
-        \includegraphics[scale = 0.5, width=\columnwidth]{figs/carga_vs_comp_nc_cut1.png}
+        \includegraphics[scale = 0.5, width=\columnwidth]{figs/carga_vs_comp_n2.png}
         \caption{Histograma bidimensional da carga em função do comprimento (mm). A linha vermelha indica o gate, onde pontos (trajetórias) fora da região foram descartados.}
         \label{subfig:carga_comp_cut1}
     \end{subfigure}%
     \hfill
     \begin{subfigure}[b]{\textwidth}
         \centering
-        \includegraphics[scale=0.5, width=\columnwidth]{figs/carga_vs_comp_cut1.png}
+        \includegraphics[scale=0.5, width=\columnwidth]{figs/carga_vs_comp_n2_cut1.png}
         \caption{Histograma bidimensional da carga em função do comprimento (mm) após a aplicação do gate.}
         \label{subfig:carga_comp_nocut}
     \end{subfigure}%
@@ -1420,7 +1420,7 @@ Portanto, existe um relação do quadrado da energia (ou carga depositada) com o
 	\hfill
     \begin{subfigure}[b]{\textwidth}
         \centering
-        \includegraphics[scale=0.5, width=\columnwidth]{figs/comp_vs_ang_n_base_cut_alpha1.png}
+        \includegraphics[scale=0.5, width=\columnwidth]{figs/comp_vs_ang_n2_cut1.png}
         \caption{Histograma bidimensional do comprimento (mm) em função do ângulo de espalhamento (graus) no referencial do laboratório.}
         \label{subfig:comp_vs_carga_cut1}
     \end{subfigure}%
@@ -1431,7 +1431,10 @@ Portanto, existe um relação do quadrado da energia (ou carga depositada) com o
 
 \par Como pode se perceber, o gate removeu quase todos os eventos de espalhamento elástico e inelástico de alfas. Somente sobraram duas faixas que correspondem às partículas que não param completamente no gás e partículas espalhadas em ângulos menores que 20 graus. A primeira faixa corresponderia principalmente aos prótons, pois com apenas 1 MeV de energia cinética atravessam o gás (ver figura \ref{fig:alcance_vs_energia}). A segunda faixa seriam as partículas resíduo pesadas (i.e. $^{16}$O), devido a que elas estão na região central do TPC onde o ganho é baixo e só partículas que depositam muita energia podem produzir um sinal nessa região.
 
-\par O gate anterior precisa ainda ser refinado pois ainda é possível ter alguma contribuição de partículas alfa no espectro. Devido a que as partículas alfa depositam maior energia num menor comprimento do que os prótons, a carga media permite visualizar essa diferença. A carga media é definida como a carga total depositada pela partícula dividida pelo número total de pontos no track. O espectro apresentado na figura \ref{subfig:gate2_antes}, apresenta a carga média em função do comprimento do track usando o gate da figura \ref{fig:gate_1}. Pode se perceber que tem dois aglomerados, um na parte inferior (prótons) e outro na parte superior direita ($^{16}$O). Além dos prótons, tem partículas alfa que não param no detector, mas com a carga media é possível distingui-las. O espectro indica que o próton não para no gás, pois suas trajetórias estão limitadas pela câmara, independente do ângulo de espalhamento. Isso ocorre pois o próton deposita pouca energia ao atravessar o gás. Já o $^{16}$O para completamente no gás, e possui trajetórias mais dianteiras (ângulos de espalhamento menores).
+\par O gate anterior precisa ainda ser refinado pois ainda é possível ter alguma contribuição de partículas alfa no espectro. Devido a que as partículas alfa depositam maior energia num menor comprimento do que os prótons, a carga média permite visualizar essa diferença. A carga média é definida como a carga total depositada pela partícula dividida pelo número total de pontos no track. O espectro apresentado na figura \ref{subfig:gate2_antes}, apresenta a carga média em função do comprimento do track usando o gate da figura \ref{fig:gate_1}. Pode-se perceber que tem dois aglomerados, um na parte inferior com maior densidade (prótons) e outro na parte superior, logo acima da linha vermelha na imagem, onde há partículas alfas, onde que suas trajetórias possuem uma carga média maior que a dos prótons. Ao excluir trajetórias fora da região delimitada pela linha vermelha na figura \ref{subfig:gate2_antes}, é possível identificar os prótons no espectro de comprimento em função do ângulo de espalhamento, mostrado na figura \ref{subfig:gate2_depois}.
+
+
+% Além dos prótons, tem partículas alfa que não param no detector, mas com a carga media é possível distingui-las. O espectro indica que o próton não para no gás, pois suas trajetórias estão limitadas pela câmara, independente do ângulo de espalhamento. Isso ocorre pois o próton deposita pouca energia ao atravessar o gás. Já o $^{16}$O para completamente no gás, e possui trajetórias mais dianteiras (ângulos de espalhamento menores).
 
 %\par Os próximos três gates removem trajetórias do feixe espalhado. Um gate verifica se o comprimento e a densidade de carga (carga dividida pelo número de pontos) está dentro de determinada região, como é possível ver na figura \ref{fig:gate2}. Na figura \ref{subfig:gate2_antes} há o gráfico de densidade de carga em função do comprimento e a linha vermelha indicando a região das trajetórias removidas. O mesmo gráfico, agora sem a região, está na figura \ref{subfig:gate2_depois}.
 
@@ -1439,15 +1442,15 @@ Portanto, existe um relação do quadrado da energia (ou carga depositada) com o
 \centering
     \begin{subfigure}[b]{\textwidth}
         \centering
-        \includegraphics[scale = 0.5, width=\columnwidth]{figs/densidade_carga_cut_den1.png}
-        \caption{Histograma bidimensional da densidade de carga em função do comprimento (mm). A linha vermelha indica o segundo gate, onde pontos (trajetórias) dentro da região foram descartados.}
+        \includegraphics[scale = 0.5, width=\columnwidth]{figs/carga_media_vs_comp_cut1.png}
+        \caption{Histograma bidimensional da carga média em função do comprimento (mm). A linha vermelha indica o segundo gate, onde eventos com trajetórias fora da região foram descartados.}
         \label{subfig:gate2_antes}
     \end{subfigure}%
     \hfill
     \begin{subfigure}[b]{\textwidth}
         \centering
-        \includegraphics[scale=0.5, width=\columnwidth]{figs/comp_vs_ang_n_base_cut_alpha12_ident.png}
-        \caption{Histograma bidimensional do comprimento (mm) em função do ângulo de espalhamento (graus) após a aplicação do gate mostrado na figura \ref{subfig:gate2_antes}. Com esse gate, é possível identificar as trajetórias do $^{16}$O e o próton, indicadas na figura.}
+        \includegraphics[scale=0.5, width=\columnwidth]{figs/comp_vs_ang_n2_cut12.png}
+        \caption{Histograma bidimensional do comprimento (mm) em função do ângulo de espalhamento (graus) após a aplicação do gate mostrado na figura \ref{subfig:gate2_antes}. Com esse gate, é possível identificar as trajetórias do próton, indicadas na figura.}
         \label{subfig:gate2_depois}
     \end{subfigure}%
 %    \hspace{0.5cm}
@@ -1456,7 +1459,16 @@ Portanto, existe um relação do quadrado da energia (ou carga depositada) com o
 \label{fig:gate_2}
 \end{figure}
 
+\par Para identificar eventos de breakup (ou o canal de breakup), podendo identificar agora os prótons, basta aplicar a condição tal que sejam identificadas duas trajetórias coincidentes (tais que não sejam a do feixe), ou seja, que possuem o mesmo vértice de reação. Aplicando tais condições para identificar eventos com duas trajetórias com o mesmo vértice de reação, eliminando o espalhando elástico e inelástico do espectro, tem-se o espectro do comprimento em função do ângulo de espalhamento para eventos comduas trajetórias coincidentes, mostrado na figura \ref{fig:comp_vs_ang_coinc}.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 1., width=\columnwidth]{figs/comp_vs_ang_n2_coinc_cut12.png}
+    \caption{Histograma bidimensional do comprimento (mm) em função do ângulo de espalhamento (graus) para eventos com coincidência. Nele é possível identificar os prótons (trajetórias que não param no gás) e o $^{16}$O, que possui trajetórias com ângulos mais dianteiros e comprimentos menores.}
+    \label{fig:comp_vs_ang_coinc}
+\end{figure}
+
+\par Identificados o canal de breakup nos eventos, foi possível construir as distribuições angulares da reação de breakup do $^{17}$F em $^4$He.
 
 \section{Construção das distribuições angulares}\label{sec:sec_choque}
 
