@@ -81,7 +81,7 @@ def f2():
     plt.plot(df["run"], df["vdrift"], ls="-", marker="o", markersize=5)
     plt.xlabel("Run")
     # plt.xticks(np.arange(df["run"].min(), df["run"].max(), 10))
-    plt.ylabel("Velocidade de deriva (mm/$\mu$s)")
+    plt.ylabel("Velocidade de deriva (cm/$\mu$s)")
     plt.ylim(0.75, 0.9)
     plt.gca().xaxis.set_major_locator(ticker.MultipleLocator(10))
     plt.tight_layout()
