@@ -113,66 +113,81 @@ def f3():
     keys1 = [f"Th_zprof/Theta_hist_{d};1" for d in numbers]
     keys2 = [f"Th_zprof/Theta_hist_C_{d};1" for d in numbers]
     keys3 = [f"Th_zprof/EBeam_hist_{d};1" for d in numbers]
-    with up.open("codigo_17F/soma_n2_cut12.root") as file:
-        # index = np.random.randint(low=0, high=len(keys1), size=1)[0]
-        index = 16
-        print(index)
-        w1, xbins1 = file[keys1[index]].to_numpy()
-        # print(w1, xbins1)
-        w2, xbins2 = file[keys2[index]].to_numpy()
-        # print(w2, xbins2)
-        w3, xbins3 = file[keys3[index]].to_numpy()
-        # print(w3, xbins3)
-    # Energia do beam
-    centers = (xbins3[1:] + xbins3[:-1]) / 2
-    # print(len(centers), len(w3))
-    # média ponderada
-    Ebeam = np.sum(centers * w3) / np.sum(w3)
-    print(Ebeam)
-    fig = plt.figure(dpi=180, figsize=(8, 4.5))
-    centers1 = (xbins1[1:] + xbins1[:-1]) / 2
-    centers2 = (xbins2[1:] + xbins2[:-1]) / 2
-    plt.errorbar(
-        centers1,
-        w1,
-        ms=5,
-        yerr=np.sqrt(w1),
-        ecolor="black",
-        fmt="",
-        capsize=5,
-        ls="",
-        marker="o",
-        c="black",
-        label="Inclusivo",
-    )
-    plt.errorbar(
-        centers2,
-        w2,
-        ms=5,
-        yerr=np.sqrt(w2),
-        ecolor="red",
-        fmt="",
-        capsize=5,
-        ls="",
-        marker="o",
-        c="red",
-        label="Exclusivo",
-    )
-    plt.xlabel(r"$\theta_p$ (deg)")
-    plt.gca().xaxis.set_major_locator(ticker.MultipleLocator(10))
-    plt.xlim(0, 90)
-    plt.ylabel("$d\sigma$/d$\Omega$ (md/sr)")
-    plt.ylim(bottom=0.0)
-    plt.annotate(
-        "$E_{beam}$ = " + f"{Ebeam:.2f} MeV",
-        xy=(0.62, 0.775),
-        xycoords="axes fraction",
-        color="black",
-    )
-    # plt.legend(framealpha=1.0, edgecolor="black")
-    # plt.tight_layout(rect=(0.115, 0.163, 0.980, 0.988))
-    plt.tight_layout()
-    plt.show()
+    keys4 = [f"Th_zprof/contagens_{d};1" for d in numbers]
+    keys5 = [f"Th_zprof/contagens_C_{d};1" for d in numbers]
+    for index in [5, 7, 12, 16]:
+        with up.open("somas/soma_CS.root") as file:
+            # index = np.random.randint(low=0, high=len(keys1), size=1)[0]
+            # index = 16
+            print(index)
+            w1, xbins1 = file[keys1[index]].to_numpy()
+            # print(w1, xbins1)
+            w2, xbins2 = file[keys2[index]].to_numpy()
+            # print(w2, xbins2)
+            w3, xbins3 = file[keys3[index]].to_numpy()
+            # print(w3, xbins3)
+            w4, xbins4 = file[keys4[index]].to_numpy()
+            # print(w4, xbins4)
+            w5, xbins5 = file[keys5[index]].to_numpy()
+            # print(w5, xbins5)
+        # Energia do beam
+        centers = (xbins3[1:] + xbins3[:-1]) / 2
+        # print(len(centers), len(w3))
+        # média ponderada
+        Ebeam = np.sum(centers * w3) / np.sum(w3)
+        print(Ebeam)
+        fig = plt.figure(dpi=180, figsize=(8, 4.5))
+        centers1 = (xbins1[1:] + xbins1[:-1]) / 2
+        centers2 = (xbins2[1:] + xbins2[:-1]) / 2
+        plt.errorbar(
+            centers1,
+            w1,
+            ms=5,
+            yerr=np.sqrt(w4),
+            ecolor="black",
+            fmt="",
+            capsize=5,
+            ls="",
+            marker="o",
+            c="black",
+            label="Inclusivo",
+        )
+        plt.errorbar(
+            centers2,
+            w2,
+            ms=5,
+            yerr=w2 / np.sqrt(w5),
+            ecolor="red",
+            fmt="",
+            capsize=5,
+            ls="",
+            marker="o",
+            c="red",
+            label="Exclusivo",
+        )
+        plt.xlabel(r"$\theta_p$ (deg)")
+        plt.gca().xaxis.set_major_locator(ticker.MultipleLocator(10))
+        plt.xlim(0, 90)
+        plt.ylabel("$d\sigma$/d$\Omega$ (u.a.)")
+        plt.ylim(bottom=0.0)
+        if index == 5:
+            plt.legend(framealpha=1.0, edgecolor="black")
+            plt.annotate(
+                "$E_{beam}$ = " + f"{Ebeam:.2f} MeV",
+                xy=(0.62, 0.55),
+                xycoords="axes fraction",
+                color="black",
+            )
+        else:
+            plt.annotate(
+                "$E_{beam}$ = " + f"{Ebeam:.2f} MeV",
+                xy=(0.62, 0.775),
+                xycoords="axes fraction",
+                color="black",
+            )
+        # plt.tight_layout(rect=(0.115, 0.163, 0.980, 0.988))
+        plt.tight_layout()
+        plt.show()
 
 
 if __name__ == "__main__":
