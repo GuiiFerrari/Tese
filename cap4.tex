@@ -1468,25 +1468,38 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 
 \section{Construção das distribuições angulares}\label{sec:sec_choque}
 
+\par Identificado o canal de breakup, foi possível construir as distribuições angulares. Como mostrado anteriormente, não é possível identificar o $^{16}$O em coincidência com o próton em todos os eventos (o que caracterizado o breakup exclusivo, quando há a identificação de ambas as partículas do breakup). Portanto, as distribuições angulares para o breakup exclusivo foram construídas para eventos com coincidência ($^{16}$O e próton identificado). Para o breakup inclusivo, foi considerado apenas eventos com identificação apenas do próton. 
 
+\par Com o alvo ativo é possível medir reações em diversos ângulos e energias. Portanto, é preciso primeiro discretizar (colocar em canais) os ângulos de espalhamento $\theta_p$ (ângulos de espalhamento dos prótons). Cada canal de $\theta_p$ possui largura de 4º. A seção de choque diferencial $\mathrm{d}\sigma/\mathrm{d}\Omega (\theta)$ é dada por
 
+\begin{equation}
+	\mathrm{d}\sigma/\mathrm{d}\Omega (\theta) = \frac{1}{\Delta\Omega(\theta) L},
+\end{equation}
+
+\par onde $L$ é a luminosidade (fator de normalização) e $\Delta\Omega(\theta)$ é o ângulo sólido calculado em $\theta$.
+
+%\begin{equation}
+%	\Delta\Omega(\theta) = 2\pi\int_{\theta}
+%\end{equation}
 
 \chapter{Conclusão}\label{chapter:conclusao}
 
+\par Este trabalho abordou o uso de técnicas de machine learning para análise de reações nucleares no alvo ativo pAT-TPC, especificamente a reação de breakup $^4$He($^{17}$F,$^{16}$O+p)$^4$He. Foi descrito o experimento, desde a produção do feixe $^{17}$F até o uso do alvo ativo.
 
+\par 
 
 \begin{appendices}
 
 
-\chapter{Aplicações de \textit{machine learning} na física nuclear} \label{appendix:ml_nuclear}
+\chapter{Aplicações de machine learning na física nuclear} \label{appendix:ml_nuclear}
 
-\par Em física nuclear, o uso de técnicas de \textit{machine learning} tem se mostrado cada vez mais importante. Na continuação são citados alguns exemplos.
+\par Em física nuclear, o uso de técnicas de machine learning tem se mostrado cada vez mais importante. Na continuação são citados alguns exemplos.
 
 \section{Análise de espectros para identificação de partículas (\textit{particle identification}, PID)}
 
-\par O uso de técnicas de aprendizado não supervisionado pode ser usado para a identificar de partículas em espectros $\Delta E$ - $E$. Neste tipo de espectros, as partículas são identificadas e separadas por regiões que facilmente podem ser identificadas visualmente \cite{DETC_TELE}. No entanto, a identificação visual desses espectros com os sistemas de detecção com milhares de canais é inviável de forma manual. Assim, ferramentas de \textit{machine learning} (ou inteligencia artificial) são de grande relevância para esse tipo de analise.
+\par O uso de técnicas de aprendizado não supervisionado pode ser usado para a identificar de partículas em espectros $\Delta E$ - $E$. Neste tipo de espectros, as partículas são identificadas e separadas por regiões que facilmente podem ser identificadas visualmente \cite{DETC_TELE}. No entanto, a identificação visual desses espectros com os sistemas de detecção com milhares de canais é inviável de forma manual. Assim, ferramentas de machine learning (ou inteligencia artificial) são de grande relevância para esse tipo de analise.
 
-Os resultados apresentados nessa seção foram obtidos na etapa inicial desta dissertação. Para o presente estudo, o espectro biparamétrico ($\Delta E$-$E$) mostrado na Figura \ref{subfig:espectro_1} foi analisado. Os dados correspondem a reação de espalhamento e transferência no sistema $^{6}$Li +  $^{12}$C.
+Os resultados apresentados nessa seção foram obtidos na etapa inicial desta dissertação. Para o presente estudo, o espectro biparamétrico ($\Delta E$-$E$) mostrado na Figura \ref{subfig:espectro_1} foi analisado. Os dados correspondem a reação de espalhamento e transferência no sistema $^{6}$Li + $^{12}$C.
 
 
 % O espectro biparamétrico ($\Delta E$ - $E$) mostrado pela figura \ref{subfig:espectro_1} é o resultado obtido do espalhamento do $^6$Li em $^{12}$C por um detector telescópio\cite{DETC_TELE}.
