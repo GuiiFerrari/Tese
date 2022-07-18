@@ -2,8 +2,9 @@ from turtle import color
 import numpy as np
 import pandas as pd
 import matplotlib as mpl
+import os
 
-print(mpl.__version__)
+# print(mpl.__version__)
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 from time import time
@@ -15,6 +16,17 @@ from scipy.signal import find_peaks as fp
 plt.rcParams["font.size"] = 20
 plt.rcParams["font.family"] = "serif"
 plt.rcParams["font.serif"] = "Times New Roman"
+
+
+def inc_dist(w, contagens, inc_lum=0):
+    """
+    Calcula a incerteza das distribuições angulares.
+    """
+    lum = 1
+    return w * (np.sqrt(contagens) / contagens)
+    # return w * np.sqrt(
+    #     (np.sqrt(contagens) / contagens) ** 2 + (inc_lum / lum) ** 2
+    # )
 
 
 def f1():
@@ -120,15 +132,15 @@ def f3():
             # index = np.random.randint(low=0, high=len(keys1), size=1)[0]
             # index = 16
             print(index)
-            w1, xbins1 = file[keys1[index]].to_numpy()
+            w1, xbins1 = file[keys1[index]].to_numpy()  # Inclusivo
             # print(w1, xbins1)
-            w2, xbins2 = file[keys2[index]].to_numpy()
+            w2, xbins2 = file[keys2[index]].to_numpy()  # Exclusivo
             # print(w2, xbins2)
-            w3, xbins3 = file[keys3[index]].to_numpy()
+            w3, xbins3 = file[keys3[index]].to_numpy()  # Energia
             # print(w3, xbins3)
-            w4, xbins4 = file[keys4[index]].to_numpy()
+            w4, xbins4 = file[keys4[index]].to_numpy()  # Contagens inclusivo
             # print(w4, xbins4)
-            w5, xbins5 = file[keys5[index]].to_numpy()
+            w5, xbins5 = file[keys5[index]].to_numpy()  # Contagens exclusivo
             # print(w5, xbins5)
         # Energia do beam
         centers = (xbins3[1:] + xbins3[:-1]) / 2
@@ -143,7 +155,7 @@ def f3():
             centers1,
             w1,
             ms=5,
-            yerr=np.sqrt(w4),
+            yerr=inc_dist(w1, w4),
             ecolor="black",
             fmt="",
             capsize=5,
@@ -156,7 +168,7 @@ def f3():
             centers2,
             w2,
             ms=5,
-            yerr=w2 / np.sqrt(w5),
+            yerr=inc_dist(w2, w5),
             ecolor="red",
             fmt="",
             capsize=5,
@@ -165,7 +177,7 @@ def f3():
             c="red",
             label="Exclusivo",
         )
-        plt.xlabel(r"$\theta_p$ (deg)")
+        plt.xlabel(r"$\theta_p$ (graus)")
         plt.gca().xaxis.set_major_locator(ticker.MultipleLocator(10))
         plt.xlim(0, 90)
         plt.ylabel("$d\sigma$/d$\Omega$ (u.a.)")
@@ -190,5 +202,14 @@ def f3():
         plt.show()
 
 
+def f4():
+    """Get python.h file path."""
+    a = os.path.dirname(os.__file__)
+    a = os.path.join(a, "..", "include")
+    print(os.listdir(a))
+    print(a)
+
+
 if __name__ == "__main__":
     f3()
+    # f4()

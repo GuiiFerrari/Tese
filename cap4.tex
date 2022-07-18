@@ -1468,23 +1468,29 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 
 \section{Construção das distribuições angulares}\label{sec:sec_choque}
 
-\par Identificado o canal de breakup, foi possível construir as distribuições angulares. Como mostrado anteriormente, não é possível identificar o $^{16}$O em coincidência com o próton em todos os eventos (o que caracterizado o breakup exclusivo, quando há a identificação de ambas as partículas do breakup). Portanto, as distribuições angulares para o breakup exclusivo foram construídas para eventos com coincidência ($^{16}$O e próton identificado). Para o breakup inclusivo, foi considerado apenas eventos com identificação apenas do próton. 
+\par Identificado o canal de breakup, foi possível construir as distribuições angulares. Como mostrado anteriormente, não é possível identificar o $^{16}$O em coincidência com o próton em todos os eventos (o que caracterizado o breakup exclusivo, quando há a identificação de ambas as partículas do breakup). Portanto, as distribuições angulares para o breakup exclusivo foram construídas para eventos com coincidência ($^{16}$O e próton identificado). Para o breakup inclusivo, foram considerados apenas eventos com identificação apenas do próton. 
 
-\par Com o alvo ativo é possível medir reações em diversos ângulos e energias. Portanto, é preciso primeiro discretizar (colocar em canais) os ângulos de espalhamento $\theta_p$ (ângulos de espalhamento dos prótons). Cada canal de $\theta_p$ possui largura de 4º. A seção de choque diferencial $\mathrm{d}\sigma/\mathrm{d}\Omega (\theta)$ é dada por
+\par Com o alvo ativo é possível medir reações em diversos ângulos e energias. Portanto, é preciso primeiro discretizar (colocar em canais) os ângulos de espalhamento $\theta_p$ (ângulos de espalhamento dos prótons). Cada canal $\theta_{bin}$ de $\theta_p$ possui largura de 4º. A seção de choque diferencial $\frac{\mathrm{d}\sigma}{\mathrm{d}\Omega} (\theta)$ é dada por
 
 \begin{equation}
-	\mathrm{d}\sigma/\mathrm{d}\Omega (\theta) = \frac{1}{\Delta\Omega(\theta) L},
+	\frac{\mathrm{d}\sigma}{\mathrm{d}\Omega} (\theta) = \frac{1}{\Omega(\theta_p) L},
 \end{equation}
 
-\par onde $L$ é a luminosidade (fator de normalização) e $\Delta\Omega(\theta)$ é o ângulo sólido calculado em $\theta$.
+\par onde $L$ é a luminosidade (fator de normalização) e $\Omega(\theta_p)$ é o ângulo sólido calculado em $\theta_p$ dado por
 
-%\begin{equation}
-%	\Delta\Omega(\theta) = 2\pi\int_{\theta}
-%\end{equation}
+\begin{equation}
+	\Omega (\theta_p) = 2\pi \int_{\theta_p}^{\theta_p + \theta_{bin}}\sin(\theta)\mathrm{d}\theta.
+\end{equation}
+
+\par A energia do feixe $E$ também foi divida em canais 
+
+\par A normalização deve ser feita a partir
+
+\par Algumas das distribuições angulares estão mostradas na figura \ref{fig:dist_ang}.
 
 \chapter{Conclusão}\label{chapter:conclusao}
 
-\par Este trabalho abordou o uso de técnicas de machine learning para análise de reações nucleares no alvo ativo pAT-TPC, especificamente a reação de breakup $^4$He($^{17}$F,$^{16}$O+p)$^4$He. Foi descrito o experimento, desde a produção do feixe $^{17}$F até o uso do alvo ativo.
+\par Este trabalho abordou o uso de técnicas de machine learning para análise de reações nucleares no alvo ativo pAT-TPC, especificamente a reação de breakup $^4$He($^{17}$F,$^{16}$O+p)$^4$He. Foi descrita a parte experimental, desde a produção do feixe $^{17}$F até o uso do alvo ativo.
 
 \par 
 
