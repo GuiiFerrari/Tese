@@ -103,31 +103,14 @@ def f2():
 
 def f3():
     #          0, 1,  2,  3,  4,  5,  6,  7,  8,  9
-    numbers = [
-        0,
-        10,
-        20,
-        30,
-        40,
-        50,
-        60,
-        70,
-        80,
-        90,
-        100,
-        110,
-        120,
-        130,
-        140,
-        150,
-        160,
-    ]
+    numbers = np.arange(40, 311, 10)
     keys1 = [f"Th_zprof/Theta_hist_{d};1" for d in numbers]
     keys2 = [f"Th_zprof/Theta_hist_C_{d};1" for d in numbers]
     keys3 = [f"Th_zprof/EBeam_hist_{d};1" for d in numbers]
     keys4 = [f"Th_zprof/contagens_{d};1" for d in numbers]
     keys5 = [f"Th_zprof/contagens_C_{d};1" for d in numbers]
-    for index in [5, 7, 12, 16]:
+    # for index in [5, 7, 12, 16]:
+    for index in range(len(numbers)):
         with up.open("somas/soma_CS.root") as file:
             # index = np.random.randint(low=0, high=len(keys1), size=1)[0]
             # index = 16
@@ -182,7 +165,7 @@ def f3():
         plt.xlim(0, 90)
         plt.ylabel("$d\sigma$/d$\Omega$ (u.a.)")
         plt.ylim(bottom=0.0)
-        if index == 5:
+        if index == 0:
             plt.legend(framealpha=1.0, edgecolor="black")
             plt.annotate(
                 "$E_{beam}$ = " + f"{Ebeam:.2f} MeV",
@@ -199,7 +182,14 @@ def f3():
             )
         # plt.tight_layout(rect=(0.115, 0.163, 0.980, 0.988))
         plt.tight_layout()
-        plt.show()
+        plt.savefig(
+            f"figs/dist_angs/dist_ang_{index}", dpi=600, bbox_inches="tight"
+        )
+        # plt.show()
+        plt.close()
+
+def f5():
+    
 
 
 def f4():

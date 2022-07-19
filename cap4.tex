@@ -41,6 +41,11 @@
 \renewcommand\appendixname{Apêndice}
 \renewcommand\appendixpagename{Apêndices}
 
+\usepackage{alphalph}
+\renewcommand*{\thesubfigure}{%
+\alphalph{\value{subfigure}}%
+}%
+
 
 
 
@@ -1255,15 +1260,15 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 
 \par Esse capítulo mostra como foram construídas as distribuições angulares da reação de breakup do $^{17}$F a partir da análise das nuvens de pontos, como foi apresentado no capítulo \ref{chapter:point_cloud_analysis}.
 
-\section{O vértice da reação}\label{sec:identif_reac_nucl}
+\section{A cinemática da reação}\label{sec:identif_reac_nucl}
 
 \par O processo de reconstrução de reações nucleares no alvo ativo é complexo e envolve várias etapas como: identificação de trajetórias e multiplicidade, determinação do vértice de reação, identificação de partículas e reconstrução da energia e ângulos da reação. As subseções a seguir descrevem essas etapas.
 
 \subsection{Reconstrução do vértice da reação}
 
-\par Como foi descrito no capítulo \ref{chapter:point_cloud_analysis}, para analisar as nuvens de pontos (reações nucleares) é necessário identificar os aglomerados é necessário identificar as trajetórias das partículas dentro do gás que formam linhas retas originadas num determinado vértice. Isso é feito com estimadores robustos, como o algoritmo p-RANSAC (algoritmo \ref{ransac_algo}, apresentado na subseção \ref{subsec:pointnet} e também na referência \cite{artigo}), que é capaz de identificar os diferentes aglomerados mesmo na presença de \textit{outliers} \cite{artigo}.
+\par Como foi descrito no capítulo \ref{chapter:point_cloud_analysis}, para analisar as nuvens de pontos (reações nucleares) é necessário identificar os aglomerados é necessário identificar as trajetórias das partículas dentro do gás que formam linhas retas originadas num determinado vértice. Isso é feito com estimadores robustos, como o algoritmo p-RANSAC (algoritmo \ref{ransac_algo}, apresentado na subseção \ref{subsec:pointnet} e também na referência \cite{artigo}), que é capaz de identificar os diferentes aglomerados mesmo na presença de outliers \cite{artigo}.
 
-\par Após a identificação e ajuste das trajetórias, é necessário determinar o vértice da reação para cada evento. O vértice é o ponto no espaço no qual ocorre a reação nuclear e pode ser determinado pela extrapolação das trajetórias na região central do alvo ativo. Para isso, é necessário obter o ponto de interseção (ou mais próximo) entre duas retas, como mostra a  equação \ref{eq:vertice_reacao}. O feixe incide na parte central pelo eixo axial do alvo, região que possui sinais saturados (devido à passagem do feixe). Portanto, para calcular o vértice de reação, é necessário extrapolar as trajetórias na região central. A partir do vértice, então, é possível calcular o comprimento $L$ da trajetória (dado pela equação \ref{eq:comprimento_trajetoria}), mesmo com a ausência de informação na região central.
+\par Após a identificação e ajuste das trajetórias, é necessário determinar o vértice da reação para cada evento. O vértice é o ponto no espaço no qual ocorre a reação nuclear e pode ser determinado pela extrapolação das trajetórias na região central do alvo ativo. Para isso, é necessário obter o ponto de interseção (ou mais próximo) entre duas retas, como mostra a  equação \ref{eq:vertice_reacao}. O feixe incide na parte central pelo eixo axial do alvo, região cujo ganho do micromegas é baixo para evitar a saturação dos sinais (devido à passagem do feixe). Portanto, para calcular o vértice de reação, é necessário extrapolar as trajetórias na região central. A partir do vértice, então, é possível calcular o comprimento $L$ da trajetória (dado pela equação \ref{eq:comprimento_trajetoria}), mesmo com a ausência de informação na região central.
 
 \par Para alguns eventos foi possível observar a trajetórias do feixe e partículas produto da reação saindo de um mesmo vértice (ver figura \ref{subfig:res_exemplo_3_tracks}). Neste caso, o vértice corresponde ao ponto médio da interseção dessas trajetórias. Porém, na maioria dos casos não foi possível observar a trajetória do feixe por causa do baixo ganho nos pixels centrais do detector. Por exemplo, a figura \ref{subfig:res_exemplo_2_tracks} mostra só dois produtos de reação saindo do mesmo vértice. Neste caso, o vértice pode ser reconstruido pela extrapolação das retas ajustadas às trajetórias das partículas. Por fim, o caso mais complicado é quando apenas foi identificada uma trajetória (ver figura \ref{subfig:res_exemplo_1_track}). Para reconstruir o vértice com apenas uma trajetória, é necessário assumir uma direção para a partícula do feixe. Assim como foi mencionado no capitulo 5, se assume que o feixe tem direção (0,0,1) e ponto de corte (-3.4,-0.9,0) que foi calculado usando a posição média da projeção dos pontos de um conjunto de eventos no plano \textit{x-y}. Portanto, o vértice corresponde ao ponto mais próximo da trajetória partícula com a trajetória assumida para o feixe.
 
@@ -1383,7 +1388,7 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 
 % \ln \left(\frac{2mv^2}{\hbar \omega_P}
 
-\par onde $E$ é a energia da partícula com carga $ze$ ($e$ é a carga do elétron) e velocidade $v$ ao atravessar um gás com $N_e$ elétrons por unidade de volume. Sabendo que $2E$ = $Mv^2$, onde $M$ é a massa da partícula, segue que
+\par onde $E$ é a energia da partícula com carga $Ze$ ($e$ é a carga do elétron) e velocidade $v$ ao atravessar um gás com $N_e$ elétrons por unidade de volume. Sabendo que $2E$ = $Mv^2$, onde $M$ é a massa da partícula, segue que
 
 \begin{equation}\label{eq:bethe_block_low_energies_2}
 	\int^{E}_0 \left | 2E'\mathrm{d}E' \right | \propto \int^{L}_0 \frac{4\pi Z^2  e^4 N_e M}{m_e} \mathrm{d}x,
@@ -1492,29 +1497,196 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 \centering
     \begin{subfigure}[b]{0.49\textwidth}
         \centering
-        \includegraphics[scale=0.38, width=1.\columnwidth]{figs/dist_ang_5.png}
+        \includegraphics[scale=0.38, width=1.\columnwidth]{figs/dist_angs/dist_ang_0.png}
         \caption{}
-        \label{subfig:dist_ang_1}
+        \label{subfig:dist_ang_0}
     \end{subfigure}%
     \hfill
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
-        \includegraphics[scale=0.38, width=1.\columnwidth]{figs/dist_ang_7.png}
+        \includegraphics[scale=0.38, width=1.\columnwidth]{figs/dist_angs/dist_ang_1.png}
+        \caption{}
+        \label{subfig:dist_ang_1}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[scale=0.38, width=1.\columnwidth]{figs/dist_angs/dist_ang_2.png}
         \caption{}
         \label{subfig:dist_ang_2}
+    \end{subfigure}%
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[scale=0.38, width=1.\columnwidth]{figs/dist_angs/dist_ang_3.png}
+        \caption{}
+        \label{subfig:dist_ang_3}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[scale=0.38, width=1.\columnwidth]{figs/dist_angs/dist_ang_4.png}
+        \caption{}
+        \label{subfig:dist_ang_4}
+    \end{subfigure}%
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[scale=0.38, width=1.\columnwidth]{figs/dist_angs/dist_ang_5.png}
+        \caption{}
+        \label{subfig:dist_ang_5}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[scale=0.38, width=1.\columnwidth]{figs/dist_angs/dist_ang_6.png}
+        \caption{}
+        \label{subfig:dist_ang_6}
+    \end{subfigure}%
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[scale=0.38, width=1.\columnwidth]{figs/dist_angs/dist_ang_7.png}
+        \caption{}
+        \label{subfig:dist_ang_7}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[scale=0.38, width=1.\columnwidth]{figs/dist_angs/dist_ang_8.png}
+        \caption{}
+        \label{subfig:dist_ang_8}
+    \end{subfigure}%
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[scale=0.38, width=1.\columnwidth]{figs/dist_angs/dist_ang_9.png}
+        \caption{}
+        \label{subfig:dist_ang_9}
+    \end{subfigure}
+	\label{fig:dist_ang}
+\end{figure}
+%\clearpage
+\begin{figure}[H]
+\centering
+\ContinuedFloat
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[scale=0.38, width=1.\columnwidth]{figs/dist_angs/dist_ang_10.png}
+        \caption{}
+        \label{subfig:dist_ang_10}
+    \end{subfigure}%
+	\hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[scale=0.38, width=1.\columnwidth]{figs/dist_angs/dist_ang_11.png}
+        \caption{}
+        \label{subfig:dist_ang_11}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[scale=0.38, width=1.\columnwidth]{figs/dist_angs/dist_ang_12.png}
+        \caption{}
+        \label{subfig:dist_ang_12}
+    \end{subfigure}%
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[scale=0.38, width=1.\columnwidth]{figs/dist_angs/dist_ang_13.png}
+        \caption{}
+        \label{subfig:dist_ang_13}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[scale=0.38, width=1.\columnwidth]{figs/dist_angs/dist_ang_14.png}
+        \caption{}
+        \label{subfig:dist_ang_14}
+    \end{subfigure}%
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[scale=0.38, width=1.\columnwidth]{figs/dist_angs/dist_ang_15.png}
+        \caption{}
+        \label{subfig:dist_ang_15}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[scale=0.38, width=1.\columnwidth]{figs/dist_angs/dist_ang_16.png}
+        \caption{}
+        \label{subfig:dist_ang_16}
+    \end{subfigure}%
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[scale=0.38, width=1.\columnwidth]{figs/dist_angs/dist_ang_17.png}
+        \caption{}
+        \label{subfig:dist_ang_17}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[scale=0.38, width=1.\columnwidth]{figs/dist_angs/dist_ang_18.png}
+        \caption{}
+        \label{subfig:dist_ang_18}
+    \end{subfigure}%
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[scale=0.38, width=1.\columnwidth]{figs/dist_angs/dist_ang_19.png}
+        \caption{}
+        \label{subfig:dist_ang_19}
+    \end{subfigure}
+\end{figure}
+%\clearpage
+\begin{figure}[H]
+\centering
+\ContinuedFloat
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[scale=0.38, width=1.\columnwidth]{figs/dist_angs/dist_ang_20.png}
+        \caption{}
+        \label{subfig:dist_ang_20}
+    \end{subfigure}%
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[scale=0.38, width=1.\columnwidth]{figs/dist_angs/dist_ang_21.png}
+        \caption{}
+        \label{subfig:dist_ang_21}
     \end{subfigure}
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
-        \includegraphics[scale=0.38, width=1.\columnwidth]{figs/dist_ang_12.png}
+        \includegraphics[scale=0.38, width=1.\columnwidth]{figs/dist_angs/dist_ang_22.png}
         \caption{}
-        \label{subfig:dist_ang_3}
+        \label{subfig:dist_ang_22}
     \end{subfigure}%
     \hfill
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
-        \includegraphics[scale=0.38, width=1.\columnwidth]{figs/dist_ang_16.png}
+        \includegraphics[scale=0.38, width=1.\columnwidth]{figs/dist_angs/dist_ang_23.png}
         \caption{}
-        \label{subfig:dist_ang_4}
+        \label{subfig:dist_ang_23}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[scale=0.38, width=1.\columnwidth]{figs/dist_angs/dist_ang_24.png}
+        \caption{}
+        \label{subfig:dist_ang_24}
+    \end{subfigure}%
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[scale=0.38, width=1.\columnwidth]{figs/dist_angs/dist_ang_25.png}
+        \caption{}
+        \label{subfig:dist_ang_25}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[scale=0.38, width=1.\columnwidth]{figs/dist_angs/dist_ang_26.png}
+        \caption{}
+        \label{subfig:dist_ang_26}
+    \end{subfigure}%
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[scale=0.38, width=1.\columnwidth]{figs/dist_angs/dist_ang_27.png}
+        \caption{}
+        \label{subfig:dist_ang_27}
     \end{subfigure}
 \caption{Distribuições angulares de breakup do $^{17}$F em $^4$He em função do ângulo de espalhamento do próton $\theta_p$ no referencial do laboratório.}
 \label{fig:dist_ang}
