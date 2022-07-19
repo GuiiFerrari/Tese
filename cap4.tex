@@ -1470,29 +1470,69 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 
 \par Identificado o canal de breakup, foi possível construir as distribuições angulares. Como mostrado anteriormente, não é possível identificar o $^{16}$O em coincidência com o próton em todos os eventos (o que caracterizado o breakup exclusivo, quando há a identificação de ambas as partículas do breakup). Portanto, as distribuições angulares para o breakup exclusivo foram construídas para eventos com coincidência ($^{16}$O e próton identificado). Para o breakup inclusivo, foram considerados apenas eventos com identificação apenas do próton. 
 
-\par Com o alvo ativo é possível medir reações em diversos ângulos e energias. Portanto, é preciso primeiro discretizar (colocar em canais) os ângulos de espalhamento $\theta_p$ (ângulos de espalhamento dos prótons). Cada canal $\theta_{bin}$ de $\theta_p$ possui largura de 4º. A seção de choque diferencial $\frac{\mathrm{d}\sigma}{\mathrm{d}\Omega} (\theta)$ é dada por
+\par Com o alvo ativo é possível medir reações em diversos ângulos e energias. Portanto, é preciso primeiro discretizar (colocar em canais) os ângulos de espalhamento $\theta_p$ (ângulos de espalhamento dos prótons). Cada canal $\theta_{bin}$ de $\theta_p$ possui largura de 4º. A seção de choque diferencial $\frac{\mathrm{d}\sigma}{\mathrm{d}\Omega} (\theta_p)$ é dada por
 
 \begin{equation}
-	\frac{\mathrm{d}\sigma}{\mathrm{d}\Omega} (\theta) = \frac{1}{\Omega(\theta_p) L},
+	\frac{\mathrm{d}\sigma}{\mathrm{d}\Omega} (\theta_p) = \frac{1}{\Delta\Omega(\theta_p) L},
 \end{equation}
 
-\par onde $L$ é a luminosidade (fator de normalização) e $\Omega(\theta_p)$ é o ângulo sólido calculado em $\theta_p$ dado por
+\par onde $L$ é a luminosidade (fator de normalização) e $\Delta\Omega(\theta_p)$ é o ângulo sólido calculado em $\theta_p$ dado por
 
 \begin{equation}
-	\Omega (\theta_p) = 2\pi \int_{\theta_p}^{\theta_p + \theta_{bin}}\sin(\theta)\mathrm{d}\theta.
+	\Delta\Omega (\theta_p) = 2\pi \int_{\theta_p}^{\theta_p + \theta_{bin}}\sin(\theta)\mathrm{d}\theta.
 \end{equation}
 
-\par A energia do feixe $E$ também foi divida em canais 
+%\par A energia do feixe $E$ também foi divida em canais 
 
-\par A normalização deve ser feita a partir
+\par A normalização deve ser obtida a partir da análise do canal elástico e inelástico do experimento. Até o momento da escrita dessa dissertação, ainda está sendo trabalhado o valor da normalização, portanto os valores apresentados das distribuições angulares estarão em unidades arbitrárias (u.a.).
 
-\par Algumas das distribuições angulares estão mostradas na figura \ref{fig:dist_ang}.
+\par A energia do feixe também foi discretizada. Como a energia do feixe depende da posição em $z$ do vértice de reação, ela foi discretizada a cada 10 mm, o que resulta em canais de 1.2 MeV de largura. A partir desses canais, foi calculada a energia do feixe. Algumas das distribuições angulares estão mostradas na figura \ref{fig:dist_ang}.
+
+\begin{figure}[H]
+\centering
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[scale=0.38, width=1.\columnwidth]{figs/dist_ang_5.png}
+        \caption{}
+        \label{subfig:dist_ang_1}
+    \end{subfigure}%
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[scale=0.38, width=1.\columnwidth]{figs/dist_ang_7.png}
+        \caption{}
+        \label{subfig:dist_ang_2}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[scale=0.38, width=1.\columnwidth]{figs/dist_ang_12.png}
+        \caption{}
+        \label{subfig:dist_ang_3}
+    \end{subfigure}%
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[scale=0.38, width=1.\columnwidth]{figs/dist_ang_16.png}
+        \caption{}
+        \label{subfig:dist_ang_4}
+    \end{subfigure}
+\caption{Distribuições angulares de breakup do $^{17}$F em $^4$He em função do ângulo de espalhamento do próton $\theta_p$ no referencial do laboratório.}
+\label{fig:dist_ang}
+\end{figure}
+
+\par Os resultados mostrados na fig \ref{fig:dist_ang} são parciais, porém mostram uma forte dependência da energia do feixe, como já discutido na Ref. \cite{Kolata2016}, onde está discutido o breakup do $^{17}$F em $^{58}$Ni e em $^{208}$Pb \cite{MORO_BREAKUP}.
 
 \chapter{Conclusão}\label{chapter:conclusao}
 
-\par Este trabalho abordou o uso de técnicas de machine learning para análise de reações nucleares no alvo ativo pAT-TPC, especificamente a reação de breakup $^4$He($^{17}$F,$^{16}$O+p)$^4$He. Foi descrita a parte experimental, desde a produção do feixe $^{17}$F até o uso do alvo ativo.
+\par Este trabalho abordou o uso de técnicas de machine learning para análise de reações nucleares no alvo ativo pAT-TPC, especificamente a reação nuclear de breakup  $^4$He($^{17}$F, $^{16}$O+p)$^4$He. No trabalho está descrita a parte experimental, desde a produção do feixe secundário $^{17}$F até o uso do alvo ativo. Além da parte experimental, as ferramentas que foram utilizadas na análise estão descritas, tanto a parte que envolvem machine learning bem quanto à matemática envolvida em certos algoritmos. As distribuições angulares foram obtidas e seus resultados comparados com resultados de experimentos envolvendo o breakup do $^{17}$F em $^{58}$Ni e em $^{208}$Pb.
 
-\par 
+\par Para a compreensão da análise feita, a parte matemática e computacional foi brevemente desenvolvida. Para a primeira parte da análise (análise dos pulsos), foram desenvolvidas três redes neurais supervisionadas (uma para a remoção do sinal de fundo, uma para a deconvolução do sinal e outra para identificação de picos) com o objetivo de reconstruir as nuvens de pontos que representam os eventos que ocorreram dentro do alvo ativo. As redes neurais criadas demonstraram bons resultados. O consumo de tempo do processamento dos pulsos com as redes neurais é até 90 vezes menor em comparação com algoritmos tradicionais. O trabalho que envolveu o desenvolvimento desses algoritmos de machine learning resultou no artigo que pode ser encontrado na Ref. \cite{FORTINO2022166497}.
+
+\par Com as nuvens de pontos construídas, algoritmos de machine learning não supervisionado e estimadores robustos (o estudos de estimadores robusto resultado no artigo encontrando na Ref. \cite{artigo}) foram usados para identificação de trajetórias. Com as trajetórias, propriedades importantes como o ângulo de reação e comprimento foram determinadas. Também foram mostrados algoritmos de machine learning (PointNet e ClusterNet) com possíveis utilizações para diferentes problemas, como a identificação de outliers e clustering de nuvens de pontos.
+
+\par Por fim, com as trajetórias identificadas e suas propriedades, foi possível identificar o canal de reação de breakup, a partir de condições lógicas aplicados em diferentes espectros. Identificado o canal de breakup, as distribuições angulares foram obtidas e resultados parciais foram comentados.
+
+\par Em conclusão, pode-se dizer que a abordagem com machine learning usada na análise resultou em resultados muito úteis para a análise de experimentos com alvos ativos. Com os resultados obtidos, o próximo passo é utiliza-los em novos experimentos, bem como explorar abordagens diferentes citadas ao longo do trabalho.
 
 \begin{appendices}
 
