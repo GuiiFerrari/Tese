@@ -16,6 +16,7 @@ from scipy.signal import find_peaks as fp
 plt.rcParams["font.size"] = 20
 plt.rcParams["font.family"] = "serif"
 plt.rcParams["font.serif"] = "Times New Roman"
+np.seterr(all="ignore")
 
 
 def inc_dist(w, contagens, inc_lum=0):
@@ -114,7 +115,7 @@ def f3():
         with up.open("somas/soma_CS.root") as file:
             # index = np.random.randint(low=0, high=len(keys1), size=1)[0]
             # index = 16
-            print(index)
+            # print(index)
             w1, xbins1 = file[keys1[index]].to_numpy()  # Inclusivo
             # print(w1, xbins1)
             w2, xbins2 = file[keys2[index]].to_numpy()  # Exclusivo
@@ -134,6 +135,20 @@ def f3():
         fig = plt.figure(dpi=180, figsize=(8, 4.5))
         centers1 = (xbins1[1:] + xbins1[:-1]) / 2
         centers2 = (xbins2[1:] + xbins2[:-1]) / 2
+        # a = np.nan_to_num(np.sqrt(w4) / w4)
+        # b = np.nan_to_num(np.sqrt(w5) / w5)
+        a = np.sqrt(w4) / w4
+        b = np.sqrt(w5) / w5
+        a = a[~np.isnan(a)]
+        b = b[~np.isnan(b)]
+        print(a)
+        print(b)
+        # print(
+        #     f"Razão do erro inclusivo: média = {a.mean():.4f}, min = {a.min():.4f}, max = {a.max():.4f}"
+        # )
+        # print(
+        #     f"Razão do erro exclusivo: média = {b.mean():.4f}, min = {b.min():.4f}, max = {b.max():.4f}"
+        # )
         plt.errorbar(
             centers1,
             w1,
@@ -182,14 +197,75 @@ def f3():
             )
         # plt.tight_layout(rect=(0.115, 0.163, 0.980, 0.988))
         plt.tight_layout()
-        plt.savefig(
-            f"figs/dist_angs/dist_ang_{index}", dpi=600, bbox_inches="tight"
-        )
-        # plt.show()
-        plt.close()
+        # plt.savefig(
+        #     f"figs/dist_angs/dist_ang_{index}", dpi=600, bbox_inches="tight"
+        # )
+        plt.show()
+        # plt.close()
+
 
 def f5():
-    
+    numbers = np.arange(40, 311, 10)
+    keys1 = [f"Th_zprof/Theta_hist_{d};1" for d in numbers]
+    keys2 = [f"Th_zprof/Theta_hist_C_{d};1" for d in numbers]
+    keys3 = [f"Th_zprof/EBeam_hist_{d};1" for d in numbers]
+    keys4 = [f"Th_zprof/contagens_{d};1" for d in numbers]
+    keys5 = [f"Th_zprof/contagens_C_{d};1" for d in numbers]
+    # for index in [5, 7, 12, 16]:
+    energias = []
+    contagens_I = []
+    contagens_E = []
+    for index in range(len(numbers)):
+        with up.open("somas/soma_CS.root") as file:
+            # index = np.random.randint(low=0, high=len(keys1), size=1)[0]
+            # index = 16
+            # print(index)
+            w1, xbins1 = file[keys1[index]].to_numpy()  # Inclusivo
+            # print(w1, xbins1)
+            w2, xbins2 = file[keys2[index]].to_numpy()  # Exclusivo
+            # print(w2, xbins2)
+            w3, xbins3 = file[keys3[index]].to_numpy()  # Energia
+            # print(w3, xbins3)
+            w4, xbins4 = file[keys4[index]].to_numpy()  # Contagens inclusivo
+            # print(w4, xbins4)
+            w5, xbins5 = file[keys5[index]].to_numpy()  # Contagens exclusivo
+            # print(w5, xbins5)
+        # Energia do beam
+        centers = (xbins3[1:] + xbins3[:-1]) / 2
+        # print(len(centers), len(w3))
+        # média ponderada
+        Ebeam = np.sum(centers * w3) / np.sum(w3)
+        energias.append(Ebeam)
+        contagens_I.append(np.sum(w4))
+        contagens_E.append(np.sum(w5))
+    fig = plt.figure(dpi=180, figsize=(8, 4.5))
+    plt.scatter(energias, contagens_I, c="black", label="Inclusivo")
+    plt.scatter(energias, contagens_E, c="red", label="Exclusivo")
+    # plt.hist(
+    #     energias,
+    #     weights=contagens_I,
+    #     bins=len(energias),
+    #     align="mid",
+    #     color="black",
+    #     label="Inclusivo",
+    # )
+    # plt.hist(
+    #     energias,
+    #     weights=contagens_E,
+    #     bins=len(energias),
+    #     align="mid",
+    #     color="red",
+    #     label="Exclusivo",
+    # )
+    plt.xlabel(r"$E_{beam}$ (MeV)")
+    plt.xlim(left=2, right=35)
+    plt.ylabel("Contagens")
+    plt.gca().yaxis.set_major_locator(ticker.MultipleLocator(250))
+    # plt.legend(framealpha=1.0, edgecolor="black")
+    # plt.colorbar()
+    plt.tight_layout()
+    # plt.savefig("figs/dist_angs/dist_ang_contagens", dpi=600, bbox_inches="tight")
+    plt.show()
 
 
 def f4():
@@ -201,5 +277,6 @@ def f4():
 
 
 if __name__ == "__main__":
-    f3()
+    # f3()
     # f4()
+    f5()

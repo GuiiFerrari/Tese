@@ -1475,23 +1475,61 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 
 \par Identificado o canal de breakup, foi possível construir as distribuições angulares. Como mostrado anteriormente, não é possível identificar o $^{16}$O em coincidência com o próton em todos os eventos (o que caracterizado o breakup exclusivo, quando há a identificação de ambas as partículas do breakup). Portanto, as distribuições angulares para o breakup exclusivo foram construídas para eventos com coincidência ($^{16}$O e próton identificado). Para o breakup inclusivo, foram considerados apenas eventos com identificação apenas do próton. 
 
-\par Com o alvo ativo é possível medir reações em diversos ângulos e energias. Portanto, é preciso primeiro discretizar (colocar em canais) os ângulos de espalhamento $\theta_p$ (ângulos de espalhamento dos prótons). Cada canal $\theta_{bin}$ de $\theta_p$ possui largura de 4º. A seção de choque diferencial $\frac{\mathrm{d}\sigma}{\mathrm{d}\Omega} (\theta_p)$ é dada por
+\par Com o alvo ativo é possível medir reações em diversos ângulos e energias. Portanto, é preciso primeiro discretizar (colocar em canais) os ângulos de espalhamento $\theta_p$ (ângulos de espalhamento dos prótons no referencial do laboratório). Cada canal $\theta_{bin}$ de $\theta_p$ possui largura de 4º. A seção de choque diferencial $\frac{\mathrm{d}\sigma}{\mathrm{d}\Omega} (\theta_p)$ é dada por \cite{zamora_mater}
 
-\begin{equation}
-	\frac{\mathrm{d}\sigma}{\mathrm{d}\Omega} (\theta_p) = \frac{1}{\Delta\Omega(\theta_p) L},
+\begin{equation}\label{eq:cross_section}
+	\frac{\mathrm{d}\sigma}{\mathrm{d}\Omega} (\theta_p) = \frac{Y}{N_bN_t\Delta\Omega(\theta_p)}\times 10^{27} \mathrm{mb/sr}.
 \end{equation}
 
-\par onde $L$ é a luminosidade (fator de normalização) e $\Delta\Omega(\theta_p)$ é o ângulo sólido calculado em $\theta_p$ dado por
+\par Os termos dessa expressão são:
 
-\begin{equation}
-	\Delta\Omega (\theta_p) = 2\pi \int_{\theta_p}^{\theta_p + \theta_{bin}}\sin(\theta)\mathrm{d}\theta.
-\end{equation}
+\begin{itemize}
+	\item $Y$ \hfill \\
+%	\begin{description}
+    	É o número de contagens dos eventos de interesse. Esse valor é obtido a partir de contagens de eventos em que foi identificada coincidencia, para o breakup exclusivo, ou foi identificado apenas o próton, para o breakup inclusivo.
+%    \end{description}
+	\item $N_t$ \hfill \\
+%	\begin{description}
+		É o número total de partículas no alvo gasoso. Esse número é obtido a partir da equação dos gases ideais \cite{termo_mario}, onde chega-se em:
+		\begin{equation}
+			N_t = \frac{PdN_A}{RT},
+		\end{equation}
+		onde $P$ é a pressão do alvo gasoso, $d$ é o comprimento da câmara, $N_A$ é o número de Avogrado, $R$ a constante universal dos gases ideais e $T$ a temperatura.
+%	\end{description}
+	\item $N_b$ \hfill \\
+%	\begin{description}
+		É o número de partículas do projétil que estão incidindo no alvo gasoso, determinado a partir de medidas de espalhamento elástico feitas com o próprio alvo gasoso $^4$He. O espalhamento elástico obtido experimentalmente (calculado pela equação \ref{eq:cross_section}) é comparado ao valor teórico para assim obter o número médio de partículas que estão incidindo no alvo:
+		\begin{equation}
+			N_b = \left( \frac{Y}{N_t \Delta\Omega}\right)_{\mathrm{alvo}} \left(\frac{\mathrm{d}\sigma}{\mathrm{d}\Omega}\right)^{-1}_{\mathrm{Ruth.}}.
+		\end{equation}		 
+%	\end{description}
+	\item $\Delta\Omega(\theta_p)$  \hfill \\
+	Ângulo sólido obtido através do ângulo $\theta_p$, dado por:
+	\begin{equation}
+	\Delta\Omega (\theta_p) = 2\pi \int_{\theta_p}^{\theta_p + \theta_{bin}}\sin(\theta)\mathrm{d}\theta.		
+	\end{equation}
+\end{itemize}
 
 %\par A energia do feixe $E$ também foi divida em canais 
 
+\par A incerteza $\partial \left(\frac{\mathrm{d}\sigma}{\mathrm{d}\Omega}\right)$ da seção choque é dada por
+
+\begin{equation}
+	\partial\left(\frac{\mathrm{d} \sigma}{\mathrm{d} \Omega}\right)=\left(\frac{\mathrm{d} \sigma}{\mathrm{d} \Omega}\right)\left[\left(\frac{\partial Y}{Y}\right)^{2}+\left(\frac{\partial N_{b}}{N_{b}}\right)^{2}+\left(\frac{\partial N_{t}}{N_{t}}\right)^{2}+\left(\frac{\partial(\Delta \Omega)}{(\Delta \Omega)}\right)^{2}\right]^{1 / 2},
+\end{equation}
+
+\par onde $\partial x$ é a incerteza da respectiva variável $x$.
+
 \par A normalização deve ser obtida a partir da análise do canal elástico e inelástico do experimento. Até o momento da escrita dessa dissertação, ainda está sendo trabalhado o valor da normalização, portanto os valores apresentados das distribuições angulares estarão em unidades arbitrárias (u.a.).
 
-\par A energia do feixe também foi discretizada. Como a energia do feixe depende da posição em $z$ do vértice de reação, ela foi discretizada a cada 10 mm, o que resulta em canais de 1.2 MeV de largura. A partir desses canais, foi calculada a energia do feixe. Algumas das distribuições angulares estão mostradas na figura \ref{fig:dist_ang}.
+\par A energia do feixe também foi discretizada. Como a energia do feixe depende da posição em $z$ do vértice de reação, ela foi discretizada a cada 10 mm, o que resulta em canais de 1.2 MeV de largura. A partir desses canais, foi calculada a energia do feixe. A figura \ref{fig:contagem_energia} mostra a contagem de eventos em função da energia do feixe. As distribuições angulares estão mostradas na figura \ref{fig:dist_ang}.
+
+\begin{figure}[H]
+\centering
+    \includegraphics[scale = 1., width=0.7\columnwidth]{figs/contagens_energia.png}
+    \caption{Gráfico que mostra o número de eventos em função da energia do feixe $E_{beam}$. Os pontos de cor preta correspondem à contagem de eventos de breakup inclusivo e os pontos de cor vermelha correspondem à contagem de eventos de breakup exclusivo.}
+    \label{fig:contagem_energia}
+\end{figure}
 
 \begin{figure}[H]
 \centering
