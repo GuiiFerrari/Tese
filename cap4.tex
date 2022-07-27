@@ -1478,7 +1478,7 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 \par Com o alvo ativo é possível medir reações em diversos ângulos e energias. Portanto, é preciso primeiro discretizar (colocar em canais) os ângulos de espalhamento $\theta_p$ (ângulos de espalhamento dos prótons no referencial do laboratório). Cada canal $\theta_{bin}$ de $\theta_p$ possui largura de 4º. A seção de choque diferencial $\frac{\mathrm{d}\sigma}{\mathrm{d}\Omega} (\theta_p)$ é dada por \cite{zamora_mater}
 
 \begin{equation}\label{eq:cross_section}
-	\frac{\mathrm{d}\sigma}{\mathrm{d}\Omega} (\theta_p) = \frac{Y}{N_bN_t\Delta\Omega(\theta_p)}\times 10^{27} \mathrm{mb/sr}.
+	\frac{\mathrm{d}\sigma}{\mathrm{d}\Omega} (\theta_p) = \frac{Y}{N_bN_t\Delta\Omega(\theta_p)}\times 10^{27} \:  \mathrm{mb/sr}.
 \end{equation}
 
 \par Os termos dessa expressão são:
@@ -1730,7 +1730,39 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 \label{fig:dist_ang}
 \end{figure}
 
-\par Os resultados mostrados na fig \ref{fig:dist_ang} são parciais, porém mostram uma forte dependência da energia do feixe, como já discutido na Ref. \cite{Kolata2016}, onde está discutido o breakup do $^{17}$F em $^{58}$Ni e em $^{208}$Pb \cite{MORO_BREAKUP}.
+\par Experimentos com o estudo do breakup do $^{17}$F em $^{58}$Ni e em $^{208}$Pb foram feitos e mostraram que quanto menor a interação de Coulomb entre o projétil e o alvo, maior o valor da seção de choque diferencial \cite{LIANG200922}. Para analisar esse tipo de dissociação (Coulombiana), é usada a teoria de perturbação em primeira ordem, porém isso funciona bem para núcleos ricos em nêutrons fracamente ligados. Para o caso de núcleos ricos em prótons fracamente ligados, como o caso do $^{17}$F, é necessário correções de ordens superiores \cite{LIANG200922, MORO_BREAKUP}. A análise teórica dessas distribuições angulares será feita posteriormente.
+
+\par Os resultados mostrados na fig \ref{fig:dist_ang} mostram que as distribuições angulares possuem maior valor em ângulos dianteiros, em acordo com os resultados obtidos na Ref. \cite{LIANG200922} para o breakup do $^{17}$F ($E_{beam}$ = 170 MeV no referencial do laboratório) em $^{58}$Ni e em $^{208}$Pb, mostrados na figura \ref{fig:dist_ang_2}. Outro aspecto importante é que o valor das distribuições angulares exclusivas são comparáveis ao do breakup do $^{17}$F em $^{208}$Pb, em comparação com as distribuição com maiores energias das distribuições obtidas. Isso é um resultado muito interessante pois há uma grande diferença no número de nucleons entre os dois alvos ($^4$He e $^{208}$Pb) e também na energia do feixe.
+
+\begin{figure}[H]
+\centering
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includegraphics[scale=0.5, width=.95\columnwidth]{figs/17F_58Ni.png}
+        \caption{}
+        \label{subfig:dist_ang_2_a}
+    \end{subfigure}%
+    \hspace{0.5cm}
+    \begin{subfigure}[t]{0.45\textwidth}
+        \centering
+        \includegraphics[scale=0.5, width=.95\columnwidth]{figs/17F_208Pb.png}
+        \caption{}
+        \label{subfig:dist_ang_2_b}
+    \end{subfigure}
+\caption{Distribuições angulares do breakup exclusivo para (a) $^{17}$F + $^{58}$Ni e (b) $^{17}$F + $^{208}$Pb. As linhas tracejadas representam previsões teóricas para a dissociação de Coulomb a partir da teoria de perturbação em primeira ordem. Mais detalhes podem ser encontrados em \cite{LIANG200922}.}
+\label{fig:dist_ang_2}
+\end{figure}
+
+\par Pelas distribuições obtidas, é nítido que a reação possui uma forte dependência da energia do feixe, algo já discutido na Ref. \cite{Kolata2016}, onde está discutido o breakup do $^{17}$F em $^{58}$Ni e em $^{208}$Pb \cite{LIANG200922, MORO_BREAKUP}.
+
+\par Para um melhor entendimento sobre essa reação e consequentemente sobre núcleos instáveis ricos em prótons, será necessário realizar novos cálculos, usando correções de ordens superiores para a teoria de perturbação. Resultados usando cálculos de CDCC (Continuum-Discretized Coupled-Channels) mostraram previsões melhores dos dados experimentais, indicando a existência de interação entre contribuições de Coulomb e nuclear para o breakup, porém o problema ainda é objeto de estudo \cite{MORO_BREAKUP}.
+
+
+% o que significa que a reação de breakup do $^{17}$F em $^4$He possui maior probabilidade que em $^{58}$Ni e em $^{208}$Pb, em comparação com os resultados encontrados na Ref. \cite{LIANG200922}, mostram
+%
+%, assim como nas distribuições angulares mostradas na figura \ref{fig:dist_ang}, ausência de conta
+%
+% porém mostram uma forte dependência da energia do feixe, como já discutido na Ref. \cite{Kolata2016}, onde está discutido o breakup do $^{17}$F em $^{58}$Ni e em $^{208}$Pb \cite{MORO_BREAKUP}.
 
 \chapter{Conclusão}\label{chapter:conclusao}
 

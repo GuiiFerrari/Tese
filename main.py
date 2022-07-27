@@ -2,6 +2,7 @@ from turtle import color
 import numpy as np
 import pandas as pd
 import matplotlib as mpl
+from scipy.interpolate import CubicSpline as CS
 import os
 
 # print(mpl.__version__)
@@ -24,10 +25,12 @@ def inc_dist(w, contagens, inc_lum=0):
     Calcula a incerteza das distribuições angulares.
     """
     lum = 1
-    return w * (np.sqrt(contagens) / contagens)
-    # return w * np.sqrt(
-    #     (np.sqrt(contagens) / contagens) ** 2 + (inc_lum / lum) ** 2
-    # )
+    # return w * (np.sqrt(contagens) / contagens)
+    return w * np.sqrt(
+        (np.sqrt(contagens) / contagens) ** 2
+        + (0.23) ** 2
+        # + (inc_lum / lum) ** 2
+    )
 
 
 def f1():
@@ -131,37 +134,40 @@ def f3():
         # print(len(centers), len(w3))
         # média ponderada
         Ebeam = np.sum(centers * w3) / np.sum(w3)
+        Ebeam = Ebeam * (4 / (4 + 17))
         print(Ebeam)
         fig = plt.figure(dpi=180, figsize=(8, 4.5))
         centers1 = (xbins1[1:] + xbins1[:-1]) / 2
         centers2 = (xbins2[1:] + xbins2[:-1]) / 2
         # a = np.nan_to_num(np.sqrt(w4) / w4)
         # b = np.nan_to_num(np.sqrt(w5) / w5)
-        a = np.sqrt(w4) / w4
-        b = np.sqrt(w5) / w5
-        a = a[~np.isnan(a)]
-        b = b[~np.isnan(b)]
-        print(a)
-        print(b)
+        # a = np.sqrt(w4) / w4
+        # b = np.sqrt(w5) / w5
+        # a = a[~np.isnan(a)]
+        # b = b[~np.isnan(b)]
+        # print(a)
+        # print(b)
         # print(
         #     f"Razão do erro inclusivo: média = {a.mean():.4f}, min = {a.min():.4f}, max = {a.max():.4f}"
         # )
         # print(
         #     f"Razão do erro exclusivo: média = {b.mean():.4f}, min = {b.min():.4f}, max = {b.max():.4f}"
         # )
-        plt.errorbar(
-            centers1,
-            w1,
-            ms=5,
-            yerr=inc_dist(w1, w4),
-            ecolor="black",
-            fmt="",
-            capsize=5,
-            ls="",
-            marker="o",
-            c="black",
-            label="Inclusivo",
-        )
+        w1 = 0.2475 * w1
+        w2 = 0.2475 * w2
+        # plt.errorbar(
+        #     centers1,
+        #     w1,
+        #     ms=5,
+        #     yerr=inc_dist(w1, w4),
+        #     ecolor="black",
+        #     fmt="",
+        #     capsize=5,
+        #     ls="",
+        #     marker="o",
+        #     c="black",
+        #     label="Inclusivo",
+        # )
         plt.errorbar(
             centers2,
             w2,
@@ -175,10 +181,15 @@ def f3():
             c="red",
             label="Exclusivo",
         )
+        cs_in = CS(centers1, w1)
+        cs_ex = CS(centers2, w2)
+        xs = np.linspace(0, 90, 1000)
+        # plt.plot(xs, cs_in(xs), c="black", ls="--")
+        plt.plot(xs, cs_ex(xs), c="red", ls="--")
         plt.xlabel(r"$\theta_p$ (graus)")
         plt.gca().xaxis.set_major_locator(ticker.MultipleLocator(10))
         plt.xlim(0, 90)
-        plt.ylabel("$d\sigma$/d$\Omega$ (u.a.)")
+        plt.ylabel("$d\sigma$/d$\Omega$ (mb/sr)")
         plt.ylim(bottom=0.0)
         if index == 0:
             plt.legend(framealpha=1.0, edgecolor="black")
@@ -200,8 +211,8 @@ def f3():
         # plt.savefig(
         #     f"figs/dist_angs/dist_ang_{index}", dpi=600, bbox_inches="tight"
         # )
-        plt.show()
         # plt.close()
+        plt.show()
 
 
 def f5():
@@ -277,6 +288,6 @@ def f4():
 
 
 if __name__ == "__main__":
-    # f3()
+    f3()
     # f4()
-    f5()
+    # f5()
