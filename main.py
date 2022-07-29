@@ -25,12 +25,13 @@ def inc_dist(w, contagens, inc_lum=0):
     Calcula a incerteza das distribuições angulares.
     """
     lum = 1
-    # return w * (np.sqrt(contagens) / contagens)
-    return w * np.sqrt(
-        (np.sqrt(contagens) / contagens) ** 2
-        + (0.23) ** 2
-        # + (inc_lum / lum) ** 2
-    )
+    return w * (np.sqrt(contagens) / contagens)
+    # return w * 0.23
+    # return w * np.sqrt(
+    #     (np.sqrt(contagens) / contagens) ** 2
+    #     + (0.23) ** 2
+    #     # + (inc_lum / lum) ** 2
+    # )
 
 
 def f1():
@@ -137,8 +138,15 @@ def f3():
         Ebeam = Ebeam * (4 / (4 + 17))
         print(Ebeam)
         fig = plt.figure(dpi=180, figsize=(8, 4.5))
-        centers1 = (xbins1[1:] + xbins1[:-1]) / 2
-        centers2 = (xbins2[1:] + xbins2[:-1]) / 2
+        # centers1 = (xbins1[0:] + xbins1[:-1]) / 2
+        centers1 = np.zeros(len(xbins1) - 1)
+        centers2 = np.zeros(len(xbins2) - 1)
+        # print(xbins1)
+        for i in range(len(centers1)):
+            centers1[i] = (xbins1[i] + xbins1[i + 1]) / 2
+            centers2[i] = (xbins2[i] + xbins2[i + 1]) / 2
+
+        # centers2 = (xbins2[0:] + xbins2[:-1]) / 2
         # a = np.nan_to_num(np.sqrt(w4) / w4)
         # b = np.nan_to_num(np.sqrt(w5) / w5)
         # a = np.sqrt(w4) / w4
@@ -154,25 +162,38 @@ def f3():
         #     f"Razão do erro exclusivo: média = {b.mean():.4f}, min = {b.min():.4f}, max = {b.max():.4f}"
         # )
         w1 = 0.2475 * w1
+        w1[:5] = 0
+        w1[np.where(w1 == 0)[0]] = np.nan
+        inc_w1 = inc_dist(w1, w4)
+        d1 = {"angulo": centers1, "xs": w1, "contagens": w4, "inc_w1": inc_w1}
+        df1 = pd.DataFrame(d1)
+        pd.DataFrame.to_csv(df1, f"csvs/inclusivo_E_{Ebeam}_.csv")
+        # print(df1)
         w2 = 0.2475 * w2
-        # plt.errorbar(
-        #     centers1,
-        #     w1,
-        #     ms=5,
-        #     yerr=inc_dist(w1, w4),
-        #     ecolor="black",
-        #     fmt="",
-        #     capsize=5,
-        #     ls="",
-        #     marker="o",
-        #     c="black",
-        #     label="Inclusivo",
-        # )
+        w2[:5] = 0
+        w2[np.where(w2 == 0)[0]] = np.nan
+        inc_w2 = inc_dist(w2, w5)
+        d2 = {"angulo": centers2, "xs": w2, "contagens": w5, "inc_w2": inc_w2}
+        df2 = pd.DataFrame(d2)
+        pd.DataFrame.to_csv(df2, f"csvs/exclusivo_E_{Ebeam}_.csv")
+        plt.errorbar(
+            centers1,
+            w1,
+            ms=5,
+            yerr=inc_w1,
+            ecolor="black",
+            fmt="",
+            capsize=5,
+            ls="",
+            marker="o",
+            c="black",
+            label="Inclusivo",
+        )
         plt.errorbar(
             centers2,
             w2,
             ms=5,
-            yerr=inc_dist(w2, w5),
+            yerr=inc_w2,
             ecolor="red",
             fmt="",
             capsize=5,
@@ -181,11 +202,11 @@ def f3():
             c="red",
             label="Exclusivo",
         )
-        cs_in = CS(centers1, w1)
-        cs_ex = CS(centers2, w2)
-        xs = np.linspace(0, 90, 1000)
+        # cs_in = CS(centers1, w1)
+        # cs_ex = CS(centers2, w2)
+        # xs = np.linspace(0, 90, 1000)
         # plt.plot(xs, cs_in(xs), c="black", ls="--")
-        plt.plot(xs, cs_ex(xs), c="red", ls="--")
+        # plt.plot(xs, cs_ex(xs), c="red", ls="--")
         plt.xlabel(r"$\theta_p$ (graus)")
         plt.gca().xaxis.set_major_locator(ticker.MultipleLocator(10))
         plt.xlim(0, 90)
@@ -208,11 +229,11 @@ def f3():
             )
         # plt.tight_layout(rect=(0.115, 0.163, 0.980, 0.988))
         plt.tight_layout()
-        # plt.savefig(
-        #     f"figs/dist_angs/dist_ang_{index}", dpi=600, bbox_inches="tight"
-        # )
-        # plt.close()
-        plt.show()
+        plt.savefig(
+            f"figs/dist_angs/dist_ang_{index}", dpi=600, bbox_inches="tight"
+        )
+        plt.close()
+        # plt.show()
 
 
 def f5():
