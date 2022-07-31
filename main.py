@@ -167,7 +167,7 @@ def f3():
         inc_w1 = inc_dist(w1, w4)
         d1 = {"angulo": centers1, "xs": w1, "contagens": w4, "inc_w1": inc_w1}
         df1 = pd.DataFrame(d1)
-        pd.DataFrame.to_csv(df1, f"csvs/inclusivo_E_{Ebeam}_.csv")
+        # pd.DataFrame.to_csv(df1, f"csvs/inclusivo_E_{Ebeam}_.csv")
         # print(df1)
         w2 = 0.2475 * w2
         w2[:5] = 0
@@ -175,7 +175,7 @@ def f3():
         inc_w2 = inc_dist(w2, w5)
         d2 = {"angulo": centers2, "xs": w2, "contagens": w5, "inc_w2": inc_w2}
         df2 = pd.DataFrame(d2)
-        pd.DataFrame.to_csv(df2, f"csvs/exclusivo_E_{Ebeam}_.csv")
+        # pd.DataFrame.to_csv(df2, f"csvs/exclusivo_E_{Ebeam}_.csv")
         plt.errorbar(
             centers1,
             w1,
@@ -215,14 +215,14 @@ def f3():
         if index == 0:
             plt.legend(framealpha=1.0, edgecolor="black")
             plt.annotate(
-                "$E_{beam}$ = " + f"{Ebeam:.2f} MeV",
+                "$E_{CM}$ = " + f"{Ebeam:.2f} MeV",
                 xy=(0.62, 0.55),
                 xycoords="axes fraction",
                 color="black",
             )
         else:
             plt.annotate(
-                "$E_{beam}$ = " + f"{Ebeam:.2f} MeV",
+                "$E_{CM}$ = " + f"{Ebeam:.2f} MeV",
                 xy=(0.62, 0.775),
                 xycoords="axes fraction",
                 color="black",
@@ -267,7 +267,8 @@ def f5():
         # print(len(centers), len(w3))
         # média ponderada
         Ebeam = np.sum(centers * w3) / np.sum(w3)
-        energias.append(Ebeam)
+        # energias.append(Ebeam)
+        energias.append(Ebeam * (4 / (4 + 17)))
         contagens_I.append(np.sum(w4))
         contagens_E.append(np.sum(w5))
     fig = plt.figure(dpi=180, figsize=(8, 4.5))
