@@ -126,7 +126,7 @@ Prof(a). Dr(a). Nome do(a) Professor(a) (institui\c{c}\~{a}o de trabalho) \\
 \clearpage
 
 \tableofcontents
-%\listoffigures
+\listoffigures
 %\listoftables
 %\listofalgorithms
 \newpage
@@ -1479,7 +1479,7 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 
 %Como mostrado anteriormente, não é possível identificar o $^{16}$O em coincidência com o próton em todos os eventos (o que caracterizado o breakup exclusivo, quando há a identificação de ambas as partículas do breakup). Portanto, as distribuições angulares para o breakup exclusivo foram construídas para eventos com coincidência ($^{16}$O e próton identificado). Para o breakup inclusivo, foram considerados apenas eventos com identificação apenas do próton. 
 
-\par Com o alvo ativo é possível medir reações em diversos ângulos e energias. Portanto, é preciso primeiro discretizar (colocar em bins) os ângulos de espalhamento $\theta_p$ (ângulos de espalhamento dos prótons no referencial do laboratório). Cada bin $\theta_{bin}$ de $\theta_p$ possui largura de 4º. A seção de choque diferencial $\frac{\mathrm{d}\sigma}{\mathrm{d}\Omega} (\theta_p)$ é dada por \cite{zamora_mater}
+\par Com o alvo ativo é possível medir reações em diversos ângulos e energias. Portanto, é preciso primeiro discretizar (colocar em bins) os ângulos de espalhamento $\theta_p$ (ângulos de espalhamento dos prótons no referencial do laboratório). Cada bin $\theta_{bin}$ de $\theta_p$ possui largura de 4º, escolhida de modo a não prejudicar o espectro por problemas de binning. A incerteza sobre essa escolha é de aproximadamente 1º. A seção de choque diferencial $\frac{\mathrm{d}\sigma}{\mathrm{d}\Omega} (\theta_p)$ é dada por \cite{zamora_mater}
 
 \begin{equation}\label{eq:cross_section}
 	\frac{\mathrm{d}\sigma}{\mathrm{d}\Omega} (\theta_p) = \frac{Y}{N_bN_t\Delta\Omega(\theta_p)}\times 10^{27} \:  \mathrm{mb/sr}.
@@ -1494,11 +1494,11 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 %    \end{description}
 	\item $N_t$ \hfill \\
 %	\begin{description}
-		É o número total de partículas no alvo gasoso. Esse número é obtido a partir da equação dos gases ideais \cite{termo_mario}, onde chega-se em:
+		É o número total de partículas no alvo gasoso por unidade de área (perpendicular ao feixe). Esse número é obtido a partir da equação dos gases ideais \cite{termo_mario}, onde chega-se em:
 		\begin{equation}
-			N_t = \frac{PdN_A}{RT},
+			N_t = \frac{PdN_A}{RT} \: \mathrm{part./cm^2},
 		\end{equation}
-		onde $P$ é a pressão do alvo gasoso, $d$ é o comprimento da câmara, $N_A$ é o número de Avogrado, $R$ a constante universal dos gases ideais e $T$ a temperatura.
+		onde $P$ é a pressão do alvo gasoso, $d$ é o comprimento da câmara, $N_A$ é o número de Avogrado, $R$ a constante universal dos gases ideais e $T$ a temperatura. Para $P$ = 350 Torr e $T$ = 300 K, $N_t$ = 5.63$\times$10$^{20}$ part./cm$^2$.
 %	\end{description}
 	\item $N_b$ \hfill \\
 %	\begin{description}
@@ -1524,14 +1524,14 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 
 \par onde $\partial x$ é a incerteza da respectiva variável $x$.
 
-\par A normalização deve ser obtida a partir da análise do canal elástico do experimento. Até o momento da escrita dessa dissertação, ainda está sendo trabalhado o valor da normalização, portanto os valores apresentados das distribuições angulares estarão em unidades arbitrárias (u.a.).
+\par A normalização deve ser obtida a partir da análise do canal elástico do experimento. Até o momento da escrita dessa dissertação, ainda está sendo trabalhado o valor da normalização.
 
-\par A energia do feixe também foi discretizada. Como a energia do feixe depende da posição em $z$ do vértice de reação, ela foi discretizada a cada 10 mm, o que resulta em bins de 1.2 MeV de largura. A partir dessas bins, foi calculada a energia do feixe. A figura \ref{fig:contagem_energia} mostra a contagem de eventos em função da energia do feixe. As distribuições angulares estão mostradas na figura \ref{fig:dist_ang}.
+\par A energia do feixe também foi discretizada, pois existe uma incerteza associada à posição no eixo $z$ do vértice de reação. Como a energia do feixe depende da posição em $z$ do vértice de reação, ela foi discretizada a cada 10 mm, o que resulta em bins de aproximadamente 1.2 MeV de largura. A partir dessas bins, foi calculada a energia do feixe. A figura \ref{fig:contagem_energia} mostra o espectro da seção de choque em função da energia no referencial do centro de massa. As distribuições angulares estão mostradas na figura \ref{fig:dist_ang}.
 
 \begin{figure}[H]
 \centering
     \includegraphics[scale = 1., width=0.7\columnwidth]{figs/contagens_energia.png}
-    \caption{Gráfico que mostra o número de eventos em função da energia do feixe $E_{beam}$. Os pontos de cor preta correspondem à contagem de eventos de breakup inclusivo e os pontos de cor vermelha correspondem à contagem de eventos de breakup exclusivo.}
+    \caption{Gráfico que mostra a seção de choque $\sigma$ em função da energia no referencial do centro de massa. Os pontos de cor preta correspondem à seção de choque do breakup inclusivo e os pontos de cor vermelha correspondem à seção de choque do breakup exclusivo.}
     \label{fig:contagem_energia}
 \end{figure}
 
@@ -1736,21 +1736,17 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 
 \section{Análise e comparação dos resultados}
 
-\par Os resultados mostrados na fig \ref{fig:dist_ang} mostram distribuições com energias acima (figuras \ref{subfig:dist_ang_a} - \ref{subfig:dist_ang_g}), próximas (figuras \ref{subfig:dist_ang_h} - \ref{subfig:dist_ang_l}) e abaixo (figuras \ref{subfig:dist_ang_m} - \ref{subfig:dist_ang_ab}) da barreira de Coulomb da reação (barreira de Coulomb é de 4.2 MeV). As distribuições próximas da barreira se distribuem mais igualmente em ângulos entre 20º e 50º. Distribuições acima da barreira possuem valores maiores em ângulos mais dianteiros (de 20º à 30º). Embaixo da barreira as distribuições são mais estreitas e parecem ter um valor máximo em 30º.
+\par Os resultados mostrados na fig \ref{fig:dist_ang} mostram distribuições com energias acima (figuras \ref{subfig:dist_ang_a} - \ref{subfig:dist_ang_g}), próximas (figuras \ref{subfig:dist_ang_h} - \ref{subfig:dist_ang_l}) e abaixo (figuras \ref{subfig:dist_ang_m} - \ref{subfig:dist_ang_ab}) da barreira de Coulomb da reação (barreira de Coulomb é de 4.2 MeV). As distribuições entre 3.63 MeV e 4.77 MeV se distribuem de modo horizontal em ângulos entre 20º e 50º. Distribuições acima da barreira possuem valores maiores em ângulos mais dianteiros (de 20º à 30º). Embaixo da barreira as distribuições são mais estreitas e parecem ter um valor máximo em 30º.
 
 \par Para analisar reações de breakup (dissociação de Coulomb), usualmente se usa teoria de perturbação em primeira ordem, que demonstra resultados satisfatórios para os casos de breakup de núcleos ricos em nêutrons fracamente ligados. Para o breakup de núcleos ricos em prótons fracamente ligados, como o caso do $^{17}$F, são sugeridas correções de ordens superiores \cite{LIANG200922, BERTULANI2003199}.
 
-\par Experimentos para o estudo do breakup do $^{17}$F em $^{58}$Ni e em $^{208}$Pb acima e próximos da barreira de Coulomb (energia da barreira de 39.13 MeV para a reação $^{17}$F + $^{58}$Ni e 88.03 Mev para a reação $^{17}$F + $^{208}$Pb) foram feitos e foram usados como comparação dos resultados.
+\par Experimentos para o estudo do breakup do $^{17}$F em $^{58}$Ni e em $^{208}$Pb acima e próximos da barreira de Coulomb (energia da barreira de 39.13 MeV para a reação $^{17}$F + $^{58}$Ni e 88.03 MeV para a reação $^{17}$F + $^{208}$Pb) foram feitos no passado em cinemática direta \cite{LIANG200922, YANG2021136045}.
 
 \par Para o breakup do $^{17}$F em $^{58}$Ni e em $^{208}$Pb com energias no centro de massa de aproximadamente 131 Mev e 157 MeV, respectivamente, os resultados da distribuições angulares estão na figura \ref{fig:dist_ang_2}. O experimento foi realizado com o feixe à energias bem maiores que que as barreiras de Coulomb das reações e mostraram resultados importantes \cite{LIANG200922}. Naturalmente se esperava resultados de seções de choque maiores para a reação de breakup do $^{17}$F em $^{208}$Pb (dado que o número de prótons $Z$ é muito maior que em $^{58}$Ni), porém os resultados mostraram o contrário \cite{LIANG200922}. A análise as reações a partir de cálculos com a teoria de perturbação em primeira ordem (linhas tracejadas da figura \ref{fig:dist_ang_2}), mostra que a teoria prevê resultados muito maiores que os obtidos, especialmente para $^{17}$F + $^{208}$Pb \cite{LIANG200922}.
 
 %\par Experimentos com o estudo do breakup do $^{17}$F em $^{58}$Ni e em $^{208}$Pb foram feitos e mostraram que quanto menor a interação de Coulomb entre o projétil e o alvo, maior o valor da seção de choque diferencial \cite{LIANG200922}. Para analisar esse tipo de dissociação (Coulombiana), é usada a teoria de perturbação em primeira ordem, porém isso funciona bem para núcleos ricos em nêutrons fracamente ligados. Para o caso de núcleos ricos em prótons fracamente ligados, como o caso do $^{17}$F, é necessário correções de ordens superiores \cite{LIANG200922}. A análise teórica dessas distribuições angulares será feita posteriormente.
 
 %que as distribuições angulares possuem maior valor em ângulos dianteiros, em acordo com os resultados obtidos na Ref. \cite{LIANG200922} para o breakup do $^{17}$F ($E_{beam}$ = 170 MeV no referencial do laboratório) em $^{58}$Ni e em $^{208}$Pb, mostrados na figura \ref{fig:dist_ang_2}. Outro aspecto importante é que o valor das distribuições angulares exclusivas são comparáveis ao do breakup do $^{17}$F em $^{208}$Pb, em comparação com as distribuição com maiores energias das distribuições obtidas. Isso é um resultado muito interessante pois há uma grande diferença no número de nucleons entre os dois alvos ($^4$He e $^{208}$Pb) e também na energia do feixe.
-
-
-
-
 
 \begin{figure}[H]
 \centering
@@ -1771,7 +1767,7 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 \label{fig:dist_ang_2}
 \end{figure}
 
-\par Em comparação com os resultados mostrados na figura \ref{fig:dist_ang}, as distribuições com energias acima da barreira de Coulomb são semelhantes ao da figura \ref{subfig:dist_ang_2_a}, onde há a predominância de pontos com ângulos dianteiros. Para energias próximas da barreira de Coulomb, a distribuição apresentada na figura \ref{subfig:dist_ang_2_b} é mais semelhante, onde não há um crescimento grande para ângulos entre 5º e 10º. Importante notar que mesmo para os resultados com energias maiores que aproximadamente 1.64 MeV (ver figura \ref{subfig:dist_ang_w}) a seção de choque do breakup exclusivo é, pelo menos, da mesma ordem de grandeza para ângulos entre 20º e 40º, resultado interessante pois estão sendo comparados núcleos com valores de $Z$ muito diferentes.
+\par Em comparação com os resultados mostrados na figura \ref{fig:dist_ang}, as formas das distribuições com energias acima da barreira de Coulomb são semelhantes ao da figura \ref{subfig:dist_ang_2_a}, onde há a predominância de pontos com ângulos dianteiros, porém as respectivas seções de choque são maiores em $^4$He que em $^{58}$Ni. Para energias próximas da barreira de Coulomb (entre 3.63 MeV e 4.77 MeV), a distribuição apresentada na figura \ref{subfig:dist_ang_2_b} é mais semelhante, onde não há um platô para ângulos entre 5º e 10º. Importante notar que mesmo para os resultados com energias maiores que aproximadamente 1.64 MeV (ver figura \ref{subfig:dist_ang_w}) a seção de choque do breakup exclusivo é, pelo menos, da mesma ordem de grandeza para ângulos entre 20º e 40º, resultado interessante pois estão sendo comparados núcleos com valores de $Z$ muito diferentes.
 
 \par Outro experimento do breakup do $^{17}$F em $^{58}$Ni com energias próximas da barreira de Coulomb também indica que correções de ordem superiores são necessárias para a análise das seções de choque \cite{YANG2021136045, Kolata2016}. Isso foi realizado com cálculos de CDCC (Continuum-Discretized Coupled-Channels), onde são acrescentados estados do contínuo do $^{17}$F.
 

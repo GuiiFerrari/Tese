@@ -271,6 +271,8 @@ def f5():
         energias.append(Ebeam * (4 / (4 + 17)))
         contagens_I.append(np.sum(w4))
         contagens_E.append(np.sum(w5))
+    contagens_I = np.array(contagens_I) * 0.2475
+    contagens_E = np.array(contagens_E) * 0.2475
     fig = plt.figure(dpi=180, figsize=(8, 4.5))
     plt.scatter(energias, contagens_I, c="black", label="Inclusivo")
     plt.scatter(energias, contagens_E, c="red", label="Exclusivo")
@@ -290,10 +292,12 @@ def f5():
     #     color="red",
     #     label="Exclusivo",
     # )
-    plt.xlabel(r"$E_{beam}$ (MeV)")
-    plt.xlim(left=2, right=35)
-    plt.ylabel("Contagens")
-    plt.gca().yaxis.set_major_locator(ticker.MultipleLocator(250))
+    plt.xlabel(r"$E_{CM}$ (MeV)")
+    # plt.xlim(left=2, right=35)
+    plt.xlim(left=0.6, right=6.5)
+    plt.ylabel("$\sigma$ (mb)")
+    # plt.gca().yaxis.set_major_locator(ticker.MultipleLocator(250))
+    plt.gca().yaxis.set_major_locator(ticker.MultipleLocator(50))
     # plt.legend(framealpha=1.0, edgecolor="black")
     # plt.colorbar()
     plt.tight_layout()
@@ -310,6 +314,5 @@ def f4():
 
 
 if __name__ == "__main__":
-    f3()
-    # f4()
-    # f5()
+    # f3()
+    f5()
