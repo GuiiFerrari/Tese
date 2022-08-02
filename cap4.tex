@@ -1266,7 +1266,7 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 
 \subsection{Reconstrução do vértice da reação}
 
-\par Como foi descrito no capítulo \ref{chapter:point_cloud_analysis}, para analisar as nuvens de pontos (reações nucleares) é necessário identificar as trajetórias das partículas dentro do gás que formam linhas retas originadas num determinado vértice. Isso é feito com estimadores robustos, como o algoritmo p-RANSAC (algoritmo \ref{ransac_algo}, apresentado na subseção \ref{subsec:pointnet} e também na referência \cite{artigo}), que é capaz de identificar os diferentes aglomerados mesmo na presença de outliers \cite{artigo}.
+\par Como foi descrito no capítulo \ref{chapter:point_cloud_analysis}, para analisar as nuvens de pontos (reações nucleares) é necessário identificar as trajetórias das partículas dentro do gás que formam linhas retas originadas num determinado vértice. Isso é feito com estimadores robustos, como o algoritmo p-RANSAC (algoritmo \ref{ransac_algo}, apresentado na subseção \ref{subsec:pointnet} e também na referência \cite{artigo}), que é capaz de identificar os diferentes aglomerados mesmo na presença de outliers.
 
 \par Após a identificação e ajuste das trajetórias, é preciso determinar o vértice da reação para cada evento. O vértice é o ponto no espaço no qual ocorre a reação nuclear e pode ser determinado pela extrapolação das trajetórias na região central do alvo ativo. Para isso, é calculado o ponto de interseção (ou mais próximo) entre duas retas, como mostra a equação \ref{eq:vertice_reacao}. O feixe incide na parte central pelo eixo axial do alvo, região cujo ganho do micromegas é baixo para evitar a saturação dos sinais (devido à passagem do feixe). Portanto, para calcular o vértice de reação, é necessário extrapolar as trajetórias na região central. A partir do vértice, então, é possível calcular o comprimento $L$ da trajetória (dado pela equação \ref{eq:comprimento_trajetoria}), mesmo com a ausência de informação na região central.
 
@@ -1305,7 +1305,7 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 
 %\par Para reconstruir a energia das partículas, foi necessário utilizar do comprimento da trajetória e também do poder de freamento (\textit{stopping power}) \cite{DETC_TELE} da partícula no gás. O \textit{stopping power} depende principalmente na carga da partícula incidente e na propriedades do gás como a pressão e temperatura.
 
-\par Numa primeira aproximação, a energia da trajetória pode ser estimada a partir da equação \ref{eq:carga_acumulada}, onde são somadas todas as cargas acumuladas dos pontos da trajetória. Porém, a eficiência de detecção depende da energia depositada pela partícula no gás. Da mesma forma, alguns pontos das trajetórias das partículas podem estar ausentes devido ao processamento eletrônico ou mesmo na reconstrução das nuvens de pontos. Outra forma de reconstruir a energia da partícula é a partir do comprimento da trajetória usando o respetivo poder de freamento (stopping power). O stopping power depende principalmente da carga da partícula incidente e das propriedades do gás, como a pressão e temperatura. O stopping power foi calculado usando o programa LISE++\cite{lise++} e os respectivos comprimentos das trajetórias associadas a partículas como $^{16}$O, alfas e prótons num gás de $^4$He à uma pressão de 350 Torr. A figura \ref{fig:alcance_vs_energia} mostra o alcance em função da energia do $^{17}$F, $^{16}$O e próton, onde é possível ver a grande diferente de alcance das partículas dentro gás, especialmente a grande diferente entre as partículas pesadas ($^{17}$F, $^{16}$O) e o próton.
+\par Numa primeira aproximação, a energia da trajetória pode ser estimada a partir da equação \ref{eq:carga_acumulada}, onde são somadas todas as cargas acumuladas dos pontos da trajetória. Porém, a eficiência de detecção depende da energia depositada pela partícula no gás. Da mesma forma, alguns pontos das trajetórias das partículas podem estar ausentes devido ao processamento eletrônico ou mesmo na reconstrução das nuvens de pontos. Outra forma de reconstruir a energia da partícula é a partir do comprimento da trajetória usando o respetivo poder de freamento (stopping power). O stopping power depende principalmente da carga da partícula incidente e das propriedades do gás, como a pressão e temperatura. O stopping power foi calculado usando o programa LISE++\cite{lise++} e os respectivos comprimentos das trajetórias associadas a partículas como $^{16}$O, alfas e prótons num gás de $^4$He à uma pressão de 350 Torr. A figura \ref{fig:alcance_vs_energia} mostra o alcance em função da energia do $^{17}$F, $^{16}$O e próton, onde é possível ver a grande diferença de alcance das partículas dentro gás, especialmente a grande diferença entre as partículas pesadas ($^{17}$F, $^{16}$O) e o próton.
 
 %\par Numa primeira aproximação, a energia da trajetória pode ser estimativa a partir da equação \ref{eq:carga_acumulada}, onde são somadas todas as cargas acumuladas dos pontos das trajetórias. Porém a eficiência de detecção depende da energia da partícula e algumas regiões das trajetórias podem não ser detectadas. Usando o LISE++ \cite{lise++} foi possível calcular o alcance das possíveis partículas ($^{16}$O e próton) dada as propriedades do alvo ($^4$He gasoso à uma pressão de 350 Torr). A figura \ref{fig:alcance_vs_energia} mostra o alcance em mm das partículas ($^{17}$F, $^{16}$O e próton) em função da energia em MeV. 
 
@@ -1332,13 +1332,13 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 
 \par O ângulo de reação, para cada trajetória identificada, depende da determinação do versor de cada uma das trajetórias e também do versor do feixe. A partir das propriedades geométricas das trajetórias (versores das retas), são calculados os ângulos azimutal e axial com relação à direção em que o feixe incide na câmara (veja que a direção do feixe não necessariamente coincide com o eixo simétrico do TPC).
 
-\par Para cada trajetória (reta) $i$, o ângulo axial $\phi_i$ é dado por
+\par Para cada trajetória (reta) $i$, o ângulo azimutal $\phi_i$ é dado por
 
 \begin{equation}
 	\phi_i = \atantwo \left (\frac{y_i}{x_i} \right),
 \end{equation}
 
-\par onde $\atantwo$ é o arco-tangente calculado entre $-\pi$ e $\pi$, $y_i$ e $x_i$ são componentes $x$ e $y$ do versor da reta $i$. Para o ângulo azimutal $\theta$, ele é calculado a partir do produto interno entre o versor da reta e o versor do feixe, ou seja:
+\par onde $\atantwo$ é o arco-tangente calculado entre $-\pi$ e $\pi$, $y_i$ e $x_i$ são componentes $x$ e $y$ do versor da reta $i$. Para o ângulo polar $\theta$, ele é calculado a partir do produto interno entre o versor da reta e o versor do feixe, ou seja:
 
 \begin{equation}
 	\theta = \arccos \left (\frac{\vec{V_i} \cdot \vec{V_f}}{|\vec{V_i}| |\vec{V_f}|}  \right),
@@ -1348,7 +1348,7 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 
 \section{Identificação do canal de reação de breakup}
 
-\par Com o alvo ativo, é possível medir diversos canais de reação num mesmo experimento. Isso fica evidente ao olhar para a figura \ref{fig:comp_vs_ang}, que mostra um histograma bidimensional do comprimento da trajetória da partícula em função do ângulo de espalhamento (axial) no referencial de laboratório. Eventos de espalhamento em ângulos menores que 5 graus e reações na janela de entrada foram previamente removidos neste histograma.
+\par Com o alvo ativo, é possível medir diversos canais de reação num mesmo experimento. Isso fica evidente ao olhar para a figura \ref{fig:comp_vs_ang}, que mostra um histograma bidimensional do comprimento da trajetória da partícula em função do ângulo de espalhamento (polar) no referencial de laboratório. Eventos de espalhamento em ângulos menores que 5 graus e reações na janela de entrada foram previamente removidos neste histograma.
 
 %Primeiro é preciso entender os tipos de trajetórias identificados em eventos como os mostrados na figura \ref{fig:res_tracks}, que mostra as trajetórias de diferentes partículas no gás.
 
@@ -1400,7 +1400,7 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 	E^2 \propto (LM)\frac{4\pi Z^2  e^4 N_e}{m_e}.
 \end{equation}
 
-\par Portanto, existe uma relação do quadrado da energia (ou carga depositada) com o comprimento da trajetória. O termo $M$ mostra que quanto maior o $Z$ da partícula, maior é a carga depositada. Dessa forma, os prótons podem ser identificados num histograma de carga em função do comprimento do track (proporcional à energia depositada) como a região inferior à faixa das alfas, assim como mostrado na figura \ref{subfig:carga_comp_cut1}. O resultado da aplicação do gate para o espectro de comprimento em função do ângulo de espalhamento (ver figura \ref{fig:comp_vs_ang}) está na figura \ref{subfig:comp_vs_carga_cut1}.
+\par Portanto, existe uma relação do quadrado da energia (ou carga depositada) com o comprimento da trajetória. O termo $M$ mostra que quanto maior a massa $M$ e o número de prótons $Z$ da partícula, maior é a carga depositada. Dessa forma, os prótons podem ser identificados num histograma de carga em função do comprimento do track (proporcional à energia depositada) como a região inferior à faixa das alfas, assim como mostrado na figura \ref{subfig:carga_comp_cut1}. O resultado da aplicação do gate para o espectro de comprimento em função do ângulo de espalhamento (ver figura \ref{fig:comp_vs_ang}) está na figura \ref{subfig:comp_vs_carga_cut1}.
 
 \begin{figure}[H]
 \centering
@@ -1430,11 +1430,11 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 \label{fig:gate_1}
 \end{figure}
 
-\par Como pode-se perceber, o gate removeu quase todos os eventos de espalhamento elástico e inelástico de alfas. Somente sobraram duas faixas que correspondem às partículas que não param completamente no gás e partículas espalhadas em ângulos maiores que 20 graus que param no gás. A primeira faixa corresponderia principalmente aos prótons e alfas, pois com apenas 1 MeV de energia cinética atravessam o gás (ver figura \ref{fig:alcance_vs_energia}). A segunda faixa seriam as partículas mais pesadas, que param no gás.
+\par Como pode-se perceber, o gate removeu quase todos os eventos de espalhamento elástico e inelástico de alfas. Somente sobraram duas faixas que correspondem às partículas que não param completamente no gás e partículas espalhadas em ângulos maiores que 20 graus que param no gás. A primeira faixa corresponderia principalmente aos prótons e alfas, pois com apenas 1 MeV de energia cinética atravessam o gás (ver figura \ref{fig:alcance_vs_energia}). A segunda faixa seriam as partículas alfas.
 
 % devido a que elas estão na região central do TPC onde o ganho é baixo e só partículas que depositam muita energia podem produzir um sinal nessa região.
 
-\par O gate anterior precisa ainda ser refinado pois ainda é possível ter alguma contribuição de partículas alfa no espectro. Devido a que as partículas alfa depositam maior energia num menor comprimento do que os prótons, a carga média permite visualizar essa diferença. A carga média é definida como a carga total depositada pela partícula dividida pelo número total de pontos no track. O espectro apresentado na figura \ref{subfig:gate2_antes}, apresenta a carga média em função do comprimento do track usando o gate da figura \ref{fig:gate_2}. Pode-se perceber que tem dois aglomerados, um na parte inferior com maior densidade (prótons) e outro na parte superior, logo acima da linha vermelha na imagem, onde há partículas alfas, onde que suas trajetórias possuem uma carga média maior que a dos prótons. Ao excluir trajetórias fora da região delimitada pela linha vermelha na figura \ref{subfig:gate2_antes}, é possível identificar os prótons no espectro de comprimento em função do ângulo de espalhamento, mostrado na figura \ref{subfig:gate2_depois}.
+\par O gate anterior precisa ainda ser refinado pois ainda há a contribuição de partículas alfa no espectro. Devido a que as partículas alfa depositam maior energia num menor comprimento do que os prótons, a carga média permite visualizar essa diferença. A carga média é definida como a carga total depositada pela partícula dividida pelo número total de pontos no track. O espectro da figura \ref{subfig:gate2_antes} mostra a carga média em função do comprimento do track usando o gate da figura \ref{fig:gate_2}. Pode-se perceber que tem dois aglomerados, um na parte inferior com maior densidade (prótons) e outro na parte superior, logo acima da linha vermelha na imagem, onde há partículas alfas, onde que suas trajetórias possuem uma carga média maior que a dos prótons. Ao excluir trajetórias fora da região delimitada pela linha vermelha na figura \ref{subfig:gate2_antes}, é possível identificar os prótons no espectro de comprimento em função do ângulo de espalhamento, mostrado na figura \ref{subfig:gate2_depois}.
 
 
 % Além dos prótons, tem partículas alfa que não param no detector, mas com a carga media é possível distingui-las. O espectro indica que o próton não para no gás, pois suas trajetórias estão limitadas pela câmara, independente do ângulo de espalhamento. Isso ocorre pois o próton deposita pouca energia ao atravessar o gás. Já o $^{16}$O para completamente no gás, e possui trajetórias mais dianteiras (ângulos de espalhamento menores).
@@ -1462,7 +1462,7 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 \label{fig:gate_2}
 \end{figure}
 
-\par Para identificar eventos de breakup (ou o canal de breakup), podendo identificar agora os prótons, basta aplicar a condição tal que sejam identificadas duas trajetórias coincidentes (tais que não sejam a do feixe), ou seja, que possuem o mesmo vértice de reação. Aplicando tais condições para identificar eventos com duas trajetórias (coincidências) com o mesmo vértice de reação, eliminando o espalhando elástico e inelástico do espectro, tem-se o espectro do comprimento em função do ângulo de espalhamento para eventos com duas trajetórias coincidentes, mostrado na figura \ref{fig:comp_vs_ang_coinc}.
+\par Para identificar eventos de breakup (ou o canal de breakup), podendo identificar agora os prótons, basta aplicar a condição tal que sejam identificadas duas trajetórias coincidentes (tais que não sejam a do feixe), ou seja, que possuem o mesmo vértice de reação. Aplicando tais condições para identificar eventos com duas trajetórias (coincidências) com o mesmo vértice de reação, eliminando outros canais de reação, como o canal de fusão do espectro, tem-se o espectro do comprimento em função do ângulo de espalhamento para eventos com duas trajetórias coincidentes, mostrado na figura \ref{fig:comp_vs_ang_coinc}.
 
 \begin{figure}[H]
     \centering
@@ -1479,7 +1479,7 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 
 %Como mostrado anteriormente, não é possível identificar o $^{16}$O em coincidência com o próton em todos os eventos (o que caracterizado o breakup exclusivo, quando há a identificação de ambas as partículas do breakup). Portanto, as distribuições angulares para o breakup exclusivo foram construídas para eventos com coincidência ($^{16}$O e próton identificado). Para o breakup inclusivo, foram considerados apenas eventos com identificação apenas do próton. 
 
-\par Com o alvo ativo é possível medir reações em diversos ângulos e energias. Portanto, é preciso primeiro discretizar (colocar em bins) os ângulos de espalhamento $\theta_p$ (ângulos de espalhamento dos prótons no referencial do laboratório). Cada bin $\theta_{bin}$ de $\theta_p$ possui largura de 4º, escolhida de modo a não prejudicar o espectro por problemas de binning. A incerteza sobre essa escolha é de aproximadamente 1º. A seção de choque diferencial $\frac{\mathrm{d}\sigma}{\mathrm{d}\Omega} (\theta_p)$ é dada por \cite{zamora_mater}
+\par Com o alvo ativo é possível medir reações em diversos ângulos e energias. Portanto, é preciso primeiro discretizar (colocar em bins) os ângulos de espalhamento $\theta_p$ (ângulos de espalhamento dos prótons no referencial do laboratório). Cada bin $\theta_{bin}$ de $\theta_p$ possui largura de 4º, escolhida de modo a não prejudicar o espectro por problemas de binning ou flutuações estatísticas. A incerteza sobre essa escolha é de aproximadamente 1º. A seção de choque diferencial $\frac{\mathrm{d}\sigma}{\mathrm{d}\Omega} (\theta_p)$ é dada por \cite{zamora_mater}
 
 \begin{equation}\label{eq:cross_section}
 	\frac{\mathrm{d}\sigma}{\mathrm{d}\Omega} (\theta_p) = \frac{Y}{N_bN_t\Delta\Omega(\theta_p)}\times 10^{27} \:  \mathrm{mb/sr}.
@@ -1524,9 +1524,9 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 
 \par onde $\partial x$ é a incerteza da respectiva variável $x$.
 
-\par A normalização deve ser obtida a partir da análise do canal elástico do experimento. Até o momento da escrita dessa dissertação, ainda está sendo trabalhado o valor da normalização.
+\par A normalização deve ser obtida a partir da análise do canal elástico do experimento. Até o momento da escrita dessa dissertação, o valor da normalização é preliminar e $N_b$ = 7.18$\times$10$^{6}$ part./cm$^2$s.
 
-\par A energia do feixe também foi discretizada, pois existe uma incerteza associada à posição no eixo $z$ do vértice de reação. Como a energia do feixe depende da posição em $z$ do vértice de reação, ela foi discretizada a cada 10 mm, o que resulta em bins de aproximadamente 1.2 MeV de largura. A partir dessas bins, foi calculada a energia do feixe. A figura \ref{fig:contagem_energia} mostra o espectro da seção de choque em função da energia no referencial do centro de massa. As distribuições angulares estão mostradas na figura \ref{fig:dist_ang}.
+\par A energia do feixe também foi discretizada, pois existe uma incerteza associada à posição no eixo $z$ do vértice de reação. Como a energia do feixe depende da posição em $z$ do vértice de reação, ela foi discretizada a cada 10 mm, o que resulta em bins de aproximadamente 1.2 MeV (no referencial do laboratório) de largura. A partir dessas bins, foi calculada a energia do feixe. A figura \ref{fig:contagem_energia} mostra o espectro da seção de choque em função da energia no referencial do centro de massa. As distribuições angulares estão mostradas na figura \ref{fig:dist_ang}.
 
 \begin{figure}[H]
 \centering
@@ -1581,46 +1581,57 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
         \includegraphics[scale=0.38, width=1.\columnwidth]{figs/dist_angs/dist_ang_6.png}
         \caption{}
         \label{subfig:dist_ang_g}
-    \end{subfigure}%
-    \hfill
+    \end{subfigure}
+\caption{Distribuições angulares de breakup do $^{17}$F em $^4$He em função do ângulo de espalhamento do próton $\theta_p$ no referencial do laboratório. As energias estão acima da barreira de Coulomb da reação.}
+\label{fig:dist_ang_acima}
+\end{figure}
+
+\begin{figure}[H]
+\centering
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
         \includegraphics[scale=0.38, width=1.\columnwidth]{figs/dist_angs/dist_ang_7.png}
         \caption{}
         \label{subfig:dist_ang_h}
-    \end{subfigure}
+    \end{subfigure}%
+    \hfill
     \begin{subfigure}[b]{0.49\textwidth}
         \centering
         \includegraphics[scale=0.38, width=1.\columnwidth]{figs/dist_angs/dist_ang_8.png}
         \caption{}
         \label{subfig:dist_ang_i}
-    \end{subfigure}%
-    \hfill
+    \end{subfigure}
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
         \includegraphics[scale=0.38, width=1.\columnwidth]{figs/dist_angs/dist_ang_9.png}
         \caption{}
         \label{subfig:dist_ang_j}
-    \end{subfigure}
-	\label{fig:dist_ang}
-\end{figure}
-%\clearpage
-\begin{figure}[H]
-\centering
-\ContinuedFloat
+    \end{subfigure}%
+    \hfill
+%	\label{fig:dist_ang}
+%\end{figure}
+%%\clearpage
+%\begin{figure}[H]
+%\centering
+%\ContinuedFloat
     \begin{subfigure}[b]{0.49\textwidth}
         \centering
         \includegraphics[scale=0.38, width=1.\columnwidth]{figs/dist_angs/dist_ang_10.png}
         \caption{}
         \label{subfig:dist_ang_k}
-    \end{subfigure}%
-	\hfill
+    \end{subfigure}
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
         \includegraphics[scale=0.38, width=1.\columnwidth]{figs/dist_angs/dist_ang_11.png}
         \caption{}
         \label{subfig:dist_ang_l}
-    \end{subfigure}
+    \end{subfigure}%
+    \hfill
+\caption{Distribuições angulares de breakup do $^{17}$F em $^4$He em função do ângulo de espalhamento do próton $\theta_p$ no referencial do laboratório. As energias estão próximas da barreira de Coulomb da reação.}
+\label{fig:dist_ang_prox}
+\end{figure}
+\begin{figure}[H]
+\centering
     \begin{subfigure}[b]{0.49\textwidth}
         \centering
         \includegraphics[scale=0.38, width=1.\columnwidth]{figs/dist_angs/dist_ang_12.png}
@@ -1673,11 +1684,10 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
         \caption{}
         \label{subfig:dist_ang_t}
     \end{subfigure}
-\end{figure}
-%\clearpage
-\begin{figure}[H]
-\centering
-\ContinuedFloat
+%\end{figure}
+%\begin{figure}[H]
+%\centering
+%\ContinuedFloat
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
         \includegraphics[scale=0.38, width=1.\columnwidth]{figs/dist_angs/dist_ang_20.png}
@@ -1691,6 +1701,10 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
         \caption{}
         \label{subfig:dist_ang_v}
     \end{subfigure}
+\end{figure}
+\begin{figure}[H]
+\centering
+\ContinuedFloat
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
         \includegraphics[scale=0.38, width=1.\columnwidth]{figs/dist_angs/dist_ang_22.png}
@@ -1730,17 +1744,17 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
         \caption{}
         \label{subfig:dist_ang_ab}
     \end{subfigure}
-\caption{Distribuições angulares de breakup do $^{17}$F em $^4$He em função do ângulo de espalhamento do próton $\theta_p$ no referencial do laboratório. A energia do feixe $E_{beam}$ está no referencial do centro de massa.}
-\label{fig:dist_ang}
+\caption{Distribuições angulares de breakup do $^{17}$F em $^4$He em função do ângulo de espalhamento do próton $\theta_p$ no referencial do laboratório. As energias estão abaixo da barreira de Coulomb da reação.}
+\label{fig:dist_ang_abaixo}
 \end{figure}
-
+%\fi
 \section{Análise e comparação dos resultados}
 
-\par Os resultados mostrados na fig \ref{fig:dist_ang} mostram distribuições com energias acima (figuras \ref{subfig:dist_ang_a} - \ref{subfig:dist_ang_g}), próximas (figuras \ref{subfig:dist_ang_h} - \ref{subfig:dist_ang_l}) e abaixo (figuras \ref{subfig:dist_ang_m} - \ref{subfig:dist_ang_ab}) da barreira de Coulomb da reação (barreira de Coulomb é de 4.2 MeV). As distribuições entre 3.63 MeV e 4.77 MeV se distribuem de modo horizontal em ângulos entre 20º e 50º. Distribuições acima da barreira possuem valores maiores em ângulos mais dianteiros (de 20º à 30º). Embaixo da barreira as distribuições são mais estreitas e parecem ter um valor máximo em 30º.
+\par Os resultados das figuras \ref{fig:dist_ang_acima}, \ref{fig:dist_ang_prox} e \ref{fig:dist_ang_abaixo} mostram distribuições com energias acima (figura \ref{fig:dist_ang_acima}), próximas (figura \ref{fig:dist_ang_prox}) e abaixo (figura \ref{fig:dist_ang_abaixo}) da barreira de Coulomb da reação (barreira de Coulomb é de 4.2 MeV). As distribuições entre 3.63 MeV e 4.77 MeV se distribuem de modo horizontal em ângulos entre 20º e 50º. Distribuições acima da barreira possuem valores maiores em ângulos mais dianteiros (de 20º à 30º). Embaixo da barreira as distribuições são mais estreitas e parecem ter um valor máximo em 30º.
 
 \par Para analisar reações de breakup (dissociação de Coulomb), usualmente se usa teoria de perturbação em primeira ordem, que demonstra resultados satisfatórios para os casos de breakup de núcleos ricos em nêutrons fracamente ligados. Para o breakup de núcleos ricos em prótons fracamente ligados, como o caso do $^{17}$F, são sugeridos outros métodos para o cálculo da seção de choque \cite{LIANG200922, BERTULANI2003199}.
 
-\par Experimentos para o estudo do breakup do $^{17}$F em $^{58}$Ni e em $^{208}$Pb acima da barreira de Coulomb (energia da barreira de 39.13 MeV para a reação $^{17}$F + $^{58}$Ni e 88.03 MeV para a reação $^{17}$F + $^{208}$Pb) foram feitos no passado em cinemática direta \cite{LIANG200922}. Os experimentos foram realizados acelerando um feixe de $^{17}$F a uma energia de 170 MeV, no referencial do laboratório, incidindo em um alvo de $^{58}$Ni ($E_{CM}$ = 131.47 MeV) e também em um alvo de $^{208}$Pb ($E_{CM}$ = 157.16 MeV). As distribuições angulares para cada reação estão na figura \ref{fig:dist_ang_2}. O que naturalmente se esperava para os resultados do experimento, é de que o breakup do $^{17}$F em $^{208}$Pb fosse maior que o breakup do $^{17}$F em $^{58}$Ni, pois o $^{208}$Pb possui $Z$ = 82 contra $Z$ = 28 do $^{58}$Ni, possuindo mais interação de Coulomb no breakup, porém o oposto foi observado. A seção de choque de choque do $^{17}$F em $^{208}$Pb foi menor que do $^{17}$F em $^{58}$Ni, resultado que indicou uma possível interação entre as contribuições de Coulomb e nuclear para o breakup \cite{LIANG200922, MORO_BREAKUP}. Levar para um caso com $Z$ ainda menor, como o caso desse trabalho, onde $Z$ = 2, pode ajudar a compreender melhor o mecanismo de breakup, melhorando o entendimento das contribuições, pois a interação de Coulomb é ordens de grandeza menor que os casos anteriores, favorecendo o estudo da contribuição da parte nuclear e também das interações entre si. 
+\par Experimentos para o estudo do breakup do $^{17}$F em $^{58}$Ni e em $^{208}$Pb acima da barreira de Coulomb (energia da barreira de 39.13 MeV para a reação $^{17}$F + $^{58}$Ni e 88.03 MeV para a reação $^{17}$F + $^{208}$Pb) foram feitos no passado em cinemática direta \cite{LIANG200922}. Os experimentos foram realizados acelerando um feixe de $^{17}$F a uma energia de 170 MeV, no referencial do laboratório, incidindo em um alvo de $^{58}$Ni ($E_{CM}$ = 131.47 MeV) e também em um alvo de $^{208}$Pb ($E_{CM}$ = 157.16 MeV). As distribuições angulares para cada reação estão na figura \ref{fig:dist_ang_2}. O que naturalmente se esperava para os resultados do experimento, é de que o breakup do $^{17}$F em $^{208}$Pb fosse maior que o breakup do $^{17}$F em $^{58}$Ni, pois o $^{208}$Pb possui $Z$ = 82 contra $Z$ = 28 do $^{58}$Ni, possuindo maior contribuição Coulombiana no breakup, porém o oposto foi observado. A seção de choque de choque do $^{17}$F em $^{208}$Pb foi menor que do $^{17}$F em $^{58}$Ni, resultado que indicou uma possível interação entre as contribuições de Coulomb e nuclear para o breakup \cite{LIANG200922, MORO_BREAKUP}. Levar para um caso com $Z$ ainda menor, como o caso desse trabalho, onde $Z$ = 2, pode ajudar a compreender melhor o mecanismo de breakup, melhorando o entendimento das contribuições, pois a interação de Coulomb é ordens de grandeza menor que os casos anteriores, favorecendo o estudo da contribuição da parte nuclear e também possíveis efeitos de interferência. 
 
 %\par Para o breakup do $^{17}$F em $^{58}$Ni e em $^{208}$Pb com energias no centro de massa de aproximadamente 131 Mev e 157 MeV, respectivamente, os resultados da distribuições angulares estão na figura \ref{fig:dist_ang_2}. O experimento foi realizado com o feixe à energias bem maiores que que as barreiras de Coulomb das reações e mostraram resultados importantes \cite{LIANG200922}. Naturalmente se esperava resultados de seções de choque maiores para a reação de breakup do $^{17}$F em $^{208}$Pb (dado que o número de prótons $Z$ é muito maior que em $^{58}$Ni), porém os resultados mostraram o contrário \cite{LIANG200922}. A análise as reações a partir de cálculos com a teoria de perturbação em primeira ordem (linhas tracejadas da figura \ref{fig:dist_ang_2}), mostra que a teoria prevê resultados muito maiores que os obtidos, especialmente para $^{17}$F + $^{208}$Pb \cite{LIANG200922}.
 
@@ -1767,9 +1781,9 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 \label{fig:dist_ang_2}
 \end{figure}
 
-\par Em comparação com os resultados mostrados na figura \ref{fig:dist_ang}, as formas das distribuições com energias acima da barreira de Coulomb são semelhantes ao da figura \ref{subfig:dist_ang_2_a}, onde há a predominância de pontos com ângulos dianteiros, porém as respectivas seções de choque são maiores em $^4$He que em $^{58}$Ni. Para energias próximas da barreira de Coulomb (entre 3.63 MeV e 4.77 MeV), a distribuição apresentada na figura \ref{subfig:dist_ang_2_b} é mais semelhante, onde não há um platô para ângulos entre 5º e 10º. O resultado importante é que as seções de choque em $^4$He para energias acima da barreira são maiores que as seções de choque em $^{58}$Ni e em $^{208}$Pb. Cálculos de CDCC (Continuum-Discretized Coupled-Channels), onde são acrescentados estados do contínuo além dos estados ligados do $^{17}$F, para os dados apresentados na figura \ref{fig:dist_ang_2}, realizados na Ref. \cite{MORO_BREAKUP}, mostram que há interações (interferências construtivas ou destrutivas) entre as diferentes contribuições para o breakup (contribuição de Coulomb e nuclear). A figura \ref{fig:dist_ang_2_cdcc} mostra os cálculos das contribuições nuclear e de Coulomb para a seção de choque bem como o cálculo de CDCC com ambas as contribuições, onde é possível ver que o método descreve melhor os dados que o método anterior (teoria de perturbação em primeira ordem).
+\par Em comparação com os resultados mostrados na figura \ref{fig:dist_ang_acima}, as formas das distribuições com energias acima da barreira de Coulomb são semelhantes ao da figura \ref{subfig:dist_ang_2_a}, onde há a predominância de pontos com ângulos dianteiros, porém as respectivas seções de choque são maiores em $^4$He que em $^{58}$Ni. Para energias próximas da barreira de Coulomb (entre 3.63 MeV e 4.77 MeV, figura \ref{fig:dist_ang_prox}), a distribuição apresentada na figura \ref{subfig:dist_ang_2_b} é mais semelhante, onde não há um platô para ângulos entre 5º e 10º. O resultado importante é que as seções de choque em $^4$He para energias acima da barreira são maiores que as seções de choque em $^{58}$Ni e em $^{208}$Pb. Cálculos de CDCC (Continuum-Discretized Coupled-Channels), onde são acrescentados estados do contínuo além dos estados ligados do $^{17}$F, para os dados apresentados na figura \ref{fig:dist_ang_2}, realizados na Ref. \cite{MORO_BREAKUP}, mostram que há interações (interferências construtivas ou destrutivas) entre as diferentes contribuições para o breakup (contribuição de Coulomb e nuclear). A figura \ref{fig:dist_ang_2_cdcc} mostra os cálculos das contribuições nuclear e de Coulomb para a seção de choque bem como o cálculo de CDCC com ambas as contribuições, onde é possível ver que o método descreve melhor os dados que o método anterior (teoria de perturbação em primeira ordem).
 
-\par Outro experimento do breakup do $^{17}$F em $^{58}$Ni, realizado na Ref. \cite{YANG2021136045}, porém com energias próximas da barreira de Coulomb, cujas distribuições angulares estão na figura \ref{fig:dist_ang_3}, também indicaram que novos cálculos (diferentes do método perturbativo) são necessários para a análise das seções de choque \cite{YANG2021136045, Kolata2016}. Cálculos de CDCC indicaram novamente que há interações entre a contribuição de Coulomb e a contribuição nuclear para o breakup. No caso de energias próximas da barreira, a seção de choque diminui em cerca de 20\%, algo notado nas distribuições como energias próximas da barreira, mostradas na figura \ref{fig:dist_ang}.
+\par Outro experimento do breakup do $^{17}$F em $^{58}$Ni, realizado recentemente \cite{YANG2021136045}, porém com energias próximas da barreira de Coulomb, cujas distribuições angulares estão na figura \ref{fig:dist_ang_3}, também indicaram que novos cálculos (diferentes do método perturbativo) são necessários para a análise das seções de choque \cite{YANG2021136045, Kolata2016}. Cálculos de CDCC indicaram novamente que há efeitos de interferência entre a contribuição de Coulomb e a contribuição nuclear para o breakup. No caso de energias próximas da barreira, a seção de choque diminui em cerca de 20\%, algo notado nas distribuições com energias próximas da barreira, mostradas na figura \ref{fig:dist_ang_prox}.
 
 %Importante notar que mesmo para os resultados com energias maiores que aproximadamente 1.64 MeV (ver figura \ref{subfig:dist_ang_w}) a seção de choque do breakup exclusivo é, pelo menos, da mesma ordem de grandeza para ângulos entre 20º e 40º, resultado interessante pois estão sendo comparados núcleos com valores de $Z$ muito diferentes.
 
@@ -1814,7 +1828,7 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 \label{fig:dist_ang_3}
 \end{figure}
 
-\par Os resultados dos cálculos de CDCC nos dados experimentais apresentados, mostram que existem interferências destrutivas e construtivas nas contribuições de Coulomb e nuclear do breakup. A contribuição parece ter uma relevância bem maior em núcleos com $Z$ menor. Em núcleos com $Z$ grande, como o caso do $^{208}$Pb, os cálculos teóricos indicam que há interação entre as contribuições, diminuindo a seção de choque \cite{Kolata2016, MORO_BREAKUP}. Para o cara de energias próximas da barreira de Coulomb, a seção de choque é ainda menor, corroborando com os dados obtidos com o experimento desse trabalho. Com esses resultados, será possível entender melhor a natureza do breakup, qual relevância de cada contribuição, como a interações entre as contribuições acontecem, em diversas regiões de energia (acima, próxima e abaixo da barreira de Coulomb).
+\par Os resultados dos cálculos de CDCC nos dados experimentais apresentados, mostram que existem interferências destrutivas e construtivas nas contribuições de Coulomb e nuclear do breakup. A contribuição parece ter uma relevância bem maior em núcleos com $Z$ menor. Em núcleos com $Z$ grande, como o caso do $^{208}$Pb, os cálculos teóricos indicam que a interferência entre as interações nuclear e Coulombiana reduzem consideravelmente a seção de choque \cite{Kolata2016, MORO_BREAKUP}. Para o caso de energias próximas da barreira de Coulomb, a seção de choque é ainda menor, corroborando com os dados obtidos com o experimento desse trabalho. Com esses resultados, será possível entender melhor a natureza do breakup, qual relevância de cada contribuição, como os efeitos de interferência acontecem, em diversas regiões de energia (acima, próxima e abaixo da barreira de Coulomb).
 
 %\par Os cálculos mostrados na figura \ref{fig:dist_ang_2_cdcc} indicam maior acordo com os dados em comparação com os cálculos mostrados na figura \ref{fig:dist_ang_2} \cite{Kolata2016}. Abranger diferentes energias e em um alvo com um valor de $Z$ bem pequeno, como o caso do experimento descrito nessa dissertação, é importante pois leva o problema à um caso extremo ($Z$ = 4, sendo menor que o projétil) ajudando à responder perguntas feitas em experimentos e análises anteriores. O próximo passo então é realizar cálculos de CDCC com os resultados das seções de choque do $^{17}$F em $^{4}$He, trabalho que pode contribuir para melhor compreensão da natureza das diferentes contribuições para a seção de choque e consequentemente contribuir para o entendimento de núcleos ricos em prótons fracamente ligados.
 
