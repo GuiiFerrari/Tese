@@ -247,6 +247,8 @@ def f5():
     energias = []
     contagens_I = []
     contagens_E = []
+    incertezas_I = []
+    incertezas_E = []
     for index in range(len(numbers)):
         with up.open("somas/soma_CS.root") as file:
             # index = np.random.randint(low=0, high=len(keys1), size=1)[0]
@@ -271,11 +273,41 @@ def f5():
         energias.append(Ebeam * (4 / (4 + 17)))
         contagens_I.append(np.sum(w4))
         contagens_E.append(np.sum(w5))
+        incertezas_I.append(np.sqrt(np.sum(np.sqrt(w4) ** 2)))
+        incertezas_E.append(np.sqrt(np.sum(np.sqrt(w5) ** 2)))
     contagens_I = np.array(contagens_I) * 0.2475
     contagens_E = np.array(contagens_E) * 0.2475
+    incertezas_I = np.array(incertezas_I)
+    incertezas_E = np.array(incertezas_E)
     fig = plt.figure(dpi=180, figsize=(8, 4.5))
-    plt.scatter(energias, contagens_I, c="black", label="Inclusivo")
-    plt.scatter(energias, contagens_E, c="red", label="Exclusivo")
+    # plt.scatter(energias, contagens_I, c="black", label="Inclusivo")
+    # plt.scatter(energias, contagens_E, c="red", label="Exclusivo")
+    plt.errorbar(
+        energias,
+        contagens_I,
+        ms=5,
+        yerr=incertezas_I,
+        ecolor="black",
+        fmt="",
+        capsize=5,
+        ls="",
+        marker="o",
+        c="black",
+        label="Inclusivo",
+    )
+    plt.errorbar(
+        energias,
+        contagens_E,
+        ms=5,
+        yerr=incertezas_E,
+        ecolor="red",
+        fmt="",
+        capsize=5,
+        ls="",
+        marker="o",
+        c="red",
+        label="Exclusivo",
+    )
     # plt.hist(
     #     energias,
     #     weights=contagens_I,
