@@ -273,7 +273,9 @@ onde $E$ é a energia, $m$ sua massa e $q$ seu estado de carga.
 \label{fig:pattpc_e_micromegas}
 \end{figure}
 
-\par O micromegas é um dispositivo de amplificação de elétrons, que consiste em um plano detector com 2048 canais (pads) triangulares com eletrônica independente, que usa o Generic Electronics for TPCs (GET) \cite{GET}. Detalhes sobre a eletrônica podem ser encontrados nas Refs. \cite{GET, josh_bradt}. Cada pad do micromegas possui uma posição ($x$, $y$) fixa e a terceira coordenada $z$ é determinada a partir do tempo de deriva dos elétrons no gás \cite{pattpc, pattpc2, attpc, josh_bradt}. Isso só é possível pois a velocidade de deriva (drift) dos elétrons é constante \cite{drift_constant}, portanto a posição em $z$ da partícula é diretamente proporcional ao tempo de deriva. Esse princípio que deu origem ao nome de Time Projection Chamber, pois o evento é projetado no tempo de deriva dos elétrons no gás. A equação  \ref{eq:langevin} (equação de Langevin) descreve o movimento de um elétron com massa $m$ e carga $e$ é descrito por \cite{drift_constant}
+\par O micromegas é um dispositivo de amplificação de elétrons, que consiste em um plano detector com 2048 canais (pads) triangulares com eletrônica independente, que usa o Generic Electronics for TPCs (GET) \cite{GET}. Detalhes sobre a eletrônica podem ser encontrados nas Refs. \cite{GET, josh_bradt}. Cada pad do micromegas possui uma posição ($x$, $y$) fixa e a terceira coordenada $z$ é determinada a partir do tempo de deriva dos elétrons no gás \cite{pattpc, pattpc2, attpc, josh_bradt}. Isso só é possível pois a velocidade de deriva (drift) dos elétrons é constante \cite{drift_constant}, portanto a posição em $z$ da partícula é diretamente proporcional ao tempo de deriva. Esse princípio que deu origem ao nome de Time Projection Chamber, pois o evento é projetado no tempo de deriva dos elétrons no gás.
+
+\par A coordenada $z$ depende da velocidade de deriva (drift velocity) dos elétrons no gás. A equação \ref{eq:langevin} (equação de Langevin) descreve o movimento de um elétron com massa $m$ e carga $e$ sujeito a um campo elétrico e magnético \cite{drift_constant}
 
 \begin{equation}\label{eq:langevin}
     m\frac{d\vec{v}}{dt} = e\left(\vec{E} +\vec{v}\times \vec{B}\right) - \frac{m}{\tau}\vec{v},
@@ -290,10 +292,10 @@ onde $\vec{E}$ é o vetor campo elétrico, $\vec{B}$ o vetor campo magnético, $
 \begin{equation}
     z = \frac{\tau}{m}e\vec{E}(t - t_0),
 \end{equation}
-
+%
 onde no tempo $t_0$ = 0 o elétron está no plano do detector ($z$ = 0).
 
-\par A velocidade de deriva do elétron no gás de $^4$He puro nesse experimento variou a cada run (conjunto de eventos para serem analisados). A figura \ref{fig:vdrif_vs_run} mostra a velocidade de deriva obtida para cada run ($\sim$ 1 h) do experimento.
+\par A velocidade de deriva do elétron no gás de $^4$He puro deveria ser sempre constante, se as condições permanecessem as mesmas durante toda o experimento. No entanto, nas medidas desse experimento, essa velocidade variou um pouco a cada run (conjunto de eventos para serem analisados). A figura \ref{fig:vdrif_vs_run} mostra a velocidade de deriva obtida para cada run ($\sim$ 1 h) do experimento.
 
 \begin{figure}[H]
     \centering
@@ -304,9 +306,9 @@ onde no tempo $t_0$ = 0 o elétron está no plano do detector ($z$ = 0).
 
 \par Pela figura \ref{fig:vdrif_vs_run} é perceptível que a velocidade de deriva dos elétrons no gás teve uma variação por volta do 10\% durante o experimento. A queda na velocidade ocorre, por exemplo, por problemas relacionados à impurezas no gás devido à filtragens de ar dentro do gás (ou outgassing) de alguns materiais dentro do alvo. Foi necessário corrigir os dados experimentais run por run a partir desses valores de velocidade de deriva.
 
-\par Para a run 218, a velocidade de deriva dos elétrons foi aproximadamente de 0.85 cm/$\mu s$. Isso significa que os elétrons produzidos próximo na janela de entrada do detector percorrem os 50 cm da câmara em cerca de 59 $\mu s$. Dividindo esse tempo pelos 512 canais tem-se que cada canal (time bucket) possui cerca de 115 $ns$ de largura.
+\par Para o run 218, a velocidade de deriva dos elétrons foi aproximadamente de 0.85 cm/$\mu s$. Isso significa que os elétrons produzidos próximo na janela de entrada do detector percorrem os 50 cm da câmara em cerca de 59 $\mu s$. Dividindo esse tempo pelos 512 canais (largura de cada bin dos pulsos gerados), tem-se que cada canal (time bucket) possui cerca de 115 $ns$ de largura.
 
-\par O pAT-TPC conta com uma camada extra de thick gems acoplada ao detector micromegas. Thick gems usam do fato de que, no momento em que o elétron passa para uma região de campo elétrico ordens de grandeza maior que de sua origem, ocorre a ionização secundária (quando o elétron ioniza o gás). Isso provoca o que é chamado de avalanche de elétrons, amplificando a intensidade do sinal recebido \cite{GET}. A figura \ref{fig:thick_gems} mostra a esquematização do micromegas, onde na eletrônica de saída é produzido um sinal em função do tempo.
+\par O pAT-TPC conta com uma camada extra de thick gems acoplada ao detector micromegas. Thick gems usam do fato de que, no momento em que o elétron passa para uma região de campo elétrico ordens de grandeza maior que de sua origem, ocorre a ionização secundária (quando o elétron ioniza o gás). Isso provoca o que é chamado de avalanche de elétrons, amplificando a intensidade do sinal recebido \cite{GET}. A camada com thick gems fica por volta de 100 $\sim$ 120 $\mu m$ do pad plane, com um campo elétrico 10 vezes maior que o campo elétrico da câmara. A figura \ref{fig:thick_gems} mostra a esquematização do micromegas, onde na eletrônica de saída é produzido um sinal em função do tempo.
 
 \begin{figure}[H]
     \centering
@@ -315,9 +317,9 @@ onde no tempo $t_0$ = 0 o elétron está no plano do detector ($z$ = 0).
     \label{fig:thick_gems}
 \end{figure}
 
-%\par O sinal é discretizado no tempo levando em conta a velocidade de deriva dos elétrons, dividindo em 512 canais o tempo que o elétron leva para percorrer toda câmara do TPC \cite{josh_bradt, pattpc}. 
+%\par O sinal é discretizado no tempo levando em conta a velocidade de deriva dos elétrons, dividindo em 512 canais o tempo que o elétron leva para percorrer toda câmara do TPC \cite{josh_bradt, pattpc}.
 
-\par Cada interação de uma partícula carregada com o gás é detectada como um pulso eletrônico, onde o centroide corresponde ao tempo de deriva. A carga acumulada $Q$ dessa interação é a área do pulso associado ao centroide. Cada centroide então representa um ponto no espaço ($x$, $y$, $t$, $Q$). Um exemplo de evento reconstruído está na figura \ref{fig:event_cap_exp}.
+\par Cada interação de uma partícula carregada com o gás (liberação de elétrons por ionização do gás) é detectada como um pulso eletrônico, onde o centroide corresponde ao tempo de deriva. A carga acumulada $Q$ dessa interação é a área do pulso associado ao centroide. Cada centroide então representa um ponto no espaço ($x$, $y$, $t$, $Q$). Um exemplo de evento reconstruído está na figura \ref{fig:event_cap_exp}.
 
 \begin{figure}[H]
     \centering
@@ -326,13 +328,14 @@ onde no tempo $t_0$ = 0 o elétron está no plano do detector ($z$ = 0).
     \label{fig:event_cap_exp}
 \end{figure}
 % Existem canais auxiliares que servem para evitar armazenar canais sem detecção. Caso haja detecção além do centro do micromegas então os sinais gerados pelo evento são armazenados \cite{josh_bradt, attpc}.
-\par Para reconstituir eventos como o da figura \ref{fig:event_cap_exp}, foram analisados cerca de 300 pulsos. No entanto, o número de evento reconstruídos é da ordem de milhões, portanto a quantidade de sinais que precisam ser analisados é muito grande, em comparação com experimentos em física nuclear com apenas alguns canais de detecção, o que gera a necessidade de desenvolvimento de algoritmos com alta eficiência em tempo para que a análise seja muito mais rápida. Para a análise completa do experimento foram seguidas as seguintes etapas:
+
+\par Cada evento produz cerca de 300 pulsos. Para que fosse possível reconstruir as trajetórias das partículas, foi preciso analisar cada um desses 300 pulsos de todos os eventos da trajetória. No entanto, o número de evento reconstruídos é da ordem de milhões, portanto a quantidade de sinais que precisam ser analisados é gigantesca, em comparação com experimentos em física nuclear onde apenas alguns canais de detecção são utilizados, gerando um evento por canal. É essa quantidade gigantesca de dados que criou a necessidade de desenvolvimento de algoritmos com alta eficiência em tempo para que a análise seja muito mais rápida. Para a análise completa do nosso experimento foram seguidas as seguintes etapas:
 
 % \par Nem todos os \textit{pads} do detector são ativados por evento. Existem canais auxiliares que servem para evitar armazenar canais sem detecção. Caso haja detecção além do centro do micromegas então os sinais gerados pelo evento são armazenados\cite{josh_bradt, attpc}. São gerados cerca de 300 sinais por evento, sendo que existem milhões de eventos, o que gera a necessidade de desenvolvimento de algoritmos extremamente eficientes em tempo para a análise. Para a análise completa do experimento precisamos seguir as seguintes etapas:
 
 \begin{itemize}
     \item Análise dos pulsos de cada interação das partículas com o gás. Isso envolve remover o fundo, localizar os picos e obter os tempos e carga integrada de cada caso;
-    \item Reconstruir eventos em 3D (nuvens de pontos) a partir da análise de sinais. As nuvens de pontos precisam ser analisadas com algoritmos de reconhecimento de padrões que permitem ajustar as trajetórias das partículas em 3D;
+    \item Reconstruir eventos (trajetória das partículas) em 3D (nuvens de pontos) a partir da análise de sinais. As nuvens de pontos precisam ser analisadas com algoritmos de reconhecimento de padrões que permitem ajustar as trajetórias das partículas em 3D;
     \item Reconstruir a cinemática das partículas com as trajetórias e energia depositada no gás. Isto permite obter as distribuições angulares. 
 \end{itemize}
 
@@ -342,28 +345,29 @@ onde no tempo $t_0$ = 0 o elétron está no plano do detector ($z$ = 0).
 %     \item Com a cinemática reconstruída podemos associar as partículas com as trajetórias e finalmente construir as seções de choque. 
 % \end{itemize}
 
-\par A análise dos pulsos, reconstituição de eventos, reconstrução da cinemática, gráficos das distribuições angulares e resultados são apresentadas nos próximos capítulos.
+\par A descrição completa da análise dos pulsos, reconstituição de eventos, reconstrução da cinemática, gráficos das distribuições angulares e resultados são apresentadas nos próximos capítulos.
 
 % \chapter{Uma breve introdução ao \textit{Machine Learning}}\label{sec:ml}
 \chapter{Desenvolvimento de ferramentas de \textit{machine learning} para analise de dados}\label{sec:ml}
 
-\par Para que possamos analisar a grande quantidade de dados gerados em experimentos com alvo ativo podemos utilizar técnicas de machine learning. Nesse capítulo está explicada a metodologia usada para a implementação dessas ferramentas. O apêndice \ref{appendix:ml_nuclear} mostra algumas aplicações de machine learning na física nuclear.
+\par Uma das possibilidade para que possamos analisar a grande quantidade de dados gerados em experimentos com alvo ativo é a utilização de técnicas de machine learning. Nesse capítulo explicamos a metodologia usada para a implementação dessas ferramentas para a análise dos dados obtidos na experiência realizada com $^{17}$F+$^4$He. O apêndice \ref{appendix:ml_nuclear} mostra algumas aplicações extras de machine learning na física nuclear.
 
-\par Machine learning é a área de estudo que desenvolve algoritmos para que eles possam aprender com os dados, sem serem explicitamente programados para isso \cite{mlbook}. Supõe-se que uma rede neural imite um sistema biológico, em que os neurônios interajam enviando sinais na forma de funções matemáticas entre as camadas. Isso inspirou o uso do modelo matemático simples de uma função linear nos parâmetros para um neurônio artificial \cite{curso}:
+\par Basicamente, machine learning é a utilização de algoritmos para extrair informações de uma grande quantidade de dados brutos e representá-los através de algum tipo de modelo matemático. Machine learning é, portanto, uma técnica onde os algoritmos (baseados em redes neurais) analisam os dados aprendendo (ou sendo ensinado) com eles, sem que tivessem sido explicitamente programados para isso \cite{mlbook}. A ideia de machine learning não é nova e surgiu na década de 50 \cite{curso, mlbook}. No entanto, somente nos dias de hoje, com a possibilidade de processamento paralelos de CPU é que ela pode ser aplicada. Essa ideia de processamento foi também inspirada no funcionamento da rede neural biológica, onde os neurônios interagem enviando sinais através de conexões que se desenvolvem com treinamento. Aqui as interações seriam os sinais na forma de funções matemáticas enviadas ou trocadas entre as camadas, que poderiam ser associados aos neurônios. Aqui então, uma rede neural seria uma sucessão de camadas interligadas por operações e funções matemáticas. Isso inspirou o uso do modelo matemático simples de uma função linear nos parâmetros para um neurônio artificial ou camada \cite{curso}:
 
 \begin{equation}\label{eq:model_n}
     y = f\left(\sum^{n}_{i = 1}\omega_i x_i + bi\right) = f(z),
 \end{equation}
-
-\par onde $y$ é a saída do neurônio, que corresponde à função de ativação $f$ que depende da soma ponderada, onde o peso é $\omega_i$, das entradas $x_i$ dos outros $n$ neurônios. O termo $b_i$ corresponde ao parâmetro bias. A ideia é fazer um neurônio receber a informação de todos os outros neurônios da camada anterior, fazendo uma média ponderada (onde o peso que será estimado pelo algoritmo de machine learning) e somando com um termo independente (bias, que também é estimado). Os parâmetros $\omega_i$ e $b_i$ serão estimados através de um determinado procedimento, chamado de minimização (o treino da rede neural).
+%
+%onde $y$ é a saída do neurônio, que corresponde à função de ativação $f$ que depende da soma ponderada, onde o peso é $\omega_i$, das entradas $x_i$ dos outros $n$ neurônios.
+onde $y$ é o resultado da função matemática da interação entre os neurônios (camadas), dada pela função de ativação $f$. Essa função $f$ é dada pela soma ponderada da variável de entrada $x_i$ (fornecida pelos outros $n$ neurônios) com um peso $w_i$. O termo $b_i$ corresponde ao parâmetro bias. A ideia é fazer um neurônio receber a informação de todos os outros neurônios da camada anterior, fazendo uma média ponderada (onde o peso que será estimado pelo algoritmo de machine learning) e somando com um termo independente (bias, que também é estimado). Os parâmetros $\omega_i$ e $b_i$ serão estimados através de um determinado procedimento, chamado de minimização (ou treino da rede neural).
 
 \section{Tipos de redes neurais}
 
-\par Uma rede neural artificial, Artificial Neural Network (ANN), é um modelo computacional que consiste de camadas de neurônios. ANNs foram desenvolvidas para o estudo de inteligência artificial \cite{mlbook, mldiverso}. ANNs consistem principalmente numa camada de entrada (input layer), uma camada de saída (output layer) e eventuais camadas entre essas duas, chamadas de camadas ocultas (hidden layers). Os tipos mais comuns são:
+\par Como mencionamos, a ideia do machine learning é baseado na ideia da utilização de redes neurais. Uma rede neural artificial, Artificial Neural Network (ANN), é um modelo computacional que consiste de camadas de neurônios. ANNs foram desenvolvidas para o estudo de inteligência artificial \cite{mlbook, mldiverso}. ANNs consistem principalmente numa camada de entrada (input layer), uma camada de saída (output layer) e eventuais camadas entre essas duas, chamadas de camadas ocultas (hidden layers). Os tipos mais comuns de redes neurais aplicadas a análise de dados são:
 
 \subsubsection*{Feed-Forward Neural Networks}
 
-\par A Feed-forward neural networks (FFNN) é a primeira e mais simples rede neural desenvolvida \cite{talent_ml, bishop2016pattern}. Nessa rede a informação se move apenas para frente através de camadas (da camada de entrada até a camada de saída). A figura \ref{fig:FFNN} mostra uma representação de rede, onde os neurônios são representados por círculos, enquanto que as linhas mostram as conexões entre os neurônios. Cada neurônio recebe informação de todos os neurônios da camada anterior, portanto a rede é chamada de totalmente conectada, fully-connected (FC), FFNN. 
+\par A Feed-forward neural networks (FFNN) é a primeira e mais simples rede neural desenvolvida \cite{talent_ml, bishop2016pattern}. Nessa rede a informação se move apenas para frente através de camadas (da camada de entrada até a camada de saída). A figura \ref{fig:FFNN} mostra uma representação de rede, onde os neurônios são representados por círculos, enquanto que as linhas mostram as conexões entre os neurônios. Cada neurônio recebe informação de todos os neurônios da camada anterior, portanto a rede é chamada de totalmente conectada, fully-connected (FC), FFNN.
 
 \begin{figure}[H]
     \centering
@@ -374,19 +378,22 @@ onde no tempo $t_0$ = 0 o elétron está no plano do detector ($z$ = 0).
 
 \subsubsection*{Convolutional Neural Network}
 
-\par Uma variante da FFNN é a chamada de rede neural convolucional, convolutional neural network (CNN). Do ponto de vista matemático sobre convoluções, a convolução descrita como $(f*g)(t)$ de uma função $f(t)$ e outra $g(t)$ é definida como:
+\par Uma variante da FFNN é a chamada de rede neural convolucional, convolutional neural network (CNN). Essa rede consiste em utilizar duas funções convoluídas.
+\par A convolução de uma função $f(t)$ por uma função $g(t)$ é dada por $(f*g)(t)$ e definida como: 
+
+%Do ponto de vista matemático sobre convoluções, a convolução descrita como $(f*g)(t)$ de uma função $f(t)$ e outra $g(t)$ é definida como:
 
 \begin{equation}\label{eq:conv_cont}
     (f*g)(t) \equiv \int^{\infty}_{\infty} f(\tau)g(t - \tau)d\tau.
 \end{equation}
 
-Para o caso discreto, com $g$ sendo uma função resposta finita de tamanho $2M$, temos
+Para o caso discreto, com $g$ sendo uma função resposta finita de tamanho $2M$ ($M$ é um valor inteiro maior que zero), temos
 
 \begin{equation}\label{eq:conv_disc}
     (f*g)[n] = \sum^{M}_{m = -M} f[n - m]g[m]. 
 \end{equation}
 
-\par Convoluções são invariantes sobre rotação e translação, portanto são muito utilizadas para processamento de sinais e imagens \cite{signal_book}. Para a convolução discreta se escolhe um filtro que irá atuar no vetor desejado. Para ilustrar o que significa isso, no caso discreto e unidimensional, a figura \ref{fig:conv_valid} mostra o processo de convolução de um vetor de tamanho 9 e um filtro de tamanho 3.
+\par Convoluções são invariantes sobre operações de rotação e translação, portanto são muito utilizadas para processamento de sinais e imagens \cite{signal_book}. Além disso, a convolução pode ser aplicada de forma discretizada sobre um vetor, se transformando numa forma de filtro. Para ilustrar o que significa isso, no caso discreto e unidimensional, a figura \ref{fig:conv_valid} mostra o processo de convolução de um vetor de tamanho 9 com um filtro de tamanho 3.
 
 \begin{figure}[H]
     \centering
@@ -395,12 +402,12 @@ Para o caso discreto, com $g$ sendo uma função resposta finita de tamanho $2M$
     \label{fig:conv_valid}
 \end{figure}
 
-\par Percebe-se que o sinal resultante tem dimensão menor que o sinal original. O filtro (também chamado de kernel) atua em um ponto que possua vizinhos o suficiente para o restante do filtro poder fazer a multiplicação ponto a ponto. Esse tipo de convolução tem o chamado emparelhamento válido (valid padding). O tamanho $n_2$ resultante do vetor de saída é 
+\par Percebe-se que o sinal resultante tem dimensão menor que o sinal original. O filtro (também chamado de kernel) atua em pontos que possuam vizinhos tais que o filtro possa fazer a multiplicação ponto a ponto. Esse tipo de convolução tem o que chamamos de emparelhamento válido ou em inglês ``valid padding". O tamanho $n_2$ resultante do vetor de saída é 
 \begin{equation}
     n_2 = n_1 - m + 1,
 \end{equation}
-
-\par onde $n_1$ é o tamanho do vetor de entrada e $m$ o tamanho do filtro (kernel size). Para que o vetor de saída tenha o mesmo tamanho do vetor de entrada, são acrescentados zeros em torno da entrada, de forma que a saída tenha o mesmo tamanho da entrada. Esse é o chamado emparelhamento igual (same padding). A figura \ref{fig:conv_same} ilustra esse processo.
+%
+onde $n_1$ é o tamanho do vetor de entrada e $m$ o tamanho do filtro (kernel size). Uma alternativa para que o vetor de saída tenha o mesmo tamanho do vetor de entrada é acrescentar zeros em torno da entrada, de forma que o vetor de saída tenha o mesmo tamanho que o vetor de entrada. Nesse caso dizemos que o emparelhamento é igual ou ``same padding". A figura \ref{fig:conv_same} ilustra esse processo.
 
 \begin{figure}[H]
     \centering
@@ -409,22 +416,21 @@ Para o caso discreto, com $g$ sendo uma função resposta finita de tamanho $2M$
     \label{fig:conv_same}
 \end{figure}
 %Uma CNN é capaz de fazer convoluções.
-\par Como estamos no contexto de machine learning (inteligência artificial), a priori não sabemos quais os valores dos filtros que devem ser aplicados, apenas seus tamanhos e como agem. A ideia é estimar os valores do filtro (através do treino da rede neural) que deve ser aplicado para se obter o resultado desejado.
 
-\par Cada filtro aplicado gera um mapa característico (feature map), que é o resultado da atuação do filtro em um vetor. Usualmente, em uma CNN se escolhe o tamanho do filtro, padding (valid ou same) e quantos filtros serão aplicados (para saber quantos feature maps serão gerados). Como temos vários mapas gerados por cada filtro, isso acarreta em um aumento de dimensionalidade. Para filtrar/selecionar os mapas é usado um critério, como por exemplo selecionar valores máximos dos mapas gerados dada uma janela de atuação (quantos mapas serão comparados para selecionar o máximo valor). O Max-Pooling faz isso, selecionando valores máximos para uma determinada quantidade de mapas sendo comparados (pool size).
+%\par Como estamos no contexto de machine learning (inteligência artificial), a priori não sabemos quais os valores dos filtros que devem ser aplicados, apenas seus tamanhos e como agem. A ideia é estimar os valores do filtro (através do treino da rede neural) que deve ser aplicado para se obter o resultado desejado.
+
+\par No contexto de machine learning (inteligência artificial), não sabemos, a priori, quais os valores dos filtros devem ser utilizados. Temos informações apenas de seus tamanhos e como devem agir. No entanto, podemos estimar os valores dos filtros através do treino da rede neural, para obter o resultado final. Esse treino fornece então os valores dos filtros a serem aplicados que forneçam o resultado esperado.  
+
+\par Cada filtro aplicado gera um mapa característico (feature map), que é o resultado da atuação do filtro em um vetor. Usualmente, em uma CNN se escolhe o tamanho do filtro, padding (valid ou same) e quantos filtros serão aplicados (para saber quantos feature maps serão gerados). Como temos vários mapas gerados por cada filtro, isso acarreta em um aumento de dimensionalidade. Para selecionar (ou filtrar) os mapas são utilizados critérios, como por exemplo o de selecionar valores máximos dos mapas gerados dada uma janela de atuação, ou seja, de quantos mapas serão comparados para a seleção do valor máximo. O Max-Pooling\footnote{O Max-Pooling máximo é um processo de discretização baseado em amostras. O objetivo é reduzir a amostragem de uma representação de entrada, selecionando amostras pelos seus valores máximos.} faz isso, selecionando valores máximos para uma determinada quantidade de mapas sendo comparados (pool size).
 
 % Os filtros têm seus valores estimados pelo treino da rede neural, gerando vários mapas (\textit{feature maps}).
 
-\par Existem outros tipos de redes neurais que não estão discutidas aqui, porém podem ser encontradas nas referências \cite{rbfbook, RNN_fund}.
+\par Existem disponíveis na literatura várias outras arquiteturas de redes neurais que não serão discutidas aqui. Uma descrição dessas arquiteturas podem ser encontradas nas referências \cite{rbfbook, RNN_fund}.
 
 \section{Estrutura da rede neural}
 
-\par Para a construção de uma rede neural (nesse caso em específico de uma rede neural supervisionada, que está discutida mais para frente), é preciso definir sua estrutura. A estrutura da rede neural possui camadas e cada camada pode possuir uma função de ativação. No geral, tanto o input quanto o output possuem dimensão fixa. A rede é treinada minimizando uma função custo, otimizando os parâmetros da rede através de um otimizador.
-
+\par Em nosso trabalho vamos utilizar uma rede neural supervisionada, que será discutida em mais detalhes nas próximas seções. Mas de uma forma geral, para a construção de uma rede neural é preciso definir sua estrutura. A estrutura da rede neural possui camadas e cada camada pode possuir uma função de ativação. No geral, tanto a camada input quanto a output possuem dimensão fixa. Para cada camada da arquitetura devemos escolher sua função de ativação que dependem dos parâmetros escolhidos. Tanto FNNNs quanto CNNs podem possuir funções de ativação (função $f$ da equação \ref{eq:model_n}) para melhorar o treino com dados que não possuem uma dependência linear. Dentre muitas funções de ativação podemos citar a Rectified Linear Units (ReLU)\cite{RELU}, sigmoide \cite{sigmoid_act}, linear e tangente hiperbólica \cite{act_comp}. A figura \ref{fig:ativacoes} mostra os gráficos dessas funções de ativação, onde no eixo x é o argumento e no eixo y o resultado da função.
 %\par Para a construção de uma rede neural , precisamos primeiro entender sobre os dados que estamos trabalhando. Grande parte das redes neurais possuem um \textit{input} que deve ter dimensão fixa. O mesmo vale para o \textit{output}.
-
-\par Para cada camada da arquitetura devemos escolher sua função de ativação. Tanto FNNNs quanto CNNs podem possuir funções de ativação (função $f$ da equação \ref{eq:model_n}) para melhorar o treino com dados que não possuem uma dependência linear. Dentre muitas funções de ativação podemos citar a Rectified Linear Units (ReLU)\cite{RELU}, sigmoide \cite{sigmoid_act}, linear e tangente hiperbólica \cite{act_comp}. A figura \ref{fig:ativacoes} mostra os gráficos dessas funções de ativação, onde no eixo x é o argumento e no eixo y o resultado da função.
-
 \begin{figure}[H]
     \centering
     \includegraphics[scale = 0.7]{figs/ativacoes.png}
@@ -432,31 +438,31 @@ Para o caso discreto, com $g$ sendo uma função resposta finita de tamanho $2M$
     \label{fig:ativacoes}
 \end{figure}
 
-\par O próximo passo é definir a função custo (também chamada de loss) e o otimizador. A função custo tem o papel de retornar valores altos para previsões erradas e valores baixos para previsões corretas. Por exemplo, se queremos treinar uma rede neural para classificação binária (que prevê duas saídas possíveis), devemos usar a função custo chamada de binary cross-entropy dada por \cite{dl_book}
+\par O próximo passo é definir funções corretivas chamadas função custo (algumas vezes também chamada de função loss) e o otimizador. A função custo tem o papel de retornar valores altos para previsões erradas e valores baixos para previsões corretas. Por exemplo, se queremos treinar uma rede neural para classificação binária (que prevê duas saídas possíveis), devemos usar a função custo chamada de binary cross-entropy dada por \cite{dl_book}
 
 \begin{equation}\label{eq:binary_cross_entropy}
     C(p(y_i)) = -\frac{1}{N}\sum_{i = 1} ^N y_i \log(p(y_i)) + (1 - y_i)\log(1 - p(y_i)),
 \end{equation}
+%
+onde $y_i$ é o rótulo (label), $p(y_i)$ é a probabilidade do ponto $y_i$ ser 1 e $N$ é o número de pontos. O objetivo da rede neural é achar o mínimo da função $C(p(y_i))$, o que implica diretamente na melhor solução para o conjunto de dados. Isso é feito pelo método de retropropagação do erro (backpropagation \cite{backpropagation}) por um otimizador. Outros exemplos de loss são o erro quadrático médio ou categorical cross-entropy \cite{MSE_CEF_review}.
 
-\par onde $y_i$ é o rótulo (label), $p(y_i)$ é a probabilidade do ponto $y_i$ ser 1 e $N$ é o número de pontos. O objetivo da rede neural é achar o mínimo da função $C(p(y_i))$, o que implica diretamente na melhor solução para o conjunto de dados. Isso é feito pelo método de retropropagação do erro (backpropagation \cite{backpropagation}) por um otimizador. Outros exemplos de loss são o erro quadrático médio ou categorical cross-entropy \cite{MSE_CEF_review}.
-
-\par O otimizador tem o objetivo de otimizar os parâmetros presentes na rede neural, buscando o mínimo global da função custo, o que nem sempre acontece, pois a minimização pode parar em um mínimo local da função. Existem diversos otimizadores, como por exemplo o Stochastic Gradient Descent (SGD), ADAM, ADAMAX \cite{ADAMAX}, entre outros \cite{gradient_over}. Para o SGD, temos que a atualização de parâmetros é dada por
+\par O otimizador, por sua vez, tem o objetivo de otimizar os parâmetros presentes na rede neural, buscando o mínimo global da função custo, o que nem sempre acontece, pois a minimização pode parar em um mínimo local da função. Existem diversos otimizadores disponíveis na literatura, como por exemplo o Stochastic Gradient Descent (SGD), ADAM, ADAMAX \cite{ADAMAX}, entre outros \cite{gradient_over}. Para o SGD, utilizado nesse trabalho, temos que a atualização de parâmetros é dada por
 
 \begin{equation}\label{eq:SGD}
     \theta_j = \theta_{j} - \alpha \frac{\partial }{\partial \theta_j}C(\theta),
 \end{equation}
+%
+onde $\theta_j$ é o parâmetro a ser atualizado, $\alpha$ é a learning rate e $C(\theta)$ é a loss que depende dos parâmetros $\theta$.
 
-\par onde $\theta_j$ é o parâmetro a ser atualizado, $\alpha$ é a learning rate e $C(\theta)$ é a loss que depende dos parâmetros $\theta$.
+\par Para enfim treinar a rede neural, devemos escolher o tamanho das amostras (batch size) que será usada para o treino, por iteração em cada rodada de treino. Por exemplo, se usamos 1000 dados para o treino, e o batch size é 500, cada rodada de treino terá duas iterações. No geral, usamos batch sizes pequenos, pois o consumo de memória é mais eficiente.
 
-\par Para enfim treinar a rede neural, se escolhe o batch size, que é o tamanho de amostras que será usada para o treino, por iteração em cada rodada de treino (epoch). Por exemplo, se usamos 1000 dados para o treino, e o batch size é 500, cada epoch terá duas iterações. No geral, se usam batch sizes pequenos, pois o consumo de memória é mais eficiente.
+\par Para avaliação da rede neural devemos ainda utilizar dados de validação, que servem para verificar o comportamento da rede neural que está sendo treinada. Esse conjunto de dados usados não é usado para o treino, são usados apenas para verificar possíveis problemas como o overfit. O overfit ocorre quando a rede neural começa a se adequar perfeitamente aos dados de treino, perdendo a capacidade de previsão em dados que não estão sendo usados no treino pela rede neural.
 
-\par Para avaliação do modelo se usam dados de validação, que servem para verificar o comportamento da rede neural que está sendo treinada. Esse conjunto de dados usados não é usado para o treino, são usados apenas para verificar possíveis problemas como o overfit. O overfit ocorre quando a rede neural começa a se adequar perfeitamente aos dados de treino, perdendo a capacidade de previsão em dados que não estão sendo usados no treino pela rede neural.
-
-\par Além dos dados de validação, podemos escolher métricas que auxiliam a visualização do comportamento da rede neural durante o treino e nos retornam informações importantes sobre sua qualidade. Exemplos importantes de métricas são: acurácia binária, erro médio absoluto e acurácia categórica \cite{metrics}. Por exemplo, caso seja necessário verificar se uma rede neural está fazendo previsões certas em um problema cuja classificação é binária, então a métrica deve ser a acurácia binária. Tudo depende do objetivo da rede neural.
+\par Além dos dados de validação, podemos escolher métricas que auxiliam a visualização do comportamento da rede neural durante o treino e nos retornam informações importantes sobre sua qualidade. Exemplos importantes de métricas são: acurácia binária, erro médio absoluto e acurácia categórica \cite{metrics}. Por exemplo, caso seja necessário verificar se uma rede neural está fazendo previsões certas em um problema cuja classificação é binária, então a métrica deve ser a acurácia binária. Tudo depende do objetivo da rede neural. Em nosso trabalho utilizamos o erro médio absoluto e acurácia binária.
 
 \section{Sistemas de \textit{machine learning}}
 
-Podemos dividir os sistemas de machine learning em quatro tipos:
+\par As redes neurais e os procedimentos de validação e treino formam os sistemas de machine learning. Podemos dividir os sistemas de machine learning em quatro tipos:
 
 \subsubsection*{Aprendizado Supervisionado}
 % \begin{enumerate}
@@ -466,7 +472,7 @@ Podemos dividir os sistemas de machine learning em quatro tipos:
 %     \item aprendizado por reforço.
 % \end{enumerate}
 
-\par Aprendizado supervisionado é quando fornecemos para a rede neural um conjunto de dados para o treino com a solução desejada (chamados de labels). Um uso típico é para problemas de classificação \cite{mlbook}. Por exemplo, classificação de imagens (identificação de figuras), previsão de valores numéricos etc. Exemplos de algoritmos supervisionados são:
+\par Aprendizado supervisionado é quando fornecemos para a rede neural um conjunto de dados para o treino com a solução desejada (chamados de labels). Um uso típico desse tipo de sistema é para problemas de classificação de imagens (identificação de figuras), previsão de valores numéricos etc \cite{mlbook}. Exemplos de algoritmos supervisionados são:
 
 \begin{itemize}
     \item k-Nearest Neighbors (é necessário saber o número de aglomerados a priori) \cite{knn}
@@ -478,32 +484,35 @@ Podemos dividir os sistemas de machine learning em quatro tipos:
 
 \subsubsection*{Aprendizado não supervisionado}
 
-\par Aprendizado não supervisionado é quando fornecemos o conjunto de dados sem rótulos ou características a priori. A ideia é aprender sem supervisão. Um problema comum, por exemplo, é quando queremos identificar clusters em um conjunto de dados (clustering) \cite{unsupervised, knn_uns}, ou remover ruído com estruturas chamadas autoencoder \cite{8621080}.
+\par Aprendizado não supervisionado é quando fornecemos o conjunto de dados sem rótulos ou características a priori. Nesse caso, o sistema deve aprender a realizar uma determinada tarefa sem supervisão. Um problema comum, por exemplo, é quando queremos identificar aglomerados em um conjunto de dados (clustering) \cite{unsupervised, knn_uns}, ou remover ruído com estruturas chamadas autoencoder \cite{8621080}.
 
 \subsubsection*{Aprendizado semi supervisionado}
 
-\par Aprendizado supervisionado é quando apenas parte do conjunto de dados para o treino possui labels. Isso é comum quando se obtém conjuntos de dados diferentes e apenas parte deles foi classificado \cite{semi_supervised}.
+\par Temos ainda o aprendizado semi supervisionado, quando apenas parte do conjunto de dados para o treino possui labels. Isso é comum quando se obtém conjuntos de dados diferentes e apenas parte deles foi classificado \cite{semi_supervised}.
 
 \subsubsection*{Aprendizado por reforço}
 
-\par Aprendizado por reforço é quando um sistema, chamado de \textit{agente} nesse contexto, aprende através do ambiente, realizando ações que maximizam sua recompensa. Por exemplo, caso o sistema realize uma ação incorreta, ele recebe uma penalidade, fazendo com que procure outra maneira de realizar a ação, dessa vez de maneira correta, para poder ganhar uma recompensa \cite{reinforcement}. Esse tipo de sistema é muito usado, por exemplo, em automatização robótica, como carros que pilotam sozinhos, robôs que aprendem a andar etc \cite{robot_ml}.
+\par Aprendizado por reforço é quando um sistema, chamado de \textit{agente}, aprende através do ambiente, realizando ações que maximizam sua recompensa. Por exemplo, caso o sistema realize uma ação incorreta, ele recebe uma penalidade, fazendo com que procure outra maneira de realizar a ação, se essa maneira for a correta o sistema é recompensado \cite{reinforcement}. Esse tipo de sistema é muito usado, por exemplo, em automatização robótica, como carros que pilotam sozinhos, robôs que aprendem a andar etc \cite{robot_ml}.
 
 %\section{Aplicações de \textit{machine learning} na física nuclear}
 
+\par Alguns usos de machine learning em física nuclear são apresentados no apêndice \ref{appendix:ml_nuclear}. 
 
-\par Com essa breve descrição sobre machine learning e exemplos do seu uso em problemas de física nuclear (apêndica \ref{appendix:ml_nuclear}), pode-se seguir adiante e entender seu uso dentro deste trabalho, que está feito nos próximos capítulos.
+\par Em nosso trabalho vamos utilizar técnicas de machine learning para analisar dados de reações nucleares obtidos de medidas com um instrumento específico, alvo ativo.
+
+%\par Com essa breve descrição sobre machine learning e exemplos do seu uso em problemas de física nuclear (apêndica \ref{appendix:ml_nuclear}), pode-se seguir adiante e entender seu uso dentro deste trabalho, que está feito nos próximos capítulos.
 
 \chapter{Reconstrução de nuvens de pontos a partir de algoritmos de \textit{machine learning}}\label{chapter:sinais}
 
-\par Esse capítulo descreve o procedimento usado para criar as nuvens de pontos (pointclouds) a partir dos pulsos gerados por cada pixel do micromegas, usando algoritmos de machine learning supervisionado.
+\par Nesse capítulo vamos descrever o procedimento usado para criar as nuvens de pontos (pointclouds) a partir dos pulsos gerados por cada pixel do micromegas, usando algoritmos de machine learning supervisionado.
 
 \par Algoritmos baseados em CNNs vem sendo usados com relativo sucesso para o processamento e análise de sinais \cite{FORTINO2022166497}, como por exemplo para discriminação de pulsos \cite{Holl2019}. CNNs possuem a capacidade de fazer ajustes multidimensionais e aprender padrões complexos. Além disso, CNNs são mais eficientes em tempo para a análise de grandes quantidades de dados em comparação com algoritmos comuns \cite{FORTINO2022166497}.
 
-\par A quantidade de pulsos gerados nesse experimento é da ordem de centenas de milhões. Para a análise completa dos pulsos, são necessárias diferentes etapas que envolvem processos que muitas vezes precisam ser refeitos por causa de algum um erro no processo análise. Notar algum erro no processo, ou ter que mudar algum parâmetro da análise, significaria ter que analisar novamente os dados, sendo um processo muito custoso em tempo.
+\par Para que possamos obter dados de posição, trajetória e energia das partículas nas medidas com alvo ativo precisamos realizar análise dos pulsos medidos. A quantidade de pulsos gerados nesse experimento é da ordem de centenas de milhões. Para a análise completa dos pulsos, são necessárias diferentes etapas que envolvem processos que muitas vezes precisam ser refeitos por causa de algum um erro no processo análise. Notar algum erro no processo, ou ter que mudar algum parâmetro da análise, significaria ter que analisar novamente os dados, sendo um processo muito custoso em tempo.
 
 \par O uso de algoritmos de CNNs tem o objetivo de diminuir o tempo consumido para a análise dos pulsos. As redes neurais criadas são treinadas uma única vez e podem ser utilizadas de modo separado e/ou acoplado \cite{FORTINO2022166497}, como está mostrado na sequencia do capítulo.
 
-\par A análise dos dados experimentais foi dividida em três etapas: correção do fundo, deconvolução do sinal e identificação de picos. As redes neurais criadas foram supervisionadas, o que significa que foi preciso determinar a entrada (input) e a saída (output) das redes. Para isso foi feito um grande banco de dados, para utilizar no treinamento das redes neurais, que se beneficiam da grande quantidade de dados usada para o treino \cite{mlbook}.
+\par Os pixels do micromega geram pulsos que são digitalizados. Esses pulsos digitalizados formam espectros temporais que possuem picos sobre um fundo. A análise desses espectros temporais (evolução do pulso com o tempo) foi dividida em três etapas: correção do fundo, deconvolução do sinal e identificação de picos. As redes neurais criadas foram supervisionadas, o que significa que foi preciso determinar a entrada (input) e a saída (output) das redes. Para isso foi feito um grande banco de dados, para utilizar no treinamento das redes neurais, que se beneficiam da grande quantidade de dados usada para o treino \cite{mlbook}.
 
 \par Na seção \ref{sec:pulses_trad}, está mostrado como o banco de dados para o treino das redes neurais desenvolvidas foi criado, e a construção das redes neurais está na seção \ref{sec:pulsos_ml}.
 
