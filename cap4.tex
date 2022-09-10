@@ -257,7 +257,7 @@ onde $E$ é a energia, $m$ sua massa e $q$ seu estado de carga.
     \label{fig:PID_17F}
 \end{figure}
 
-\par Para identificar essas partículas do coquetel de feixe um sistema de detectores, formando um telescópio DE-Eresidual, foi posicionado .... O espectro biparametrico formado pela combinação dos sinais DE versus Etotal= DE+Eresidual, permite a identificação das partículas. 
+\par Para identificar essas partículas do coquetel de feixe um sistema de detectores, formando um telescópio $E$ - $E_{\mathrm{residual}}$, foi posicionado à 50 cm da janela do pAT-TPC, em zero graus com relação ao eixo $z$ da câmara. Uma vez preparado o feixe, ele foi removido. O espectro biparametrico formado pela combinação dos sinais $\Delta E$ versus $E_{\mathrm{total}}$= $\Delta E$ + $E_{\mathrm{residual}}$, permite a identificação das partículas. 
 
 \section{O alvo ativo pAT-TPC}
 
@@ -266,7 +266,7 @@ onde $E$ é a energia, $m$ sua massa e $q$ seu estado de carga.
 
 \par O sistema de detecção utilizado nessa experiência foi o alvo ativo do tipo pAT-TPC. Alvos ativos vêm sendo cada vez mais utilizados em experimentos para investigações de reações nucleares \cite{FORTINO2022166497}, dentre os diversos laboratórios que utilizam alvos ativos podemos citar o TexAT \cite{KOSHCHIY2020163398} e o ACTAR \cite{MAUSS2019498}. A principal razão é que esses alvos funcionam também como detectores permitindo uma total identificação das partículas e de suas trajetórias dentro do alvo.
 
-\par A figura \ref{subfig:pattpc} mostra o desenho esquemático do pAT-TPC, que foi o alvo ativo utilizado no experimento. O detector possui uma cela cilíndrica de 50 cm de comprimento e 28 cm de diâmetro, onde o seu eixo é alinhado com o eixo do feixe \cite{pattpc}, que passa pela câmara de íons no duto central. Para que o gás (utilizado como alvo) seja confinado dentro dessa câmara, utilizamos janelas finas o bastante para permitir a passagem do feixe, mas grossas o suficiente para o confinamento do gás. O feixe de $^{17}$F, com energia inicial de 51 MeV, entra na câmara passando pela janela. O feixe radioativo de $^{17}$F, com energia inicial de 51 MeV, perde energia durante a passagem pela janela (feita de PPTA - p-phenylene terephthalamide - com 12 $\mu m$ de espessura) do pAT-TPC ficando com 34.76 MeV. Nesse experimento, a câmara foi preenchida com $^4$He gasoso puro à uma pressão de 350 Torr que serve tanto como alvo para as reações nucleares, quanto para a própria medição e detecção dos produtos da reação \cite{pattpc, pattpc2}. Tanto o feixe quanto as partículas originadas pelas reações que possam ocorrer ionizam o gás e os elétrons que surgem dessa ionização são conduzidos por um campo elétrico de 1 kV/cm perpendicular ao eixo da câmara até o plano detector (\textit{pad plane}), o \textit{micromegas} \cite{micromegas}, mostrado na figura \ref{subfig:micromegas}.
+\par A figura \ref{subfig:pattpc} mostra o desenho esquemático do pAT-TPC, que foi o alvo ativo utilizado no experimento. O detector possui uma cela cilíndrica de 50 cm de comprimento e 28 cm de diâmetro, onde o seu eixo (direção $z$) é alinhado com o eixo do feixe \cite{pattpc}, que passa pela câmara de íons no duto central. Para que o gás (utilizado como alvo) seja confinado dentro dessa câmara, utilizamos janelas finas o bastante para permitir a passagem do feixe, mas grossas o suficiente para o confinamento do gás. O feixe de $^{17}$F, com energia inicial de 51 MeV, entra na câmara passando pela janela. O feixe radioativo de $^{17}$F, com energia inicial de 51 MeV, perde energia durante a passagem pela janela (feita de PPTA - p-phenylene terephthalamide - com 12 $\mu m$ de espessura) do pAT-TPC ficando com 34.76 MeV. Nesse experimento, a câmara foi preenchida com $^4$He gasoso puro à uma pressão de 350 Torr que serve tanto como alvo para as reações nucleares, quanto para a própria medição e detecção dos produtos da reação \cite{pattpc, pattpc2}. Tanto o feixe quanto as partículas originadas pelas reações que possam ocorrer ionizam o gás e os elétrons que surgem dessa ionização são conduzidos por um campo elétrico de 1 kV/cm perpendicular ao eixo da câmara até o plano detector (\textit{pad plane}), o \textit{micromegas} \cite{micromegas}, localizado no final da câmara, mostrado na figura \ref{subfig:micromegas}.
 
 
 %Durante a passagem pela câmara de íons e pela janela (feita de PPTA - p-phenylene terephthalamide - com 12 $\mu m$ de espessura) do pATTPC, o feixe $^{17}$F perde energia e entra na câmara com cerca de 34.76 MeV. 
@@ -292,7 +292,14 @@ onde $E$ é a energia, $m$ sua massa e $q$ seu estado de carga.
 \label{fig:pattpc_e_micromegas}
 \end{figure}
 
-\par O micromegas é um dispositivo de amplificação de elétrons, que consiste em um plano detector com 2048 canais (pads) triangulares com eletrônica independente, que usa o Generic Electronics for TPCs (GET) \cite{GET}. Detalhes sobre a eletrônica podem ser encontrados nas Refs. \cite{GET, josh_bradt}. Cada pad do micromegas possui uma posição ($x$, $y$) fixa e a terceira coordenada $z$ é determinada a partir do tempo de deriva dos elétrons no gás \cite{pattpc, pattpc2, attpc, josh_bradt}. Isso só é possível pois a velocidade de deriva (drift) dos elétrons é constante \cite{drift_constant}, portanto a posição em $z$ da partícula é diretamente proporcional ao tempo de deriva. Esse princípio que deu origem ao nome de Time Projection Chamber, pois o evento é projetado no tempo de deriva dos elétrons no gás.
+\par O micromegas é um dispositivo de amplificação de elétrons, que consiste em um plano detector com 2048 canais (pads) triangulares (ver o design do plano detector na figura \ref{fig:padplane} com eletrônica independente, que usa o Generic Electronics for TPCs (GET) \cite{GET}. Detalhes sobre a eletrônica podem ser encontrados nas Refs. \cite{GET, josh_bradt}. Cada pad do micromegas possui uma posição ($x$, $y$) fixa e a terceira coordenada $z$ é determinada a partir do tempo de deriva dos elétrons no gás \cite{pattpc, pattpc2, attpc, josh_bradt}. Isso só é possível pois a velocidade de deriva (drift) dos elétrons é constante \cite{drift_constant}, portanto a posição em $z$ da partícula é diretamente proporcional ao tempo de deriva. Esse princípio que deu origem ao nome de Time Projection Chamber, pois o evento é projetado no tempo de deriva dos elétrons no gás.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\textwidth]{figs/padplane.png}
+    \caption{Design do plano detector. A densidade de pads é maior na região central. Com o zoom em um dos vértices da parte hexagonal é possível ver o formato triangular dos pads.}
+    \label{fig:padplane}
+\end{figure}
 
 \par A coordenada $z$ depende da velocidade de deriva (drift velocity) dos elétrons no gás. A equação \ref{eq:langevin} (equação de Langevin) descreve o movimento de um elétron com massa $m$ e carga $e$ sujeito a um campo elétrico e magnético \cite{drift_constant}
 
@@ -503,7 +510,7 @@ onde $\theta_j$ é o parâmetro a ser atualizado, $\alpha$ é a learning rate e 
 
 \subsubsection*{Aprendizado não supervisionado}
 
-\par Aprendizado não supervisionado é quando fornecemos o conjunto de dados sem rótulos ou características a priori. Nesse caso, o sistema deve aprender a realizar uma determinada tarefa sem supervisão. Um problema comum, por exemplo, é quando queremos identificar aglomerados em um conjunto de dados (clustering) \cite{unsupervised, knn_uns}, ou remover ruído com estruturas chamadas autoencoder \cite{8621080}.
+\par Aprendizado não supervisionado é quando fornecemos o conjunto de dados sem rótulos ou características a priori. Nesse caso, o sistema deve aprender a realizar uma determinada tarefa sem supervisão. Um problema comum, por exemplo, é quando queremos identificar aglomerados em um conjunto de dados (clustering) \cite{unsupervised, knn_uns}, ou remover ruído com estruturas chamadas autoencoder\footnote[1]{Autoencoder é uma técnica de aprendizado não supervisionado para redes neurais aprenderem a comprimir e codificar dados de modo eficiente.} \cite{8621080}.
 
 \subsubsection*{Aprendizado semi supervisionado}
 
