@@ -590,15 +590,15 @@ onde $\theta_j$ é o parâmetro a ser atualizado, $\alpha$ é a learning rate e 
     \label{fig:get_signal}
 \end{figure}
 
-\par Para analisar os pulsos deve-se primeiro remover o fundo (pedestal ou baseline) dos sinais. O sinal de fundo é complexo e pode variar por canal e também por evento. Desde flutuações causadas pelo circuito eletrônico até efeitos sistemáticos gerados pela memória de buffer circular alteram o sinal, podendo o tornar não analítico \cite{FORTINO2022166497, GET}. Com o sinal sem o fundo, se faz a deconvolução para determinar todos os centroides e cargas acumuladas dos pontos, para a reconstrução da nuvem de pontos. Todo esse processo foi realizado nesse trabalho com algoritmos de machine learning supervisionado \cite{FORTINO2022166497}. Para isso, foi criado um banco de dados que serviu de output e/ou input para o treino das redes neurais.
+\par Para analisar os pulsos deve-se primeiro remover o fundo (pedestal ou baseline) dos sinais. O sinal de fundo é complexo e pode variar em função do canal e também por evento. O sinal pode ser alterado por flutuações causadas pelo circuito eletrônico e por efeitos sistemáticos gerados pela memória de buffer circular, podendo o tornar não analítico \cite{FORTINO2022166497, GET}. Após a eliminação do fundo, os sinais foram tratados realizando uma deconvolução, aumentando a resolução dos pico em várias gaussianas com centróides que correspondem a informação temporal do sinal. Essas gaussianas são então usadas para a reconstrução da nuvem de pontos da trajetória das partículas no alvo gasoso. Todo esse processo foi realizado nesse trabalho com algoritmos de machine learning supervisionado que desenvolvemos \cite{FORTINO2022166497}. Para isso, foi criado um banco de dados que serviu de output e/ou input para o treino das redes neurais.
 
-\par A criação dos dados para o treino das redes neural está mostrado na seção \ref{subsec:pulses_baseline}. A criação das redes neurais está mostrada na seção \ref{sec:pulsos_ml}. 
+\par O processo de criação dos dados para o treino das redes neurais está descrito na seção \ref{subsec:pulses_baseline}, enquanto o processo de criação das redes neurais é descrito na seção \ref{sec:pulsos_ml}. 
 
 % O fundo não é trivial de se determinar, pois não é analítico, oscilando muito entre os canais.
 
 \subsection{Estimativa do fundo}\label{subsec:pulses_baseline}
 
-\par A primeira tentativa de estimar o sinal sem o fundo é usando uma transformada de Fourier e um filtro passa-baixa, que é a função resposta do detector fornecida na Ref. \cite{GET}. Seja $f(t)$ uma função qualquer, sua transformada de Fourier é dada por
+\par Para que pudéssemos realizar a análise dos pulsos temporais, era necessário a eliminação do fundo. A primeira tentativa para estimarmos o sinal sem o fundo foi desenvolvida utilizando-se uma transformada de Fourier e um filtro passa-baixa, que nada mais é do que a função resposta do detector fornecida na Ref. \cite{GET}. Para explicarmos o procedimento, vamos primeiramente considerar uma função $f(t)$ qualquer, sua transformada de Fourier é dada por
 
 \begin{equation} \label{eq:fourier}
     \hat{f}(\nu)=\mathscr{F}[f(t)]=\int_{-\infty}^{\infty} f(t) e^{-2 \pi i \nu t} d t.
@@ -609,20 +609,16 @@ onde $\theta_j$ é o parâmetro a ser atualizado, $\alpha$ é a learning rate e 
 \begin{equation}
     h(\nu) = A*\exp\left (\nu \tau \right)\left(\nu \tau\right)^3 \sin \left( \nu \tau \right) ,
 \end{equation}
-
-%\begin{equation}
-%    \sinc x \equiv \frac{\sin (\pi x)}{\pi x},
-%\end{equation}
-
-\par onde $A$ está relacionado com o ganho de amplificação e $\tau$ é o tempo de pico (peaking time), que é o tempo de modelagem da cadeia de amplificação \cite{GET}. Do teorema da convolução, temos que \cite{metodos_mat_aplicada}
+%
+onde $A$ está relacionado com o ganho de amplificação e $\tau$ é o tempo de pico (peaking time), que é o tempo de modelagem da cadeia de amplificação \cite{GET}. Do teorema da convolução, temos que \cite{metodos_mat_aplicada}
 
 %\par onde $a$ é um fator de escala. A função sinc foi escolhida para tirar vantagem do Teorema da Convolução, dado por\cite{metodos_mat_aplicada}
 
 \begin{equation}
     \mathscr{F}^{-1}[\hat{f}(\nu) \hat{g}(\nu)]=(f * g)(t)=\int_{-\infty}^{\infty} f(\tau) g(t-\tau) d \tau, 
 \end{equation}
-
-\par onde $(f * g)(t)$ é a convolução entre $f(t)$ e $g(t)$. Multiplicar o sinal transformado por $h(\nu)$ e depois inverter inverter a transformação é o mesmo que convoluir o sinal original com a transformação inversa de $h(\nu)$, o que resulta no sinal sem o fundo \cite{josh_bradt, GET}. Resultados desse procedimento estão na figura \ref{fig:bs_fourier_exs}.
+%
+onde $(f * g)(t)$ é a convolução entre $f(t)$ e $g(t)$. Multiplicar o sinal transformado por $h(\nu)$ e depois inverter inverter a transformação é o mesmo que convoluir o sinal original com a transformação inversa de $h(\nu)$, o que resulta no sinal sem o fundo \cite{josh_bradt, GET}. Resultados desse procedimento estão na figura \ref{fig:bs_fourier_exs}.
 
 %Multiplicar o sinal transformado por $\sinc (\nu / a)$ e depois inverter inverter a transformação é o mesmo que convoluir o sinal original com a transformação inversa de $\sinc (\nu / a)$, pois
 
