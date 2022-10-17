@@ -604,7 +604,7 @@ onde $\theta_j$ é o parâmetro a ser atualizado, $\alpha$ é a learning rate e 
     \hat{f}(\nu)=\mathscr{F}[f(t)]=\int_{-\infty}^{\infty} f(t) e^{-2 \pi i \nu t} d t.
 \end{equation}
 
-\par Primeiro calculamos a transformada de Fourier $\hat{f}(\nu)$ do sinal, em seguida multiplicamos pela função resposta do detector $h(\nu)$ dada por \cite{GET}
+\par Primeiro calculamos a transformada de Fourier $\hat{f}(\nu)$ do sinal, em seguida o multiplicamos pela função resposta do detector $h(\nu)$ dada por \cite{GET}
 
 \begin{equation}
     h(\nu) = A*\exp\left (\nu \tau \right)\left(\nu \tau\right)^3 \sin \left( \nu \tau \right) ,
@@ -698,7 +698,9 @@ onde $(f * g)(t)$ é a convolução entre $f(t)$ e $g(t)$. Multiplicar o sinal t
 \label{fig:ex_sinal_bkg}
 \end{figure}
 
-\par Os resultados do calculo do fundo de cada sinal foram armazenados e usados para a etapa de deconvolução do sinal, que deve ser feita com o sinal sem o fundo. Para diminuir as flutuações numéricas após a remoção do fundo, o valor mínimo do sinal sem o fundo é zero. Sem o fundo podemos buscar por todos os picos e suas cargas correspondentes no sinal. Não podemos identificar diretamente todos os picos pois muitos deles estão em sobreposição. Para isso foi feita a deconvolução do sinal, descrita na subseção \ref{subsec:pulses_deconv}.
+\par Os resultados dos cálculos para o ruído de fundo de cada sinal foram armazenados e usados na etapa seguinte de análise dos mesmos. Nessa próxima etapa a deconvolução dos sinais é realizada com os sinais tendo o ruído de fundo devidamente subtraído. Para diminuir as possíveis flutuações numéricas após a remoção do fundo, o valor mínimo do sinal sem o fundo deve ser zero. Uma vez eliminado o fundo o código busca e identifica os picos e as correspondentes cargas do sinal. Para os picos compostos é então realizada a deconvolução, conforme descrita na seção seguinte.
+
+% Sem o fundo podemos buscar por todos os picos e suas cargas correspondentes no sinal. Não podemos identificar diretamente todos os picos pois muitos deles estão em sobreposição. Para isso foi feita a deconvolução do sinal, descrita na subseção \ref{subsec:pulses_deconv}.
 
 % \par Com o fundo podemos então subtraí-lo do espectro. Podem aparecer valores negativos após a retirada do fundo, então para evitar esse problema o valor mínimo do sinal, após a retirada do fundo, é zero.
 
@@ -707,9 +709,9 @@ onde $(f * g)(t)$ é a convolução entre $f(t)$ e $g(t)$. Multiplicar o sinal t
 
 %\par Essa subseção descreve a etapa de deconvolução do sinal, que serve de banco de dados para o treinamento da rede neural descrita na subseção \ref{subsec:pulso_ml_deconv}.
 
-\par Para aumentar a resolução dos picos foi usado o algoritmo \texttt{gold deconvolution} presente na biblioteca TSpectrum do ROOT \cite{paper_gold_deconv}. O algoritmo tem como objetivo fazer a deconvolução do espectro, gerando uma função (nesse caso um pulso gaussiano) resposta de acordo com o desvio padrão esperado para os pulsos. O sinal resposta corresponde ao espectro com as gaussianas não sobrespostas. Isso significa que foi necessário determinar qual o valor do desvio padrão dos pulsos para buscar a função resposta.
+\par Em geral os picos obtidos são uma composição de vários picos estreitos. Precisamos então deconvoluir os picos em suas componentes. Para tanto utilizamos o algoritmo \texttt{gold deconvolution} presente na biblioteca TSpectrum do ROOT \cite{paper_gold_deconv}. O algoritmo tem como objetivo fazer a deconvolução do espectro, gerando uma função (nesse caso um pulso gaussiano) resposta de acordo com o desvio padrão esperado para os pulsos. O sinal resposta corresponde ao espectro com as gaussianas não sobrespostas. Isso significa que foi necessário determinar qual o valor da largura dos pulsos para buscar a função resposta.
 
-\par A largura dos pulsos é o mesmo de um sinal que possui apenas um pico. Ou seja, a largura dos pulsos foi determinada fazendo a análise de sinais que possuem apenas 1 pico, fazendo um ajuste pelo método dos mínimos quadrados (MMQ) de uma gaussiana. Para buscar espectros com apenas um pico, foi usado o algoritmo de identificação de picos \texttt{peak\_finder}, presente na biblioteca do scipy \cite{scipy}, e para o ajuste da gaussiana foi usada o pacote \texttt{lmfit} \cite{lmfit}. O valor do desvio padrão encontrado foi de 4.09 (17) time buckets.
+\par A largura dos pulsos foi determinada fazendo a análise de sinais que possuem apenas 1 pico, fazendo um ajuste pelo método dos mínimos quadrados (MMQ) de uma gaussiana. Para buscar espectros com apenas um pico, foi usado o algoritmo de identificação de picos \texttt{peak\_finder}, presente na biblioteca do scipy \cite{scipy}, e para o ajuste da gaussiana foi usada o pacote \texttt{lmfit} \cite{lmfit}. O valor do desvio padrão encontrado foi de 4.09 (17) time buckets.
 
 \par A largura escolhida foi ligeiramente maior pois, verificando empiricamente, em alguns casos o algoritmo separava o que deveria ser uma única gaussiana em duas. O valor do desvio padrão usado na deconvolução foi de 4.30 time buckets. Foi determinado também o número de iterações do algoritmo de deconvolução. O número de iterações escolhido foi de 700, menos que isso o algoritmo não estava separando totalmente picos sobrepostos. O limiar para a escolha de um ponto como um pico foi definido como ter altura maior que 20\% do valor máximo do sinal. Resultados da deconvolução estão na figura \ref{fig:ex_sinal_deconv}.
 
@@ -745,15 +747,17 @@ onde $(f * g)(t)$ é a convolução entre $f(t)$ e $g(t)$. Multiplicar o sinal t
 \label{fig:ex_sinal_deconv}
 \end{figure}
 
-\par O algoritmo de deconvolução também retorna a posição dos centroides encontrados, que indica a localização de um pico. Os mesmo picos podem ser obtidos com o \texttt{peak\_finder}, com a vantagem de que o algoritmo possui muitos parâmetros diferentes para calibração, melhorando a identificação em comparação com os picos identificados pelo algoritmo do TSpectrum. A execução de 200.000 sinais, desde a estimativa e remoção do fundo, até a identificação dos centroides, demora cerca de 23.25 minutos, usando o processador Ryzen 5 3600X.
+\par O algoritmo de deconvolução também determina a posição dos centroides encontrados, que indica a localização de um pico. Os mesmos picos podem ser obtidos com o \texttt{peak\_finder}, com a vantagem de que o algoritmo possui muitos parâmetros diferentes para calibração, melhorando a identificação em comparação com os picos identificados pelo algoritmo do TSpectrum. A execução de 200.000 sinais, desde a estimativa e remoção do fundo, até a identificação dos centroides, demora cerca de 23.25 minutos, usando o processador Ryzen 5 3600X.
 
-\par Para determinar a carga acumulada $Q$ de cada ponto, é necessário calcular a área do centroide do pico identificado. A área do sinal antes e depois da deconvolução é a mesma, portanto pode-se analisar diretamente o sinal após a deconvolução. Para achar a área do pulso, foi calculada a largura dos pulsos após a deconvolução, para determinar a área como uma simples integral gaussiana. O desvio padrão dos pulsos após a deconvolução é $\sigma_{dd}$ = 1.1543 (44) time buckets. Com isso foi calculada a carga acumulada para cada ponto medido do evento. A carga acumulada $Q$ para cada ponto $i$ é dada por:
+\par Para determinar a carga acumulada $Q$ de cada ponto, é necessário calcular a área do centroide do pico identificado. A área do sinal antes e depois da deconvolução é a mesma, portanto pode-se analisar diretamente o sinal após a deconvolução. Para determinar a área do pulso consideramos a integral simples gaussiana usando a largura de cada pico após a deconvolução. O desvio padrão (largura) dos picos após a deconvolução foi $\sigma_{dd}$ = 1.1543 (44) time buckets. Considerando esse desvio, a carga integrada (acumulada) para cada ponto é dada por:
+
+%Para achar a área do pulso, foi calculada a largura dos pulsos após a deconvolução, para determinar a área como uma simples integral gaussiana. O desvio padrão dos pulsos após a deconvolução é $\sigma_{dd}$ = 1.1543 (44) time buckets. Com isso foi calculada a carga acumulada para cada ponto medido do evento. A carga acumulada $Q$ para cada ponto $i$ é dada por:
 
 \begin{equation}\label{eq:gauss_area}
     Q = \int^\infty _{-\infty} Ae^{-(t' - t_i)^2 / 2\sigma_{dd}^2} dt' = A\left |\sigma_{dd} \right|\sqrt{2\pi},
 \end{equation}
-
-\par onde $A$ é a amplitude do ponto com centroide $t_i$ e desvio padrão após a deconvolução $\sigma_{dd}$.
+%
+onde $A$ é a amplitude do ponto com centroide $t_i$ e desvio padrão após a deconvolução $\sigma_{dd}$.
 
 \par Com o banco de dados para a deconvolução e também para a identificação de picos, basta criar as redes neurais, que serão descritas na seção \ref{sec:pulsos_ml}.
 
@@ -766,7 +770,7 @@ onde $(f * g)(t)$ é a convolução entre $f(t)$ e $g(t)$. Multiplicar o sinal t
 
 \subsection{Rede neural para o fundo}\label{subsec:pulso_ml_fundo}
 
-\par O objetivo foi criar uma rede neural que reproduza o comportamento do algoritmo \texttt{background removal} que estima o fundo do sinal, que foi discutido na seção \ref{subsec:pulses_baseline}. A rede neural neural é supervisionada, onde os dados de entrada são os sinais brutos e as saídas devem ser os fundos de cada sinal. A arquitetura é apresentada na figura \ref{fig:arq_source_to_bkg}.
+\par O objetivo foi criar uma rede neural que reproduza o comportamento do algoritmo \texttt{background removal} que estima o fundo do sinal, discutido na seção \ref{subsec:pulses_baseline}. A rede neural neural é supervisionada, onde os dados de entrada são os sinais brutos e as saídas devem ser os fundos de cada sinal. A arquitetura dessa rede neural é apresentada esquematicamente na figura \ref{fig:arq_source_to_bkg}.
 
 % \par Estimar o fundo é uma tarefa muito complexa pois a eletrônica do detector faz com que o sinal do canal varie muito dependendo do evento, podendo muitas vezes fazer com que o fundo tenha saltos no espectro após receber o sinal de um pulso. Importante ressaltar que a retirada do fundo não precisa ser considerada perfeita. O próprio algoritmo analítico de remoção de fundo não é perfeito e no geral nunca coloca toda a parte que não é o pulso em 0, há muitas flutuações. O importante é tentar deixar o mais próximo de zero possível. 
 
@@ -779,18 +783,18 @@ onde $(f * g)(t)$ é a convolução entre $f(t)$ e $g(t)$. Multiplicar o sinal t
     \label{fig:arq_source_to_bkg}
 \end{figure}
 
-\par A entrada da rede é o sinal cru com dimensionalidade 521 x 1. Há duas convoluções seguidas (passagens \textit{a} e \textit{b}) com padding same, seguida de uma camada com Max pooling. Os dois canais restantes sofrem uma planificação (ou flat), diminuindo sua dimensionalidade, para então passar por mais uma convolução com padding same e filtros de tamanho 19 seguido de uma camada Max pooling e uma camada Fully Connected com função de ativação ReLU. Toda a rede neural foi construída usando o TensorFlow 2 e possui um total de 545.536 parâmetros, todos treináveis. O tamanho dos filtros das convoluções levam em conta a largura do pulso, sendo no mínimo maior que a largura, a fim de que cada kernel atue em um pulso completo na convolução \cite{FORTINO2022166497}.
+\par A entrada da rede é o sinal ``cru" com dimensionalidade 521 x 1. A seguir realizamos duas convoluções (passagens \textit{a} e \textit{b}) com padding same e uma camada com Max pooling. Os dois canais restantes sofrem uma planificação (ou flat), diminuindo sua dimensionalidade, para então passar por mais uma convolução com padding same e filtros de tamanho 19 seguido de uma camada Max pooling e uma camada Fully Connected com função de ativação ReLU. Toda a rede neural foi construída usando o TensorFlow 2 e possui um total de 545.536 parâmetros, todos treináveis. O tamanho dos filtros das convoluções levam em conta a largura do pulso, sendo no mínimo um valor maior que a largura, a fim de que cada kernel atue em um pulso completo na convolução \cite{FORTINO2022166497}.
 
-\par A camada final com função de ativação ReLU garante o valor mínimo de saída em 0 e, principalmente, pelo fato de não causar problemas à minimização do gradiente \cite{VGP}. Foram testadas diversas combinações e a mostrada na figura \ref{fig:arq_source_to_bkg} é a que obteve os melhores resultados \cite{FORTINO2022166497}. 
+\par A camada final com função de ativação ReLU garante o valor mínimo de saída em 0 e, principalmente, pelo fato de não causar problemas à minimização do gradiente \cite{VGP}. Foram testadas diversas combinações e a que está sendo mostrada na figura \ref{fig:arq_source_to_bkg} é a que obteve os melhores resultados \cite{FORTINO2022166497}. 
 % Caso, por exemplo, na passagem \textit{c} da figura, o \textit{pool size} da camada de \textit{max pooling} fosse 32 (a fim de sobrarem 512 canais igual na entrada e na saída), a rede parece não entender as oscilações grandes do sinal de fundo.
-
-\par Para o treino foram usados 160.000 sinais para treino e 40.000 para validação. O loss foi escolhido como sendo o erro quadrático médio (equação \ref{eq:erro_abs_m}, o otimizador foi o ADAMAX \cite{ADAMAX}, com learning rate de 0.0005, e métrica para avaliação foi o erro médio absoluto, dado por
+% TODO: equação erro quadratico medio
+\par Para o treino foram usados 160.000 sinais e 40.000 para validação. O loss foi escolhido como sendo o erro quadrático médio (equação \ref{eq:erro_abs_m}), o otimizador foi o ADAMAX \cite{ADAMAX}, com learning rate de 0.0005, e métrica para avaliação foi o erro médio absoluto, dado por
 
 \begin{equation}\label{eq:erro_abs_m}
     E = \frac{1}{N}\sum_{i = 1}^{N} \left | x_i - \Hat{x}_i\right |,
 \end{equation}
-
-onde $E$ é o erro absoluto médio, $N$ é o número de pontos e $x_i$ o ponto da saída da rede para ser comparado com o ponto original $\Hat{x}_i$. Foram 30 epochs e o batch-size foi 8. O treino foi realizado no Google Colaboratory \cite{google_colab} usando a GPU (graphics processing unit) NVIDIA Tesla P100 e durou cerca de 34 minutos. Os resultados do treino estão na figura \ref{fig:source_to_bkg_results}.
+%
+onde $E$ é o erro absoluto médio, $N$ é o número de pontos e $x_i$ o ponto da saída da rede para ser comparado com o ponto original $\Hat{x}_i$. Utilizamos 30 epochs e adotamos um batch size de 8. O treino foi realizado no Google Colaboratory \cite{google_colab} usando a GPU (graphics processing unit) NVIDIA Tesla P100 e durou cerca de 34 minutos. Os resultados do treino são mostrados na figura \ref{fig:source_to_bkg_results}. Como podemos ver na figura, os treinos são bem validados a partir da epoch 20, quando começa um platô no Loss.
 
 % \par Como dito na seção \ref{sec:ml} temos que especificar qual o tamanho do filtro das camadas convolucionais. Para determinar o fundo precisamos, ponto a ponto, determinar quantos canais na direita e na esquerda o filtro deve atuar. Por exemplo, caso o tamanho do filtro fosse 3, ele só estaria ``enxergando" um ponto à direita e um à esquerda, para então passar a informação a diante, porém claramente é um filtro muito pequeno, as oscilações podem variar mais do que 5 canais. Além disso, quando há o começo de um pulso no sinal, ele pode se estender por múltiplos canais, então é preciso escolher um tamanho de filtro grande o suficiente para enxergar todas essas diferenças. A rede consta com duas camadas convolucionais em sequência com filtros de tamanho 21 e 19, respectivamente.
 
@@ -809,7 +813,7 @@ onde $E$ é o erro absoluto médio, $N$ é o número de pontos e $x_i$ o ponto d
         \caption{Erro absoluto médio dos dados de treino (linha contínua) e dos dados de validação (linha tracejada) em função da epoch no treino da rede dada pela figura \ref{fig:arq_source_to_bkg}.}
         \label{subfig:source_to_bkg_metric}
     \end{subfigure}
-\caption{Resultados do treino da rede neural dada pela figura \ref{fig:arq_source_to_bkg}. A rede atingiu seu melhor resultado a partir da epoch 20 aproximadamente, quando começa um platô no loss.}
+\caption{Resultados do treino da rede neural representada na figura \ref{fig:arq_source_to_bkg}. A rede atingiu seu melhor resultado a partir da epoch 20.}
 \label{fig:source_to_bkg_results}
 \end{figure}
 
@@ -854,9 +858,9 @@ onde $E$ é o erro absoluto médio, $N$ é o número de pontos e $x_i$ o ponto d
 \label{fig:stb_examples}
 \end{figure}
 
-\par Nos exemplos mostrados nas figuras \ref{subfig:stb_ex1}, \ref{subfig:stb_ex2} e \ref{subfig:stb_ex3} os fundos dos sinais possuem grande flutuação e a rede neural se mostrou eficaz na previsão. No exemplo \ref{subfig:stb_ex4} a baseline do sinal é muito complexa de se determinar, pois o sinal, aproximadamente do canal 300 a 500, varia em cerca de 50 unidades em \textit{y}. Apesar da rede neural determinar o fundo acima do fundo original, ao subtrair o espectro do fundo e colocar o valor mínimo em 0, o pulso presente entre os canais 200 e 300 é praticamente inalterado.
+\par Nos exemplos mostrados nas figuras \ref{subfig:stb_ex1}, \ref{subfig:stb_ex2} e \ref{subfig:stb_ex3} os fundos dos sinais possuem grande flutuação e a rede neural se mostrou eficaz na previsão. No exemplo \ref{subfig:stb_ex4} a baseline do sinal é relativamente complexa pois o sinal do canal 300 a 500, varia em cerca de 50 unidades em \textit{y}. Apesar da rede neural determinar o fundo, para esse caso, acima do fundo original, ao subtrair o espectro do fundo e colocar o valor mínimo em 0, o pulso presente entre os canais 200 e 300 é praticamente inalterado.
 
-\par Com os resultados obtidos pela rede neural que calcula o sinal de fundo, o próximo passo foi criar a rede neural que faz a deconvolução do espectro sem a baseline.
+\par Com os resultados obtidos pela rede neural para a determinação do fundo, o próximo passo foi criar a rede neural que faz a deconvolução do espectro sem a baseline.
 
 \subsection{Rede neural para a deconvolução}\label{subsec:pulso_ml_deconv}
 
@@ -866,13 +870,13 @@ onde $E$ é o erro absoluto médio, $N$ é o número de pontos e $x_i$ o ponto d
 
 % \par Outro problema é que há um \textit{overlap} de gaussianas. Não é tão evidente a posição dos centroides se o espectro não está deconvoluído. É muito mais complicado, mesmo olhando, dizer a posição. Portanto o problema será quebrado em mais uma etapa: construir um rede que faça a deconvolução.
 
-\par A mesma abordagem da rede neural anterior foi usada, que é fazer uma sequencia de convoluções e por fim uma camada fully connected com função de ativação ReLU, pois precisamos ter o valor mínimo do espectro em 0. Os filtros das convoluções precisam ter tamanho mínimo de duas vezes o sigma das gaussianas para atuarem sobre cada pulso do espectro. A entrada da rede é o sinal com o fundo subtraído e com mínimo em 0. A saída é o sinal após deconvolução dada pelo algoritmo \texttt{gold deconvolution} na biblioteca TSpectrum do ROOT, já mostrado na subseção \ref{subsec:pulses_deconv}. A figura \ref{fig:source_to_deconv} mostra a arquitetura da rede de deconvolução.
+\par Considerando a mesma abordagem da rede neural anterior criamos uma rede neural para realizar uma sequencia de convoluções e por fim uma camada fully connected com função de ativação ReLU, pois precisamos ter o valor mínimo do espectro em 0. Os filtros das convoluções precisam ter tamanho mínimo de duas vezes o sigma das gaussianas utilizadas para atuarem sobre cada pulso do espectro. A entrada da rede é o sinal já com o fundo subtraído e com mínimo em 0. A saída é o sinal após deconvolução dada pelo algoritmo \texttt{gold deconvolution} na biblioteca TSpectrum do ROOT, já mostrado na subseção \ref{subsec:pulses_deconv}. A figura \ref{fig:source_to_deconv} mostra a arquitetura da rede de deconvolução.
 
 \par A rede é a sequência de duas convoluções com 32 filtros, valid padding e kernels de tamanho 19 e 17, respectivamente, seguida de uma camada Max pooling com pool size igual à 16. No final há o flat na camada para seguir com uma camada fully connected com função de ativação ReLU. O valid padding se mostrou mais eficiente para a convergência da rede. Toda a rede foi construída usando o TensorFlow 2, possuindo 508.000 parâmetros treináveis \cite{FORTINO2022166497}.
 
 \par Assim como na rede anterior, foram usados 160.000 sinais para treino e 40.000 para validação. O loss foi escolhido como sendo o erro quadrático médio, o otimizador foi o ADAM, com learning rate de 0.0005 porém com o parâmetro clipnorm igual a 0.45. A métrica para avaliação foi o erro médio absoluto. Foram 75 epochs e o batch-size foi 8. Os resultados do treino estão na figura \ref{fig:source_wo_bkg_to_deconv_results}.
 
-\par Alterar a norma do gradiente (usar o parâmetro clipnorm = 0.45) significa que, caso a norma do vetor do gradiente exceda 0.45, então o valor da norma é reajustado para o limiar (threshold) escolhido (0.45) \cite{FORTINO2022166497}. Isso faz com que não ocorra problemas comuns como o gradiente sumir \cite{VGP, ADAMAX}, um dos problemas que teve que ser resolvido nessa rede.
+\par Alterar a norma do vetor gradiente da função custo (usar o parâmetro clipnorm = 0.45) significa que, caso a norma do vetor do gradiente exceda 0.45, então o valor da norma é reajustado para o limiar (threshold) escolhido (0.45) \cite{FORTINO2022166497}. Isso faz com que não ocorra problemas comuns como o gradiente sumir \cite{VGP, ADAMAX}, um dos problemas que teve que ser resolvido nessa rede.
 
 \par O treino foi realizado no Google Colaboratory \cite{google_colab} usando a GPU NVIDIA Tesla P100 e demorou cerca de 54 minutos. Os resultados do treino estão na figura \ref{fig:source_to_bkg_results}, onde eles indicam que, visualmente, a rede neural consegue distinguir muito bem diferentes centroides presentes no pulso. Empiricamente, a rede é capaz de executar 200.000 sinais em 5.4 segundos (ou 37.000 sinais por segundo).
 
@@ -936,13 +940,13 @@ onde $E$ é o erro absoluto médio, $N$ é o número de pontos e $x_i$ o ponto d
 \label{fig:std_examples}
 \end{figure}
 
-\par Com a rede neural para a deconvolução feita, a última etapa é a construção de uma rede neural para a identificação de picos, mostrada na \ref{subsec:pulso_ml_peaks}.
+\par Com a rede neural para a deconvolução determinada e funcionando, a última etapa é a construção de uma rede neural para a identificação de picos, mostrada na \ref{subsec:pulso_ml_peaks}.
 
 \subsection{Identificação de picos}\label{subsec:pulso_ml_peaks}
 
-\par A última etapa dessa análise com machine learning foi analisar possíveis soluções para a identificação de picos. Esse é um problema muito complexo, pois há uma variação muito grande na quantidade de picos por sinal e também há um desbalanço muito grande na quantidade de pontos comuns (aqueles que não são picos) e pontos que são picos. Por exemplo, caso haja um sinal que possui apenas um pico, deve-se identificar uma posição, dar o valor de saída como 1, por exemplo, dentre 512 pontos, onde 511 terão o valor de saída como 0. Caso a rede determine que todos os pontos não são picos, ainda assim a acurácia binária seria maior que 99\%. Isso é conhecido como desbalanço de classe \cite{inproceedings}.
+\par A última etapa dessa análise com machine learning foi analisar e determinar uma solução para a identificação de picos. A identificação dos picos se tornou um desafio complexo, pois há uma variação muito grande na quantidade de picos por sinal e também há um desbalanço muito grande na quantidade de pontos comuns (aqueles que não são picos) e pontos que são picos. Por exemplo, caso haja um sinal que possui apenas um pico, deve-se identificar uma posição, gerar um valor de saída como 1.Por exemplo, para 512 pontos, 1 deve ter o valor 1 e os outros 511 terão o valor de saída como 0. Caso a rede determine que todos os pontos não são picos, ainda assim a acurácia binária seria maior que 99\%. Isso é conhecido como desbalanço de classe \cite{inproceedings}.
 
-\par Para corrigir esse desbalanço, foram acrescentados pontos simetricamente em torno do pulso, de forma que a somatória das amplitudes das regiões é equivalente a carga $Q$ acumulada no ponto. Isso faz com que não seja preciso identificar um único ponto, mas sim uma região em torno do pico. Com isso podemos nos basear na ideia de segmentar o sinal para destacar regiões de interesse \cite{aly2011research}. Segmentar significa ter uma rede neural com a saída com o mesmo tamanho do vetor de entrada (512) e saída com valores entre 0 e 1, onde 1 indica uma região com um pico e 0 não. A figura \ref{fig:n_peaks_exs} mostra um exemplo de um sinal após a deconvolução onde há os picos identificados com o algoritmo \texttt{peak\_finder} e os pontos acrescentados simetricamente em torno dos picos para representar as regiões dos pulsos.
+\par Para corrigir esse desbalanço, foram acrescentados pontos simetricamente em torno do pulso, de forma que a somatória das amplitudes das regiões é equivalente a carga $Q$ acumulada no ponto. Isso faz com que não seja preciso identificar um único ponto, mas sim uma região em torno do pico. Com isso podemos nos basear na ideia de segmentar o sinal para destacar regiões de interesse \cite{aly2011research}. Segmentar significa ter uma rede neural com a saída com o mesmo tamanho do vetor de entrada (512) e saída com valores entre 0 e 1, onde 1 indica uma região com um pico e 0 não. A figura \ref{fig:n_peaks_exs} mostra um exemplo de um sinal após a deconvolução onde picos foram identificados com o algoritmo \texttt{peak\_finder} e os pontos foram acrescentados simetricamente em torno dos picos para representar as regiões dos pulsos.
 
 % \par Para resolver esse problema podemos nos basear na ideia de recortar regiões de interesse, como feito pela rede U-Net\cite{unet}. Recortar regiões significa, nesse caso, ter uma rede neural com a saída com o mesmo tamanho do vetor de entrada (512) e saída com valores entre 0 e 1, onde 1 indica uma região com um pico e 0 não. Como temos as posições dos picos, basta acrescentar pontos simetricamente em torno do pulso. A figura \ref{fig:n_peaks_exs} mostra um exemplo de um sinal após a deconvolução onde há o pico detectado e os pontos acrescentados para representar a região do pulso.
 
@@ -953,7 +957,7 @@ onde $E$ é o erro absoluto médio, $N$ é o número de pontos e $x_i$ o ponto d
     \label{fig:n_peaks_exs}
 \end{figure}
 
-\par A rede construída é a sequência de uma convolução com kernel de tamanho 13 e same padding seguida de Max-Pooling e uma fully-connected com função de ativação sigmoide, possuindo um total de 263.104 parâmetros treináveis. Para o treino foram usados sinais que possuíam entre 1 e 6 picos resultantes da saída do algoritmo \texttt{peak\_finder} do SciPy, o que resultou em 120.024 de dados para o treino e 30.006 para validação. A escolha pelos picos identificados pelo \texttt{peak\_finder} ao invés do algoritmo de identificação do TSpectrum é pela maior flexibilidade de ajuste fino do algoritmo, tornando a identificação de picos muito melhor\cite{FORTINO2022166497}. A função custo escolhida foi a binary cross-entropy (dada pela equação \ref{eq:binary_cross_entropy}), o otimizador o ADAM com learning rate de 0.001. A métrica utilizada foi a acurácia binária. O treino também foi realizado por uma GPU NVIDIA Tesla P100 e durou cerca de 8 minutos com 12 epochs. A arquitetura da rede está na figura \ref{fig:arq:n_peaks} e os resultados do treino estão na figura \ref{fig:n_peaks_results}.
+\par A rede construída é a sequência de uma convolução com kernel de tamanho 13 e same padding seguida de Max-Pooling e uma fully-connected com função de ativação sigmoide, possuindo um total de 263.104 parâmetros treináveis. Para o treino foram usados sinais que possuíam entre 1 e 6 picos resultantes da saída do algoritmo \texttt{peak\_finder} do SciPy, o que resultou em 120.024 dados para o treino e 30.006 para validação. A escolha pelos picos identificados pelo \texttt{peak\_finder} ao invés do algoritmo de identificação do TSpectrum é devido a uma maior flexibilidade de ajuste fino do algoritmo, tornando a identificação de picos muito melhor\cite{FORTINO2022166497}. A função custo escolhida foi a binary cross-entropy (dada pela equação \ref{eq:binary_cross_entropy}), o otimizador o ADAM com learning rate de 0.001. A métrica utilizada foi a acurácia binária. O treino também foi realizado por uma GPU NVIDIA Tesla P100 e durou cerca de 8 minutos com 12 epochs. A arquitetura da rede está na figura \ref{fig:arq:n_peaks} e os resultados do treino estão na figura \ref{fig:n_peaks_results}.
 
 \begin{figure}[H]
     \centering
@@ -1020,16 +1024,16 @@ onde $E$ é o erro absoluto médio, $N$ é o número de pontos e $x_i$ o ponto d
 \begin{equation}\label{eq:carga_acumulada_ml}
 	Q_i = \sum_{i - 2}^{i + 2}f(t_i)\alpha_\sigma,
 \end{equation}
+%
+onde $f(t_i)$ é a amplitude do espectro no \textit{time bucket} $t$ da posição $i$ e $\alpha_\sigma$ é uma constante real para calibrar o valor da área em função do sigma dos pulsos, que foi determinado empiricamente como $\alpha_\sigma$ = 1.2.
 
-\par onde $f(t_i)$ é a amplitude do espectro no \textit{time bucket} $t$ da posição $i$ e $\alpha_\sigma$ é uma constante real para calibrar o valor da área em função do sigma dos pulsos, que foi determinado empiricamente como $\alpha_\sigma$ = 1.2.
-
-\par Com as três redes neurais criadas, é necessário verificar o acoplamento das redes, a fim de analisar a qualidade dos algoritmos e verificar os tempos de execução, para comparar com os algoritmos discutidos nas subseções \ref{subsec:pulses_baseline} e \ref{subsec:pulses_deconv}.
+\par Uma vez tendo determinado as três redes neurais, devemos ainda verificar o acoplamento das redes, a fim de analisar a qualidade dos algoritmos e os tempos de execução, para comparar com os algoritmos discutidos nas subseções \ref{subsec:pulses_baseline} e \ref{subsec:pulses_deconv}.
 
 
 \subsection{Acoplando as redes neurais}
 
 %\par Com a rede que prevê o fundo e a que faz a deconvolução funcionando podemos agora testar se acopladas elas geram resultados satisfatórios, verificando a qualidade da detecção de picos.
-\par Usando novamente o TensorFlow 2 pode-se carregar as redes neurais discutidas nas subseções \ref{subsec:pulso_ml_fundo}, \ref{subsec:pulso_ml_deconv} e \ref{subsec:pulso_ml_peaks}, já treinadas e usar como se fosse uma única rede neural. Acoplando as três arquiteturas, temos a nova arquitetura mostrada na figura \ref{fig:arq:source_to_segmentation}. O input da rede é o sinal cru o output da rede neural é o um vetor de tamanho 1024, que possui a segmentação e o sinal após a deconvolução, pois as duas informações são necessárias para determinar os centroides.
+\par Usando novamente o TensorFlow 2 pode-se carregar as redes neurais discutidas nas subseções \ref{subsec:pulso_ml_fundo}, \ref{subsec:pulso_ml_deconv} e \ref{subsec:pulso_ml_peaks}, já treinadas e usar como se fosse uma única rede neural. Acoplando as três arquiteturas, temos a nova arquitetura mostrada na figura \ref{fig:arq:source_to_segmentation}. O input da rede é o sinal cru sendo que o output da rede neural é o um vetor de tamanho 1024, que possui a segmentação e o sinal após a deconvolução, pois as duas informações são necessárias para determinar os centroides.
 
 \begin{figure}[H]
     \centering
@@ -1038,9 +1042,9 @@ onde $E$ é o erro absoluto médio, $N$ é o número de pontos e $x_i$ o ponto d
     \label{fig:arq:source_to_segmentation}
 \end{figure}
 
-\par A rede é apenas a sequencia das redes anteriores, ou seja, o espectro passa pelo cálculo da baseline, então o espectro original é subtraído dessa baseline (colocando o valor mínimo em 0) para passar pela etapa da deconvolução e em seguida o sinal é segmentado. Na etapa final, o resultado da segmentação e da deconvolução são concatenados em um único vetor, para assim determinar os centroides. Pelo fato de cada parte ser treinada de modo separado não há necessidade de treinar a rede unificada, apenas carregar as variáveis das redes neurais treinadas de cada parte. A rede unificada possui 1.316.640 de parâmetros.
+\par A rede final é apenas a sequencia das redes anteriores, ou seja, o espectro passa pelo cálculo da baseline, então o espectro original é subtraído dessa baseline (colocando o valor mínimo em 0) para passar pela etapa da deconvolução e em seguida o sinal é segmentado. Na etapa final, o resultado da segmentação e da deconvolução são concatenados em um único vetor, para assim determinar os centroides. Pelo fato de cada parte ser treinada de modo separado não há necessidade de treinar a rede unificada, apenas carregar as variáveis das redes neurais treinadas de cada parte. A rede unificada possui 1.316.640 de parâmetros.
 
-\par Foi comparada a saída da rede acoplada para o espectro após a deconvolução, com a saída de referência, que é o espectro após a deconvolução mostrado na subseção \ref{subsec:pulses_deconv}. Podemos usar novamente o erro médio absoluto para fins de comparação. O erro médio absoluto, para os 200.000 sinais, é de 7.45 ADC Channels. Com relação à incerteza, ela foi estimada como o desvio padrão da diferença de cada time bucket do sinal tido como referência e o sinal após a rede neural acoplada. A incerteza é da ordem de 6\% da amplitude do sinal no ponto.
+\par A saída da rede acoplada para o espectro após a deconvolução foi comparada com a saída de referência, que é o espectro após a deconvolução mostrado na subseção \ref{subsec:pulses_deconv}. Para uma análise comparativa quantitativa usamos os valores do erro médio absoluto, cujo valor médio para os 200.000 sinais, foi de 7.45 ADC Channels. Com relação à incerteza, ela foi estimada como o desvio padrão da diferença de cada time bucket do sinal tido como referência e o sinal após a rede neural acoplada. A incerteza é da ordem de 6\% da amplitude do sinal no ponto.
 
 \par Com relação a eficiência em tempo, a rede neural da figura \ref{fig:arq:source_to_segmentation} processa 200.000 sinais em 12 segundos, usando a GPU NVIDIA Tesla P100. Somando esse tempo com a determinação dos centroides, que é de aproximadamente 4.3 segundos, o tempo total para processar 200 mil sinais é de cerca de 16.3 segundos, cerca de 90 vezes mais rápido que os métodos mostrados na seção \ref{sec:pulses_trad}. Exemplos da reconstrução das nuvens de pontos usando a rede neural da figura \ref{fig:arq:source_to_segmentation} são apresentados na figura \ref{subfig:ex_ev_4}.
 
