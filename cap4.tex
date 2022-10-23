@@ -1128,32 +1128,34 @@ ou diminuir os outliers. Para tanto, foram usados dois filtros. O primeiro filtr
 \label{fig:3d_examples}
 \end{figure}
 
-\par O HDBSCAN apresenta falhas no seu resultado, como visto na figura \ref{subfig:antes_clustering}, em que, por exemplo, um único cluster acaba sendo dividido em três clusters muito próximos. A próxima etapa foi de correção da saída do clustering. A ideia é comparar em pares todos os clusters resultantes do algoritmo e unificar os clusters muito semelhantes \cite{artigo}. Do ponto de vista computacional, esse problema é abordado avaliando a semelhança entre dois clusters usando métricas, como a distância de Jaccard \cite{jaccard_distance} e o coeficiente de silhueta \cite{silhueta}. A correção feita se dá em duas etapas: primeiro comparando os versores entre duas retas e depois verificando se a condição da equação \ref{criterio_clustering} é satisfeita.
+\par O HDBSCAN pode apresentar falhas na analise dos clusters e identificação das trajetórias, como visto na figura \ref{subfig:antes_clustering}, em que, por exemplo, em que uma nuvem de pontos acaba sendo identificada e dividida em três clusters muito próximos. Para esses casos, foi aplicada uma correção da saída do clustering. A correção foi feita comparando em pares todos os clusters resultantes do algoritmo e unificando os clusters muito semelhantes \cite{artigo}. Do ponto de vista computacional, esse problema é abordado avaliando a semelhança entre dois clusters usando métricas, como a distância de Jaccard \cite{jaccard_distance} e o coeficiente de silhueta \cite{silhueta}. A correção feita se dá em duas etapas: primeiro comparando os versores entre duas retas e depois verificando se a condição da equação \ref{criterio_clustering} é satisfeita.
 
 \par Caso a diferença absoluta entre os ângulos com relação ao versor (0, 0, 1) (direção do feixe de $^{17}$F) seja menor que 9º (determinado empiricamente), então as duas retas serão combinadas se obedecerem a condição dada por
 
 \begin{equation}\label{criterio_clustering}
     \sum_{i = 0}^{N_1}\frac{d_{i2}}{N_1} < \alpha \space d_{min}, 
 \end{equation}
-
+%
 onde $N_1$ é o número de pontos da reta 1, $d_{i2}$ a distância do ponto $i$ da reta 1 em relação à reta 2, $\alpha$ é um parâmetro com valor a ser escolhido e $d_{min}$ é a distância mínima do ponto a reta. Os valores foram determinados empiricamente, tais que $\alpha$ = 1.75 e $d_{min}$ = 15 mm. A figura \ref{subfig:depois_clustering} mostra o resultado da correção baseada nesses critérios no resultado anterior mostrado na figura \ref{subfig:antes_clustering}.
 
-\par Após a correção, é necessário classificar cada reta como sendo ou o feixe, ou uma partícula originada de uma reação nuclear. O feixe incide na câmara com um ângulo muito pequeno com relação ao versor (0, 0, 1), que é o versor de incidência do feixe. Além disso, mesmo se o ângulo for pequeno, a reta do feixe cruza o plano da janela do TPC próximo do ponto mais provável da entrada o feixe. O ponto mais provável foi calculado usando a posição média da projeção dos pontos de um conjunto de eventos no plano \textit{x-y}. Disso obtemos que a posição inicial mais provável do feixe é tal que $x_f$ = -3.4 (6.7) mm e $y_f$ = -0.9 (6.3) mm. A incerteza é alta devido às dimensões do feixe (aproximadamente 5 mm).
+\par Após a correção, é necessário classificar cada reta como sendo feixe, ou uma partícula originada de uma reação nuclear. O feixe incide na câmara possui um ângulo muito pequeno com relação ao versor (0, 0, 1), que é o versor de incidência do feixe. Além disso, mesmo que o ângulo seja pequeno, a reta do feixe cruza o plano da janela do TPC próximo ao ponto mais provável da entrada o feixe. Por sua vez, o ponto mais provável foi determinado usando a posição média da projeção dos pontos de um conjunto de eventos no plano \textit{x-y}. A posição inicial mais provável obtida para o feixe foi $x_f$ = -3.4 (6.7) mm e $y_f$ = -0.9 (6.3) mm. A incerteza é alta devido às dimensões do feixe (aproximadamente 5 mm).
 
 \par Portanto, se o ângulo entre o versor $\hat{v}_i$ de uma reta $r_i$ for menor que 5° (determinado de modo empírico novamente) e a distância $d$ entre o ponto $P_i$ que intercepta o plano e o ponto ($x_f$, $y_f$, 0) for menor que 15 mm (pouco mais que duas vezes a incerteza de cada ponto), então a reta foi considerada como o feixe do evento. No caso de não satisfazer essas condições, então ela foi classificada como uma possível partícula originada da reação do feixe com o gás.
 
-\par Importante notar que há eventos que não possuem projétil ou ejétil ($^{17}$F por exemplo), como mostrado na figura \ref{fig:exemplo_sem_feixe}. Neste caso, foi necessário assumir as propriedades da reta mais provável para o feixe, ou seja, precisa passar pelo ponto ($x_f$, $y_f$, 0) e ter versor (0, 0, 1).
+\par É importante ressaltar que alguns eventos são caracterizados por apenas uma trajetória reta não sendo possível determinar o projétil ou o ejétil. Um exemplo desse tipo de evento é mostrado na figura \ref{fig:exemplo_sem_feixe}. Nesse caso, foi necessário assumir as propriedades da reta mais provável para o feixe, ou seja, uma reta que passe pelo ponto ($x_f$, $y_f$, 0) e que tenha um versor (0, 0, 1).
+
+%\par Importante notar que há eventos que não possuem projétil ou ejétil ($^{17}$F por exemplo), como mostrado na figura \ref{fig:exemplo_sem_feixe}. Neste caso, foi necessário assumir as propriedades da reta mais provável para o feixe, ou seja, precisa passar pelo ponto ($x_f$, $y_f$, 0) e ter versor (0, 0, 1).
 
 \begin{figure}[H]
     \centering
     \includegraphics[scale = 0.65]{figs/Figure_12.png}
-    \caption{Evento em que não foi identificado o feixe, apenas a partícula espalhada. O triângulo azul é o local calculo do vértice de reação dado pela equação \ref{eq:vertice_reacao}.}
+    \caption{Evento em que não foi identificado o feixe, apenas a partícula espalhada. O triângulo azul é o local calculado do vértice de reação dado pela equação \ref{eq:vertice_reacao}.}
     \label{fig:exemplo_sem_feixe}
 \end{figure}
 
-\par Para completar a cinemática do evento, foi necessário calcular o vértice de reação, para cada evento, entre o track da partícula e a direção do feixe. O vértice de reação é o ponto médio do segmento de reta que conecta a trajetória da partícula espalhada e o feixe, no ponto de menor distância entre as retas. O vértice é de grande importância para a reconstrução da reação nuclear.
+\par Para podermos selecionar um determinado tipo de reação precisamos primeiramente caracteriza-la. Uma reação nuclear é caracterizada pela incidência de partículas do feixe (em movimento), partículas do alvo (em repouso) e as partículas emergentes da reação. As partículas da reação são emitidas considerando uma determinada cinemática. Para determinarmos completamente a cinemática do evento foi necessário determinar o vértice da reação (ponto em que a reação ocorre) que corresponde ao ponto de cruzamento entre o track da partícula e a direção do feixe. Portanto, o vértice de reação é o ponto médio do menor segmento de reta que conecta a trajetória da partícula espalhada ou emergente da reação e o feixe, no ponto de menor distância entre as retas. O vértice é de grande importância para que possamos determinar o tipo de reação nuclear que ocorreu.
 
-\par Para deduzir a equação do vértice de reação, primeiro temos as seguintes equações das retas $\vec{P_1}$ e $\vec{P_2}$ como vetores:
+\par Para deduzir uma expressão que possamos usar para determinar o vértice da reação temos que considerar as seguintes equações das retas $\vec{P_1}$ e $\vec{P_2}$, que podem ser retas quaisquer (que serão atribuídas às partículas), como vetores:
 
 \begin{equation}
 \begin{split}
@@ -1161,16 +1163,16 @@ onde $N_1$ é o número de pontos da reta 1, $d_{i2}$ a distância do ponto $i$ 
         &\vec{P_2} = \vec{A_2} + \vec{V_2} * t_2,
 \end{split}
 \end{equation}
-
+%
 onde $\vec{A_1}$ e $\vec{A_2}$ são pontos arbitrários que pertencem as retas 1 e 2, respectivamente, $\vec{V_1}$ e $\vec{V_2}$ são os versores, $t_1$ e  $t_2$ são os hiperparâmetros das retas.
 
-\par A reta que conecta a menor distância possui versor
+\par Como o vértice de reação é o ponto médio do menor segmento de reta que conecta as duas retas, então é preciso determinar o versor $\vec{V_c}$ desse segmento de reta. Então, $\vec{V_c}$ é dado por
 
 \begin{equation}\label{eq:versor_menor_dist}
     \vec{V_c} = \frac{\vec{V_1} \times \vec{V_2}}{\left | \vec{V_1} \times \vec{V_2} \right |}.
 \end{equation}
 
-Podemos então construir uma reta $\vec{P_3}$ que conecta $\vec{P_1}$ e $\vec{P_2}$. Essa reta deve começar no ponto de menor distância da reta 1 e terminar no ponto de menor distância da reta 2. Ou seja, tem-se o seguinte sistema linear:
+Podemos então construir a reta $\vec{P_3}$ que possui as características do menor segmento de reta que conecta $\vec{P_1}$ e $\vec{P_2}$. Essa reta deve começar no ponto de menor distância da reta 1 e terminar no ponto de menor distância da reta 2. Ou seja, tem-se o seguinte sistema linear:
 
 \begin{equation*}
     \vec{A_2} + \vec{V_2} * \tilde{t_2} = \vec{A_1} + \vec{V_1} * \tilde{t_1} + \vec{V_c} * \tilde{t_3}.
@@ -1181,7 +1183,7 @@ Rearranjando temos que
 \begin{equation}\label{eq:sistema_vertice}
     \vec{V_1} * \tilde{t_1} - \vec{V_2} * \tilde{t_2} + \vec{V_c} * \tilde{t_3} = \vec{A_2} - \vec{A_1},
 \end{equation}
-
+%
 onde $\tilde{t_1}$, $\tilde{t_2}$ e $\tilde{t_3}$ são os hiperparâmetros a serem determinados. Caso $\vec{V_1}$ seja paralelo à $\vec{V_2}$, então não há solução (não há vértice de reação, ou seja, não há uma reação nuclear em comum entre a partícula e o feixe analisado). Com a solução do sistema pode-se obter os pontos de menor distância nas duas retas:
 
 \begin{equation}
@@ -1205,31 +1207,31 @@ onde $\tilde{t_1}$, $\tilde{t_2}$ e $\tilde{t_3}$ são os hiperparâmetros a ser
 
 % \par No caso em que $\vec{V_c}$ em \ref{eq:versor_menor_dist} é zero, então as retas analisadas são paralelas. Nesse caso não há vértice de reação e a distância de máxima aproximação é dada por
 
-\par Da equação \ref{eq:menor_dist_retas} foi estabelecido um limite superior para $d_{max}$ tal que valores maiores que esse limite indicam uma reação nuclear em comum entre a partícula e o feixe. O valor foi determinado empiricamente e foi definido como $d_{max}^{sup}$ = 25 mm. Trajetórias cuja distância máxima de aproximação excedia $d_{max}^{sup}$, então a trajetória é descartada. A última condição para garantir que houve uma reação nuclear, é garantir que o vértice de reação está dentro da câmara, cujos limites são $|x| < $ 140mm, $|y| < $ 140mm e $|t| < $ 512.
+\par Da equação \ref{eq:menor_dist_retas} foi estabelecido um limite superior para $d_{max}$ tal que valores menores que esse limite indicam uma reação nuclear em comum entre a partícula e o feixe. O valor foi determinado empiricamente e foi definido como $d_{max}^{sup}$ = 25 mm. Trajetórias cuja distância máxima de aproximação excedia $d_{max}^{sup}$, então a trajetória é descartada. Além disso, é necessário garantir que a reação ocorreu dentro da área efetiva da câmara e para tanto impomos os limites: $|x| < $ 140mm, $|y| < $ 140mm e $|t| < $ 512.
 
 \par Para completar essa etapa, foi necessário determinar a energia $E$ e o comprimento $L$ da trajetória. A energia $E$ é definida como
 
 \begin{equation}\label{eq:carga_acumulada}
 	E = \sum_{i = 1}^{N} Q_i,
 \end{equation}
-
-\par onde $Q_i$ é a carga acumulada do i-ésimo ponto de um conjunto com $N$ pontos. O comprimento é definido como
+%
+onde $Q_i$ é a carga acumulada do i-ésimo ponto de um conjunto com $N$ pontos. O comprimento é definido como
 
 \begin{equation}\label{eq:comprimento_trajetoria}
 	L = \max{d_{i, \vec{V_r}}},
 \end{equation}
+%
+onde $d_{i, \vec{V_r}}$ é distância entre o ponto $i$ pertencente a trajetória até o vértice de reação $\vec{V_r}$.
 
-\par onde $d_{i, \vec{V_r}}$ é distância entre o ponto $i$ pertencente a trajetória até o vértice de reação $\vec{V_r}$.
-
-\par Essa não foi a única abordagem utilizada no trabalho. Na seção \ref{sec:abordagens_alternativas} foram mostradas alternativas para se buscar, com as nuvens de pontos crua, eventos específicos que ocorreram no experimento, sem ter que previamente buscar trajetórias e também outros usos de \textit{machine learning} para a análise.
+\par Essa não foi a única abordagem utilizada nesse trabalho para a determinação do vértice e portanto para a determinação da reação nuclear. Na seção \ref{sec:abordagens_alternativas} mostramos alternativas para se buscar, com as nuvens de pontos crua, eventos específicos que ocorreram no experimento, sem ter que previamente buscar trajetórias e também outros usos de \textit{machine learning} para a análise.
 
 \section{Abordagens alternativas}\label{sec:abordagens_alternativas}
 
-\par  O objetivo da análise das nuvens de pontos foi buscar eventos que possuíam três trajetórias, uma sendo o feixe, e as outras duas de partículas que surgiram da reação nuclear do feixe com o gás.
+\par  O objetivo da análise das nuvens de pontos foi de selecionar eventos que possuíam três trajetórias, uma sendo o feixe, e as outras duas de partículas que surgiram da reação nuclear do feixe com o gás.
 
 \subsection{Identificação de eventos com \textit{machine learning}}\label{subsec:pointnet}
 
-\par Para evitar o processo de \textit{clustering} de nuvens de pontos que não possuem eventos de interesse (como o \textit{breakup}), é possível usar redes neurais supervisionadas capazes de processar nuvens de pontos tridimensionais. A rede neural usada para esse processo chama-se PointNet \cite{qi2016pointnet} e a arquitetura está na figura \ref{fig:aqr:pointnet}.
+\par Para evitar o processo de buscar de aglomerados nas nuvens de pontos que não possuem eventos de interesse (como o breakup), é possível usar redes neurais supervisionadas capazes de processar nuvens de pontos tridimensionais. A rede neural usada para esse processo chama-se PointNet \cite{qi2016pointnet} e a arquitetura está na figura \ref{fig:aqr:pointnet}.
 
 \begin{figure}[H]
     \centering
