@@ -1449,7 +1449,9 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 	E^2 \propto (LM)\frac{4\pi Z^2  e^4 N_e}{m_e}.
 \end{equation}
 
-\par Portanto, existe uma relação do quadrado da energia (ou carga depositada) com o comprimento da trajetória. O termo $M$ mostra que quanto maior a massa $M$ (e também o $Z$) da partícula, maior é a carga depositada. Dessa forma, os prótons podem ser identificados num histograma de carga em função do comprimento do track (proporcional à energia depositada) como a região inferior à faixa das alfas, assim como mostrado na figura \ref{subfig:carga_comp_cut1}. O resultado da aplicação do gate para o espectro de comprimento em função do ângulo de espalhamento (ver figura \ref{fig:comp_vs_ang}) está na figura \ref{subfig:comp_vs_carga_cut1}.
+\par Portanto, existe uma relação do quadrado da energia (ou o quadrado da carga depositada) com o comprimento da trajetória. O termo $M$ mostra que quanto maior a massa $M$ (e também o $Z$) da partícula, maior é a carga depositada. Dessa forma, os prótons podem ser identificados num histograma de carga em função do comprimento do track (proporcional à energia depositada) como a região inferior à faixa das alfas, assim como mostrado na figura \ref{subfig:carga_comp_cut1}. O resultado da aplicação do gate (polígono em vermelho na figura \ref{subfig:carga_comp_cut1}) para o espectro de comprimento em função do ângulo de espalhamento pode ser visto na figura \ref{subfig:comp_vs_carga_cut1}. Esse espectro deve ser comparado com o da figura \ref{fig:comp_vs_ang} (sem aplicação do gate).
+
+%(ver figura \ref{fig:comp_vs_ang}) está na figura \ref{subfig:comp_vs_carga_cut1}.
 
 \begin{figure}[H]
 \centering
@@ -1479,11 +1481,11 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 \label{fig:gate_1}
 \end{figure}
 
-\par Como pode-se perceber, o gate removeu quase todos os eventos de espalhamento elástico e inelástico de alfas. Somente sobraram duas faixas que correspondem às partículas que não param completamente no gás e partículas espalhadas em ângulos maiores que 20 graus que param no gás. A primeira faixa corresponderia principalmente aos prótons e alfas, pois com apenas 1 MeV de energia cinética atravessam o gás (ver figura \ref{fig:alcance_vs_energia}). A segunda faixa (no caso um aglomerado) seriam partículas alfas que pararam perto do limite geometrico do alvo ativo..
+\par Como pode-se perceber, o gate removeu quase todos os eventos de espalhamento elástico e inelástico de alfas. Somente sobraram duas faixas que correspondem às partículas que não param completamente no gás e partículas espalhadas em ângulos maiores que 20 graus que param no gás. A primeira faixa, mais intensa, corresponderia principalmente aos prótons e alfas, pois com apenas 1 MeV de energia cinética atravessam o gás (ver figura \ref{fig:alcance_vs_energia}). A segunda faixa (no caso um aglomerado) seriam partículas alfas que pararam perto do limite geométrico do alvo ativo.
 
 % devido a que elas estão na região central do TPC onde o ganho é baixo e só partículas que depositam muita energia podem produzir um sinal nessa região.
 
-\par O gate anterior precisa ainda ser refinado pois ainda há a contribuição de partículas alfa no espectro. Devido a que as partículas alfa depositam maior energia num menor comprimento do que os prótons, a carga média permite visualizar essa diferença. A carga média é definida como a carga total depositada pela partícula dividida pelo número total de pontos no track. O espectro da figura \ref{subfig:gate2_antes} mostra a carga média em função do comprimento do track usando o gate da figura \ref{fig:gate_2}. Pode-se perceber que tem dois aglomerados, um na parte inferior com maior densidade (prótons) e outro na parte superior, logo acima da linha vermelha na imagem, onde há partículas alfas, onde que suas trajetórias possuem uma carga média maior que a dos prótons. Ao excluir trajetórias fora da região delimitada pela linha vermelha na figura \ref{subfig:gate2_antes}, é possível identificar os prótons no espectro de comprimento em função do ângulo de espalhamento, mostrado na figura \ref{subfig:gate2_depois}.
+\par O gate anterior precisa ainda ser refinado pois ainda há a contribuição de partículas alfa no espectro. Devido ao fato das partículas alfa depositarem maior energia num comprimento menor do que os prótons, a carga média depositada será maior para as partículas alfa. A carga média é definida como a carga total depositada pela partícula dividida pelo número total de pontos na trajetória. O espectro da figura \ref{subfig:gate2_antes} mostra a carga média em função do comprimento da trajetória usando o gate da figura \ref{fig:gate_2}. Pode-se perceber que tem dois aglomerados, um na parte inferior com maior densidade (prótons) e outro na parte superior, logo acima da linha vermelha na imagem, onde há partículas alfas, cujas trajetórias possuem uma carga média maior que a dos prótons. Ao excluir trajetórias fora da região delimitada pela linha vermelha na figura \ref{subfig:gate2_antes}, é possível identificar os prótons no espectro de comprimento em função do ângulo de espalhamento, mostrado na figura \ref{subfig:gate2_depois}.
 
 
 % Além dos prótons, tem partículas alfa que não param no detector, mas com a carga media é possível distingui-las. O espectro indica que o próton não para no gás, pois suas trajetórias estão limitadas pela câmara, independente do ângulo de espalhamento. Isso ocorre pois o próton deposita pouca energia ao atravessar o gás. Já o $^{16}$O para completamente no gás, e possui trajetórias mais dianteiras (ângulos de espalhamento menores).
@@ -1511,7 +1513,9 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 \label{fig:gate_2}
 \end{figure}
 
-\par Para identificar eventos de breakup (ou o canal de breakup), podendo identificar agora os prótons, basta aplicar a condição tal que sejam identificadas duas trajetórias coincidentes (tais que não sejam a do feixe), ou seja, que possuem o mesmo vértice de reação. O canal de breakup é identificado aplicado as condições anteriores com a condições de coincidência, que são eventos com duas trajetórias com o mesmo vértice de reação. Essa condição elimina outros canais de reação, como o canal de fusão. Aplicadas essas condições, tem-se o espectro do comprimento em função do ângulo de espalhamento para eventos com duas trajetórias coincidentes, mostrado na figura \ref{fig:comp_vs_ang_coinc}. 
+%\par Para identificar eventos de breakup (ou o canal de breakup), podendo identificar agora os prótons, basta aplicar a condição tal que sejam identificadas duas trajetórias coincidentes (tais que não sejam a do feixe), ou seja, que possuem o mesmo vértice de reação. O canal de breakup é identificado aplicado as condições anteriores com a condições de coincidência, que são eventos com duas trajetórias com o mesmo vértice de reação.
+
+\par Os eventos de breakup podem agora ser identificados a partir desses prótons. Para tanto, podemos simplesmente aplicar a esses prótons a condição de que devam corresponder a duas trajetórias coincidentes (excluindo o feixe) com o mesmo vértice. Essa condição elimina outros canais de reação, como o canal de fusão. Aplicadas essas condições, tem-se o espectro do comprimento em função do ângulo de espalhamento para eventos com duas trajetórias coincidentes, mostrado na figura \ref{fig:comp_vs_ang_coinc}. 
 
 
 %Aplicando tais condições para identificar eventos com duas trajetórias (coincidências) com o mesmo vértice de reação, eliminando outros canais de reação, como o canal de fusão do espectro, tem-se o espectro do comprimento em função do ângulo de espalhamento para eventos com duas trajetórias coincidentes, mostrado na figura \ref{fig:comp_vs_ang_coinc}.
@@ -1523,18 +1527,18 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
     \label{fig:comp_vs_ang_coinc}
 \end{figure}
 
-\par Identificados o canal de breakup nos eventos, foi possível construir as distribuições angulares da reação de breakup do $^{17}$F em $^4$He.
+\par A partir da identificação do canal de breakup nos eventos, foi possível construir as distribuições angulares da reação de breakup do $^{17}$F em $^4$He.
 
 \section{Construção das distribuições angulares}\label{sec:sec_choque}
 
-\par Identificado o canal de breakup, foi possível construir as distribuições angulares. As medidas nas quais foram identificadas uma única partícula, no caso o próton, são chamadas de breakup inclusivo. Quando há coincidência, ou seja, a medida coincidente do próton e do $^{16}$O, é chamada de breakup exclusivo.
+\par Identificado o canal de breakup, foi possível construir as distribuições angulares para essa reação. Devemos ainda ressaltar que os eventos para os quais foram identificadas uma única partícula, no caso o próton, são chamadas de breakup inclusivo. Quando há coincidência, ou seja, a medida coincidente do próton e do $^{16}$O, é chamada de breakup exclusivo.
 
 %Como mostrado anteriormente, não é possível identificar o $^{16}$O em coincidência com o próton em todos os eventos (o que caracterizado o breakup exclusivo, quando há a identificação de ambas as partículas do breakup). Portanto, as distribuições angulares para o breakup exclusivo foram construídas para eventos com coincidência ($^{16}$O e próton identificado). Para o breakup inclusivo, foram considerados apenas eventos com identificação apenas do próton. 
 
-\par Com o alvo ativo é possível medir reações em diversos ângulos e energias. Portanto, é preciso primeiro discretizar (colocar em bins) os ângulos de espalhamento $\theta_p$ (ângulos de espalhamento dos prótons no referencial do laboratório). Cada bin $\theta_{bin}$ de $\theta_p$ possui largura de 4º, escolhida de modo a não prejudicar o espectro por problemas de binning ou flutuações estatísticas. A incerteza sobre essa escolha é de aproximadamente 1º. A seção de choque diferencial $\frac{\mathrm{d}\sigma}{\mathrm{d}\Omega} (\theta_p)$ é dada por \cite{zamora_mater}
+\par Com o alvo ativo é possível medir reações em diversos ângulos e energias. Portanto, para obtermos as distribuições  angulares é preciso primeiro discretizar (colocar em bins) os ângulos de espalhamento $\theta_p$ (ângulos de espalhamento dos prótons no referencial do laboratório). Escolhemos um intervalo angular de 4 graus para esse binning para minimizar as flutuações estatísticas na distribuição angular. A incerteza sobre essa escolha é de aproximadamente 1º. A seção de choque diferencial $\frac{\mathrm{d}\sigma}{\mathrm{d}\Omega} (\theta_p)$ é dada por \cite{zamora_mater}
 
 \begin{equation}\label{eq:cross_section}
-	\frac{\mathrm{d}\sigma}{\mathrm{d}\Omega} (\theta_p) = \frac{Y}{N_bN_t\Delta\Omega(\theta_p)}\times 10^{27} \:  \mathrm{mb/sr}.
+	\frac{\mathrm{d}\sigma}{\mathrm{d}\Omega} (\theta_p) = \frac{Y}{N_bN_t\Delta\Omega(\theta_p)} J_{\mathrm{lab}} \times 10^{27} \:  \mathrm{mb/sr}.
 \end{equation}
 
 \par Os termos dessa expressão são:
@@ -1564,6 +1568,10 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 	\begin{equation}
 	\Delta\Omega (\theta_p) = 2\pi \int_{\theta_p}^{\theta_p + \theta_{bin}}\sin(\theta)\mathrm{d}\theta.		
 	\end{equation}
+	
+	\item $J_{\mathrm{lab}}$
+	Termo que é o Jacobiano para a transformação de coordenadas. Como estamos usando o ângulo $\theta_p$ no referencial do laboratório, então $J_{\mathrm{lab}}$ = 1. 	
+	
 \end{itemize}
 
 %\par A energia do feixe $E$ também foi divida em canais 
@@ -1576,13 +1584,15 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 
 \par onde $\partial x$ é a incerteza da respectiva variável $x$.
 
-\par A normalização deve ser obtida a partir da análise do canal elástico do experimento. Até o momento da escrita dessa dissertação, o valor da normalização é preliminar e vale 0.243 (56), onde a luminosidade integrada $L$ é
+\par A normalização deve ser obtida a partir da análise do canal elástico do experimento. O valor da normalização foi determinado como sendo 0.243 (56), onde a luminosidade integrada $L$ é
 
 \begin{equation}
 	L = 0.243\times 10^{27} \: \mathrm{cm}^{-2} =  2.4\times 10^{26}\: \mathrm{cm}^{2}.
 \end{equation}
 
-\par A energia do feixe também foi discretizada para obter as distribuições angulares. O tamanho da bin da energia foi escolhido de forma a evitar flutuações estatísticas, como poucas contagens em certas energias. Como a energia do feixe depende da posição em $z$ do vértice de reação, ela foi discretizada a cada 10 mm, o que resulta em bins de aproximadamente 1.2 MeV (no referencial do laboratório) de largura. A partir dessas bins, foi calculada a energia do feixe. A figura \ref{fig:contagem_energia} mostra o espectro da seção de choque em função da energia no referencial do centro de massa. As distribuições angulares estão mostradas nas figuras \ref{fig:dist_ang_acima}, \ref{fig:dist_ang_prox} e \ref{fig:dist_ang_abaixo}.
+\par Uma das grandes vantagens da utilização do Alvo ativo em medidas de reações nucleares é a possibilidade de obtermos uma variação da energia do feixe conforme este vai perdendo energia ao penetrar no volume ativo do alvo gasoso.
+
+\par Para construir a distribuição de energia consideramos a seção de choque para faixas discretas de energia. O tamanho da bin da energia foi escolhido de forma a evitar flutuações estatísticas, devido a poucas contagens em certas energias. Como a energia do feixe depende da posição em $z$ do vértice de reação, ela foi discretizada a cada 10 mm, o que resulta em bins de aproximadamente 1.2 MeV (no referencial do laboratório) de largura. A partir dessas bins, foi calculada a energia do feixe. A figura \ref{fig:contagem_energia} mostra o espectro da seção de choque em função da energia no referencial do centro de massa. A seguir as distribuições angulares para a reação de breakup (seção de choque em função do ângulo de espalhamento do próton) foram determinadas para várias energias do feixe, conforme mostradas nas figuras  \ref{fig:dist_ang_acima}, \ref{fig:dist_ang_prox} e \ref{fig:dist_ang_abaixo}.
 
 \begin{figure}[H]
 \centering
