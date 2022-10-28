@@ -1231,7 +1231,7 @@ onde $d_{i, \vec{V_r}}$ é distância entre o ponto $i$ pertencente a trajetóri
 
 \subsection{Identificação de eventos com \textit{machine learning}}\label{subsec:pointnet}
 
-\par Para evitar o processo de buscar de aglomerados nas nuvens de pontos que não possuem eventos de interesse (como o breakup), é possível usar redes neurais supervisionadas capazes de processar nuvens de pontos tridimensionais. A rede neural usada para esse processo chama-se PointNet \cite{qi2016pointnet} e a arquitetura está na figura \ref{fig:aqr:pointnet}.
+\par Para evitar o processo de buscar de aglomerados nas nuvens de pontos que não possuem eventos de interesse (como o breakup), é possível usar redes neurais supervisionadas capazes de processar nuvens de pontos tridimensionais. A rede neural usada para esse processo chama-se PointNet \cite{qi2016pointnet}. A PointNet é uma rede neural desenvolvida para classificar e segmentar imagens em 3D utilizando nuvens de pontos que representam uma forma 3D do objeto. A arquitetura dessa rede neural está na figura \ref{fig:aqr:pointnet}.
 
 \begin{figure}[H]
     \centering
@@ -1240,17 +1240,17 @@ onde $d_{i, \vec{V_r}}$ é distância entre o ponto $i$ pertencente a trajetóri
     \label{fig:aqr:pointnet}
 \end{figure}
 
-\par A PointNet é uma rede neural capaz de processar \textit{pointclouds}, entendendo que a estrutura dos dados é invariante à troca de pontos e invariante sobre transformações (rotação e translação) \cite{RF_pc}, pode ser usada tanto para classificação quanto segmentação semântica de nuvens de pontos \cite{qi2016pointnet}. A classificação é realizada para a \textit{pointcloud} como um todo, já a segmentação semântica é a classificação ponto a ponto da nuvem de pontos \cite{qi2016pointnet}.
+\par A PointNet é uma rede neural capaz de processar nuvens de pontos, entendendo que a estrutura dos dados é invariante à troca de pontos e invariante sobre transformações (rotação e translação) \cite{RF_pc}, pode ser usada tanto para classificação quanto segmentação semântica de nuvens de pontos \cite{qi2016pointnet}. A classificação é realizada para a nuvem de pontos como um todo, já a segmentação semântica é a classificação ponto a ponto da nuvem de pontos \cite{qi2016pointnet}.
 
-\par  Para o uso da PointNet para classificação, foi criado um banco de dados para o treino da rede neural que tem como \textit{input} a nuvem de pontos e como \textit{output} o número de trajetórias presentes no evento. Um dos pontos negativos da PointNet é seu tamanho fixo nos dados de entrada \cite{qi2016pointnet}, pois no caso dos dados desse trabalho, o número de pontos por evento não é  fixo. Para resolver isso, foi selecionado um tamanho fixo $n$ = 300 pontos para todas as nuvens de pontos. Eventos com menos pontos eram preenchidos com pontos repetidos da mesma nuvem para completar até o tamanho $n$. Eventos com menos do que 100 pontos e mais que 300 pontos foram descartados pois geralmente são ruídos e a saturação do detector devido à faíscas.
+\par  Para o uso da PointNet para classificação, foi criado um banco de dados para o treino da rede neural que tem como input a nuvem de pontos e como output o número de trajetórias presentes no evento. Um dos pontos negativos da PointNet é a necessidade de que os dados de entrada tenham um tamanho fixo \cite{qi2016pointnet}. No caso dos dados desse trabalho, o número de pontos por evento não é  fixo. Para resolver isso, impomos para os nossos dados um tamanho fixo $n$ = 300 pontos para todas as nuvens de pontos. Eventos com menos pontos eram preenchidos com pontos repetidos da mesma nuvem para completar até o tamanho $n$. Eventos com menos do que 100 pontos e mais que 300 pontos foram descartados pois geralmente são ruídos e a saturação do detector devido à faíscas.
 
-\par Para determinar o número de trajetórias nos eventos para o treino da rede neural, foi utilizado o estimador robusto que chamei de prototype-RANSAC (RANdom SAmple Consensus), que é uma variação do RANSAC  \cite{ransac, artigo}. A escolha dele no lugar do HDBSCAN é pela melhor acurácia na identificação de trajetórias, apesar de ser cerca de 4 vezes mais lento. As nuvens de pontos (sem o acréscimo de pontos para a PointNet) ainda passam pelos dois filtros e critérios de correção mostrados na seção \ref{sec:forcabruta}. O algoritmo \ref{ransac_algo} mostra o funcionamento do p-RANSAC. O algoritmo seleciona dois pontos de modo aleatório (\textit{Random Sampling}) e determina o versor $\hat{v}$ e o ponto $P_b$ que descrevem a única reta $r$ que passa pelos dois pontos. A reta é selecionada caso tenha um número mínimo de pontos $N_{min}$ = 24 que pertencem à reta (chamado de \textit{inliers}) e tenha o mínimo (com relação aos outros conjunto de pontos) da estimativa $C$ dada por \cite{artigo}
+\par Para determinar o número de trajetórias nos eventos para o treino da rede neural, foi utilizado o estimador robusto (que estima quais as trajetórias presentes nas nuvens de pontos) que chamei de prototype-RANSAC (RANdom SAmple Consensus), que é uma variação do RANSAC  \cite{ransac, artigo}. A escolha dele no lugar do HDBSCAN é pela melhor acurácia na identificação de trajetórias, apesar de ser cerca de 4 vezes mais lento. As nuvens de pontos (sem o acréscimo de pontos para a PointNet) ainda passam pelos dois filtros e critérios de correção mostrados na seção \ref{sec:forcabruta}. O algoritmo \ref{ransac_algo} mostra o funcionamento do p-RANSAC. O algoritmo seleciona dois pontos de modo aleatório e determina o versor $\hat{v}$ e o ponto $P_b$ que descrevem a única reta $r$ que passa pelos dois pontos. A reta é selecionada caso tenha um número mínimo de pontos $N_{min}$ = 24 (chamado de inliers) e tenha o mínimo (com relação aos outros conjunto de pontos) da estimativa $C$ dada por \cite{artigo}
 
 \begin{equation} \label{criterio_ransac}
     C = \sum_{i = 0}^{N} \frac{d_i ^2}{N},
 \end{equation}
-
-onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância do i-ésimo ponto à reta. O número de iterações do algoritmo foi determinado como sendo 700.
+%
+onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância do i-ésimo ponto à reta. O número de iterações do algoritmo foi determinado empiricamente e o melhor valor foi de 700.
 
 \begin{algorithm}[H]
     \caption{p-RANSAC}\label{ransac_algo}
@@ -1277,45 +1277,48 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
     \Return Retas $r$ selecionadas na última etapa\;
 \end{algorithm}
 
-\par Para o \textit{output} foram escolhidos eventos que possuem de 0 até 5 trajetórias. Com o \textit{output} construído, a rede para classificação foi treinada, onde a função custo foi a \textit{categorical cross entropy} \cite{MSE_CEF_review} e o otimizador o ADAM \cite{ADAMAX}. A métrica utilizada foi a acurácia categórica e foi de 70\% quando concluído o treino. Exemplo do resultado da aplicação da rede neural em nuvens de pontos está na figura \ref{fig:pointnet_class_exs}.
+\par Para o output foram escolhidos eventos que possuem de 0 até 5 trajetórias. Com o \textit{output} construído, a rede para classificação foi treinada, onde a função custo foi a categorical cross entropy \cite{MSE_CEF_review} e o otimizador o ADAM \cite{ADAMAX}. A acurácia de 70\% quando concluído o treino. Exemplo do resultado da aplicação da rede neural em nuvens de pontos está na figura \ref{fig:pointnet_class_exs}.
 
 \begin{figure}[H]
     \centering
     \includegraphics[scale = 0.5]{figs/ex1_pointnet_class.png}
-    \caption{Nuvem de pontos que possui 3 trajetórias para serem identificadas e a rede neural de classificação calculou que haviam 3 trajetórias, o que indica um resultado correto do algoritmo.}
+    \caption{Nuvem de pontos que possui 3 trajetórias para serem identificadas e a rede neural de classificação calculou que haviam 3 trajetórias, o que indica um resultado correto do algoritmo. A seta vermelha indica a direção e o sentido do feixe.}
     \label{fig:pointnet_class_exs}
 \end{figure}
 
-\par Eventos com 4 ou 5 trajetórias ocorrem com uma frequência muito menor (menos que 5\% do total de dados) que eventos de 1 e 2 trajetórias (cerca de 85\% do total de dados), caracterizando o banco de dados com o problema de desbalanço de classe, o que pode ter prejudicado o treino para identificar eventos mais incomuns. No dados do experimento desse trabalho não foi necessário utilizar essa rede neural, pois a etapa de identificação de trajetórias é rápida em comparação com a mesma etapa usando dados gerados com um alvo de maiores dimensões como o AT-TPC \cite{attpc, FORTINO2022166497}.
+\par Eventos com 4 ou 5 trajetórias ocorrem com uma frequência muito menor (menos que 5\% do total de dados) que eventos de 1 e 2 trajetórias (cerca de 85\% do total de dados), caracterizando o banco de dados com o problema de desbalanço de classe (já discutido na subseção \ref{subsec:pulso_ml_peaks}), o que pode ter prejudicado o treino para identificar eventos mais incomuns. 
+
+%No dados do experimento desse trabalho não foi necessário utilizar essa rede neural, pois a etapa de identificação de trajetórias é rápida em comparação com a mesma etapa usando dados gerados com um alvo de maiores dimensões como o AT-TPC \cite{attpc, FORTINO2022166497}.
 
 \subsection{Identificação de \textit{outliers}}
 
-\par Um possível uso para a rede de segmentação semântica é para classificar pontos como \textit{inliers} ou \textit{outliers}, semelhante ao uso do algoritmo \textit{outlier removal} da biblioteca Open3D \cite{open3d}. A diferença é que com a PointNet pode-se incluir \textit{outliers} locais \cite{RF_pc}, não apenas os globais para serem identificados.
+\par Um possível uso para a rede de segmentação semântica é para classificar pontos como inliers ou outliers, semelhante ao uso do algoritmo outlier removal da biblioteca Open3D \cite{open3d}. A diferença é que com a PointNet pode-se incluir outliers locais \cite{RF_pc}, não apenas os globais para serem identificados.
 
-\par Para o \textit{output} da rede neural, os pontos classificados como \textit{outliers} globais ou locais possuem valor 0 e pontos que são \textit{inliers} (pertencem à alguma trajetória) possuem valor 1. A rede de segmentação foi treinada, com a função custo sendo a \textit{binary cross entropy} e a mética a acurácia binária. A acurácia da rede foi de aproximadamente 93\%, se mostrando uma boa alternativa para eliminação de ruído nos eventos. A figura \ref{fig:pointnet_segment_exs} mostra o resultado da aplicação da rede de segmentação em uma nuvem de pontos.
+\par Para a saída da rede neural, os pontos classificados como outliers globais ou locais possuem valor 0 e pontos que são inliers (pertencem à alguma trajetória) possuem valor 1. A rede de segmentação foi treinada, com a função custo sendo a binary cross entropy e a mética a acurácia binária. A acurácia da rede foi de aproximadamente 93\%, se mostrando uma boa alternativa para eliminação de ruído nos eventos. A figura \ref{fig:pointnet_segment_exs} mostra o resultado da aplicação da rede de segmentação em uma nuvem de pontos.
 
 \begin{figure}[H]
     \centering
     \includegraphics[scale = 0.4]{figs/pointnet_seg_ex1.png}
-    \caption{Identificação de outliers com a rede neural de segmentação. A rede neural foi capaz de identificar os \textit{outliers} desse evento com 95\% de acurácia.}
+    \caption{Identificação de outliers com a rede neural de segmentação. A rede neural foi capaz de identificar os outliers desse evento com 95\% de acurácia.}
     \label{fig:pointnet_segment_exs}
 \end{figure}
 
-\par Existem outras redes neurais que são capazes de lidar com \textit{pointclouds}, como a PointNet++ \cite{qi2017pointnetplusplus} e Dynamic Graph CNN \cite{graph_cnn}. Para a abordagem de identificação de trajetórias de forma direta, uma opção é utilizar a rede neural ContrastNet \cite{contrastnet}, pois a rede é capaz de fazer \textit{clustering} nos dados, retornando os diferentes \textit{clusters} existentes nos dados. Num futuro, estamos pensando em utilizar esses tipos de ferramentas para realizar \textit{clustering} em nuvens de pontos em outros experimentos usando múltiplos canais de reação. No entanto, esse projeto esta além dos objetivos desta dissertação.
+\par Existem outras redes neurais que são capazes de lidar com nuvens de pontos, como a PointNet++ \cite{qi2017pointnetplusplus} e Dynamic Graph CNN \cite{graph_cnn}. Para a abordagem de identificação de trajetórias de forma direta, uma opção é utilizar a rede neural ContrastNet \cite{contrastnet}, pois a rede é capaz de fazer clustering nos dados, retornando os diferentes aglomerados existentes nos dados. Num futuro, estamos pensando em utilizar esses tipos de ferramentas para realizar clustering em nuvens de pontos em outros experimentos usando múltiplos canais de reação. No entanto, esse projeto esta além dos objetivos desta dissertação.
 
 \par A classificação e ajuste de trajetórias apresentados no presente capítulo permitem obter informação da cinemática das reações nucleares e extrair as respetivas distribuições angulares. Essa análise é discutida no próximo capítulo.
 
 \chapter{Resultados}\label{chapter:resultados}
 
-\par Esse capítulo mostra a reconstrução das distribuições angulares da reação de breakup do $^{17}$F a partir da análise das nuvens de pontos, como foi apresentado no capítulo \ref{chapter:point_cloud_analysis}.
+\par Uma vez que tendo determinado as trajetória das partículas e classificação das possíveis reações podemos selecionar a reação de interesse. Nesse nosso trabalho estamos interessados na reação de breakup, que corresponde a quebra do feixe de $^{17}$F em $^{16}$O+$p$ devido a interação com o alvo de $^{4}$He. Para que possamos estudar a reação de breakup de interesse precisamos obter a distribuição angular, ou seja, a probabilidade de que a reação aconteça em função do ângulo.
+Nesse capítulo vamos descrever como podemos construir as distribuições angulares da reação de breakup do $^{17}$F a partir da análise das nuvens de pontos, como foi apresentado no capítulo \ref{chapter:point_cloud_analysis}.
 
 \section{A cinemática da reação}\label{sec:identif_reac_nucl}
 
-\par O processo de reconstrução de reações nucleares no alvo ativo é complexo e envolve várias etapas como: identificação de trajetórias e multiplicidade, determinação do vértice de reação, identificação de partículas e reconstrução da energia e ângulos da reação. As subseções a seguir descrevem essas etapas.
+\par O processo de seleção e classificação de reações nucleares no alvo ativo é complexo e envolve várias etapas como: identificação de trajetórias e multiplicidade, determinação do vértice de reação, identificação de partículas e reconstrução da energia e ângulos da reação. As subseções a seguir descrevem essas etapas.
 
 \subsection{Reconstrução do vértice da reação}
-
-\par Como foi descrito no capítulo \ref{chapter:point_cloud_analysis}, para analisar as nuvens de pontos (reações nucleares) é necessário identificar as trajetórias das partículas dentro do gás que formam linhas retas originadas num determinado vértice. Isso é feito com estimadores robustos, como o algoritmo p-RANSAC (algoritmo \ref{ransac_algo}, apresentado na subseção \ref{subsec:pointnet} e também na referência \cite{artigo}), que é capaz de identificar os diferentes aglomerados mesmo na presença de outliers.
+%\par Como foi descrito no capítulo \ref{chapter:point_cloud_analysis}, para analisar as nuvens de pontos (reações nucleares) é necessário identificar as trajetórias das partículas dentro do gás que formam linhas retas originadas num determinado vértice.
+\par Para identificar e selecionar as reações nucleares que ocorrem dentro do alvo ativo é preciso identificar as trajetórias das partículas dentro do gás. O processo de determinação dessas trajetórias foi descrito na seção anterior, bem como a descrição de como obter o vértice da reação (que é o ponto em que efetivamente ocorre a reação nuclear). Isso é feito com estimadores robustos, como o algoritmo p-RANSAC (algoritmo \ref{ransac_algo}, apresentado na subseção \ref{subsec:pointnet} e também na referência \cite{artigo}), que é capaz de identificar os diferentes aglomerados mesmo na presença de outliers.
 
 \par Após a identificação e ajuste das trajetórias, é preciso determinar o vértice da reação para cada evento. O vértice é o ponto no espaço no qual ocorre a reação nuclear e pode ser determinado pela extrapolação das trajetórias na região central do alvo ativo. Para isso, é calculado o ponto de interseção (ou mais próximo) entre duas retas, como mostra a equação \ref{eq:vertice_reacao}. O feixe incide na parte central pelo eixo axial do alvo, região cujo ganho do micromegas é baixo para evitar a saturação dos sinais (devido à passagem do feixe). Portanto, para calcular o vértice de reação, é necessário extrapolar as trajetórias na região central. A partir do vértice, então, é possível calcular o comprimento $L$ da trajetória (dado pela equação \ref{eq:comprimento_trajetoria}), mesmo com a ausência de informação na região central.
 
@@ -1350,11 +1353,13 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
 %\par O limite de distância dos vértices calculados, para serem considerados pertencentes a mesma reação, foi de 20 mm.
 %\par Importante notar que o aglomerado identificado de cor azul não possui pontos na perto da parte central da câmara, pois o ganho da eletrônica do micromegas na parte central é menor em comparação com a região não central.
 
+\par Além da trajetória, a energia das partículas também é um parâmetro importante para a classificação e determinação da reação nuclear.
+
 \subsection{Reconstrução da energia das partículas}
 
 %\par Para reconstruir a energia das partículas, foi necessário utilizar do comprimento da trajetória e também do poder de freamento (\textit{stopping power}) \cite{DETC_TELE} da partícula no gás. O \textit{stopping power} depende principalmente na carga da partícula incidente e na propriedades do gás como a pressão e temperatura.
 
-\par Numa primeira aproximação, a energia da trajetória pode ser estimada a partir da equação \ref{eq:carga_acumulada}, onde são somadas todas as cargas acumuladas dos pontos da trajetória. Porém, a eficiência de detecção depende da energia depositada pela partícula no gás. Da mesma forma, alguns pontos das trajetórias das partículas podem estar ausentes devido ao processamento eletrônico ou mesmo na reconstrução das nuvens de pontos. Outra forma de reconstruir a energia da partícula é a partir do comprimento da trajetória usando o respetivo poder de freamento (stopping power). O stopping power depende principalmente da carga da partícula incidente e das propriedades do gás, como a pressão e temperatura. O stopping power foi calculado usando o programa LISE++\cite{lise++} e os respectivos comprimentos das trajetórias associadas a partículas como $^{16}$O, alfas e prótons num gás de $^4$He à uma pressão de 350 Torr. A figura \ref{fig:alcance_vs_energia} mostra o alcance em função da energia do $^{17}$F, $^{16}$O e próton, onde é possível ver a diferença de alcance das partículas dentro gás, especialmente entre as partículas pesadas ($^{17}$F, $^{16}$O) e o próton.
+\par Numa primeira aproximação, a energia da partícula associada a uma determinada trajetória pode ser estimada a partir da equação \ref{eq:carga_acumulada}, onde são somadas todas as cargas acumuladas dos pontos da trajetória. Porém, a eficiência de detecção depende da energia depositada pela partícula no gás. Da mesma forma, alguns pontos das trajetórias das partículas podem estar ausentes devido ao processamento eletrônico ou mesmo na reconstrução das nuvens de pontos. Outra forma de obtermos (determinarmos) a energia da partícula é a partir do comprimento da trajetória e a energia perdida pelas interações atômicas da partícula com o gás (poder de freamento ou stopping power). A perda de energia da partícula no gás depende principalmente da carga da partícula incidente e das propriedades do gás, como a pressão e temperatura. Essa energia perdida no gás foi calculadao usando o programa LISE++\cite{lise++} e os respectivos comprimentos das trajetórias associadas a partículas como $^{16}$O, alfas e prótons num gás de $^4$He à uma pressão de 350 Torr. Partículas diferentes perdem energias de forma diferente e, portanto, têm alcances diferentes dentro do gás em função de sua energia. A figura \ref{fig:alcance_vs_energia} mostra o alcance em função da energia do $^{17}$F, $^{16}$O e próton, onde é possível ver a diferença de alcance das partículas dentro gás, especialmente entre as partículas pesadas ($^{17}$F, $^{16}$O) e o próton.
 
 %\par Numa primeira aproximação, a energia da trajetória pode ser estimativa a partir da equação \ref{eq:carga_acumulada}, onde são somadas todas as cargas acumuladas dos pontos das trajetórias. Porém a eficiência de detecção depende da energia da partícula e algumas regiões das trajetórias podem não ser detectadas. Usando o LISE++ \cite{lise++} foi possível calcular o alcance das possíveis partículas ($^{16}$O e próton) dada as propriedades do alvo ($^4$He gasoso à uma pressão de 350 Torr). A figura \ref{fig:alcance_vs_energia} mostra o alcance em mm das partículas ($^{17}$F, $^{16}$O e próton) em função da energia em MeV. 
 
@@ -1365,39 +1370,41 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
      \label{fig:alcance_vs_energia}
  \end{figure}
 
-\par Portanto, cada tipo de partícula tem um alcance diferente dentro do mesmo gás que depende da energia incidente. Por exemplo, para determinar a energia cinética do $^{17}$F antes da reação nuclear, pode se usar a distancia entre a janela do detector e o vértice da reação. Para isso, o espaço no eixo $z$ foi discretizado, a fim de calcular a energia na posição da reação. O feixe, ao entrar no gás, possui energia inicial $E_i$ = 34.76 MeV, e perde energia ao atravessar o gás. A energia de reação $E_r$ é dada por
+\par Por exemplo, para determinar a energia cinética do $^{17}$F antes da reação nuclear, pode se usar a distancia entre a janela do detector e o vértice da reação. Para isso, o espaço no eixo $z$ foi discretizado, a fim de calcular a energia na posição da reação. O feixe, ao entrar no gás, possui energia inicial $E_i$ = 34.76 MeV, e perde energia ao atravessar o gás. A energia de reação $E_r$ é dada por
 
 \begin{equation}
 	E_r = E_i - E_{loss},
 \end{equation}
-
-\par onde $E_{loss}$ é a energia do $^{17}$F depositada no gás que é calculada a partir da distancia $L$ até o vértice da reação. O comprimento $L$ é transformado em energia cinética usando uma tabela de \textit{stopping power}. Similarmente, a energia de outras partículas (e.g. alfa), que param completamente no gás, é calculado com o alcance da partícula (relativo ao vértice) e a sua respetiva tabela de \textit{stopping power}.
+%
+onde $E_{loss}$ é a energia do $^{17}$F depositada no gás que é calculada a partir da distancia $L$ até o vértice da reação. O comprimento $L$ é transformado em energia cinética usando uma tabela de \textit{stopping power}. Similarmente, a energia de outras partículas (e.g. alfa), que param completamente no gás, é calculado com o alcance da partícula (relativo ao vértice) e a sua respetiva tabela de \textit{stopping power}.
 
 %\par A identificação do feixe ($^{17}$F) é feita a partir das propriedades geométricas das trajetórias, portanto fica evidente a diferença de alcance entre uma partícula de $^{16}$O e um próton, o $^{16}$O possui uma penetrabilidade muito menor que o próton.
 
 \subsection{Determinação dos ângulos de reação}
 
+\par Como mencionamos anteriormente, uma reação nuclear pode ser investigada a partir de sua distribuição angular. Portanto, um dos parâmetros importantes para a determinação da distribuição angular de uma determinada reação é exatamente o ângulo em que as partículas são emitidas.  
+
 \par Para determinar os ângulos azimutal e axial (em coordenadas esféricas), foram feitos os ajustes tridimensionais dos aglomerados identificados (usando estimadores robustos ou algoritmos de clustering, como discutido no capítulo \ref{chapter:point_cloud_analysis}).
 
-\par O ângulo de reação, para cada trajetória identificada, depende da determinação do versor de cada uma das trajetórias e também do versor do feixe. A partir das propriedades geométricas das trajetórias (versores das retas), são calculados os ângulos azimutal e axial com relação à direção em que o feixe incide na câmara (veja que a direção do feixe não necessariamente coincide com o eixo simétrico do TPC).
+\par O ângulo de reação, para cada trajetória identificada, depende da determinação do versor de cada uma das trajetórias em relação ao versor do feixe. A partir das propriedades geométricas das trajetórias (versores das retas), são calculados os ângulos azimutal e axial com relação à direção em que o feixe incide na câmara (veja que a direção do feixe não necessariamente coincide com o eixo simétrico do TPC).
 
 \par Para cada trajetória (reta) $i$, o ângulo azimutal $\phi_i$ é dado por
 
 \begin{equation}
 	\phi_i = \atantwo \left (\frac{y_i}{x_i} \right),
 \end{equation}
-
-\par onde $\atantwo$ é o arco-tangente calculado entre $-\pi$ e $\pi$, $y_i$ e $x_i$ são componentes $x$ e $y$ do versor da reta $i$. Para o ângulo polar $\theta$, ele é calculado a partir do produto interno entre o versor da reta e o versor do feixe, ou seja:
+%
+onde $\atantwo$ é o arco-tangente calculado entre $-\pi$ e $\pi$, $y_i$ e $x_i$ são componentes $x$ e $y$ do versor da reta $i$. Para o ângulo polar $\theta$, ele é calculado a partir do produto interno entre o versor da reta e o versor do feixe, ou seja:
 
 \begin{equation}
 	\theta = \arccos \left (\frac{\vec{V_i} \cdot \vec{V_f}}{|\vec{V_i}| |\vec{V_f}|}  \right),
 \end{equation}
-
-\par onde $\vec{V_i}$ é o versor da reta $i$ e $\vec{V_f}$ é o versor do feixe.
+%
+onde $\vec{V_i}$ é o versor da reta $i$ e $\vec{V_f}$ é o versor do feixe.
 
 \section{Identificação do canal de reação de breakup}
 
-\par Com o alvo ativo, é possível medir diversos canais de reação num mesmo experimento. Isso fica evidente ao olhar para a figura \ref{fig:comp_vs_ang}, que mostra um histograma bidimensional do comprimento da trajetória da partícula em função do ângulo de espalhamento (polar) no referencial de laboratório. Eventos de espalhamento em ângulos menores que 5 graus e reações na janela de entrada foram previamente removidos neste histograma.
+\par A grande vantagem do alvo ativo é a possibilidade de detectarmos partículas provenientes das mais diversas reações nuclear. Por outro, lado isso dificulta consideravelmente a análise pois precisamos identificar e classificar essas reações. Por exemplo, ao graficarmos o comprimento do alcance das partículas em função do ângulo, temos a presença de todas as partículas Isso fica evidente ao olhar para a figura \ref{fig:comp_vs_ang}, que mostra um histograma bidimensional do comprimento da trajetória da partícula em função do ângulo de espalhamento (polar) no referencial de laboratório. Eventos de espalhamento em ângulos menores que 5 graus e reações na janela de entrada foram previamente removidos neste histograma.
 
 %Primeiro é preciso entender os tipos de trajetórias identificados em eventos como os mostrados na figura \ref{fig:res_tracks}, que mostra as trajetórias de diferentes partículas no gás.
 
@@ -1416,11 +1423,12 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
     \label{fig:comp_vs_ang}
 \end{figure}
 
-\par Pela figura \ref{fig:comp_vs_ang}, é possível perceber dois aspectos importantes sobre os dados. O primeiro é que o canal de reação elástico e inelástico é predominante no espectro. Esse é um dos motivos pela assimetria com relação ao ângulo de espalhamento. Devido a que o experimento foi realizado em cinemática inversa, o ângulo de espalhamento da partícula de recuo depende do valor do $Q$ da reação. Por exemplo, partículas alfa espalhadas elasticamente são detectadas em ângulos dianteiros menores que 90 graus. Os ângulos maiores que 90 graus neste caso correspondem a reações com $Q>0$, por exemplo a reação ($\alpha, p$). O segundo aspecto é a ausência de eventos na parte inferior da figura \ref{fig:comp_vs_ang}. Essa ausência ocorre devido ao baixo ganho da região central do detector micromegas que limita a detecção de tracks menores do que 60 mm. Da mesma forma, a ausência de eventos na parte superior do histograma corresponde a limitação geométrica do TPC que possui um raio de 150 mm e comprimento de 500 mm.
+\par Pela figura \ref{fig:comp_vs_ang}, é possível perceber dois aspectos importantes sobre os dados. O primeiro é que o canal de reação correspondente ao espalhamento elástico e inelástico, é predominante no espectro. Devido ao fato do experimento ter sido realizado em cinemática inversa, o ângulo de espalhamento da partícula de recuo depende do valor do $Q$ da reação. Por exemplo, partículas alfa espalhadas elasticamente são detectadas em ângulos dianteiros menores que 90 graus. Os ângulos maiores que 90 graus neste caso correspondem a reações com $Q>0$, por exemplo a reação ($\alpha, p$). O segundo aspecto é a ausência de eventos abaixo de 50 mm, como é possível ver na figura \ref{fig:comp_vs_ang}. Essa ausência ocorre devido ao baixo ganho da região central do detector micromegas que limita a detecção de tracks menores do que 60 mm. Da mesma forma, a ausência de eventos na parte superior do histograma corresponde a limitação geométrica do TPC que possui um raio de 150 mm e comprimento de 500 mm.
 
 % O primeiro é com relação à assimetria do ângulo de espalhamento. O desbalanço entre trajetórias com ângulo de espalhamento menor que 90º e maior que 90º ocorre pelo uso no referencial do laboratório. O ângulo de espalhamento no referencial do laboratório é metade do ângulo de espalhamento no referencial do centro de massa \cite{two_body_mec}. Ângulos maior que 90º na figura representam eventos de cinemática inversa. O segundo aspecto é a ausência de trajetórias na região central da figura. Essa ausência ocorre devido à limitações geométricas da câmara. Por exemplo, uma trajetória com ângulo de espalhamento de cerca de 90º não pode ter comprimento maior que 140 mm, pois o evento ocorre na região central da câmara e isso significa ultrapassar o limite geométrico do TPC.
 
-\par A fim de obter o canal de breakup $\alpha$($^{17}$F,$^{16}\mathrm{O}+p$), é necessário identificar os eventos com prótons. A figura \ref{fig:exemplo_proton_16O} mostra um exemplo de breakup de $^{17}$F em $^4$He observado no experimento.
+\par O foco principal desse trabalho é identificar e selecionar 
+os eventos correspondentes ao canal de breakup $\alpha$($^{17}$F,$^{16}\mathrm{O}+p$), esse canal pode ser identificado a partir dos eventos com emissão de prótons. com prótons. A figura \ref{fig:exemplo_proton_16O} mostra um exemplo de breakup de $^{17}$F em $^4$He observado no experimento.
 
 \begin{figure}[H]
     \centering
@@ -1429,27 +1437,31 @@ onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância
     \label{fig:exemplo_proton_16O}
 \end{figure}
 
-\par A seleção de eventos é feita aplicando vários gates (condições lógicas) para identificar os eventos com prótons. Isto pode ser feito num histograma de carga do track em função de seu comprimento. A relação entre essas duas variáveis se dá por meio do stopping power, onde o termo dominante da equação de Bethe Block \cite{leo1988techniques} em baixas energias pode ser aproximado a
+\par A seleção de eventos é feita aplicando vários gates (condições lógicas) para identificar os eventos com prótons. Isto pode ser feito num histograma da carga associada a uma trajetória em função de seu comprimento. A relação entre essas duas variáveis se dá por meio da expressão para o stopping power, onde o termo dominante da equação de Bethe Block \cite{leo1988techniques} em baixas energias pode ser aproximado a
 % eq 5.81
 \begin{equation}\label{eq:bethe_block_low_energies_1}
 	\frac{\mathrm{d}E}{\mathrm{d}x} \propto -\frac{4\pi Z^2  e^4 N_e}{m_ev^2},
 \end{equation}
-
 % \ln \left(\frac{2mv^2}{\hbar \omega_P}
-
-\par onde $E$ é a energia da partícula com carga $Ze$ ($e$ é a carga do elétron) e velocidade $v$ ao atravessar um gás com $N_e$ elétrons por unidade de volume. Sabendo que $2E$ = $Mv^2$, onde $M$ é a massa da partícula, segue que
+onde $E$ é a energia da partícula com carga $Ze$ ($e$ é a carga do elétron) e velocidade $v$ ao atravessar um gás com $N_e$ elétrons por unidade de volume. Sabendo que $2E$ = $Mv^2$, onde $M$ é a massa da partícula, segue que
 
 \begin{equation}\label{eq:bethe_block_low_energies_2}
 	\int^{E}_0 \left | 2E'\mathrm{d}E' \right | \propto \int^{L}_0 \frac{4\pi Z^2  e^4 N_e M}{m_e} \mathrm{d}x,
 \end{equation}
-
-\par integral que resulta em
+%
+cuja integral resulta em
 
 \begin{equation}\label{eq:bethe_block_low_energies_3}
-	E^2 \propto (LM)\frac{4\pi Z^2  e^4 N_e}{m_e}.
+	E^2 \propto (LM)\frac{4\pi Z^2  e^4 N_e}{m_e},
+\end{equation}
+%
+onde chegamos em
+
+\begin{equation}\label{eq:bethe_block_low_energies_4}
+	Q = E \propto \sqrt{(LM)}\sqrt{\frac{4\pi Z^2  e^4 N_e}{m_e}}.
 \end{equation}
 
-\par Portanto, existe uma relação do quadrado da energia (ou o quadrado da carga depositada) com o comprimento da trajetória. O termo $M$ mostra que quanto maior a massa $M$ (e também o $Z$) da partícula, maior é a carga depositada. Dessa forma, os prótons podem ser identificados num histograma de carga em função do comprimento do track (proporcional à energia depositada) como a região inferior à faixa das alfas, assim como mostrado na figura \ref{subfig:carga_comp_cut1}. O resultado da aplicação do gate (polígono em vermelho na figura \ref{subfig:carga_comp_cut1}) para o espectro de comprimento em função do ângulo de espalhamento pode ser visto na figura \ref{subfig:comp_vs_carga_cut1}. Esse espectro deve ser comparado com o da figura \ref{fig:comp_vs_ang} (sem aplicação do gate).
+\par Portanto, existe uma relação do quadrado da energia (ou o quadrado da carga depositada) com o comprimento da trajetória. O termo $M$ mostra que quanto maior a massa $M$ (e também o $Z$) da partícula, maior é a carga depositada. Dessa forma, os prótons podem ser identificados num histograma de carga em função do comprimento da trajetória (proporcional à energia depositada) como a região inferior à faixa das alfas, assim como mostrado na figura \ref{subfig:carga_comp_cut1}. O resultado da aplicação do gate (polígono em vermelho na figura \ref{subfig:carga_comp_cut1}) para o espectro de comprimento em função do ângulo de espalhamento pode ser visto na figura \ref{subfig:comp_vs_carga_cut1}. Esse espectro deve ser comparado com o da figura \ref{fig:comp_vs_ang} (sem aplicação do gate).
 
 %(ver figura \ref{fig:comp_vs_ang}) está na figura \ref{subfig:comp_vs_carga_cut1}.
 
@@ -2067,6 +2079,34 @@ onde $T^{a}_{1/2}$ é o tempo de meia vida do decaimento beta medido experimenta
 % \end{figure}
 
     % \caption{Projeções de partículas dentro do alvo ativo. O objetivo da rede neural é classificar corretamente se a imagem à direita corresponde à uma trajetória de um próton, carbono ou outra partícula.}
+
+\chapter{Algoritmo pRANSAC}
+
+\begin{algorithm}[H]
+    \caption{p-RANSAC}\label{ransac_algo}
+    \KwData{pointcloud, $N$, $d_{min}$, $N_{min}$}
+    \For{cada iteração $ i =1,2,\ldots, N$}{
+        Seleciona dois pontos da \textit{pointcloud} de modo aleatório (\textit{Random Sampling})\;
+        Estima versor $v$ e um ponto $P_b$ que passe pela reta \textit{r} formada pelos dois pontos\;
+        \For{cada ponto $P$}{
+            Calcula a distância $d$ do ponto à reta \textit{r}\;
+            \If{$d < d_{min}$}{
+			    Guarda $P$ como pertencente à $r$\;
+	        }
+	    }
+	    \If{Número de pontos de $r > N_{min}$}{
+	        Guarda $v$, $P_b$ e $C$\;
+	    }
+    }
+    Ordena as retas do menor para o maior $C$\;
+    \For{cada reta $r$ ordenada}{
+        \If{Número de pontos de $r > N_{min}$}{
+            Guarda $v$, $P_b$ e pontos $P$ $\in r$\;
+        }
+    }
+    \Return Retas $r$ selecionadas na última etapa\;
+\end{algorithm}
+
 \end{appendices}
 
 
