@@ -783,18 +783,24 @@ onde $A$ é a amplitude do ponto com centroide $t_i$ e desvio padrão após a de
     \label{fig:arq_source_to_bkg}
 \end{figure}
 
-\par A entrada da rede é o sinal ``cru" com dimensionalidade 521 x 1. A seguir realizamos duas convoluções (passagens \textit{a} e \textit{b}) com padding same e uma camada com Max pooling. Os dois canais restantes sofrem uma planificação (ou flat), diminuindo sua dimensionalidade, para então passar por mais uma convolução com padding same e filtros de tamanho 19 seguido de uma camada Max pooling e uma camada Fully Connected com função de ativação ReLU. Toda a rede neural foi construída usando o TensorFlow 2 e possui um total de 545.536 parâmetros, todos treináveis. O tamanho dos filtros das convoluções levam em conta a largura do pulso, sendo no mínimo um valor maior que a largura, a fim de que cada kernel atue em um pulso completo na convolução \cite{FORTINO2022166497}.
+\par A entrada da rede é o sinal ``cru" com dimensionalidade 521 x 1. A seguir realizamos duas convoluções (passagens \textit{a} e \textit{b}) com padding same e uma camada com Max pooling, a fim de diminuir o número de canais resultente. Os dois canais restantes sofrem uma planificação (ou flat), diminuindo sua dimensionalidade, para então passar por mais uma convolução com padding same e filtros de tamanho 19 seguido de uma camada Max pooling, para deixar apenas um canal resultante, para enfim passar pela última camada Fully Connected com função de ativação ReLU. Toda a rede neural foi construída usando o TensorFlow 2 e possui um total de 545.536 parâmetros, todos treináveis. O tamanho dos filtros das convoluções levam em conta a largura do pulso, sendo no mínimo um valor maior que a largura, a fim de que cada kernel de cada convolução atue em um pulso completo na convolução \cite{FORTINO2022166497}.
 
-\par A camada final com função de ativação ReLU garante o valor mínimo de saída em 0 e, principalmente, pelo fato de não causar problemas à minimização do gradiente \cite{VGP}. Foram testadas diversas combinações e a que está sendo mostrada na figura \ref{fig:arq_source_to_bkg} é a que obteve os melhores resultados \cite{FORTINO2022166497}. 
+\par A camada final com função de ativação ReLU garante o valor mínimo de saída em 0 e, principalmente, pelo fato de não causar problemas à minimização do gradiente \cite{VGP}. O processo de criação de arquiteturas de redes neurais é algo que não possui teoria, sendo um processo na maior parte do tempo empírico. Foram testadas diversas combinações e a que está sendo mostrada na figura \ref{fig:arq_source_to_bkg} é a que obteve os melhores resultados \cite{FORTINO2022166497}. 
 % Caso, por exemplo, na passagem \textit{c} da figura, o \textit{pool size} da camada de \textit{max pooling} fosse 32 (a fim de sobrarem 512 canais igual na entrada e na saída), a rede parece não entender as oscilações grandes do sinal de fundo.
 % TODO: equação erro quadratico medio
-\par Para o treino foram usados 160.000 sinais e 40.000 para validação. O loss foi escolhido como sendo o erro quadrático médio (equação \ref{eq:erro_abs_m}), o otimizador foi o ADAMAX \cite{ADAMAX}, com learning rate de 0.0005, e métrica para avaliação foi o erro médio absoluto, dado por
+\par Para o treino foram usados 160.000 sinais e 40.000 para validação. O loss foi escolhido como sendo o erro quadrático médio, dado por
+
+\begin{equation}\label{eq:erro_quad_m}
+    E = \frac{1}{N}\sum_{i = 1}^{N} \left( x_i - \Hat{x}_i\right )^2,
+\end{equation}
+%
+onde $E$ é o erro quadrático médio, $N$ é o número de pontos e $x_i$ o ponto da saída da rede para ser comparado com o ponto original $\Hat{x}_i$. O otimizador foi o ADAMAX \cite{ADAMAX}, com learning rate de 0.0005 (parâmetro $\alpha$ da equação \ref{eq:SGD}), e métrica para avaliação foi o erro médio absoluto, dado por
 
 \begin{equation}\label{eq:erro_abs_m}
     E = \frac{1}{N}\sum_{i = 1}^{N} \left | x_i - \Hat{x}_i\right |,
 \end{equation}
 %
-onde $E$ é o erro absoluto médio, $N$ é o número de pontos e $x_i$ o ponto da saída da rede para ser comparado com o ponto original $\Hat{x}_i$. Utilizamos 30 epochs e adotamos um batch size de 8. O treino foi realizado no Google Colaboratory \cite{google_colab} usando a GPU (graphics processing unit) NVIDIA Tesla P100 e durou cerca de 34 minutos. Os resultados do treino são mostrados na figura \ref{fig:source_to_bkg_results}. Como podemos ver na figura, os treinos são bem validados a partir da epoch 20, quando começa um platô no Loss.
+onde $E$ é o erro absoluto médio, $N$ é o número de pontos e $x_i$ o ponto da saída da rede para ser comparado com o ponto original $\Hat{x}_i$. Utilizamos 30 epochs (iterações de treino) e adotamos um batch size de 8. O treino foi realizado no Google Colaboratory \cite{google_colab} usando a GPU (graphics processing unit) NVIDIA Tesla P100 e durou cerca de 34 minutos. Os resultados do treino são mostrados na figura \ref{fig:source_to_bkg_results}. Como podemos ver na figura, os treinos são bem validados a partir da epoch 20, quando começa um platô no Loss.
 
 % \par Como dito na seção \ref{sec:ml} temos que especificar qual o tamanho do filtro das camadas convolucionais. Para determinar o fundo precisamos, ponto a ponto, determinar quantos canais na direita e na esquerda o filtro deve atuar. Por exemplo, caso o tamanho do filtro fosse 3, ele só estaria ``enxergando" um ponto à direita e um à esquerda, para então passar a informação a diante, porém claramente é um filtro muito pequeno, as oscilações podem variar mais do que 5 canais. Além disso, quando há o começo de um pulso no sinal, ele pode se estender por múltiplos canais, então é preciso escolher um tamanho de filtro grande o suficiente para enxergar todas essas diferenças. A rede consta com duas camadas convolucionais em sequência com filtros de tamanho 21 e 19, respectivamente.
 
@@ -870,7 +876,7 @@ onde $E$ é o erro absoluto médio, $N$ é o número de pontos e $x_i$ o ponto d
 
 % \par Outro problema é que há um \textit{overlap} de gaussianas. Não é tão evidente a posição dos centroides se o espectro não está deconvoluído. É muito mais complicado, mesmo olhando, dizer a posição. Portanto o problema será quebrado em mais uma etapa: construir um rede que faça a deconvolução.
 
-\par Considerando a mesma abordagem da rede neural anterior criamos uma rede neural para realizar uma sequencia de convoluções e por fim uma camada fully connected com função de ativação ReLU, pois precisamos ter o valor mínimo do espectro em 0. Os filtros das convoluções precisam ter tamanho mínimo de duas vezes o sigma das gaussianas utilizadas para atuarem sobre cada pulso do espectro. A entrada da rede é o sinal já com o fundo subtraído e com mínimo em 0. A saída é o sinal após deconvolução dada pelo algoritmo \texttt{gold deconvolution} na biblioteca TSpectrum do ROOT, já mostrado na subseção \ref{subsec:pulses_deconv}. A figura \ref{fig:source_to_deconv} mostra a arquitetura da rede de deconvolução.
+\par Considerando a mesma abordagem da rede neural anterior criamos uma rede neural para realizar uma sequencia de convoluções e por fim uma camada fully connected com função de ativação ReLU, pois precisamos ter o valor mínimo do espectro em 0, assim como a saída do algoritmo de deconvolução do TSpectrum. Os filtros das convoluções precisam ter tamanho mínimo de duas vezes o sigma das gaussianas utilizadas para atuarem sobre cada pulso do espectro. A entrada da rede é o sinal já com o fundo subtraído e com mínimo em 0. A saída é o sinal após deconvolução dada pelo algoritmo \texttt{gold deconvolution} na biblioteca TSpectrum do ROOT, já mostrado na subseção \ref{subsec:pulses_deconv}. A figura \ref{fig:source_to_deconv} mostra a arquitetura da rede de deconvolução.
 
 \par A rede é a sequência de duas convoluções com 32 filtros, valid padding e kernels de tamanho 19 e 17, respectivamente, seguida de uma camada Max pooling com pool size igual à 16. No final há o flat na camada para seguir com uma camada fully connected com função de ativação ReLU. O valid padding se mostrou mais eficiente para a convergência da rede. Toda a rede foi construída usando o TensorFlow 2, possuindo 508.000 parâmetros treináveis \cite{FORTINO2022166497}.
 
@@ -1076,7 +1082,7 @@ onde $f(t_i)$ é a amplitude do espectro no \textit{time bucket} $t$ da posiçã
         \caption{}
         \label{subfig:ex_ev_4}
     \end{subfigure}
-\caption{Exemplos de eventos reconstruídos através da análise dos sinais com machine learning. A seta vermelha indica o sentido do feixe.}
+\caption{Exemplos de eventos reconstruídos através da análise dos sinais com machine learning. A seta vermelha indica o sentido do feixe. Diferentes nuvens de pontos (eventos) correspondem a diferentes trajetórias de partículas sendo produzidas por diferentes reações nucleares.}
 \label{fig:ex_eventos}
 \end{figure}
 
@@ -1099,7 +1105,7 @@ onde $f(t_i)$ é a amplitude do espectro no \textit{time bucket} $t$ da posiçã
 \par Para melhor definirmos os aglomerados devemos primeiramente eliminar 
 ou diminuir os outliers. Para tanto, foram usados dois filtros. O primeiro filtro exclui pontos baseado em sua carga, colocando um limiar onde pontos com carga $Q$ $<$ 110 são descartados. O segundo filtro, chamado de outlier removal, elimina pontos considerados outliers globais, de modo que, caso um ponto não possua um número mínimo de vizinhos $n_{or}$ = 4 em um raio de distância tridimensional $d_{or}$ = 12 mm, então ele é descartado. O outlier removal está presente na biblioteca Open3D \cite{open3d} no Python e funciona excluindo pontos muito isolados uns dos outros.
 
-\par Existem diversas opções de algoritmos de identificação de cluster disponíveis, como o Density-based spatial clustering of applications with noise (DBSCAN) \cite{dbscan}, porém nossa escolha foi baseada na performance em tempo. Portanto, o algoritmo usado foi o Hierarchical DBSCAN (HDBSCAN) \cite{hdbscan1, hdbscan2}. O algoritmo tem como entrada a nuvem de pontos e parâmetros esperados para a densidade dos aglomerados presentes no conjunto de pontos, como a densidade mínima e máxima de pontos nos aglomerados. O algoritmo retorna vetores que tornam possíveis a identificação dos diferentes aglomerados. Os aglomerados passam por um ajuste por mínimos quadrados para determinar o versor e um ponto arbitrário que determinam a reta tridimensional relacionada com a trajetória. A figura \ref{subfig:antes_clustering} mostra o resultado da aplicação do HDBSCAN na nuvem de pontos mostrada na figura \ref{subfig:exemplo_1}. As nuvens de pontos reconstruídas não possuem, em certos casos, densidade de pontos o suficiente para resultar em 100\% de acurácia de identificação do evento.
+\par Existem diversas opções de algoritmos de identificação de cluster disponíveis, como o Density-based spatial clustering of applications with noise (DBSCAN) \cite{dbscan}, porém nossa escolha foi baseada na performance em tempo. Portanto, o algoritmo usado foi o Hierarchical DBSCAN (HDBSCAN) \cite{hdbscan1, hdbscan2}. O algoritmo tem como entrada a nuvem de pontos e parâmetros esperados para a densidade dos aglomerados presentes no conjunto de pontos, como a densidade mínima e máxima de pontos nos aglomerados. O algoritmo retorna vetores que tornam possíveis a identificação dos diferentes aglomerados. Os aglomerados passam por um ajuste por mínimos quadrados para determinar o versor e um ponto arbitrário que determinam a reta tridimensional relacionada com a trajetória. A figura \ref{subfig:antes_clustering} mostra o resultado da aplicação do HDBSCAN na nuvem de pontos mostrada na figura \ref{subfig:exemplo_1}. As nuvens de pontos reconstruídas não possuem, em certos casos, densidade de pontos o suficiente para resultar em 100\% de acurácia de identificação correta de todas as trajetórias do evento.
 
 
 \begin{figure}[H]
@@ -1231,12 +1237,12 @@ onde $d_{i, \vec{V_r}}$ é distância entre o ponto $i$ pertencente a trajetóri
 
 \subsection{Identificação de eventos com \textit{machine learning}}\label{subsec:pointnet}
 
-\par Para evitar o processo de buscar de aglomerados nas nuvens de pontos que não possuem eventos de interesse (como o breakup), é possível usar redes neurais supervisionadas capazes de processar nuvens de pontos tridimensionais. A rede neural usada para esse processo chama-se PointNet \cite{qi2016pointnet}. A PointNet é uma rede neural desenvolvida para classificar e segmentar imagens em 3D utilizando nuvens de pontos que representam uma forma 3D do objeto. A arquitetura dessa rede neural está na figura \ref{fig:aqr:pointnet}.
+\par Para evitar o processo de busca de aglomerados nas nuvens de pontos que não possuem eventos de interesse (como o breakup), é possível usar redes neurais supervisionadas capazes de processar nuvens de pontos tridimensionais. A rede neural usada para esse processo chama-se PointNet \cite{qi2016pointnet}. A PointNet é uma rede neural desenvolvida para classificar e segmentar imagens em 3D utilizando nuvens de pontos que representam uma forma 3D do objeto. A arquitetura dessa rede neural está na figura \ref{fig:aqr:pointnet}.
 
 \begin{figure}[H]
     \centering
     \includegraphics[scale = 0.22]{figs/pointnet_arch.png}
-    \caption{Arquitetura da PointNet. A rede de classificação tem o \textit{input} com $n$ pontos com 3 coordenadas, onde são aplicadas sequencias de transformação que são agregadas por uma camada de max pooling. O \textit{ouput} é a classificação para $k$ classes possíveis. A rede de segmentação é uma extensão da rede de classificação, classificando ponto a ponto a nuvem de pontos, em $m$ classes possíveis. Mais detalhes sobre a arquitetura podem ser encontrados na Ref. \cite{qi2016pointnet}}.
+    \caption{Arquitetura da PointNet. A rede de classificação tem o input com $n$ pontos com 3 coordenadas, onde são aplicadas sequencias de transformação que são agregadas por uma camada de max pooling. O ouput é a classificação para $k$ classes possíveis. A rede de segmentação é uma extensão da rede de classificação, classificando ponto a ponto a nuvem de pontos, em $m$ classes possíveis. Mais detalhes sobre a arquitetura podem ser encontrados na Ref. \cite{qi2016pointnet}}.
     \label{fig:aqr:pointnet}
 \end{figure}
 
@@ -1244,7 +1250,7 @@ onde $d_{i, \vec{V_r}}$ é distância entre o ponto $i$ pertencente a trajetóri
 
 \par  Para o uso da PointNet para classificação, foi criado um banco de dados para o treino da rede neural que tem como input a nuvem de pontos e como output o número de trajetórias presentes no evento. Um dos pontos negativos da PointNet é a necessidade de que os dados de entrada tenham um tamanho fixo \cite{qi2016pointnet}. No caso dos dados desse trabalho, o número de pontos por evento não é  fixo. Para resolver isso, impomos para os nossos dados um tamanho fixo $n$ = 300 pontos para todas as nuvens de pontos. Eventos com menos pontos eram preenchidos com pontos repetidos da mesma nuvem para completar até o tamanho $n$. Eventos com menos do que 100 pontos e mais que 300 pontos foram descartados pois geralmente são ruídos e a saturação do detector devido à faíscas.
 
-\par Para determinar o número de trajetórias nos eventos para o treino da rede neural, foi utilizado o estimador robusto (que estima quais as trajetórias presentes nas nuvens de pontos) que chamei de prototype-RANSAC (RANdom SAmple Consensus), que é uma variação do RANSAC  \cite{ransac, artigo}. A escolha dele no lugar do HDBSCAN é pela melhor acurácia na identificação de trajetórias, apesar de ser cerca de 4 vezes mais lento. As nuvens de pontos (sem o acréscimo de pontos para a PointNet) ainda passam pelos dois filtros e critérios de correção mostrados na seção \ref{sec:forcabruta}. O algoritmo \ref{ransac_algo} mostra o funcionamento do p-RANSAC. O algoritmo seleciona dois pontos de modo aleatório e determina o versor $\hat{v}$ e o ponto $P_b$ que descrevem a única reta $r$ que passa pelos dois pontos. A reta é selecionada caso tenha um número mínimo de pontos $N_{min}$ = 24 (chamado de inliers) e tenha o mínimo (com relação aos outros conjunto de pontos) da estimativa $C$ dada por \cite{artigo}
+\par Para determinar o número de trajetórias nos eventos para o treino da rede neural, foi utilizado o estimador robusto (que estima quais as trajetórias presentes nas nuvens de pontos) que chamei de prototype-RANSAC (RANdom SAmple Consensus), que é uma variação do RANSAC  \cite{ransac, artigo}. A escolha dele no lugar do HDBSCAN é pela melhor acurácia na identificação de trajetórias, apesar de ser cerca de 4 vezes mais lento. As nuvens de pontos (sem o acréscimo de pontos para a PointNet) ainda passam pelos dois filtros e critérios de correção mostrados na seção \ref{sec:forcabruta}. O algoritmo \ref{ransac_algo}, localizado no apêndice \ref{appendix:pransac}, mostra o funcionamento do p-RANSAC. O algoritmo seleciona dois pontos de modo aleatório e determina o versor $\hat{v}$ e o ponto $P_b$ que descrevem a única reta $r$ que passa pelos dois pontos. A reta é selecionada caso tenha um número mínimo de pontos $N_{min}$ = 24 (chamado de inliers) e tenha o mínimo (com relação aos outros conjunto de pontos) da estimativa $C$ dada por \cite{artigo}
 
 \begin{equation} \label{criterio_ransac}
     C = \sum_{i = 0}^{N} \frac{d_i ^2}{N},
@@ -1252,32 +1258,32 @@ onde $d_{i, \vec{V_r}}$ é distância entre o ponto $i$ pertencente a trajetóri
 %
 onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância do i-ésimo ponto à reta. O número de iterações do algoritmo foi determinado empiricamente e o melhor valor foi de 700.
 
-\begin{algorithm}[H]
-    \caption{p-RANSAC}\label{ransac_algo}
-    \KwData{pointcloud, $N$, $d_{min}$, $N_{min}$}
-    \For{cada iteração $ i =1,2,\ldots, N$}{
-        Seleciona dois pontos da \textit{pointcloud} de modo aleatório (\textit{Random Sampling})\;
-        Estima versor $v$ e um ponto $P_b$ que passe pela reta \textit{r} formada pelos dois pontos\;
-        \For{cada ponto $P$}{
-            Calcula a distância $d$ do ponto à reta \textit{r}\;
-            \If{$d < d_{min}$}{
-			    Guarda $P$ como pertencente à $r$\;
-	        }
-	    }
-	    \If{Número de pontos de $r > N_{min}$}{
-	        Guarda $v$, $P_b$ e $C$\;
-	    }
-    }
-    Ordena as retas do menor para o maior $C$\;
-    \For{cada reta $r$ ordenada}{
-        \If{Número de pontos de $r > N_{min}$}{
-            Guarda $v$, $P_b$ e pontos $P$ $\in r$\;
-        }
-    }
-    \Return Retas $r$ selecionadas na última etapa\;
-\end{algorithm}
+%\begin{algorithm}[H]
+%    \caption{p-RANSAC}\label{ransac_algo}
+%    \KwData{pointcloud, $N$, $d_{min}$, $N_{min}$}
+%    \For{cada iteração $ i =1,2,\ldots, N$}{
+%        Seleciona dois pontos da \textit{pointcloud} de modo aleatório (\textit{Random Sampling})\;
+%        Estima versor $v$ e um ponto $P_b$ que passe pela reta \textit{r} formada pelos dois pontos\;
+%        \For{cada ponto $P$}{
+%            Calcula a distância $d$ do ponto à reta \textit{r}\;
+%            \If{$d < d_{min}$}{
+%			    Guarda $P$ como pertencente à $r$\;
+%	        }
+%	    }
+%	    \If{Número de pontos de $r > N_{min}$}{
+%	        Guarda $v$, $P_b$ e $C$\;
+%	    }
+%    }
+%    Ordena as retas do menor para o maior $C$\;
+%    \For{cada reta $r$ ordenada}{
+%        \If{Número de pontos de $r > N_{min}$}{
+%            Guarda $v$, $P_b$ e pontos $P$ $\in r$\;
+%        }
+%    }
+%    \Return Retas $r$ selecionadas na última etapa\;
+%\end{algorithm}
 
-\par Para o output foram escolhidos eventos que possuem de 0 até 5 trajetórias. Com o \textit{output} construído, a rede para classificação foi treinada, onde a função custo foi a categorical cross entropy \cite{MSE_CEF_review} e o otimizador o ADAM \cite{ADAMAX}. A acurácia de 70\% quando concluído o treino. Exemplo do resultado da aplicação da rede neural em nuvens de pontos está na figura \ref{fig:pointnet_class_exs}.
+\par Para o output foram escolhidos eventos que possuem de 0 até 5 trajetórias. Com o output construído, a rede para classificação foi treinada, onde a função custo foi a categorical cross entropy \cite{MSE_CEF_review} e o otimizador o ADAM \cite{ADAMAX}. A acurácia de 70\% quando concluído o treino. Exemplo do resultado da aplicação da rede neural em nuvens de pontos está na figura \ref{fig:pointnet_class_exs}.
 
 \begin{figure}[H]
     \centering
@@ -1418,8 +1424,8 @@ onde $\vec{V_i}$ é o versor da reta $i$ e $\vec{V_f}$ é o versor do feixe.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale = 0.5, width=\columnwidth]{figs/comp_vs_ang_n2.png}\
-    \caption{Histograma de comprimento de \textit{track} no eixo $y$ e ângulo de espalhamento no eixo $x$.}
+    \includegraphics[scale = 0.5, width=\columnwidth]{figs/comp_vs_ang_n2_2.png}\
+    \caption{Histograma de comprimento da trajetória no eixo $y$ e ângulo de espalhamento no eixo $x$.}
     \label{fig:comp_vs_ang}
 \end{figure}
 
@@ -1432,8 +1438,8 @@ os eventos correspondentes ao canal de breakup $\alpha$($^{17}$F,$^{16}\mathrm{O
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale = 1., width=0.75\columnwidth]{figs/evento_ex_run_261_evento_5853.png}
-    \caption{Evento onde há a trajetória originada por um próton (trajetória em amarelo), onde percebe-se que seu comprimento vai até o limite geométrico da câmara (cilindro cinza transparente). O feixe está em azul e o $^{16}$O originou a trajetória em verde.}
+    \includegraphics[scale = 1., width=0.75\columnwidth]{figs/evento_ex_run_261_evento_5853_2.png}
+    \caption{Evento onde há a trajetória originada por um próton (trajetória em amarelo), onde percebe-se que seu comprimento vai até o limite geométrico da câmara (cilindro cinza transparente). O feixe está em azul e o $^{16}$O originou a trajetória em verde. É notável neste exemplo que a trajetória do próton é bem maior que o fragmento $^{16}$O.}
     \label{fig:exemplo_proton_16O}
 \end{figure}
 
@@ -1461,7 +1467,7 @@ onde chegamos em
 	Q = E \propto \sqrt{(LM)}\sqrt{\frac{4\pi Z^2  e^4 N_e}{m_e}}.
 \end{equation}
 
-\par Portanto, existe uma relação do quadrado da energia (ou o quadrado da carga depositada) com o comprimento da trajetória. O termo $M$ mostra que quanto maior a massa $M$ (e também o $Z$) da partícula, maior é a carga depositada. Dessa forma, os prótons podem ser identificados num histograma de carga em função do comprimento da trajetória (proporcional à energia depositada) como a região inferior à faixa das alfas, assim como mostrado na figura \ref{subfig:carga_comp_cut1}. O resultado da aplicação do gate (polígono em vermelho na figura \ref{subfig:carga_comp_cut1}) para o espectro de comprimento em função do ângulo de espalhamento pode ser visto na figura \ref{subfig:comp_vs_carga_cut1}. Esse espectro deve ser comparado com o da figura \ref{fig:comp_vs_ang} (sem aplicação do gate).
+\par Portanto, existe uma relação do quadrado da energia (ou o quadrado da carga depositada) com o comprimento da trajetória. O termo $M$ mostra que quanto maior a massa $M$ (e também o $Z$) da partícula, maior é a carga depositada. Dessa forma, os prótons podem ser identificados num histograma de carga em função do comprimento da trajetória (proporcional à energia depositada) como a região inferior à faixa das alfas, assim como mostrado na figura \ref{subfig:carga_comp_cut1}. O resultado da aplicação do gate (polígono em vermelho na figura \ref{subfig:carga_comp_cut1} que representa a região onde há as trajetórias dos prótons) para o espectro de comprimento em função do ângulo de espalhamento pode ser visto na figura \ref{subfig:comp_vs_carga_cut1}. Esse espectro deve ser comparado com o da figura \ref{fig:comp_vs_ang} (sem aplicação do gate).
 
 %(ver figura \ref{fig:comp_vs_ang}) está na figura \ref{subfig:comp_vs_carga_cut1}.
 
@@ -1971,7 +1977,7 @@ Os resultados apresentados nessa seção foram obtidos na etapa inicial desta di
 
 % O espectro biparamétrico ($\Delta E$ - $E$) mostrado pela figura \ref{subfig:espectro_1} é o resultado obtido do espalhamento do $^6$Li em $^{12}$C por um detector telescópio\cite{DETC_TELE}.
 
-\par O objetivo é identificar conjuntos (ou \textit{clusters}) diferentes a partir do espectro. É claro para o olho humano que existem conjuntos diferentes, e eles podem ser identificados usando algoritmos de aprendizado não supervisionado, como por exemplo o \textit{density-based spatial clustering of applications with noise} (DBSCAN) \cite{dbscan}. O DBSCAN consegue identificar \textit{clusters} apenas com as informações características de densidade existente pelos conjuntos que existem nos dados. O resultado da aplicação do algoritmo está na figura \ref{subfig:espectro_2}, onde é mostrado que o espectro agora está separado por diferentes conjuntos.
+\par O objetivo é identificar aglomerados (ou clusters) diferentes a partir do espectro. É claro para o olho humano que existem conjuntos diferentes, e eles podem ser identificados usando algoritmos de aprendizado não supervisionado, como por exemplo o density-based spatial clustering of applications with noise (DBSCAN) \cite{dbscan}. O DBSCAN consegue identificar clusters apenas com as informações características de densidade existente pelos conjuntos que existem nos dados. O resultado da aplicação do algoritmo está na figura \ref{subfig:espectro_2}, onde é mostrado que o espectro agora está separado por diferentes conjuntos.
 %\newpage
 
 \begin{figure}[H]
@@ -1989,7 +1995,7 @@ Os resultados apresentados nessa seção foram obtidos na etapa inicial desta di
         \caption{Espectro biparamétrico $\Delta E$ x $E$ (energia no referencial do centro de massa) com os conjuntos identificados com o uso do DBSCAN.}
         \label{subfig:espectro_2}
     \end{subfigure}
-\caption{Espectros biparamétricos $\Delta E$ x $E$, em \ref{subfig:espectro_1} o espectro cru com uma pré marcação das partículas, e em \ref{subfig:espectro_2} os conjuntos identificados usando \textit{machine learning}.}
+\caption{Espectros biparamétricos $\Delta E$ x $E$, em \ref{subfig:espectro_1} o espectro cru com uma pré marcação das partículas, e em \ref{subfig:espectro_2} os conjuntos identificados usando machine learning.}
 \label{fig:espectros_ex_ml}
 \end{figure}
 
@@ -2004,9 +2010,9 @@ Os resultados apresentados nessa seção foram obtidos na etapa inicial desta di
 
 \section{Estimativa de raios e massas nucleares}
 
-\par Frequentemente é necessário calcular com alta precisão observáveis que ainda não foram medidos, para contribuir com dados já existentes. É possível estimar propriedades de núcleos usando modelos e dados experimentais já existentes em conjunto com técnicas de \textit{machine learning}.
+\par Frequentemente é necessário calcular com alta precisão observáveis que ainda não foram medidos, para contribuir com dados já existentes. É possível estimar propriedades de núcleos usando modelos e dados experimentais já existentes em conjunto com técnicas de machine learning.
 
-\par É possível usar redes neurais que façam previsão de massa nucleares com informações de massa já disponíveis. Isso foi feito usando o algoritmo \textit{Light Gradient Boosting Machine} (LightGBM) \cite{LightGBM}. O algoritmo é uma rede neural cujo aprendizado é supervisionado e minimiza o erro entre a energia de ligação teórica e a energia de ligação experimental dos núcleos (essa diferença é chamada de resíduo), usando 10 quantidades físicas como dados de entrada (\textit{input}) \cite{nuclear_mass}. O desvio quadrático médio para a massa dos núcleos é de 0.234 $\pm$ 0.022 MeV, valor melhor que muitos modelos físicos de massa nuclear. A figura \ref{fig:nuclei_mass_ml} mostra os resíduos calculados entre a energia de ligação calculada pelo rede neural e a energia de ligação determinada experimentalmente.
+\par É possível usar redes neurais que façam previsão de massa nucleares com informações de massa já disponíveis. Isso foi feito usando o algoritmo Light Gradient Boosting Machine (LightGBM) \cite{LightGBM}. O algoritmo é uma rede neural cujo aprendizado é supervisionado e minimiza o erro entre a energia de ligação teórica e a energia de ligação experimental dos núcleos (essa diferença é chamada de resíduo), usando 10 quantidades físicas como dados de entrada (input) \cite{nuclear_mass}. O desvio quadrático médio para a massa dos núcleos é de 0.234 $\pm$ 0.022 MeV, valor melhor que muitos modelos físicos de massa nuclear. A figura \ref{fig:nuclei_mass_ml} mostra os resíduos calculados entre a energia de ligação calculada pelo rede neural e a energia de ligação determinada experimentalmente.
 
 \begin{figure}[H]
     \centering
@@ -2015,12 +2021,12 @@ Os resultados apresentados nessa seção foram obtidos na etapa inicial desta di
     \label{fig:nuclei_mass_ml}
 \end{figure}
 
-\par Outro exemplo de uso é para a estimativa de raio de carga nuclear. Usando uma rede neural (chamada de \textit{Bayesian neural network extended liquid drop} - BNN-ELD) FC com duas variáveis de entrada, o número de prótons Z e o número de massa A, com a condição de que Z $\geq$ 20 e A $\geq$ 40. A rede é supervisionada e usa 722 núcleos para dados de treino e 98 núcleos como validação. Resultados para o desvio quadrático médio do raio de carga são de cerca de 0.02 fm para os 820 núcleos utilizados. A figura \ref{fig:radii} mostra a diferença entre o raio de carga calculado teoricamente e o determinado experimentalmente para isótopos do chumbo, usando diferentes neurais e modelos teóricos. Mais detalhes podem ser encontrados na Ref. \cite{raio_carga}.
+\par Outro exemplo de uso é para a estimativa de raio de carga nuclear. Usando uma rede neural (chamada de Bayesian neural network extended liquid drop - BNN-ELD) FC com duas variáveis de entrada, o número de prótons $Z$ e o número de massa $A$, com a condição de que $Z$ $\geq$ 20 e $A$ $\geq$ 40. A rede é supervisionada e usa 722 núcleos para dados de treino e 98 núcleos como validação. Resultados para o desvio quadrático médio do raio de carga são de cerca de 0.02 fm para os 820 núcleos utilizados. A figura \ref{fig:radii} mostra a diferença entre o raio de carga calculado teoricamente e o determinado experimentalmente para isótopos do chumbo, usando diferentes neurais e modelos teóricos. Mais detalhes podem ser encontrados na Ref. \cite{raio_carga}.
 
 \begin{figure}[H]
     \centering
     \includegraphics[scale = 0.60]{figs/radii.png}
-    \caption{Previsões para o raio de carga para isótopos do chumbo (Z = 82) para diferentes modelos teóricos ou que usam redes neurais. A previsão que contém barras de erro é a que foi brevemente descrita no texto.}
+    \caption{Previsões para o raio de carga para isótopos do chumbo ($Z$ = 82) para diferentes modelos teóricos ou que usam redes neurais. A previsão que contém barras de erro é a que foi brevemente descrita no texto.}
     \label{fig:radii}
 \end{figure}
 
@@ -2034,28 +2040,28 @@ Os resultados apresentados nessa seção foram obtidos na etapa inicial desta di
     f = \log_{10}(T^{a}_{1/2}/T^{b}_{1/2}),
 \end{equation}
 
-onde $T^{a}_{1/2}$ é o tempo de meia vida do decaimento beta medido experimentalmente e $T^{b}_{1/2}$ é o tempo de meia vida do decaimento beta determinado teoricamente. As variáveis de entrada são o número de prótons Z, o número de nêtrons N, a energia total do decaimento beta e o parâmetro de paridade $\delta$ = 1, 0, -1, para núcleos par-par, ímpar-par e ímpar-ímpar, respectivamente.
+onde $T^{a}_{1/2}$ é o tempo de meia vida do decaimento beta medido experimentalmente e $T^{b}_{1/2}$ é o tempo de meia vida do decaimento beta determinado teoricamente. As variáveis de entrada são o número de prótons $Z$, o número de nêtrons $N$, a energia total do decaimento beta e o parâmetro de paridade $\delta$ = 1, 0, -1, para núcleos par-par, ímpar-par e ímpar-ímpar, respectivamente.
 
-\par A figura \ref{fig:beta_decay} mostra a previsão do tempo de meia vida ($T_{1/2}$) do decaimento $\beta$ (em segundos) para isótonos com número de nêutrons N = 126 usando redes neurais.
+\par A figura \ref{fig:beta_decay} mostra a previsão do tempo de meia vida ($T_{1/2}$) do decaimento $\beta$ (em segundos) para isótonos com número de nêutrons $N$ = 126 usando redes neurais.
 
 \begin{figure}[H]
     \centering
     \includegraphics[scale = 0.35]{figs/beta_predict_2.png}
-    \caption{Meias-vidas de decaimento $\beta$ para isótonos com N = 126. A região hachurada verde mostra as previsões de uma rede neural. A região hachurada em azul mostra os resultados da mesma rede neural, porém seus dados de aprendizado são estendidos para incluir três meias-vidas extras de decaimento $\beta$ para cada isótopo (indicado por círculos abertos) em direção à \textit{drip-line} de nêutrons \cite{mlbetadecay}.}
+    \caption{Meias-vidas de decaimento $\beta$ para isótonos com N = 126. A região hachurada verde mostra as previsões de uma rede neural. A região hachurada em azul mostra os resultados da mesma rede neural, porém seus dados de aprendizado são estendidos para incluir três meias-vidas extras de decaimento $\beta$ para cada isótopo (indicado por círculos abertos) em direção à drip-line de nêutrons \cite{mlbetadecay}.}
     \label{fig:beta_decay}
 \end{figure}
 
 \section{Alvos ativos}
 
-\par Experimentos com alvos ativos geram enormes quantidades de dados. Uma semana de experimento pode gerar até 10Tb de dados \cite{KUCHERAML}, o que gera a necessidade do uso de algoritmos de \textit{machine learning} para diminuir o consumo de tempo da análise desses dados.
+\par Experimentos com alvos ativos geram enormes quantidades de dados. Uma semana de experimento pode gerar até 10 Tb de dados \cite{KUCHERAML}, o que gera a necessidade do uso de algoritmos de machine learning para diminuir o consumo de tempo da análise desses dados.
 
-\par A análise dos dados envolve a reconstrução tridimensional dos eventos e posteriormente a reconstrução da cinemática, com a identificação de partículas e de reações nucleares. O uso de técnicas de \textit{machine learning} pode diminuir o consumo de tempo dessas etapas.
+\par A análise dos dados envolve a reconstrução tridimensional dos eventos e posteriormente a reconstrução da cinemática, com a identificação de partículas e de reações nucleares. O uso de técnicas de machine learning pode diminuir o consumo de tempo dessas etapas.
 
 \par O uso de CNNs em imagens feitas a partir das projeções de eventos pode ser útil para a classificação de eventos, sem a necessidade de reconstruir a cinemática em uma etapa anterior. A figura \ref{fig:tpc_ml} mostra exemplos de projeções de trajetórias de partículas dentro do alvo ativo, onde a partir da projeção no plano $xy$ é possível identificar a partícula que a originou.
 
-\par Primeiro, com o objetivo de classificar as projeções entre próton ou carbono, é possível construir uma rede neural para a classificação binária. Para isso foi usada uma arquitetura com camadas convolucionais seguidas de \textit{max-pooling} e por fim uma camada FC \cite{KUCHERAML}. A função a ser minimizada é a dada pela equação \ref{eq:binary_cross_entropy} e a métrica para entender o comportamento da rede neural é a acurácia binária.
+\par Primeiro, com o objetivo de classificar as projeções entre próton ou carbono, é possível construir uma rede neural para a classificação binária. Para isso foi usada uma arquitetura com camadas convolucionais seguidas de max-pooling e por fim uma camada FC \cite{KUCHERAML}. A função a ser minimizada é a dada pela equação \ref{eq:binary_cross_entropy} e a métrica para entender o comportamento da rede neural é a acurácia binária.
 
-\par Caso o objetivo seja classificar entre três ou mais possibilidades (como por exemplo próton, carbono e outros), então a classificação não será binária, passará a ser categórica, pois será necessário classificar a imagem em alguma categoria. A função custo passará a ser a \textit{categorical cross-entropy} e a métrica será a acurácia categórica.
+\par Caso o objetivo seja classificar entre três ou mais possibilidades (como por exemplo próton, carbono e outros), então a classificação não será binária, passará a ser categórica, pois será necessário classificar a imagem em alguma categoria. A função custo passará a ser a categorical cross-entropy e a métrica será a acurácia categórica.
 
 \begin{figure}[H]
     \centering
@@ -2066,7 +2072,7 @@ onde $T^{a}_{1/2}$ é o tempo de meia vida do decaimento beta medido experimenta
 
 \par A rede criada para a classificação binária (entre próton e carbono) atingiu cerca de 90\% de acurácia. Somado ao fato de que redes neurais são muito eficientes em tempo, isso mostra uma possibilidade de que seja possível utilizar redes neurais como essa para o processamento em tempo real dos dados, com pouca supervisão humana durante o processo \cite{KUCHERAML}.
 
-\par Outro problema que pode ser resolvido com técnicas de \textit{machine learning} é a remoção de ruído de eventos. Para isso, pode ser usado o algoritmo não supervisionado \textit{Hough transform} \cite{hough}, que é capaz de identificar padrões de interesse nos dados e evitar regiões ou pontos que não seguem o padrão desejado. 
+\par Outro problema que pode ser resolvido com técnicas de machine learning é a remoção de ruído de eventos. Para isso, pode ser usado o algoritmo não supervisionado Hough transform \cite{hough}, que é capaz de identificar padrões de interesse nos dados e evitar regiões ou pontos que não seguem o padrão desejado. 
 
 
 % Além disso são geradas nuvens de pontos tridimensionais, o que demanda um grande trabalho do ponto de vista de visão computacional, com algoritmos capazes de identificar estruturas em três dimensões. A figura \ref{fig:tpc_ml} mostra um exemplo de \textit{clustering} aplicado na identificação de trajetórias tridimensionais.
@@ -2080,13 +2086,13 @@ onde $T^{a}_{1/2}$ é o tempo de meia vida do decaimento beta medido experimenta
 
     % \caption{Projeções de partículas dentro do alvo ativo. O objetivo da rede neural é classificar corretamente se a imagem à direita corresponde à uma trajetória de um próton, carbono ou outra partícula.}
 
-\chapter{Algoritmo pRANSAC}
+\chapter{Algoritmo p-RANSAC}\label{appendix:pransac}
 
 \begin{algorithm}[H]
     \caption{p-RANSAC}\label{ransac_algo}
     \KwData{pointcloud, $N$, $d_{min}$, $N_{min}$}
     \For{cada iteração $ i =1,2,\ldots, N$}{
-        Seleciona dois pontos da \textit{pointcloud} de modo aleatório (\textit{Random Sampling})\;
+        Seleciona dois pontos da nuvem de pontos de modo aleatório (Random Sampling)\;
         Estima versor $v$ e um ponto $P_b$ que passe pela reta \textit{r} formada pelos dois pontos\;
         \For{cada ponto $P$}{
             Calcula a distância $d$ do ponto à reta \textit{r}\;
