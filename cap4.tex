@@ -46,6 +46,8 @@
 \alphalph{\value{subfigure}}%
 }%
 
+\usepackage[final]{pdfpages}
+
 
 
 
@@ -59,7 +61,7 @@
 \makeatletter
 \renewcommand{\@chapapp}{Capítulo}
 \makeatother
-\addtocounter{page}{-4}
+\addtocounter{page}{-5}
 
 
 \thispagestyle{empty}
@@ -188,6 +190,9 @@ Prof. Dr. Name (institution) \\
 \end{center}%\centering
 
 \clearpage
+\newpage
+
+\includepdf[pages=-]{fc78-2022.doc.pdf}
 
 \chapter*{Resumo}
 \thispagestyle{empty}
