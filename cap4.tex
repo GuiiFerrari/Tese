@@ -59,7 +59,7 @@
 \makeatletter
 \renewcommand{\@chapapp}{Capítulo}
 \makeatother
-
+\addtocounter{page}{-4}
 
 
 \thispagestyle{empty}
@@ -89,10 +89,11 @@
 \leftskip 6cm
 \begin{flushright}	
 \leftskip 6cm
-Orientador: Prof. Dr.  Valdir Guimarães\underline{ \hskip 5cm  } 
+Orientador: Prof. Dr.  Valdir Guimar\~{a}es\hfill{ \hskip 5cm  } 
 \leftskip 6cm
+\newline
     %Se nÃ£o houve coorientador, comente a linha abaixo \ If there is no co-advisor, comment line below
-Coorientador: Dr. Juan Carlos Zamora Cardona  \underline{ \hskip 5cm  }
+Coorientador: Dr. Juan Carlos Zamora Cardona\hfill{ \hskip 4cm  }
 \end{flushright}	
 
 \vspace{0.6cm}    
@@ -122,27 +123,94 @@ Prof(a). Dr(a). Nome do(a) Professor(a) (institui\c{c}\~{a}o de trabalho) \\
 \begin{center}
     {S\~ao Paulo \\  2022}
 \end{center}%\centering
-    
+%\newpage
+\cleardoublepage
+\thispagestyle{empty}
+\begin{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    
+%\TÃ­tulo da Tese \ Thesis title
+	{\fontsize{16}{16} \selectfont University of São Paulo \\}
+	\vspace{0.1cm}
+	{\fontsize{16}{16} \selectfont Physics Institute}
+    \vspace{2.2cm}
+
+	{\fontsize{22}{22}\selectfont Breakup reaction study $^4$He($^{17}$F,$^{16}$O+$p$)$^4$He using the pAT-TPC active target: an approach using Machine Learning techniques\par}
+    \vspace{2cm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    
+%\Nome do Autor \ Author's name
+
+    {\fontsize{18}{18}\selectfont Guilherme Ferrari Fortino\par}
+
+    \vspace{1.4cm}
+
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    
+%\Orientador e coorientador (se existir) \ Supervisor and co-supervisor (if there is one)
+\leftskip 6cm
+\begin{flushright}	
+\leftskip 6cm
+Advisor: Prof. Dr.  Valdir Guimarães\hfill{ \hskip 5cm  } 
+\leftskip 6cm
+\newline
+    %Se nÃ£o houve coorientador, comente a linha abaixo \ If there is no co-advisor, comment line below
+Co-advisor: Dr. Juan Carlos Zamora Cardona\hfill{ \hskip 4cm  }
+\end{flushright}	
+
+\vspace{0.6cm}    
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    
+% Grau AcadÃªmico \ Degree
+
+\par
+\leftskip 6cm
+\noindent {Dissertation submitted to the Physics Institute of the University of São Paulo in partial fulfillment of the requirements for the degree of Master of Science.}
+\par
+\leftskip 0cm
+\vskip 2cm
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    
+% Banca Examinadora -- Primeiro nome Ã© do presidente ou do presidente da banca \ Examining committee -- The first name must be the supervisor's name or the examination committee president's name.
+
+\noindent Examining Committee: \\
+\noindent Prof. Dr. Name - Supervisor (institution) \\
+Prof. Dr. Name (institution) \\
+Prof. Dr. Name (institution) \\
+\vspace{1.8cm}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    
+%Data \ Date
+\begin{center}
+    {S\~ao Paulo \\  2022}
+\end{center}%\centering
+
 \clearpage
 
 \chapter*{Resumo}
-
+\thispagestyle{empty}
 \par Neste trabalho estudamos a reação de breakup $^4\mathrm{He}(^{17}\mathrm{F},^{16}\mathrm{O}+p)^4\mathrm{He}$ usando o alvo ativo pAT-TPC. A análise dos dados experimentais foi realizada usando técnicas de machine learning que permitiram analisar de forma eficiente um grande volume de dados. Os algoritmos desenvolvidos neste trabalho correspondem à primeira aplicação prática de técnicas de machine learning numa análise de dados com alvo ativo.
 % As medidas do sistema $^{17}$F + $^4$He foram feitas usando o alvo ativo pAT-TPC, localizado na University of Notre Dame, Estados Unidos. O feixe $^{17}$F foi produzido pelo sistema TWINSOL, também localizado na University of Notre Dame, com energia de 51 MeV. O feixe incidiu no alvo ativo com energia de 34.76 MeV.
 
 \par Na primeira parte da análise foi feita a reconstrução tridimensional dos eventos através da análise dos pulsos gerados pelo plano detector micromegas. O micromegas é um detector multipixelado (2048 canais), onde cada pixel (com coordenadas $x$ e $y$ fixas) é um canal do detector com eletrônica independente. Foram criadas três redes neurais supervisionadas para analisar os pulsos ``crus" envolvendo as seguintes etapas: identificação do fundo, deconvolução e idenficação dos centróides e carga dos pulsos. Esta informação foi de grande importância para reconstruir milhões de nuvens de pontos que correspondem aos eventos das reações nucleares no alvo ativo.
 
 \par Já com as nuvens de pontos reconstruídas, as trajetórias das partículas foram identificadas usando algoritmos de clustering e estimadores robustos. A partir das propriedades geométricas das trajetórias, foi calculado o vértice de reação de cada evento para enfim poder obter os ângulos de espalhamento da reação. A identificação dos prótons foi feita a partir do comprimento e energia depositada por cada trajetória. Identificado o canal de breakup, as distribuições angulares (breakup inclusivo e exclusivo) foram construídas. Por fim, as distribuições angulares foram analisadas e comparadas com resultados da literatura envolvendo o breakup do $^{17}$F em outros núcleos alvo.
+\par \textbf{Palavras-chave:} Alvo-Ativo, pAT-TPC, Breakup, Machine Learning, Redes Neurais
  
 
 \chapter*{Abstract}
-
+\thispagestyle{empty}
 \par In this work, the breakup reaction $^4\mathrm{He}(^{17}\mathrm{F},^{16}\mathrm{O}+p)^4\mathrm{He}$ was investigated using the active target pAT-TPC. The data analysis was performed with machine learning techniques, which allowed to proccess a large amount of data in a very efficient way. The algorithms developed in this work represent the first practical application of machine learning tecniques for the analysis of an experiment using an active target.
 
 \par In the first part of the analysis, a three-dimensional reconstruction of the events was performed through the analysis of the pulses generated by the micromegas pad plane. The micromegas pad plane is a highly-segmented detector (2048 pixels), where each individual pad (with certain $x$ and $y$ coordinates) has an independent electronics. Three supervised neural networks were created to perform the analysis of the raw data, including the following parts: background indentification, deconvolution, and centroid and charge identification. This information was of great importance in order to reconstruct millions of point clouds which correspond to the detected nuclear reactions in the active target.
 
 \par The reconstructed point clouds were analyzed with clustering algorithms and robust estimators in order to identify the individual particle trajectories. The respective reaction vertices and scattering angles were obtained by using geometric properties of the reconstruted trajectores. The identification of the proton tracks was performed by using the particle range and deposited energy for each track. Angular distributions of inclusive and exclusive breakup were extracted from the analysis of the point clouds with only proton tracks. Finally, the angular distributions were analyzed and compared with data from the literature involving the breakup of $^{17}$F on heavier target nuclei.
+\par \textbf{Keywords:} Active-Target, pAT-TPC, Breakup, Machine Learning, Neural Networks
 
+\newpage
+%\thispagestyle{empty}
 \tableofcontents
 %\listoffigures
 %\listoftables
