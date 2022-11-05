@@ -52,7 +52,8 @@
 
 
 \begin{document}
-\pagestyle{plain}
+%\pagenumbering{roman}
+%\pagestyle{plain}
 \captionsetup[figure]{name={Figura}}
 \renewcommand*\contentsname{Sumário}
 \renewcommand{\listfigurename}{Lista de figuras}
@@ -61,10 +62,11 @@
 \makeatletter
 \renewcommand{\@chapapp}{Capítulo}
 \makeatother
-\addtocounter{page}{-5}
+\addtocounter{page}{0}
 
 
 \thispagestyle{empty}
+%\pagenumbering{arabic}
 \begin{center}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    
@@ -126,7 +128,10 @@ Prof(a). Dr(a). Nome do(a) Professor(a) (institui\c{c}\~{a}o de trabalho) \\
     {S\~ao Paulo \\  2022}
 \end{center}%\centering
 %\newpage
-\cleardoublepage
+\newpage
+
+\includepdf[pages=-]{fc78-2022.doc.pdf}
+\newpage
 \thispagestyle{empty}
 \begin{center}
 
@@ -190,9 +195,7 @@ Prof. Dr. Name (institution) \\
 \end{center}%\centering
 
 \clearpage
-\newpage
 
-\includepdf[pages=-]{fc78-2022.doc.pdf}
 
 \chapter*{Resumo}
 \thispagestyle{empty}
@@ -215,15 +218,22 @@ Prof. Dr. Name (institution) \\
 \par \textbf{Keywords:} Active-Target, pAT-TPC, Breakup, Machine Learning, Neural Networks
 
 \newpage
+
+%\pagestyle{empty}
 %\thispagestyle{empty}
+\addtocontents{toc}{\protect\thispagestyle{empty}}
 \tableofcontents
+\thispagestyle{empty}
 %\listoffigures
 %\listoftables
 %\listofalgorithms
 \newpage
 
-\chapter{Introdução}
+%\pagenumbering{arabic}
 
+
+\chapter{Introdução}
+%\pagestyle{plain}
 
 \par Um dos principais objetivos das investigações realizadas na área de física nuclear é entender a estrutura do núcleo. Apesar do sucesso de vários modelos, tais como modelo de camadas, para explicar as estruturas de núcleos estáveis, os núcleos instáveis ou exóticos, ricos ou pobres em nêutrons, continuam sendo um grande desafio para nossa compreensão.
 
