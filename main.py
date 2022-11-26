@@ -176,19 +176,19 @@ def f3():
         d2 = {"angulo": centers2, "xs": w2, "contagens": w5, "inc_w2": inc_w2}
         df2 = pd.DataFrame(d2)
         # pd.DataFrame.to_csv(df2, f"csvs/exclusivo_E_{Ebeam}_.csv")
-        plt.errorbar(
-            centers1,
-            w1,
-            ms=5,
-            yerr=inc_w1,
-            ecolor="black",
-            fmt="",
-            capsize=5,
-            ls="",
-            marker="o",
-            c="black",
-            label="Inclusivo",
-        )
+        # plt.errorbar(
+        #     centers1,
+        #     w1,
+        #     ms=5,
+        #     yerr=inc_w1,
+        #     ecolor="black",
+        #     fmt="",
+        #     capsize=5,
+        #     ls="",
+        #     marker="o",
+        #     c="black",
+        #     label="Inclusivo",
+        # )
         plt.errorbar(
             centers2,
             w2,
@@ -229,11 +229,11 @@ def f3():
             )
         # plt.tight_layout(rect=(0.115, 0.163, 0.980, 0.988))
         plt.tight_layout()
-        plt.savefig(
-            f"figs/dist_angs/dist_ang_{index}", dpi=600, bbox_inches="tight"
-        )
-        plt.close()
-        # plt.show()
+        # plt.savefig(
+        #     f"figs/dist_angs/dist_ang_{index}", dpi=600, bbox_inches="tight"
+        # )
+        # plt.close()
+        plt.show()
 
 
 def f5():
@@ -282,19 +282,19 @@ def f5():
     fig = plt.figure(dpi=180, figsize=(8, 4.5))
     # plt.scatter(energias, contagens_I, c="black", label="Inclusivo")
     # plt.scatter(energias, contagens_E, c="red", label="Exclusivo")
-    plt.errorbar(
-        energias,
-        contagens_I,
-        ms=5,
-        yerr=incertezas_I,
-        ecolor="black",
-        fmt="",
-        capsize=5,
-        ls="",
-        marker="o",
-        c="black",
-        label="Inclusivo",
-    )
+    # plt.errorbar(
+    #     energias,
+    #     contagens_I,
+    #     ms=5,
+    #     yerr=incertezas_I,
+    #     ecolor="black",
+    #     fmt="",
+    #     capsize=5,
+    #     ls="",
+    #     marker="o",
+    #     c="black",
+    #     label="Inclusivo",
+    # )
     plt.errorbar(
         energias,
         contagens_E,
@@ -329,7 +329,7 @@ def f5():
     plt.xlim(left=0.6, right=6.5)
     plt.ylabel("$\sigma$ (mb)")
     # plt.gca().yaxis.set_major_locator(ticker.MultipleLocator(250))
-    plt.gca().yaxis.set_major_locator(ticker.MultipleLocator(50))
+    plt.gca().yaxis.set_major_locator(ticker.MultipleLocator(25))
     # plt.legend(framealpha=1.0, edgecolor="black")
     # plt.colorbar()
     plt.tight_layout()
@@ -346,5 +346,5 @@ def f4():
 
 
 if __name__ == "__main__":
-    # f3()
-    f5()
+    f3()
+    # f5()
