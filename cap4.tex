@@ -4,6 +4,7 @@
 \usepackage[a4paper,top=3.5cm,left=3cm,right=3cm,bottom=2.5cm]{geometry}
 \usepackage{times} %pacote da fonte Times New Roman
 \usepackage[utf8]{inputenc}
+%\usepackage[T1]{fontenc}
 \usepackage[export]{adjustbox}
 \usepackage{caption}
 \usepackage{subcaption}
@@ -45,6 +46,22 @@
 \renewcommand*{\thesubfigure}{%
 \alphalph{\value{subfigure}}%
 }%
+\hyphenation{mo-de-lo}
+\hyphenation{par-ti-cu-lar}
+\hyphenation{a-li-nha-dos}
+\hyphenation{ex-pe-ri-men-to}
+\hyphenation{de-ta-lhes}
+\hyphenation{in-te-ra-gem}
+\hyphenation{ou-tros}
+\hyphenation{ge-ra-dos}
+\hyphenation{a-na-li-sar}
+\hyphenation{di-fe-ren-tes}
+\hyphenation{va-lo-res}
+\hyphenation{es-co-lhi-do}
+\hyphenation{tem-pe-ra-tu-ra}
+\hyphenation{cor-res-pon-de}
+\hyphenation{li-te-ra-tu-ra}
+\hyphenation{in-di-vi-du-al}
 
 \usepackage[final]{pdfpages}
 
@@ -116,9 +133,9 @@ Coorientador: Dr. Juan Carlos Zamora Cardona\hfill{ \hskip 4cm  }
 % Banca Examinadora -- Primeiro nome Ã© do presidente ou do presidente da banca \ Examining committee -- The first name must be the supervisor's name or the examination committee president's name.
 
 \noindent Banca Examinadora: \\
-\noindent Prof(a). Dr(a). Nome do(a) Professor(a) - Orientador (institui\c{c}\~{a}o de trabalho) \\
-Prof(a). Dr(a). Nome do(a) Professor(a) (institui\c{c}\~{a}o de trabalho) \\
-Prof(a). Dr(a). Nome do(a) Professor(a) (institui\c{c}\~{a}o de trabalho) \\
+\noindent Dr. Juan Carlos Zamora Cardona - Coorientador (IFUSP/MSU) \\
+Prof. Dr. Mario Olimpio de Menezes (IPEN) \\
+Prof. Dr. Brett Vern Carlson (ITA) \\
 \vspace{1.8cm}
 
 
@@ -182,9 +199,9 @@ Co-advisor: Dr. Juan Carlos Zamora Cardona\hfill{ \hskip 4cm  }
 % Banca Examinadora -- Primeiro nome Ã© do presidente ou do presidente da banca \ Examining committee -- The first name must be the supervisor's name or the examination committee president's name.
 
 \noindent Examining Committee: \\
-\noindent Prof. Dr. Name - Supervisor (institution) \\
-Prof. Dr. Name (institution) \\
-Prof. Dr. Name (institution) \\
+\noindent Prof. Dr. Juan Carlos Zamora Cardona - Co-advisor (IFUSP/MSU) \\
+Prof. Dr. Mario Olimpio de Menezes (IPEN) \\
+Prof. Dr. Brett Vern Carlson (ITA) \\
 \vspace{1.8cm}
 
 
@@ -195,6 +212,12 @@ Prof. Dr. Name (institution) \\
 \end{center}%\centering
 
 \clearpage
+\thispagestyle{empty}
+\begin{center}
+\textbf{Agradecimentos}
+
+\par 
+\end{center}
 
 
 \chapter*{Resumo}
@@ -246,7 +269,7 @@ Prof. Dr. Name (institution) \\
     \label{fig:chart_nuclides}
 \end{figure}
 
-\par Para investigar a estrutura de núcleos ricos em prótons ou em nêutrons, pode-se usar reações nucleares como o espalhamento elástico, transferência ou breakup \cite{Kolata2016}. Em particular, a reação de breakup é de grande importância para o estudo da estrutura dos núcleos radioativos ricos em prótons ou em nêutrons que possuem uma forte estrutura de cluster do tipo caroço + partículas de valência, onde as partículas de valência são fracamente ligadas \cite{Kolata2016, MORO_BREAKUP}. Quando a energia de ligação dessas partículas de valência é muito baixa, da ordem de centenas de keV até poucos MeVs, elas podem orbitar o caroço a grandes distâncias, formando uma configuração conhecida como "estrutura halo". A reação estudada nessa dissertação é a reação de breakup $^4$He($^{17}$F,$^{16}$O+$p$)$^4$He, onde o $^{17}$F é um núcleo rico em prótons que forma uma estrutura halo formada por um núcleo que pode ser descrito como um núcleo de $^{16}$O mais um próton fracamente ligado ($S_p$ = 600 keV) \cite{MORO_BREAKUP}.
+\par Para investigar a estrutura de núcleos ricos em prótons ou em nêutrons, pode-se usar reações nucleares como o espalhamento elástico, transferência ou breakup \cite{Kolata2016}. Em particular, a reação de breakup é de grande importância para o estudo da estrutura dos núcleos radioativos ricos em prótons ou em nêutrons que possuem uma forte estrutura de cluster do tipo caroço + partículas de valência, onde as partículas de valência são fracamente ligadas \cite{Kolata2016, MORO_BREAKUP}. Quando a energia de ligação dessas partículas de valência é muito baixa, da ordem de centenas de keV até poucos MeVs, elas podem orbitar o caroço a grandes distâncias, formando uma configuração conhecida como ``estrutura halo". A reação estudada nessa dissertação é a reação de breakup $^4$He($^{17}$F,$^{16}$O+$p$)$^4$He, onde o $^{17}$F é um núcleo rico em prótons que forma uma estrutura halo formada por um núcleo que pode ser descrito como um núcleo de $^{16}$O mais um próton fracamente ligado ($S_p$ = 600 keV) \cite{MORO_BREAKUP}.
 
 \par Para melhor caracterizar o mecanismo de uma reação de breakup, a identificação e detecção de ambos fragmentos da dissociação é muito importante. Para tanto equipamentos e sistemas de detecção complexos e sofisticados tem sido desenvolvidos. Um desses equipamentos é o Alvo Ativo. Conforme está explicado com detalhes ao longo dessa dissertação, o alvo ativo é um aparato que funciona tanto como alvo como sistema de detecção. O alvo ativo permite o uso de um gás específico que serve tanto quanto alvo quanto meio detector. Isso permite a detecção de múltiplas reações nucleares ao mesmo tempo, com a capacidade de medidas completas da cinemática das reações \cite{FORTINO2022166497, josh_bradt, attpc}. Com o alvo ativo é possível determinar as trajetórias tridimensionais das partículas envolvidas numa reação nuclear e reconstruir o respectivo vértice (posição da reação).
 
@@ -255,7 +278,7 @@ Prof. Dr. Name (institution) \\
 
 
 
-\par Nos últimos anos, alvos ativos envolvendo câmaras de projeção no tempo, \textit{ative-target time projection chambers} (AT-TPCs), se tornaram importantes e relevantes para o estudo de núcleos exóticos em física nuclear \cite{FORTINO2022166497}. Diversos desses tipos de equipamentos foram desenvolvidos em diferentes laboratórios de física nuclear pelo mundo \cite{attpc, FURUNO2018215, KOSHCHIY2020163398}.
+\par Nos últimos anos, alvos ativos envolvendo câmaras de projeção no tempo, \textit{active-target time projection chambers} (AT-TPCs), se tornaram importantes e relevantes para o estudo de núcleos exóticos em física nuclear \cite{FORTINO2022166497}. Diversos desses tipos de equipamentos foram desenvolvidos em diferentes laboratórios de física nuclear pelo mundo \cite{attpc, FURUNO2018215, KOSHCHIY2020163398}.
 
 \par O sistema de detecção de TPCs, usualmente, é baseado na ideia de se detectar os elétrons provenientes da ionização do gás. Para tanto, foi desenvolvido um dispositivo que combina o micromegas (Micro-MEsh Gaseous Structures) \cite{micromegas} e o GEM (Gas Electron Multiplier) \cite{GET}. Esse dispositivo possui uma alta granularidade do plano detector, da ordem de 10$^3$ a 10$^4$ canais \cite{FORTINO2022166497}. Com isso, experimentos que envolvem TPCs produzem enormes quantidades de dados \cite{attpc, pattpc}. Por exemplo, o experimento analisado neste trabalho gerou cerca de 3 TB de dados crus em alguns dias de medida. Devido à grande quantidade de dados produzidos, a análise precisa ser dividida em diversas etapas, de modo que a eficiência e tempo computacional têm papel fundamental no processo. Nesse sentido, o uso de algoritmos como de machine learning pode trazer vantagens significativas para a análise. Esses algoritmos, por serem muito mais rápidos do que análise baseadas em algoritmos de programação convencional, podem viabilizar a análise dessa quantidade de dados num tempo razoável. Um dos objetivos desse trabalho foi exatamente o de desenvolver esse tipo de técnica para analise de dados obtidos de experimentos com alvos ativos. Alguns desses códigos e parte da análise desta dissertação já foram publicados em revistas indexadas internacionais \cite{FORTINO2022166497, artigo}.
 
@@ -265,7 +288,7 @@ Prof. Dr. Name (institution) \\
 
 \par A utilização de técnicas de machine learning já está sendo amplamente utilizada nas mais diversas área de nossa vida cotidiana (softwares de detecção de spam, sistemas de recomendação, marcação em fotos de redes sociais, assistentes pessoais ativados por voz, carros autônomos, smartphones com reconhecimento facial e muito mais). Essas técnicas estão agora sendo desenvolvidas e aplicadas para análise de dados obtidos de experiências científicas.
 
-\par A dissertação está esquematizada da seguinte forma: no capítulo \ref{PATTPC} está feita a descrição do experimento cujos dados foram analisados; no capítulo \ref{sec:ml} está feita uma breve descrição do que é machine learning com exemplos de algoritmos e métodos utilizados; O capítulo \ref{chapter:sinais} foi dedicado para a análise dos sinais (pulsos) medidos no experimento; No capítulo \ref{chapter:point_cloud_analysis} está descrita a análise das nuvens de pontos reconstruídas a partir dos pulsos; No capítulo \ref{chapter:resultados} foi feita a construção das distribuições angulares bem como a análise e comparação com experimentos da literatura relacionados; Por fim, no capítulo \ref{chapter:conclusao} está a conclusão do trabalho.
+\par A dissertação está esquematizada da seguinte forma: no capítulo \ref{PATTPC} está feita a descrição do experimento cujos dados foram analisados; no capítulo \ref{sec:ml} está feita uma breve descrição do que é machine learning com exemplos de algoritmos e métodos utilizados; o capítulo \ref{chapter:sinais} foi dedicado para a análise dos sinais (pulsos) medidos no experimento; no capítulo \ref{chapter:point_cloud_analysis} está descrita a análise das nuvens de pontos reconstruídas a partir dos pulsos; no capítulo \ref{chapter:resultados} foi feita a construção das distribuições angulares bem como a análise e comparação com experimentos da literatura relacionados; por fim, no capítulo \ref{chapter:conclusao} está a conclusão do trabalho.
 
 \chapter{O experimento}\label{PATTPC}
 
@@ -292,11 +315,11 @@ Prof. Dr. Name (institution) \\
 \begin{figure}[H]
     \centering
     \includegraphics[scale = 0.35]{figs/poster3.jpeg}
-    \caption{Desenho do TWINSOL à esquerda e do pAT-TPC à direita. O feixe estável de $^{16}$O entra à esquerda do TWINSOL, produzindo no alvo de produção o feixe secundário $^{17}$F que irá ser conduzido até o alvo ativo pAT-TPC. Todo o sistema está localizado na University of Notre Dame.}
+    \caption{Desenho do TWINSOL à esquerda e do pAT-TPC à direita. O feixe estável de $^{16}$O entra à esquerda do TWINSOL, produzindo no alvo de produção o feixe secundário $^{17}$F que é conduzido até o alvo ativo pAT-TPC. Todo o sistema está localizado na University of Notre Dame.}
     \label{fig:twinsol+pattpc}
 \end{figure}
 
-\par O TWINSOL é um sistema de produção de feixes radioativos em voo que possui dois solenoides supercondutores alinhados que são usados para produzir, coletar, transportar, focar e selecionar feixes estáveis e radioativos. O sistema se baseia na seleção de partículas a partir da sua rigidez magnética ($B\rho$) \cite{twinsol, ribras_leo, zamora_mater}. Cada solenoide possui $15~\text{cm}$ de raio interno e 1 m de comprimento \cite{twinsol}. O fato de ser um solenoide finito faz com que surjam efeitos de borda na componente radial do campo magnético do solenoide, cujo efeito é fazer com que o solenoide seja capaz de selecionar e focalizar partículas \cite{ribras_leo}. Para entender melhor o efeito de borda no campo magnético, e consequentemente o funcionamento do TWINSOL, simulações computacionais usando a biblioteca GEANT4 \cite{geant4} foram feitas usando a geometria do sistema ``irmão" do TWINSOL, o \textit{Radioactive Ion Beams in Brasil} (RIBRAS), que também possui dois solenoides supercondutores alinhados \cite{ribras_leo, ribras}. A figura \ref{fig:sim_ribras} mostra a geometria usada na simulação, onde os solenoides são de cor verde focalizando as partículas de cor laranja em um ponto do plano focal em vermelho. O campo magnético usado na simulação é função da posição do eixo, de cada solenoide, e está mostrado na figura \ref{fig:campo_mag}.
+\par O TWINSOL é um sistema de produção de feixes radioativos em voo que possui dois solenóides supercondutores alinhados que são usados para produzir, coletar, transportar, focar e selecionar feixes estáveis e radioativos. O sistema se baseia na seleção de partículas a partir da sua rigidez magnética ($B\rho$) \cite{twinsol, ribras_leo, zamora_mater}. Cada solenoide possui $15~\text{cm}$ de raio interno e 1 m de comprimento \cite{twinsol}. O fato de ser um solenoide finito faz com que surjam efeitos de borda na componente radial do campo magnético do solenoide, cujo efeito é fazer com que o solenoide seja capaz de selecionar e focalizar partículas \cite{ribras_leo}. Para entender melhor o efeito de borda no campo magnético, e consequentemente o funcionamento do TWINSOL, simulações computacionais usando a biblioteca GEANT4 \cite{geant4} foram feitas usando a geometria do sistema ``irmão" do TWINSOL, o \textit{Radioactive Ion Beams in Brasil} (RIBRAS), que também possui dois solenoides supercondutores alinhados \cite{ribras_leo, ribras}. A figura \ref{fig:sim_ribras} mostra a geometria usada na simulação, onde os solenoides são de cor verde focalizando as partículas de cor laranja em um ponto do plano focal em vermelho. O campo magnético usado na simulação é função da posição do eixo, de cada solenoide, e está mostrado na figura \ref{fig:campo_mag}.
 
 
 % A figura  mostra um exemplo de calculo do valor do campo magnético, usando valores do sistema , para as componentes $x$, $y$ e $z$. É nítido que o campo em $z$ permanece praticamente constante e próximo das extremidades da bobina (linha vertical tracejada preta), $B_x$ e $B_y$ crescem em módulo, fazendo com que o solenoide funcione como uma lente delgada.
@@ -304,7 +327,7 @@ Prof. Dr. Name (institution) \\
 \begin{figure}[H]
     \centering
     \includegraphics[scale = 0.95]{figs/Foco2S.png}
-    \caption{Simulação computacional do sistema RIBRAS, onde as partículas carregas em laranja surgem do ponto à direita da figura e passam pelos dois solenoides em verde, para então serem focalizada em um ponto do plano focal em vermelho. A parte em preto dos solenoides corresponde aos limites físicos da bobina \cite{ribras_leo}.}
+    \caption{Simulação computacional do sistema RIBRAS, onde as partículas carregas em laranja surgem do ponto à direita da figura e passam pelos dois solenoides em verde, para então serem focalizadas em um ponto do plano focal em vermelho. A parte em preto dos solenoides corresponde aos limites físicos da bobina \cite{ribras_leo}.}
     \label{fig:sim_ribras}
 \end{figure}
 
@@ -429,7 +452,7 @@ onde no tempo $t_0$ = 0 o elétron está no plano do detector ($z$ = 0).
 
 %\par O sinal é discretizado no tempo levando em conta a velocidade de deriva dos elétrons, dividindo em 512 canais o tempo que o elétron leva para percorrer toda câmara do TPC \cite{josh_bradt, pattpc}.
 
-\par Cada interação de uma partícula carregada com o gás (liberação de elétrons por ionização do gás) é detectada como um pulso eletrônico, onde o centroide corresponde ao tempo de deriva. A carga acumulada $Q$ dessa interação é a área do pulso associado ao centroide. Cada centroide então representa um ponto no espaço ($x$, $y$, $t$, $Q$). Um exemplo de evento reconstruído está na figura \ref{fig:event_cap_exp}.
+\par Cada interação de uma partícula carregada com o gás (liberação de elétrons por ionização do gás) é detectada como um pulso eletrônico, onde o centróide corresponde ao tempo de deriva. A carga acumulada $Q$ dessa interação é a área do pulso associado ao centroide. Cada centroide então representa um ponto no espaço ($x$, $y$, $t$, $Q$). Um exemplo de evento reconstruído está na figura \ref{fig:event_cap_exp}.
 
 \begin{figure}[H]
     \centering
@@ -473,7 +496,9 @@ onde $y$ é o resultado da função matemática da interação entre os neurôni
 
 \section{Tipos de redes neurais}
 
-\par Como mencionamos, a ideia do machine learning é baseado na ideia da utilização de redes neurais. Uma rede neural artificial, \textit{Artificial Neural Network} (ANN), é um modelo computacional que consiste de camadas de neurônios. ANNs foram desenvolvidas para o estudo de inteligência artificial \cite{mlbook, mldiverso}. ANNs consistem principalmente numa camada de entrada (\textit{input layer}), uma camada de saída (\textit{output layer}) e eventuais camadas entre essas duas, chamadas de camadas ocultas (\textit{hidden layers}). Os tipos mais comuns de redes neurais aplicadas a análise de dados são:
+%\par Como mencionamos, a ideia do machine learning é baseado na ideia da utilização de redes neurais.
+
+\par Uma rede neural artificial, \textit{Artificial Neural Network} (ANN), é um modelo computacional que consiste de camadas de neurônios. ANNs foram desenvolvidas para o estudo de inteligência artificial \cite{mlbook, mldiverso}. ANNs consistem principalmente numa camada de entrada (\textit{input layer}), uma camada de saída (\textit{output layer}) e eventuais camadas entre essas duas, chamadas de camadas ocultas (\textit{hidden layers}). Os tipos mais comuns de redes neurais aplicadas a análise de dados são:
 
 \subsubsection*{Feed-Forward Neural Networks}
 
@@ -512,12 +537,12 @@ Para o caso discreto, com $g$ sendo uma função resposta finita de tamanho $2M$
     \label{fig:conv_valid}
 \end{figure}
 
-\par Percebe-se que o sinal resultante tem dimensão menor que o sinal original. O filtro (também chamado de \textit{kernel}) atua em pontos que possuam vizinhos tais que o filtro possa fazer a multiplicação ponto a ponto. Esse tipo de convolução tem o que chamamos de emparelhamento válido ou em inglês ``\textit{valid padding}". O tamanho $n_2$ resultante do vetor de saída é 
+\par Percebe-se que o sinal resultante tem dimensão menor que o sinal original. O filtro (também chamado de \textit{kernel}) atua em pontos que possuam vizinhos tais que o filtro possa fazer a multiplicação ponto a ponto. Esse tipo de convolução tem o que chamamos de preenchimento válido ou em inglês ``\textit{valid padding}". O tamanho $n_2$ resultante do vetor de saída é 
 \begin{equation}
     n_2 = n_1 - m + 1,
 \end{equation}
 %
-onde $n_1$ é o tamanho do vetor de entrada e $m$ o tamanho do filtro (\textit{kernel size}). Uma alternativa para que o vetor de saída tenha o mesmo tamanho do vetor de entrada é acrescentar zeros em torno da entrada, de forma que o vetor de saída tenha o mesmo tamanho que o vetor de entrada. Nesse caso dizemos que o emparelhamento é igual ou ``\textit{same padding}". A figura \ref{fig:conv_same} ilustra esse processo.
+onde $n_1$ é o tamanho do vetor de entrada e $m$ o tamanho do filtro (\textit{kernel size}). Uma alternativa para que o vetor de saída tenha o mesmo tamanho do vetor de entrada é acrescentar zeros em torno da entrada, de forma que o vetor de saída tenha o mesmo tamanho que o vetor de entrada. Nesse caso dizemos que o preenchimento é o mesmo ou ``\textit{same padding}". A figura \ref{fig:conv_same} ilustra esse processo.
 
 \begin{figure}[H]
     \centering
@@ -531,7 +556,7 @@ onde $n_1$ é o tamanho do vetor de entrada e $m$ o tamanho do filtro (\textit{k
 
 \par No contexto de machine learning, não sabemos, a priori, quais os valores dos filtros devem ser utilizados. Temos informações apenas de seus tamanhos e como devem agir. No entanto, podemos estimar os valores dos filtros através do treino da rede neural, para obter o resultado final. Esse treino fornece então os valores dos filtros a serem aplicados que forneçam o resultado esperado.  
 
-\par Cada filtro aplicado gera um mapa característico (\textit{feature map}), que é o resultado da atuação do filtro em um vetor. Usualmente, em uma CNN se escolhe o tamanho do filtro, \textit{padding} (\textit{valid} ou \textit{same}) e quantos filtros serão aplicados (para saber quantos mapas característicos serão gerados). Como temos vários mapas gerados por cada filtro, isso acarreta em um aumento de dimensionalidade. Para selecionar (ou filtrar) os mapas são utilizados critérios, como por exemplo o de selecionar valores máximos dos mapas gerados dada uma janela de atuação, ou seja, de quantos mapas serão comparados para a seleção do valor máximo. O Max-Pooling\footnote{O Max-Pooling máximo é um processo de discretização baseado em amostras. O objetivo é reduzir a amostragem de uma representação de entrada, selecionando amostras pelos seus valores máximos.} faz isso, selecionando valores máximos para uma determinada quantidade de mapas sendo comparados (\textit{pool size}).
+\par Cada filtro aplicado gera um mapa característico (\textit{feature map}), que é o resultado da atuação do filtro em um vetor. Usualmente, em uma CNN se escolhe o tamanho do filtro, \textit{padding} (\textit{valid} ou \textit{same}) e quantos filtros serão aplicados (para saber quantos mapas característicos serão gerados). Como temos vários mapas gerados pelos filtros (um por filtro), isso acarreta em um aumento de dimensionalidade. Para selecionar (ou filtrar) os mapas são utilizados critérios, como por exemplo o de selecionar valores máximos dos mapas gerados dada uma janela de atuação, ou seja, de quantos mapas serão comparados para a seleção do valor máximo. O Max-Pooling\footnote{O Max-Pooling máximo é um processo de discretização baseado em amostras. O objetivo é reduzir a amostragem de uma representação de entrada, selecionando amostras pelos seus valores máximos.} faz isso, selecionando valores máximos para uma determinada quantidade de mapas sendo comparados (\textit{pool size}).
 
 % Os filtros têm seus valores estimados pelo treino da rede neural, gerando vários mapas (\textit{feature maps}).
 
@@ -539,7 +564,7 @@ onde $n_1$ é o tamanho do vetor de entrada e $m$ o tamanho do filtro (\textit{k
 
 \section{Estrutura da rede neural}
 
-\par Em nosso trabalho vamos utilizar uma rede neural supervisionada, que será discutida em mais detalhes nas próximas seções. Mas de uma forma geral, para a construção de uma rede neural é preciso definir sua estrutura. A estrutura da rede neural possui camadas e cada camada pode possuir uma função de ativação. No geral, tanto a camada de entrada quanto a de saída possuem dimensão fixa. Para cada camada da arquitetura devemos escolher sua função de ativação que dependem dos parâmetros escolhidos. Tanto FFNNs quanto CNNs podem possuir funções de ativação (função $f$ da equação \ref{eq:model_n}) para melhorar o treino com dados que não possuem uma dependência linear. Dentre muitas funções de ativação podemos citar a \textit{Rectified Linear Units} (ReLU)\cite{RELU}, sigmoide \cite{sigmoid_act}, linear e tangente hiperbólica \cite{act_comp}. A figura \ref{fig:ativacoes} mostra os gráficos dessas funções de ativação, onde no eixo x é o argumento e no eixo y o resultado da função.
+\par Em nosso trabalho vamos utilizar redes neurais supervisionadas, que serão discutidas em mais detalhes nas próximas seções. Mas de uma forma geral, para a construção de uma rede neural é preciso definir sua estrutura. A estrutura da rede neural possui camadas e cada camada pode possuir uma função de ativação. No geral, tanto a camada de entrada quanto a de saída possuem dimensão fixa. Para cada camada da arquitetura devemos escolher sua função de ativação que dependem dos parâmetros escolhidos. Tanto FFNNs quanto CNNs podem possuir funções de ativação (função $f$ da equação \ref{eq:model_n}) para melhorar o treino com dados que não possuem uma dependência linear. Dentre muitas funções de ativação podemos citar a \textit{Rectified Linear Units} (ReLU)\cite{RELU}, sigmoide \cite{sigmoid_act}, linear e tangente hiperbólica \cite{act_comp}. A figura \ref{fig:ativacoes} mostra os gráficos dessas funções de ativação, onde no eixo x é o argumento e no eixo y o resultado da função.
 %\par Para a construção de uma rede neural , precisamos primeiro entender sobre os dados que estamos trabalhando. Grande parte das redes neurais possuem um \textit{input} que deve ter dimensão fixa. O mesmo vale para o \textit{output}.
 \begin{figure}[H]
     \centering
@@ -564,7 +589,7 @@ onde $y_i$ é o rótulo (\textit{label}), $p(y_i)$ é a probabilidade do ponto $
 %
 onde $\theta_j$ é o parâmetro a ser atualizado, $\alpha$ é a taxa de aprendizado (\textit{learning rate}) e $C(\theta)$ é a função custo que depende dos parâmetros $\theta$.
 
-\par Para enfim treinar a rede neural, devemos escolher o tamanho das amostras (\textit{batch size}) que será usada para o treino, por iteração em cada rodada de treino. Por exemplo, se usamos 1000 dados para o treino, e o \textit{batch size} é 500, cada rodada de treino terá duas iterações. No geral, usamos \textit{batch sizes} pequenos, pois o consumo de memória é mais eficiente.
+\par Para enfim treinar a rede neural, devemos escolher o tamanho das amostras (\textit{batch size}) que será usada para o treino, por iteração em cada rodada de treino. Por exemplo, se usamos 1000 observações para o treino, e o \textit{batch size} é 500, cada rodada de treino terá duas iterações. No geral, usamos \textit{batch sizes} pequenos, pois o consumo de memória é mais eficiente.
 
 \par Para avaliação da rede neural devemos ainda utilizar dados de validação, que servem para verificar o comportamento da rede neural que está sendo treinada. Esse conjunto de dados usados não é usado para o treino, são usados apenas para verificar possíveis problemas como o \textit{overfit}. O \textit{overfit} ocorre quando a rede neural começa a se adequar perfeitamente aos dados de treino, perdendo a capacidade de previsão em dados que não estão sendo usados no treino pela rede neural.
 
@@ -598,7 +623,7 @@ onde $\theta_j$ é o parâmetro a ser atualizado, $\alpha$ é a taxa de aprendiz
 
 \subsubsection*{Aprendizado semi supervisionado}
 
-\par Temos ainda o aprendizado semi supervisionado, quando apenas parte do conjunto de dados para o treino possui \textit{labels}. Isso é comum quando se obtém conjuntos de dados diferentes e apenas parte deles foi classificado \cite{semi_supervised}.
+\par Temos ainda o aprendizado semi supervisionado, quando apenas parte do conjunto de dados para o treino possui \textit{labels}. Isso é comum quando se obtém conjuntos de dados diferentes e apenas parte deles foi rotulado \cite{semi_supervised}.
 
 \subsubsection*{Aprendizado por reforço}
 
@@ -620,7 +645,7 @@ onde $\theta_j$ é o parâmetro a ser atualizado, $\alpha$ é a taxa de aprendiz
 
 \par O uso de algoritmos de CNNs tem o objetivo de diminuir o tempo consumido para a análise dos pulsos. As redes neurais criadas são treinadas uma única vez e podem ser utilizadas de modo separado e/ou acoplado \cite{FORTINO2022166497}, como está mostrado na sequencia do capítulo.
 
-\par Os pulsos medidos com o detector micromegas são digitalizados em 512 intervalos de tempo (\textit{time buckets}). A análise desses espectros temporais (evolução do pulso com o tempo) foi dividida em três etapas: correção do fundo, deconvolução do sinal e identificação de picos. As redes neurais criadas foram supervisionadas, o que significa que foi necessário incluir um grande volume de dados de entrada para o algoritmo aprender a lógica da operação. Para isso foi feito um grande banco de dados, utilizado no treinamento das redes neurais, que se beneficiam da grande quantidade de dados usada para o treino \cite{mlbook}. Na seção \ref{sec:pulses_trad}, está mostrado como o banco de dados para o treino das redes neurais desenvolvidas foi criado, e a construção das redes neurais está na seção \ref{sec:pulsos_ml}.
+\par Os pulsos medidos com o detector micromegas são digitalizados em 512 intervalos de tempo (\textit{time buckets}). A análise desses espectros temporais (evolução do pulso com o tempo) foi dividida em três etapas: correção do fundo, deconvolução do sinal e identificação de picos. As redes neurais criadas foram supervisionadas, o que significa que foi necessário incluir um grande volume de dados rotulados para o algoritmo aprender a lógica da operação. Para isso foi feito um grande banco de dados, utilizado no treinamento das redes neurais, que se beneficiam da grande quantidade de dados usada para o treino \cite{mlbook}. Na seção \ref{sec:pulses_trad}, está mostrado como o banco de dados para o treino das redes neurais desenvolvidas foi criado, e a construção das redes neurais está na seção \ref{sec:pulsos_ml}.
 
 
 % os sinais foram analisados a partir de métodos mais tradicionais e depois criando algoritmos de \textit{machine learning}, usando das soluções anteriores como base para o seu funcionamento.
@@ -670,7 +695,7 @@ onde $\theta_j$ é o parâmetro a ser atualizado, $\alpha$ é a taxa de aprendiz
     \label{fig:get_signal}
 \end{figure}
 
-\par Para analisar os pulsos deve-se primeiro remover o fundo (pedestal ou baseline) dos sinais. O sinal de fundo é complexo e pode variar em função do canal e também por evento. O sinal pode ser alterado por flutuações causadas pelo circuito eletrônico e por efeitos sistemáticos gerados pela memória de buffer circular, podendo o tornar não analítico \cite{FORTINO2022166497, GET}. Após a eliminação do fundo, os sinais foram tratados realizando uma deconvolução, aumentando a resolução dos pico em várias gaussianas com centróides que correspondem a informação temporal do sinal. Essas gaussianas são então usadas para a reconstrução da nuvem de pontos da trajetória das partículas no alvo gasoso. Todo esse processo foi realizado nesse trabalho com algoritmos de machine learning supervisionado que desenvolvemos \cite{FORTINO2022166497}. Para isso, foi criado um banco de dados que serviu de saída e/ou entrada para o treino das redes neurais. O processo de criação dos dados para o treino das redes neurais está descrito na seção \ref{subsec:pulses_baseline}, enquanto o processo de criação das redes neurais é descrito na seção \ref{sec:pulsos_ml}. 
+\par Para analisar os pulsos deve-se primeiro remover o fundo (pedestal ou baseline) dos sinais. O sinal de fundo é complexo e pode variar em função do canal e também por evento. O sinal pode ser alterado por flutuações causadas pelo circuito eletrônico e por efeitos sistemáticos gerados pela memória de buffer circular, podendo o tornar não analítico \cite{FORTINO2022166497, GET}. Após a eliminação do fundo, os sinais foram tratados realizando uma deconvolução, aumentando a resolução dos pico em várias gaussianas com centróides que correspondem a informação temporal do sinal. Essas gaussianas são então usadas para a reconstrução da nuvem de pontos da trajetória das partículas no alvo gasoso. Todo esse processo foi realizado nesse trabalho com algoritmos de machine learning supervisionado que desenvolvemos \cite{FORTINO2022166497}. Para isso, foi criado um banco de dados que serviu de saída e/ou entrada para o treino das redes neurais. O processo de criação dos dados para o treino das redes neurais está descrito nas ssubseções \ref{subsec:pulses_baseline} e \ref{subsec:pulses_deconv}, enquanto o processo de criação das redes neurais é descrito na seção \ref{sec:pulsos_ml}. 
 
 % O fundo não é trivial de se determinar, pois não é analítico, oscilando muito entre os canais.
 
@@ -776,7 +801,7 @@ onde $(f * g)(t)$ é a convolução entre $f(t)$ e $g(t)$. Multiplicar o sinal t
 \label{fig:ex_sinal_bkg}
 \end{figure}
 
-\par Os resultados dos cálculos para o ruído de fundo de cada sinal foram armazenados e usados na etapa seguinte de análise dos mesmos. Nessa próxima etapa a deconvolução dos sinais é realizada com os sinais tendo o ruído de fundo devidamente subtraído. Para diminuir as possíveis flutuações numéricas após a remoção do fundo, o valor mínimo do sinal sem o fundo deve ser zero. Uma vez eliminado o fundo, o código busca e identifica os picos e as correspondentes cargas do sinal. Para os picos compostos é então realizada a deconvolução, conforme descrita na seção seguinte.
+\par Os resultados dos cálculos para o ruído de fundo de cada sinal foram armazenados e usados na etapa seguinte de análise dos mesmos. Nessa próxima etapa a deconvolução dos sinais é realizada com os sinais tendo o ruído de fundo devidamente subtraído. Para diminuir as possíveis flutuações numéricas após a remoção do fundo, o valor mínimo do sinal sem o fundo deve ser zero. Uma vez eliminado o fundo, o código busca e identifica os picos e as correspondentes cargas do sinal. Como nem todos os sinais possuem pulsos únicos (não são uma composição de gaussianas), é necessário então realizar a deconvolução do sinal nas gaussianas que o compõe, conforme descrita na seção seguinte.
 
 % Sem o fundo podemos buscar por todos os picos e suas cargas correspondentes no sinal. Não podemos identificar diretamente todos os picos pois muitos deles estão em sobreposição. Para isso foi feita a deconvolução do sinal, descrita na subseção \ref{subsec:pulses_deconv}.
 
@@ -787,7 +812,7 @@ onde $(f * g)(t)$ é a convolução entre $f(t)$ e $g(t)$. Multiplicar o sinal t
 
 %\par Essa subseção descreve a etapa de deconvolução do sinal, que serve de banco de dados para o treinamento da rede neural descrita na subseção \ref{subsec:pulso_ml_deconv}.
 
-\par Dependendo do ângulo da trajetória com respeito ao plano de detecção, a largura dos picos com cada pixel pode mudar (figura \ref{fig:get_signal}). Em termos gerais, os picos podem ser descritos como uma superposição de Gaussianas com uma largura fixa que é definida pelo eletrônica do alvo ativo. Precisamos então deconvoluir os picos em suas componentes. Para tanto utilizamos o algoritmo \textsc{gold deconvolution} presente na biblioteca TSpectrum do ROOT \cite{paper_gold_deconv}. O algoritmo tem como objetivo fazer a deconvolução do espectro, gerando uma função (nesse caso um pulso gaussiano) resposta de acordo com o desvio padrão esperado para os pulsos. O sinal resposta corresponde ao espectro com as gaussianas não sobrespostas. Isso significa que foi necessário determinar qual o valor da largura dos pulsos para buscar a função resposta. A largura dos pulsos foi determinada fazendo a análise de sinais que possuem apenas 1 pico, fazendo um ajuste pelo método dos mínimos quadrados (MMQ) de uma gaussiana. Para buscar espectros com apenas um pico, foi usado o algoritmo de identificação de picos \textsc{peak\_finder}, presente na biblioteca do scipy \cite{scipy}, e para o ajuste da gaussiana foi usada o pacote \textsc{lmfit} \cite{lmfit}. O valor do desvio padrão encontrado foi de 4.09 (17) \textit{time buckets}. A largura escolhida foi ligeiramente maior pois, verificando empiricamente, em alguns casos o algoritmo separava o que deveria ser uma única gaussiana em duas. O valor do desvio padrão usado na deconvolução foi de 4.30 \textit{time buckets}. Foi determinado também o número de iterações do algoritmo de deconvolução. O número de iterações escolhido foi de 700, menos que isso o algoritmo não estava separando totalmente picos sobrepostos. O limiar para a escolha de um ponto como um pico foi definido como ter altura maior que 20\% do valor máximo do sinal. Resultados da deconvolução estão na figura \ref{fig:ex_sinal_deconv}.
+\par Dependendo do ângulo da trajetória com respeito ao plano de detecção, a largura dos picos com cada pixel pode mudar (figura \ref{fig:get_signal}). Em termos gerais, os picos podem ser descritos como uma superposição de Gaussianas com uma largura fixa que é definida pelo eletrônica do alvo ativo. Precisamos então deconvoluir os picos em suas componentes. Para tanto utilizamos o algoritmo \textsc{gold deconvolution} presente na biblioteca TSpectrum do ROOT \cite{paper_gold_deconv}. O algoritmo tem como objetivo fazer a deconvolução do espectro, gerando uma função (nesse caso um pulso gaussiano) resposta de acordo com o desvio padrão dos pulsos. O sinal resposta corresponde ao espectro com as gaussianas não sobrepostas. Isso significa que foi necessário determinar qual o valor da largura dos pulsos para buscar a função resposta. A largura dos pulsos foi determinada fazendo a análise de sinais que possuem apenas 1 pico, fazendo um ajuste pelo método dos mínimos quadrados (MMQ) de uma gaussiana. Para buscar espectros com apenas um pico, foi usado o algoritmo de identificação de picos \textsc{peak\_finder}, presente na biblioteca do scipy \cite{scipy}, e para o ajuste da gaussiana foi usada o pacote \textsc{lmfit} \cite{lmfit}. O valor do desvio padrão encontrado foi de 4,09 (17) \textit{time buckets}. A largura escolhida foi ligeiramente maior pois, verificando empiricamente, em alguns casos o algoritmo separava o que deveria ser uma única gaussiana em duas. O valor do desvio padrão usado na deconvolução foi de 4,30 \textit{time buckets}. Foi determinado também o número de iterações do algoritmo de deconvolução. O número de iterações escolhido foi de 700, menos que isso o algoritmo não estava separando totalmente picos sobrepostos. O limiar para a escolha de um ponto como um pico foi definido como ter altura maior que 20\% do valor máximo do sinal. Resultados da deconvolução estão na figura \ref{fig:ex_sinal_deconv}.
 
 \begin{figure}[H]
 \centering
@@ -821,9 +846,9 @@ onde $(f * g)(t)$ é a convolução entre $f(t)$ e $g(t)$. Multiplicar o sinal t
 \label{fig:ex_sinal_deconv}
 \end{figure}
 
-\par O algoritmo de deconvolução também determina a posição dos centróides encontrados, que indica a localização de um pico. Os mesmos picos podem ser obtidos com o \textsc{peak\_finder}, com a vantagem de que o algoritmo possui muitos parâmetros diferentes para calibração, melhorando a identificação em comparação com os picos identificados pelo algoritmo do TSpectrum. A execução de 200.000 sinais, desde a estimativa e remoção do fundo, até a identificação dos centróides, demora cerca de 23.25 minutos, usando o processador Ryzen 5 3600X.
+\par O algoritmo de deconvolução também determina a posição dos centróides encontrados, que indica a localização de um pico. Os mesmos picos podem ser obtidos com o \textsc{peak\_finder}, com a vantagem de que o algoritmo possui muitos parâmetros diferentes para calibração, melhorando a identificação em comparação com os picos identificados pelo algoritmo do TSpectrum. A execução de 200.000 sinais, desde a estimativa e remoção do fundo, até a identificação dos centróides, demora cerca de 23,25 minutos, usando o processador Ryzen 5 3600X.
 
-\par Para determinar a carga acumulada $Q$ de cada ponto, é necessário calcular a área do centróide do pico identificado. A área do sinal antes e depois da deconvolução é a mesma, portanto pode-se analisar diretamente o sinal após a deconvolução. Para determinar a área do pulso consideramos a integral simples gaussiana usando a largura de cada pico após a deconvolução. O desvio padrão (largura) dos picos após a deconvolução foi $\sigma_{dd}$ = $1.1543~(44)$ \textit{time buckets}. Considerando esse desvio, a carga integrada para cada ponto é dada por:
+\par Para determinar a carga acumulada $Q$ de cada ponto, é necessário calcular a área do centróide do pico identificado. A área do sinal antes e depois da deconvolução é a mesma, portanto pode-se analisar diretamente o sinal após a deconvolução. Para determinar a área do pulso consideramos a integral simples gaussiana usando a largura de cada pico após a deconvolução. O desvio padrão (largura) dos picos após a deconvolução foi $\sigma_{dd}$ = $1,1543~(44)$ \textit{time buckets}. Considerando esse desvio, a carga integrada para cada ponto é dada por:
 
 %Para achar a área do pulso, foi calculada a largura dos pulsos após a deconvolução, para determinar a área como uma simples integral gaussiana. O desvio padrão dos pulsos após a deconvolução é $\sigma_{dd}$ = 1.1543 (44) time buckets. Com isso foi calculada a carga acumulada para cada ponto medido do evento. A carga acumulada $Q$ para cada ponto $i$ é dada por:
 
@@ -834,7 +859,6 @@ onde $(f * g)(t)$ é a convolução entre $f(t)$ e $g(t)$. Multiplicar o sinal t
 onde $A$ é a amplitude do ponto com centróide $t_i$ e desvio padrão após a deconvolução $\sigma_{dd}$. Com o banco de dados para a deconvolução e também para a identificação de picos, basta criar as redes neurais, que serão descritas na seção \ref{sec:pulsos_ml}.
 
 \section{Análise dos pulsos com \textit{machine learning}}\label{sec:pulsos_ml}
-
 
 \par Com machine learning tem-se a possibilidade de criar algoritmos de alta complexidade sem definir operações explícitas. Usando os resultados das seções anteriores foram desenvolvidas três redes neurais, com o objetivo de: estimar o fundo (subseção \ref{subsec:pulso_ml_fundo}), fazer a deconvolução (\ref{subsec:pulso_ml_deconv}) e por fim identificar os picos (subseção \ref{subsec:pulso_ml_peaks}). 
 
@@ -851,7 +875,7 @@ onde $A$ é a amplitude do ponto com centróide $t_i$ e desvio padrão após a d
 \begin{figure}[H]
     \centering
     \includegraphics[scale = 0.238]{figs/Source to only bkg.png}
-    \caption{Arquitetura da rede neural que faz a inferência do fundo. O vetor de entrada deve ter dimensionalidade 512 x 1. Todas as partes com convolução não possuem o parâmetro \textit{bias}.}
+    \caption{Arquitetura da rede neural que faz a inferência do fundo. O vetor de entrada deve ter dimensionalidade 512 x 1. Todas as partes com convolução não possuem o parâmetro \textit{bias}, pois sua presença não mostrou melhora nos resultados da rede neural.}
     \label{fig:arq_source_to_bkg}
 \end{figure}
 
@@ -954,7 +978,7 @@ onde $E$ é o erro absoluto médio, $N$ é o número de pontos e $x_i$ o ponto d
 
 % \par Outro problema é que há um \textit{overlap} de gaussianas. Não é tão evidente a posição dos centroides se o espectro não está deconvoluído. É muito mais complicado, mesmo olhando, dizer a posição. Portanto o problema será quebrado em mais uma etapa: construir um rede que faça a deconvolução.
 
-\par Considerando a mesma abordagem da rede neural anterior criamos uma rede neural para realizar uma sequencia de convoluções e por fim uma camada \textit{fully connected} com função de ativação ReLU, pois precisamos ter o valor mínimo do espectro em 0, assim como a saída do algoritmo de deconvolução do TSpectrum. Os filtros das convoluções precisam ter tamanho mínimo de duas vezes o sigma das gaussianas utilizadas para atuarem sobre cada pulso do espectro. A entrada da rede é o sinal já com o fundo subtraído e com mínimo em 0. A saída é o sinal após deconvolução dada pelo algoritmo \textsc{gold deconvolution} na biblioteca TSpectrum do ROOT, já mostrado na subseção \ref{subsec:pulses_deconv}. A figura \ref{fig:source_to_deconv} mostra a arquitetura da rede de deconvolução. A rede é a sequência de duas convoluções com 32 filtros, \textit{valid padding} e filtros de tamanho 19 e 17, respectivamente. Sem o \textit{valid padding}, nós temos a saída com tamanho reduzido, como o da segunda arquitetura mostrada na figura \ref{fig:source_to_deconv} (como o tamanho do filtro é 19, não é possível aplicar a convolução em 9 pontos em cada extremidade, então, o sinal resultante tem tamanho $494=512-18$). O \textit{valid padding} se mostrou mais eficiente para a convergência da rede. Toda a rede foi construída usando o TensorFlow 2, possuindo 508.000 parâmetros treináveis \cite{FORTINO2022166497}.
+\par Considerando a mesma abordagem da rede neural anterior criamos uma rede neural para realizar uma sequencia de convoluções e por fim uma camada \textit{fully connected} com função de ativação ReLU, pois precisamos ter o valor mínimo do espectro em 0, assim como a saída do algoritmo de deconvolução do TSpectrum. Os filtros das convoluções precisam ter tamanho mínimo de duas vezes o sigma das gaussianas utilizadas para atuarem sobre cada pulso do espectro. A entrada da rede é o sinal já com o fundo subtraído e com mínimo em 0. A saída é o sinal após deconvolução dada pelo algoritmo \textsc{gold deconvolution} na biblioteca TSpectrum do ROOT, já mostrado na subseção \ref{subsec:pulses_deconv}. A figura \ref{fig:source_to_deconv} mostra a arquitetura da rede de deconvolução. A rede é a sequência de duas convoluções com 32 filtros (passagens \textit{a} e \textit{b}), \textit{valid padding} e filtros de tamanho 19 e 17, respectivamente. Sem o \textit{valid padding}, nós temos a saída com tamanho reduzido, como o da segunda arquitetura mostrada na figura \ref{fig:source_to_deconv} (como o tamanho do filtro é 19, não é possível aplicar a convolução em 9 pontos em cada extremidade, então, o sinal resultante tem tamanho $494=512-18$). O \textit{valid padding} se mostrou mais eficiente para a convergência da rede. Toda a rede foi construída usando o TensorFlow 2, possuindo 508.000 parâmetros treináveis \cite{FORTINO2022166497}.
 
 
 % seguida de uma camada \textit{Max pooling} com \textit{pool size} igual à 16. No final há o flat na camada para seguir com uma camada fully connected com função de ativação ReLU. O valid padding se mostrou mais eficiente para a convergência da rede. Toda a rede foi construída usando o TensorFlow 2, possuindo 508.000 parâmetros treináveis \cite{FORTINO2022166497}.
@@ -1110,7 +1134,9 @@ onde $E$ é o erro absoluto médio, $N$ é o número de pontos e $x_i$ o ponto d
 	Q_i = \sum_{i - 2}^{i + 2}f(t_i)\alpha_\sigma,
 \end{equation}
 %
-onde $f(t_i)$ é a amplitude do espectro no \textit{time bucket} $t$ da posição $i$ e $\alpha_\sigma$ é uma constante real para calibrar o valor da área em função do sigma dos pulsos, que foi determinado empiricamente como $\alpha_\sigma$ = 1.2.
+onde $f(t_i)$ é a amplitude do espectro no \textit{time bucket} $t$ da posição $i$ e $\alpha_\sigma$ é uma constante real para calibrar o valor da área em função do sigma dos pulsos. Seu valor foi determinado de tal forma que, a área do pulso calculado a partir da integral da gaussiana ajustada deve ser igual à somatória dos 5 pontos que compõe o pulso (o centróide somado simetricamente com dois à esquerda e à direita) multiplicado pelo fator $\alpha_\sigma$. O valor de $\alpha_\sigma$ determinado foi tal que $\alpha_\sigma$  = 1,2.
+
+%, que foi determinado empiricamente como $\alpha_\sigma$ = 1.2.
 
 \par Uma vez tendo determinado as três redes neurais, devemos ainda verificar o acoplamento das redes, a fim de analisar a qualidade dos algoritmos e os tempos de execução, para comparar com os algoritmos discutidos nas subseções \ref{subsec:pulses_baseline} e \ref{subsec:pulses_deconv}.
 
@@ -1131,7 +1157,7 @@ onde $f(t_i)$ é a amplitude do espectro no \textit{time bucket} $t$ da posiçã
 
 \par A saída da rede acoplada para o espectro após a deconvolução foi comparada com a saída de referência, que é o espectro após a deconvolução mostrado na subseção \ref{subsec:pulses_deconv}. Para uma análise comparativa quantitativa usamos os valores do erro médio absoluto, cujo valor médio para os 200.000 sinais, foi de 7.45 ADC Channels. Com relação à incerteza, ela foi estimada como o desvio padrão da diferença de cada time bucket do sinal tido como referência e o sinal após a rede neural acoplada. A incerteza é da ordem de 6\% da amplitude do sinal no ponto.
 
-\par Com relação a eficiência em tempo, a rede neural da figura \ref{fig:arq:source_to_segmentation} processa 200.000 sinais em 12 segundos, usando a GPU NVIDIA Tesla P100. Somando esse tempo com a determinação dos centroides, que é de aproximadamente 4.3 segundos, o tempo total para processar 200 mil sinais é de cerca de 16.3 segundos, cerca de 90 vezes mais rápido que os métodos mostrados na seção \ref{sec:pulses_trad}. O resultado final dessa rede neural são a geração de pontos no espaço definidos pelos parâmetros, \textit{x}, \textit{y} e \textit{z}. Um evento, correspondente à uma reação nuclear no alvo ativo gera vários pontos formando o que chamamos de nuvens de pontos. Essas nuvens de pontos definem então a trajetória das partículas produzidas por uma reação nuclear. Exemplos da reconstrução das nuvens de pontos usando a rede neural da figura \ref{fig:arq:source_to_segmentation} são apresentados na figura \ref{subfig:ex_ev_4}.
+\par Com relação a eficiência em tempo, a rede neural da figura \ref{fig:arq:source_to_segmentation} processa 200.000 sinais em 12 segundos, usando a GPU NVIDIA Tesla P100. Somando esse tempo com a determinação dos centroides, que é de aproximadamente 4.3 segundos, o tempo total para processar 200 mil sinais é de cerca de 16.3 segundos, cerca de 90 vezes mais rápido que os métodos mostrados na seção \ref{sec:pulses_trad}. O resultado final dessa rede neural é a geração de pontos no espaço definidos pelos parâmetros, \textit{x}, \textit{y} e \textit{z}. Um evento, correspondente à uma reação nuclear no alvo ativo gera vários pontos formando o que chamamos de nuvens de pontos. Essas nuvens de pontos definem então a trajetória das partículas produzidas por uma reação nuclear. Exemplos da reconstrução das nuvens de pontos usando a rede neural da figura \ref{fig:arq:source_to_segmentation} são apresentados na figura \ref{subfig:ex_ev_4}.
 
 \begin{figure}[H]
 \centering
@@ -1212,13 +1238,13 @@ onde $f(t_i)$ é a amplitude do espectro no \textit{time bucket} $t$ da posiçã
 \label{fig:3d_examples}
 \end{figure}
 
-\par O \textsc{HDBSCAN} pode apresentar falhas na analise dos aglomerados e identificação das trajetórias, como visto na figura \ref{subfig:antes_clustering}, em que, por exemplo, em que uma nuvem de pontos acaba sendo identificada e dividida em três clusters muito próximos. Para esses casos, foi aplicada uma correção da saída do \textit{clustering}. A correção foi feita comparando em pares todos os aglomerados resultantes do algoritmo e unificando os subconjuntos muito semelhantes \cite{artigo}. Do ponto de vista computacional, esse problema é abordado avaliando a semelhança entre dois aglomerados usando métricas, como a distância de Jaccard \cite{jaccard_distance} e o coeficiente de silhueta \cite{silhueta}. A correção feita se dá em duas etapas: primeiro comparando os versores entre duas retas e depois verificando se a condição da equação \ref{criterio_clustering} é satisfeita. Caso a diferença absoluta entre os ângulos com relação ao versor (0, 0, 1) (direção do feixe de $^{17}$F) seja menor que 9º (determinado empiricamente), então as duas retas serão combinadas se obedecerem a condição dada por
+\par O \textsc{HDBSCAN} pode apresentar falhas na analise dos aglomerados e identificação das trajetórias, como visto na figura \ref{subfig:antes_clustering}, em que, por exemplo, em que uma nuvem de pontos acaba sendo identificada e dividida em três clusters muito próximos. Para esses casos, foi aplicada uma correção da saída do \textit{clustering}. A correção foi feita comparando em pares todos os aglomerados resultantes do algoritmo e unificando os subconjuntos muito semelhantes \cite{artigo}. Do ponto de vista computacional, esse problema é abordado avaliando a semelhança entre dois aglomerados usando métricas, como a distância de Jaccard \cite{jaccard_distance} e o coeficiente de silhueta \cite{silhueta}. A correção feita se dá em duas etapas: primeiro comparando os versores entre duas retas e depois verificando se a condição da equação \ref{criterio_clustering} é satisfeita. Caso a diferença absoluta entre os ângulos com relação ao versor (0, 0, 1) (direção do feixe de $^{17}$F) seja menor que 9º (determinado empiricamente verificando a eficiência da correção), então as duas retas serão combinadas se obedecerem a condição dada por
 
 \begin{equation}\label{criterio_clustering}
     \sum_{i = 0}^{N_1}\frac{d_{i2}}{N_1} < \alpha \space d_{min}, 
 \end{equation}
 %
-onde $N_1$ é o número de pontos da reta 1, $d_{i2}$ a distância do ponto $i$ da reta 1 em relação à reta 2, $\alpha$ é um parâmetro com valor a ser escolhido e $d_{min}$ é a distância mínima do ponto a reta. Os valores foram determinados empiricamente, tais que $\alpha$ = 1.75 e $d_{min}$ = 15 mm. A figura \ref{subfig:depois_clustering} mostra o resultado da correção baseada nesses critérios no resultado anterior mostrado na figura \ref{subfig:antes_clustering}.
+onde $N_1$ é o número de pontos da reta 1, $d_{i2}$ a distância euclidiana do ponto $i$ da reta 1 em relação à reta 2, $\alpha$ é um parâmetro com valor a ser escolhido e $d_{min}$ é a distância mínima do ponto a reta. Os valores foram determinados empiricamente, verificando a eficiência da correção para a próxima etapa, e seus valores são tais que $\alpha$ = 1.75 e $d_{min}$ = 15 mm. A figura \ref{subfig:depois_clustering} mostra o resultado da correção baseada nesses critérios no resultado anterior mostrado na figura \ref{subfig:antes_clustering}.
 
 \par Após a correção, é necessário classificar cada reta como sendo feixe, ou uma partícula originada de uma reação nuclear. O feixe incide na câmara possui um ângulo muito pequeno com relação ao versor (0, 0, 1), que é o versor de incidência do feixe. Além disso, mesmo que o ângulo seja pequeno, a reta do feixe cruza o plano da janela do TPC próximo ao ponto mais provável da entrada o feixe. Por sua vez, o ponto mais provável foi determinado usando a posição média da projeção dos pontos de um conjunto de eventos no plano \textit{x-y}. A posição inicial mais provável obtida para o feixe foi $x_f$ = -3.4 (6.7) mm e $y_f$ = -0.9 (6.3) mm. A incerteza é alta devido às dimensões do feixe (aproximadamente 5 mm). Portanto, se o ângulo entre o versor $\hat{v}_i$ de uma reta $r_i$ for menor que 5° (determinado de modo empírico novamente) e a distância $d$ entre o ponto $P_i$ que intercepta o plano e o ponto ($x_f$, $y_f$, 0) for menor que 15 mm (pouco mais que duas vezes a incerteza de cada ponto), então a reta foi considerada como o feixe do evento. No caso de não satisfazer essas condições, então ela foi classificada como uma possível partícula originada da reação do feixe com o gás.
 
@@ -1285,7 +1311,7 @@ onde $\tilde{t_1}$, $\tilde{t_2}$ e $\tilde{t_3}$ são os hiperparâmetros a ser
 
 % \par No caso em que $\vec{V_c}$ em \ref{eq:versor_menor_dist} é zero, então as retas analisadas são paralelas. Nesse caso não há vértice de reação e a distância de máxima aproximação é dada por
 
-\par Da equação \ref{eq:menor_dist_retas} foi estabelecido um limite superior para $d_{max}$ tal que valores menores que esse limite indicam uma reação nuclear em comum entre a partícula e o feixe. O valor foi determinado empiricamente e foi definido como $d_{max}^{sup}$ = 25 mm. Trajetórias cuja distância máxima de aproximação excedia $d_{max}^{sup}$, então a trajetória é descartada. Além disso, é necessário garantir que a reação ocorreu dentro da área efetiva da câmara e para tanto impomos os limites: $|x| < $ 140mm, $|y| < $ 140mm e $|t| < $ 512.
+\par Da equação \ref{eq:menor_dist_retas} foi estabelecido um limite superior para $d_{max}$ tal que valores menores que esse limite indicam uma reação nuclear em comum entre a partícula e o feixe. O valor foi determinado de forma empírica analisando diversos eventos. O valor então foi definido como $d_{max}^{sup}$ = 25 mm. Trajetórias cuja distância máxima de aproximação excedia $d_{max}^{sup}$, então a trajetória é descartada. Além disso, é necessário garantir que a reação ocorreu dentro da área efetiva da câmara e para tanto impomos os limites: $|x| < $ 140mm, $|y| < $ 140mm e $|t| < $ 512.
 
 \par Para completar essa etapa, foi necessário determinar a carga total $Q_\text{T}$ e o comprimento $L$ da trajetória. A carga total $Q_\text{T}$ é definida como
 
@@ -1314,7 +1340,7 @@ onde $d_{i, \vec{V_r}}$ é distância entre o ponto $i$ pertencente a trajetóri
 \begin{figure}[H]
     \centering
     \includegraphics[scale = 0.22]{figs/pointnet_arch.png}
-    \caption{Arquitetura da \textsc{PointNet}. A rede de classificação tem os dados de entrada com $n$ pontos com 3 coordenadas, onde são aplicadas sequencias de transformação que são agregadas por uma camada de \textit{max pooling}. A saída é a classificação para $k$ classes possíveis. A rede de segmentação é uma extensão da rede de classificação, classificando ponto a ponto a nuvem de pontos, em $m$ classes possíveis. Mais detalhes sobre a arquitetura podem ser encontrados na Ref. \cite{qi2016pointnet}}.
+    \caption{Arquitetura da \textsc{PointNet}. A rede de classificação tem os dados de entrada com $n$ pontos com 3 coordenadas, onde são aplicadas sequências de transformação que são agregadas por uma camada de \textit{max pooling}. A saída é a classificação para $k$ classes possíveis. A rede de segmentação é uma extensão da rede de classificação, classificando ponto a ponto a nuvem de pontos, em $m$ classes possíveis. Mais detalhes sobre a arquitetura podem ser encontrados na Ref. \cite{qi2016pointnet}.}
     \label{fig:aqr:pointnet}
 \end{figure}
 
@@ -1326,7 +1352,7 @@ onde $d_{i, \vec{V_r}}$ é distância entre o ponto $i$ pertencente a trajetóri
     C = \sum_{i = 0}^{N} \frac{d_i ^2}{N},
 \end{equation}
 %
-onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância do i-ésimo ponto à reta. O número de iterações do algoritmo foi determinado empiricamente e o melhor valor foi de 700.
+onde \textit{N} é o número total de pontos de uma reta e $d_i$ é a distância do i-ésimo ponto à reta. O número de iterações do algoritmo foi determinado empiricamente e o melhor valor encontrado foi de 700.
 
 %\begin{algorithm}[H]
 %    \caption{p-RANSAC}\label{ransac_algo}
@@ -1422,7 +1448,7 @@ Nesse capítulo vamos descrever como podemos construir as distribuições angula
         \caption{Exemplo de reação nuclear onde foi identificada apenas uma trajetória.}
         \label{subfig:res_exemplo_1_track}
     \end{subfigure}
-\caption{Exemplos de reações nucleares com as trajetórias identificadas. O vértice de reação é indicado por um \textit{X}, em preto. As cores servem apenas para a diferenciação.}
+\caption{Exemplos de reações nucleares com as trajetórias identificadas. O vértice de reação é indicado por um \textit{X}, em preto. Há dois vértices de reação, pois foram calculados um para da partícula espalhada. As cores servem apenas para a diferenciação.}
 \label{fig:res_tracks}
 \end{figure}
 
@@ -1499,7 +1525,7 @@ onde $\vec{V_i}$ é o versor da reta $i$ e $\vec{V_f}$ é o versor do feixe.
     \label{fig:comp_vs_ang}
 \end{figure}
 
-\par Pela figura \ref{fig:comp_vs_ang}, é possível perceber dois aspectos importantes sobre os dados. O primeiro é que o canal de reação correspondente ao espalhamento elástico e inelástico, é predominante no espectro. Devido ao fato do experimento ter sido realizado em cinemática inversa, o ângulo de espalhamento da partícula recuo depende do valor $Q$ da reação. Por exemplo, partículas alfa espalhadas elasticamente são detectadas em ângulos dianteiros menores que 90 graus. Os ângulos maiores que 90 graus neste caso correspondem a reações com $Q>0$, por exemplo a reação ($\alpha, p$). O segundo aspecto é a ausência de eventos abaixo de 50 mm, como é possível ver na figura \ref{fig:comp_vs_ang}. Essa ausência ocorre devido ao baixo ganho da região central do detector micromegas que limita a detecção de tracks menores do que 60 mm. Da mesma forma, a ausência de eventos na parte superior do histograma corresponde a limitação geométrica do TPC que possui um raio de 150 mm e comprimento de 500 mm.
+\par Pela figura \ref{fig:comp_vs_ang}, é possível perceber dois aspectos importantes sobre os dados. O primeiro é que o canal de reação correspondente ao espalhamento elástico e inelástico, é predominante no espectro. Devido ao fato do experimento ter sido realizado em cinemática inversa, o ângulo de espalhamento da partícula recuo depende do valor $Q$ da reação. Por exemplo, partículas alfa espalhadas elasticamente são detectadas em ângulos dianteiros menores que 90 graus. Os ângulos maiores que 90 graus neste caso correspondem a reações com $Q>0$, por exemplo a reação ($\alpha, p$). O segundo aspecto é a ausência de eventos abaixo de 50 mm, como é possível ver na figura \ref{fig:comp_vs_ang}. Essa ausência ocorre devido ao baixo ganho da região central do detector micromegas que limita a detecção de tracks menores do que 50 mm. Da mesma forma, a ausência de eventos na parte superior do histograma corresponde a limitação geométrica do TPC que possui um raio de 150 mm e comprimento de 500 mm.
 
 % O primeiro é com relação à assimetria do ângulo de espalhamento. O desbalanço entre trajetórias com ângulo de espalhamento menor que 90º e maior que 90º ocorre pelo uso no referencial do laboratório. O ângulo de espalhamento no referencial do laboratório é metade do ângulo de espalhamento no referencial do centro de massa \cite{two_body_mec}. Ângulos maior que 90º na figura representam eventos de cinemática inversa. O segundo aspecto é a ausência de trajetórias na região central da figura. Essa ausência ocorre devido à limitações geométricas da câmara. Por exemplo, uma trajetória com ângulo de espalhamento de cerca de 90º não pode ter comprimento maior que 140 mm, pois o evento ocorre na região central da câmara e isso significa ultrapassar o limite geométrico do TPC.
 
@@ -1623,7 +1649,7 @@ onde chegamos em
 
 %Como mostrado anteriormente, não é possível identificar o $^{16}$O em coincidência com o próton em todos os eventos (o que caracterizado o breakup exclusivo, quando há a identificação de ambas as partículas do breakup). Portanto, as distribuições angulares para o breakup exclusivo foram construídas para eventos com coincidência ($^{16}$O e próton identificado). Para o breakup inclusivo, foram considerados apenas eventos com identificação apenas do próton. 
 
-\par Com o alvo ativo é possível medir reações em diversos ângulos e energias. Portanto, para obtermos as distribuições  angulares é preciso primeiro discretizar (colocar em bins) os ângulos de espalhamento $\theta_p$ (ângulos de espalhamento dos prótons no referencial do laboratório). Escolhemos um intervalo angular de 4 graus para esse \textit{binning} para minimizar as flutuações estatísticas na distribuição angular. A incerteza sobre essa escolha é de aproximadamente 1º. A seção de choque diferencial $\frac{\mathrm{d}\sigma}{\mathrm{d}\Omega} (\theta_p)$ é dada por \cite{zamora_mater}
+\par Com o alvo ativo é possível medir reações em diversos ângulos e energias. Portanto, para obtermos as distribuições  angulares é preciso primeiro discretizar (colocar em bins) os ângulos de espalhamento $\theta_p$ (ângulos de espalhamento dos prótons no referencial do laboratório). Escolhemos um intervalo angular de 4 graus para esse \textit{binning} para minimizar as flutuações estatísticas na distribuição angular. A incerteza sobre essa escolha é de aproximadamente 1º, pois variações pequenas na escolha do intervalo angular não afetam as interpretações sobre os resultados. A seção de choque diferencial $\frac{\mathrm{d}\sigma}{\mathrm{d}\Omega} (\theta_p)$ é dada por \cite{zamora_mater}
 
 \begin{equation}\label{eq:cross_section}
 	\frac{\mathrm{d}\sigma}{\mathrm{d}\Omega} (\theta_p) = \frac{Y}{N_bN_t\Delta\Omega(\theta_p)} J_{\mathrm{lab}} \times 10^{27} \:  \mathrm{mb/sr}.
@@ -1685,7 +1711,7 @@ onde chegamos em
 \begin{figure}[H]
 \centering
     \includegraphics[scale = 1., width=0.7\columnwidth]{figs/contagens_energia.png}
-    \caption{Gráfico que mostra a seção de choque $\sigma$ em função da energia no referencial do centro de massa. Os pontos de cor preta correspondem à seção de choque do breakup inclusivo e os pontos de cor vermelha correspondem à seção de choque do breakup exclusivo.}
+    \caption{Gráfico que mostra a seção de choque $\sigma$ em função da energia no referencial do centro de massa. Os pontos de cor preta correspondem à seção de choque do breakup inclusivo e os pontos de formato de diamante de cor vermelha correspondem à seção de choque do breakup exclusivo.}
     \label{fig:contagem_energia}
 \end{figure}
 
@@ -1904,7 +1930,7 @@ onde chegamos em
 %\fi
 \section{Análise e comparação dos resultados}
 
-\par Os resultados das figuras \ref{fig:dist_ang_acima}, \ref{fig:dist_ang_prox} e \ref{fig:dist_ang_abaixo} mostram distribuições com energias acima (figura \ref{fig:dist_ang_acima}), próximas (figura \ref{fig:dist_ang_prox}) e abaixo (figura \ref{fig:dist_ang_abaixo}) da barreira de Coulomb da reação ($V_B$ = 4.2 MeV). As distribuições angulares para o processo de breakup foram determinadas para energias acima (figura \ref{fig:dist_ang_acima}) próximas (figura \ref{fig:dist_ang_prox}) e abaixo (\ref{fig:dist_ang_abaixo}) abaixo da barreira coulombiana para o sistema $^{17}\mathrm{F}+^{4}\mathrm{He}$.($V_\mathrm{B}=4.2$~MeV) As distribuições entre 3.63 e 4.77 MeV se distribuem de modo horizontal em ângulos entre 20º e 50º. Distribuições acima da barreira possuem valores maiores em ângulos mais dianteiros (de 20º à 30º). Embaixo da barreira as distribuições são mais estreitas e parecem ter um valor máximo em 30º.
+\par Os resultados das figuras \ref{fig:dist_ang_acima}, \ref{fig:dist_ang_prox} e \ref{fig:dist_ang_abaixo} mostram distribuições com energias acima (figura \ref{fig:dist_ang_acima}), próximas (figura \ref{fig:dist_ang_prox}) e abaixo (figura \ref{fig:dist_ang_abaixo}) da barreira de Coulomb da reação ($V_B$ = 4.2 MeV). As distribuições angulares para o processo de breakup foram determinadas para energias acima (figura \ref{fig:dist_ang_acima}) próximas (figura \ref{fig:dist_ang_prox}) e abaixo (\ref{fig:dist_ang_abaixo}) abaixo da barreira coulombiana para o sistema $^{17}\mathrm{F}+^{4}\mathrm{He}$.($V_\mathrm{B}=4.2$~MeV) As distribuições entre 3.63 e 4.77 MeV se distribuem de modo horizontal em ângulos entre 20º e 50º. Distribuições acima da barreira possuem valores maiores em ângulos mais dianteiros (de 20º à 30º). Abaixo da barreira as distribuições são mais estreitas e parecem ter um valor máximo em 30º.
 
 %\par Para analisar reações de breakup (dissociação de Coulomb), usualmente se usa teoria de perturbação em primeira ordem, que demonstra resultados satisfatórios para os casos de breakup de núcleos ricos em nêutrons fracamente ligados.
 \par Uma análise teórica dessas distribuições angulares para reações de breakup (dissociação coulombiana) envolvendo projéteis de núcleos ricos em nêutrons (fracamente ligados) usualmente se baseia em teorias de perturbação em primeira ordem. Para o breakup de núcleos ricos em prótons fracamente ligados, como o caso do $^{17}$F, são sugeridos outros métodos para o cálculo da seção de choque \cite{LIANG200922, BERTULANI2003199}.
@@ -1987,7 +2013,7 @@ onde chegamos em
 \label{fig:dist_ang_3}
 \end{figure}
 
-\par Os resultados dos cálculos de CDCC nos dados experimentais apresentados, mostram que existem interferências destrutivas e construtivas nas contribuições de Coulomb e nuclear do breakup. A contribuição parece ter uma relevância bem maior em núcleos com $Z$ menor. Em núcleos com $Z$ grande, como o caso do $^{208}$Pb, os cálculos teóricos indicam que a interferência entre as interações nuclear e Coulombiana reduzem consideravelmente a seção de choque \cite{Kolata2016, MORO_BREAKUP}. Para o caso de energias próximas da barreira de Coulomb, a seção de choque é ainda menor, corroborando com os dados obtidos com o experimento desse trabalho. Com esses resultados, será possível entender melhor a natureza do breakup, qual relevância de cada contribuição, como os efeitos de interferência acontecem, em diversas regiões de energia (acima, próxima e abaixo da barreira de Coulomb).
+\par Os resultados dos cálculos de CDCC nos dados experimentais apresentados, mostram que existem interferências destrutivas e construtivas nas contribuições de Coulomb e nuclear do breakup. A contribuição de Coulomb parece ter uma relevância bem maior em núcleos com $Z$ menor. Em núcleos com $Z$ grande, como o caso do $^{208}$Pb, os cálculos teóricos indicam que a interferência entre as interações nuclear e Coulombiana reduzem consideravelmente a seção de choque \cite{Kolata2016, MORO_BREAKUP}. Para o caso de energias próximas da barreira de Coulomb, a seção de choque é ainda menor, corroborando com os dados obtidos com o experimento desse trabalho. Com esses resultados, será possível entender melhor a natureza do breakup, qual relevância de cada contribuição, como os efeitos de interferência acontecem, em diversas regiões de energia (acima, próxima e abaixo da barreira de Coulomb).
 
 %\par Os cálculos mostrados na figura \ref{fig:dist_ang_2_cdcc} indicam maior acordo com os dados em comparação com os cálculos mostrados na figura \ref{fig:dist_ang_2} \cite{Kolata2016}. Abranger diferentes energias e em um alvo com um valor de $Z$ bem pequeno, como o caso do experimento descrito nessa dissertação, é importante pois leva o problema à um caso extremo ($Z$ = 4, sendo menor que o projétil) ajudando à responder perguntas feitas em experimentos e análises anteriores. O próximo passo então é realizar cálculos de CDCC com os resultados das seções de choque do $^{17}$F em $^{4}$He, trabalho que pode contribuir para melhor compreensão da natureza das diferentes contribuições para a seção de choque e consequentemente contribuir para o entendimento de núcleos ricos em prótons fracamente ligados.
 
