@@ -199,7 +199,7 @@ Co-advisor: Dr. Juan Carlos Zamora Cardona\hfill{ \hskip 4cm  }
 % Banca Examinadora -- Primeiro nome Ã© do presidente ou do presidente da banca \ Examining committee -- The first name must be the supervisor's name or the examination committee president's name.
 
 \noindent Examining Committee: \\
-\noindent Prof. Dr. Juan Carlos Zamora Cardona - Co-advisor (IFUSP/MSU) \\
+\noindent Dr. Juan Carlos Zamora Cardona - Co-advisor (IFUSP/MSU) \\
 Prof. Dr. Mario Olimpio de Menezes (IPEN) \\
 Prof. Dr. Brett Vern Carlson (ITA) \\
 \vspace{1.8cm}
@@ -215,9 +215,18 @@ Prof. Dr. Brett Vern Carlson (ITA) \\
 \thispagestyle{empty}
 \begin{center}
 \textbf{Agradecimentos}
-
-\par 
 \end{center}
+
+\par Esse árduo trabalho, realizado durante a pandemia do COVID-19, só foi possível de ser realizado graças ao apoio incondicional dos meus pais, portanto devo primeiro agradecer-los Lana e Flávio, e também à Xuxa, que infelizmente não pôde acompanhar essa jornada até o fim.
+
+\par Também quero agradecer ao apoio dos meus amigos Murillo, Leonardo, Gabriel, Karina, Lucas, Henrique, Willian, Veve, Deivid, Cano, Jessika, Carol, Maga, João, Sara, Viviane, dentre tantos outros que sempre me escutaram e me ajudaram em momentos difíceis e também sempre comemoraram juntos minhas conquistas. Aos meus amigos que mesmo mais distantes também sempre estiveram sempre ao meu lado: Akon, James, Barba, Rafael, Pedro e Val.
+
+\par Agradeço pela brilhante orientação do Dr. Juan Carlos Zamora Cardona, que mesmo em uma época de pandemia, não só ajudou no desenvolvimento do trabalho mas também no meu crescimento pessoal, sempre me apoiando e acreditando no meu potencial. Agradeço ao Prof. Dr. Valdir Guimarães pela oportunidade de realizar o mestrado e pelas correções. Agradeço à ajuda da Profa. Dra. Nina Hirata, que me auxiliou em um tema que era muito distante da minha realidade. Obrigado também aos integrantes do grupo NEAN: professoras Adriana Barioni e Marlete Assunção e aos professores Davi Monteiro e Juan Alcantara, aos colegas Jonatas, Erick, Alessandro, Pedro, Matheus, Fernando, Pierre e Laura.
+
+\par Durante o mestrado realizei outra grande realização, junto do meu braço direito, Leonardo, que é a criação do ATUS, algo que impactou muito minha vida, sendo inclusive agraciado com um prêmio. Por isso agradeço à equipe de Física Experimental I e II, composta pelos professores Zwinglio, Chubaci, Marco, Alexandre e Raphael, que auxiliaram e acreditaram no projeto.
+
+\par Esse trabalho só foi possível graças ao apoio financeiro da Comissão Nacional de Energia Nuclear (CNEN), processo nº 01341.002625/2020.
+
 
 
 \chapter*{Resumo}
@@ -576,7 +585,7 @@ onde $n_1$ é o tamanho do vetor de entrada e $m$ o tamanho do filtro (\textit{k
 \par O próximo passo é definir funções corretivas chamadas função custo (algumas vezes também chamada de função \textit{loss}) e o otimizador. A função custo tem o papel de retornar valores altos para previsões erradas e valores baixos para previsões corretas. Por exemplo, se queremos treinar uma rede neural para classificação binária (que prevê duas saídas possíveis), devemos usar a função custo chamada de \textit{binary cross-entropy} dada por \cite{dl_book}
 
 \begin{equation}\label{eq:binary_cross_entropy}
-    C(p(y_i)) = -\frac{1}{N}\sum_{i = 1} ^N y_i \log(p(y_i)) + (1 - y_i)\log(1 - p(y_i)),
+    C(p(y_i)) = -\frac{1}{N}\sum_{i = 1} ^N p(y_i) \log(p(y_i)) + (1 - p(y_i))\log(1 - p(y_i)),
 \end{equation}
 %
 onde $y_i$ é o rótulo (\textit{label}), $p(y_i)$ é a probabilidade do ponto $y_i$ ser 1 e $N$ é o número de pontos. O objetivo da rede neural é achar o mínimo da função $C(p(y_i))$, o que implica diretamente na melhor solução para o conjunto de dados. Isso é feito pelo método de retropropagação do erro (\textit{backpropagation} \cite{backpropagation}) por um otimizador. Outros exemplos de função custo são o erro quadrático médio ou \textit{categorical cross-entropy} \cite{MSE_CEF_review}.
