@@ -219,9 +219,9 @@ Prof. Dr. Brett Vern Carlson (ITA) \\
 
 \par Esse árduo trabalho, realizado durante a pandemia do COVID-19, só foi possível de ser realizado graças ao apoio incondicional dos meus pais, portanto devo primeiro agradecer-los Lana e Flávio, e também à Xuxa, que infelizmente não pôde acompanhar essa jornada até o fim.
 
-\par Também quero agradecer ao apoio dos meus amigos Murillo, Leonardo, Gabriel, Karina, Lucas, Henrique, Willian, Veve, Deivid, Cano, Jessika, Carol, Maga, João, Sara, Viviane, dentre tantos outros que sempre me escutaram e me ajudaram em momentos difíceis e também sempre comemoraram juntos minhas conquistas. Aos meus amigos que mesmo mais distantes também sempre estiveram sempre ao meu lado: Akon, James, Barba, Rafael, Pedro e Val.
+\par Também quero agradecer ao apoio dos meus amigos Murillo, Leonardo, Gabriel, Karina, Lusca, Henrique, Willian, Veve, Deivid, Cano, Jessika, Carol, Maga, João, Sara, Viviane, Thaís dentre tantos outros que sempre me escutaram e me ajudaram em momentos difíceis e também sempre comemoraram juntos minhas conquistas. Aos meus amigos que mesmo mais distantes também sempre estiveram sempre ao meu lado: Akon, James, Barba, Rafael, Pedro e Val.
 
-\par Agradeço pela brilhante orientação do Dr. Juan Carlos Zamora Cardona, que mesmo em uma época de pandemia, não só ajudou no desenvolvimento do trabalho mas também no meu crescimento pessoal, sempre me apoiando e acreditando no meu potencial. Agradeço ao Prof. Dr. Valdir Guimarães pela oportunidade de realizar o mestrado e pelas correções. Agradeço à ajuda da Profa. Dra. Nina Hirata, que me auxiliou em um tema que era muito distante da minha realidade. Obrigado também aos integrantes do grupo NEAN: professoras Adriana Barioni e Marlete Assunção e aos professores Davi Monteiro e Juan Alcantara, aos colegas Jonatas, Erick, Alessandro, Pedro, Matheus, Fernando, Pierre e Laura.
+\par Agradeço pela brilhante orientação do Dr. Juan Carlos Zamora Cardona, que mesmo em uma época de pandemia, não só ajudou no desenvolvimento do trabalho mas também no meu crescimento pessoal, sempre me apoiando e acreditando no meu potencial. Agradeço ao Prof. Dr. Valdir Guimarães pela oportunidade de realizar o mestrado e pelas correções. Agradeço à ajuda da Profa. Dra. Nina Hirata, que me auxiliou em um tema que era muito distante da minha realidade. Obrigado também aos integrantes do grupo NEAN: professoras Adriana Barioni e Marlete Assunção, aos professores Davi Monteiro e Juan Alcantara e aos colegas Jonatas, Erick, Alessandro, Pedro, Matheus, Fernando, Pierre e Laura.
 
 \par Durante o mestrado realizei outra grande realização, junto do meu braço direito, Leonardo, que é a criação do ATUS, algo que impactou muito minha vida, sendo inclusive agraciado com um prêmio. Por isso agradeço à equipe de Física Experimental I e II, composta pelos professores Zwinglio, Chubaci, Marco, Alexandre e Raphael, que auxiliaram e acreditaram no projeto.
 
@@ -704,7 +704,7 @@ onde $\theta_j$ é o parâmetro a ser atualizado, $\alpha$ é a taxa de aprendiz
     \label{fig:get_signal}
 \end{figure}
 
-\par Para analisar os pulsos deve-se primeiro remover o fundo (pedestal ou baseline) dos sinais. O sinal de fundo é complexo e pode variar em função do canal e também por evento. O sinal pode ser alterado por flutuações causadas pelo circuito eletrônico e por efeitos sistemáticos gerados pela memória de buffer circular, podendo o tornar não analítico \cite{FORTINO2022166497, GET}. Após a eliminação do fundo, os sinais foram tratados realizando uma deconvolução, aumentando a resolução dos pico em várias gaussianas com centróides que correspondem a informação temporal do sinal. Essas gaussianas são então usadas para a reconstrução da nuvem de pontos da trajetória das partículas no alvo gasoso. Todo esse processo foi realizado nesse trabalho com algoritmos de machine learning supervisionado que desenvolvemos \cite{FORTINO2022166497}. Para isso, foi criado um banco de dados que serviu de saída e/ou entrada para o treino das redes neurais. O processo de criação dos dados para o treino das redes neurais está descrito nas ssubseções \ref{subsec:pulses_baseline} e \ref{subsec:pulses_deconv}, enquanto o processo de criação das redes neurais é descrito na seção \ref{sec:pulsos_ml}. 
+\par Para analisar os pulsos deve-se primeiro remover o fundo (pedestal ou baseline) dos sinais. O sinal de fundo é complexo e pode variar em função do canal e também por evento. O sinal pode ser alterado por flutuações causadas pelo circuito eletrônico e por efeitos sistemáticos gerados pela memória de buffer circular, podendo o tornar não analítico \cite{FORTINO2022166497, GET}. Após a eliminação do fundo, os sinais foram tratados realizando uma deconvolução, aumentando a resolução dos pico em várias gaussianas com centróides que correspondem a informação temporal do sinal. Essas gaussianas são então usadas para a reconstrução da nuvem de pontos da trajetória das partículas no alvo gasoso. Todo esse processo foi realizado nesse trabalho com algoritmos de machine learning supervisionado que desenvolvemos \cite{FORTINO2022166497}. Para isso, foi criado um banco de dados que serviu de saída e/ou entrada para o treino das redes neurais. O processo de criação dos dados para o treino das redes neurais está descrito nas subseções \ref{subsec:pulses_baseline} e \ref{subsec:pulses_deconv}, enquanto o processo de criação das redes neurais é descrito na seção \ref{sec:pulsos_ml}. 
 
 % O fundo não é trivial de se determinar, pois não é analítico, oscilando muito entre os canais.
 
@@ -857,7 +857,7 @@ onde $(f * g)(t)$ é a convolução entre $f(t)$ e $g(t)$. Multiplicar o sinal t
 
 \par O algoritmo de deconvolução também determina a posição dos centróides encontrados, que indica a localização de um pico. Os mesmos picos podem ser obtidos com o \textsc{peak\_finder}, com a vantagem de que o algoritmo possui muitos parâmetros diferentes para calibração, melhorando a identificação em comparação com os picos identificados pelo algoritmo do TSpectrum. A execução de 200.000 sinais, desde a estimativa e remoção do fundo, até a identificação dos centróides, demora cerca de 23,25 minutos, usando o processador Ryzen 5 3600X.
 
-\par Para determinar a carga acumulada $Q$ de cada ponto, é necessário calcular a área do centróide do pico identificado. A área do sinal antes e depois da deconvolução é a mesma, portanto pode-se analisar diretamente o sinal após a deconvolução. Para determinar a área do pulso consideramos a integral simples gaussiana usando a largura de cada pico após a deconvolução. O desvio padrão (largura) dos picos após a deconvolução foi $\sigma_{dd}$ = $1,1543~(44)$ \textit{time buckets}. Considerando esse desvio, a carga integrada para cada ponto é dada por:
+\par Para determinar a carga acumulada $Q$ de cada ponto, é necessário calcular a área do pulso associado ao pico identificado. A área do sinal antes e depois da deconvolução é a mesma, portanto pode-se analisar diretamente o sinal após a deconvolução. Para determinar a área do pulso consideramos a integral simples gaussiana usando a largura de cada pico após a deconvolução. O desvio padrão (largura) dos picos após a deconvolução foi $\sigma_{dd}$ = $1,1543~(44)$ \textit{time buckets}. Considerando esse desvio, a carga integrada para cada ponto é dada por:
 
 %Para achar a área do pulso, foi calculada a largura dos pulsos após a deconvolução, para determinar a área como uma simples integral gaussiana. O desvio padrão dos pulsos após a deconvolução é $\sigma_{dd}$ = 1.1543 (44) time buckets. Com isso foi calculada a carga acumulada para cada ponto medido do evento. A carga acumulada $Q$ para cada ponto $i$ é dada por:
 
@@ -1143,7 +1143,7 @@ onde $E$ é o erro absoluto médio, $N$ é o número de pontos e $x_i$ o ponto d
 	Q_i = \sum_{i - 2}^{i + 2}f(t_i)\alpha_\sigma,
 \end{equation}
 %
-onde $f(t_i)$ é a amplitude do espectro no \textit{time bucket} $t$ da posição $i$ e $\alpha_\sigma$ é uma constante real para calibrar o valor da área em função do sigma dos pulsos. Seu valor foi determinado de tal forma que, a área do pulso calculado a partir da integral da gaussiana ajustada deve ser igual à somatória dos 5 pontos que compõe o pulso (o centróide somado simetricamente com dois à esquerda e à direita) multiplicado pelo fator $\alpha_\sigma$. O valor de $\alpha_\sigma$ determinado foi tal que $\alpha_\sigma$  = 1,2.
+onde $f(t_i)$ é a amplitude do espectro no \textit{time bucket} $t$ da posição $i$ e $\alpha_\sigma$ é uma constante real para calibrar o valor da área em função do sigma dos pulsos. Seu valor foi determinado de tal forma que, a área do pulso calculado a partir da integral da gaussiana ajustada deve ser igual à somatória dos 5 pontos que compõe o pulso (o centróide somado simetricamente com dois pontos à esquerda e à direita) multiplicado pelo fator $\alpha_\sigma$. O valor de $\alpha_\sigma$ determinado foi tal que $\alpha_\sigma$  = 1,2.
 
 %, que foi determinado empiricamente como $\alpha_\sigma$ = 1.2.
 
@@ -1320,7 +1320,7 @@ onde $\tilde{t_1}$, $\tilde{t_2}$ e $\tilde{t_3}$ são os hiperparâmetros a ser
 
 % \par No caso em que $\vec{V_c}$ em \ref{eq:versor_menor_dist} é zero, então as retas analisadas são paralelas. Nesse caso não há vértice de reação e a distância de máxima aproximação é dada por
 
-\par Da equação \ref{eq:menor_dist_retas} foi estabelecido um limite superior para $d_{max}$ tal que valores menores que esse limite indicam uma reação nuclear em comum entre a partícula e o feixe. O valor foi determinado de forma empírica analisando diversos eventos. O valor então foi definido como $d_{max}^{sup}$ = 25 mm. Trajetórias cuja distância máxima de aproximação excedia $d_{max}^{sup}$, então a trajetória é descartada. Além disso, é necessário garantir que a reação ocorreu dentro da área efetiva da câmara e para tanto impomos os limites: $|x| < $ 140mm, $|y| < $ 140mm e $|t| < $ 512.
+\par Da equação \ref{eq:menor_dist_retas} foi estabelecido um limite superior para $d_{max}$ tal que valores menores que esse limite indicam uma reação nuclear em comum entre a partícula e o feixe. O valor foi determinado de forma empírica analisando diversos eventos. O valor então foi definido como $d_{max}^{sup}$ = 25 mm. Trajetórias cuja distância máxima de aproximação excediam $d_{max}^{sup}$ eram descartadas. Além disso, é necessário garantir que a reação ocorreu dentro da área efetiva da câmara e para tanto impomos os limites: $|x| < $ 140mm, $|y| < $ 140mm e $|t| < $ 512.
 
 \par Para completar essa etapa, foi necessário determinar a carga total $Q_\text{T}$ e o comprimento $L$ da trajetória. A carga total $Q_\text{T}$ é definida como
 
@@ -1457,7 +1457,7 @@ Nesse capítulo vamos descrever como podemos construir as distribuições angula
         \caption{Exemplo de reação nuclear onde foi identificada apenas uma trajetória.}
         \label{subfig:res_exemplo_1_track}
     \end{subfigure}
-\caption{Exemplos de reações nucleares com as trajetórias identificadas. O vértice de reação é indicado por um \textit{X}, em preto. Há dois vértices de reação, pois foram calculados um para da partícula espalhada. As cores servem apenas para a diferenciação.}
+\caption{Exemplos de reações nucleares com as trajetórias identificadas. O vértice de reação é indicado por um \textit{X}, em preto. Há dois vértices de reação, pois foram calculados um para cada partícula espalhada. As cores servem apenas para a diferenciação.}
 \label{fig:res_tracks}
 \end{figure}
 
@@ -2195,7 +2195,7 @@ onde $T^{a}_{1/2}$ é o tempo de meia vida do decaimento beta medido experimenta
     \caption{p-RANSAC}\label{ransac_algo}
     \KwData{pointcloud, $N$, $d_{min}$, $N_{min}$}
     \For{cada iteração $ i =1,2,\ldots, N$}{
-        Seleciona dois pontos da nuvem de pontos de modo aleatório (Random Sampling)\;
+        Seleciona dois pontos da nuvem de pontos de modo aleatório (\textit{Random Sampling})\;
         Estima versor $v$ e um ponto $P_b$ que passe pela reta \textit{r} formada pelos dois pontos\;
         \For{cada ponto $P$}{
             Calcula a distância $d$ do ponto à reta \textit{r}\;
